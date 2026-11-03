@@ -387,3 +387,29 @@ body.contato-amarelo { --onda-cor: 0,0,0; --onda-fundo: #f3e594; background: #f3
   .cartoes { grid-template-columns: 1fr; }
 }
 .gaveta:not([open]) { display: none; }
+
+/* ---------- alinhamento das páginas claras (Sobre e projetos) ----------
+   Todo o conteúdo segue a mesma coluna central de até 1280 px, a mesma
+   do Portfólio. As faixas pretas continuam de ponta a ponta, mas o texto
+   dentro delas começa na mesma linha que o resto. */
+.indice-pg:not(.contato-amarelo) {
+  --lado: max(clamp(1rem, 4vw, 3rem), calc((100% - 1280px) / 2 + 3rem));
+}
+.indice-pg:not(.contato-amarelo) .cabeca,
+.indice-pg:not(.contato-amarelo) .secao h2,
+.indice-pg:not(.contato-amarelo) .linha,
+.indice-pg:not(.contato-amarelo) .contato,
+.indice-pg:not(.contato-amarelo) .rodape,
+.projeto-pg .aviso,
+.projeto-pg .pranchas,
+.projeto-pg .decisoes {
+  padding-left: var(--lado); padding-right: var(--lado);
+}
+.projeto-pg .voltar { margin-left: var(--lado); }
+.projeto-pg .pranchas { max-width: none; }
+/* colunas fixas: o texto do meio começa no mesmo ponto em todas as seções */
+.linha { grid-template-columns: minmax(0, 1fr) minmax(0, 1.55fr) 10.5rem; }
+.linha p { max-width: 60ch; }
+@media (max-width: 860px) {
+  .linha { grid-template-columns: 1fr auto; }
+}
