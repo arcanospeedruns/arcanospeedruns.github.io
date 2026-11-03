@@ -30,15 +30,13 @@ const projetos = [
     rotulo: "UNIROTA",
     contexto: "App de carona universitária. Projeto de Gestão Ágil de Projetos na PUC-SP, em que atuei como UX Designer.",
     status: "andamento",
-    resumo: "Sistema de caronas intermunicipais para a comunidade acadêmica, com acesso por e-mail institucional. Fiz os wireframes do app e acompanhei o desenvolvimento em equipe ágil.",
+    resumo: "Sistema de caronas intermunicipais para a comunidade acadêmica, com acesso por e-mail institucional. Cuidei da experiência do usuário, dos fluxos à organização das telas, e acompanhei o desenvolvimento em equipe ágil.",
     feitos: [
-      "Wireframes navegáveis de 41 telas, organizados pelos 10 épicos do backlog",
       "Fluxos, hierarquia e estados definidos antes da alta fidelidade",
       "Equipe de cinco pessoas, com app em React Native e back-end no Supabase",
     ],
-    stack: ["UX", "Wireframes", "HTML", "React Native", "Supabase"],
+    stack: ["UX", "React Native", "Supabase"],
     links: [
-      { texto: "WIREFRAMES NO GITHUB", url: "https://github.com/arcanospeedruns/UniRota" },
       { texto: "REPOSITÓRIO DO APP", url: "https://github.com/jvpbicalho/app-carona-universitaria" },
     ],
   },
