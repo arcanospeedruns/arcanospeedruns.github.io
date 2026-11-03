@@ -155,6 +155,6 @@ grade.addEventListener("click", (e) => {
   abrir(a.dataset.id);
 });
 
-// link direto, ex.: dados.html#psique
+// link direto, ex.: portfolio.html#psique
 if (location.hash) abrir(location.hash.slice(1));
 window.addEventListener("hashchange", () => abrir(location.hash.slice(1)));
