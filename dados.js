@@ -46,7 +46,7 @@ const projetos = [
     area: "Desenvolvimento", fundo: "dev",
     nome: "VOLUNTIVA",
     curto: "VOLUNTIVA",
-    contexto: "Projeto acadêmico em grupo na PUC-SP, unindo Projeto de Software, Redes e Banco de Dados.",
+    contexto: "Projeto acadêmico em equipe de cinco pessoas na PUC-SP, unindo Projeto de Software, Redes e Banco de Dados.",
     status: "andamento",
     resumo: "Sistema de gestão de voluntários para ONGs: cadastro de ações sociais, inscrições, controle de presença e histórico de participação, sobre um banco de dados relacional.",
     feitos: [
