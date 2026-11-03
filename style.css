@@ -344,3 +344,46 @@ body.contato-amarelo { --onda-cor: 0,0,0; --onda-fundo: #f3e594; background: #f3
 }
 .projeto-pg .contato { display: flex; }
 .projeto-pg .botao { justify-self: start; }
+
+/* ---------- Portfólio: cartões ---------- */
+.cartoes {
+  list-style: none; max-width: 1280px; margin: 0 auto; padding: 1.5rem clamp(1rem, 4vw, 3rem) 3rem;
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.2rem;
+  position: relative; z-index: 1;
+}
+.cartao {
+  height: 100%; display: flex; flex-direction: column; text-decoration: none; color: var(--estrela);
+  background: var(--vazio-2); border: 1px solid var(--linha-escura); transition: border-color .15s, transform .15s;
+}
+.cartao:hover, .cartao:focus-visible { border-color: var(--amarelo); transform: translateY(-2px); outline: none; }
+.cartao .capa { position: relative; aspect-ratio: 2 / 1; overflow: hidden; display: grid; align-items: end; border-bottom: 1px solid var(--linha-escura); background: #0d1430; }
+.cartao .capa img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.capa .sigla { font-family: "Tanker"; font-size: clamp(3rem, 7vw, 6rem); line-height: .8; padding: 1rem 1.1rem; color: var(--estrela); }
+.fundo-dados { background: repeating-linear-gradient(90deg, #0d1430 0 38px, #121b40 38px 39px) !important; }
+.fundo-produto { background: radial-gradient(circle at 75% 30%, #1d3a6b, #0b1020 65%) !important; }
+.fundo-dev { background: radial-gradient(circle at 80% 25%, #4a2015, #0b1020 62%) !important; }
+.cartao-info { padding: 1rem 1.1rem 1.1rem; display: flex; flex-direction: column; gap: .45rem; flex: 1; }
+.cartao-meta { display: flex; justify-content: space-between; gap: 1rem; color: var(--nevoa); }
+.cartao-meta .st-andamento { color: var(--amarelo); }
+.cartao-nome { font-family: "Tanker"; font-size: clamp(1.8rem, 3vw, 2.6rem); line-height: .92; }
+.cartao-texto { color: var(--nevoa); }
+.cartao-mais { margin-top: auto; padding-top: .5rem; color: var(--amarelo); }
+
+/* gaveta de detalhes */
+.gaveta {
+  position: fixed; inset: 0 0 0 auto; margin: 0; width: min(560px, 100vw); max-width: none; height: 100dvh; max-height: none;
+  padding: 0; border: 0; border-left: 1px solid var(--linha-escura); color: var(--estrela);
+  overflow-y: auto;
+}
+.gaveta[open] { display: flex; flex-direction: column; }
+.gaveta::backdrop { background: rgba(2, 3, 8, .72); }
+.gaveta .painel-topo { position: sticky; top: 0; background: var(--vazio-2); z-index: 1; align-items: center; }
+.gaveta-fechar { font: inherit; color: var(--estrela); background: none; border: 0; cursor: pointer; padding: .2rem .4rem; }
+.gaveta-fechar:hover { background: var(--amarelo); color: var(--tinta); }
+.gaveta-capa { display: block; width: 100%; aspect-ratio: 2 / 1; object-fit: cover; border-bottom: 1px solid var(--linha-escura); }
+.gaveta .painel-links { margin-top: auto; }
+
+@media (max-width: 760px) {
+  .cartoes { grid-template-columns: 1fr; }
+}
+.gaveta:not([open]) { display: none; }

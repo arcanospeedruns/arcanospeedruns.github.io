@@ -1,17 +1,18 @@
 /* ============================================================
    PROJETOS DO PORTFÓLIO
    Para adicionar ou editar um projeto, mexa só nesta lista.
-   planeta: o visual do planeta. Opções: "mercurio", "venus", "terra",
-     "marte", "jupiter", "saturno", "urano", "netuno".
-   x e y: posição no mapa, em % (0 a 100). tam: tamanho, em fração da largura.
+   area: aparece no topo do cartão (Dados, Produto, Design...).
+   capa: caminho de uma imagem 2:1 (ex.: 1200 × 600). Sem capa, o cartão
+     mostra o nome curto em letras grandes sobre o fundo escolhido em "fundo".
+   fundo: "dados", "produto" ou "dev" (só vale para cartões sem capa).
    status: "andamento", "concluido" ou "breve".
    ============================================================ */
 const projetos = [
   {
     id: "datasus",
-    planeta: "saturno", x: 50, y: 52, tam: 0.17,
+    area: "Dados", fundo: "dados",
     nome: "SAÚDE PÚBLICA EM DADOS",
-    rotulo: "DATASUS",
+    curto: "DATASUS",
     contexto: "Projeto pessoal com dados abertos do SUS. Em preparação.",
     status: "breve",
     resumo: "Análise de dados públicos do DataSUS, da coleta ao dashboard, com consultas em BigQuery e tratamento em Python.",
@@ -25,9 +26,9 @@ const projetos = [
   },
   {
     id: "unirota",
-    planeta: "terra", x: 21, y: 30, tam: 0.1,
+    area: "Produto", fundo: "produto",
     nome: "UNIROTA",
-    rotulo: "UNIROTA",
+    curto: "UNIROTA",
     contexto: "App de carona universitária. Projeto de Gestão Ágil de Projetos na PUC-SP, em que atuei como UX Designer.",
     status: "andamento",
     resumo: "Sistema de caronas intermunicipais para a comunidade acadêmica, com acesso por e-mail institucional. Cuidei da experiência do usuário, dos fluxos à organização das telas, e acompanhei o desenvolvimento em equipe ágil.",
@@ -42,9 +43,9 @@ const projetos = [
   },
   {
     id: "voluntiva",
-    planeta: "marte", x: 77, y: 74, tam: 0.085,
+    area: "Desenvolvimento", fundo: "dev",
     nome: "VOLUNTIVA",
-    rotulo: "VOLUNTIVA",
+    curto: "VOLUNTIVA",
     contexto: "Projeto acadêmico em grupo na PUC-SP, unindo Projeto de Software, Redes e Banco de Dados.",
     status: "andamento",
     resumo: "Sistema de gestão de voluntários para ONGs: cadastro de ações sociais, inscrições, controle de presença e histórico de participação, sobre um banco de dados relacional.",
@@ -58,9 +59,9 @@ const projetos = [
   },
   {
     id: "psique",
-    planeta: "venus", x: 79, y: 27, tam: 0.09,
+    area: "Design", capa: "projetos/psique/capa.webp",
     nome: "PSIQUÊ",
-    rotulo: "PSIQUÊ",
+    curto: "PSIQUÊ",
     contexto: "Releitura conceitual de uma identidade visual que fiz para uma cliente, uma clínica de psicologia. Nome, logo e peças foram recriados para o portfólio.",
     status: "concluido",
     resumo: "Identidade visual completa para uma clínica de psicologia, em roxo e amarelo a pedido da cliente. O símbolo é uma borboleta de linhas finas e ovais, já que psyché em grego quer dizer alma e também borboleta.",
@@ -76,37 +77,38 @@ const projetos = [
 ];
 
 /* ============================================================
-   Daqui pra baixo é o funcionamento dos botões e do painel.
-   O desenho do mapa fica em mapa.js.
+   Daqui pra baixo é o funcionamento dos cartões e dos detalhes.
    ============================================================ */
 
-const nomesPlanetas = {
-  mercurio: "Mercúrio", venus: "Vênus", terra: "Terra", marte: "Marte",
-  jupiter: "Júpiter", saturno: "Saturno", urano: "Urano", netuno: "Netuno",
-};
 const textoStatus = { andamento: "Em andamento", concluido: "Concluído", breve: "Em breve" };
+const grade = document.getElementById("projetos");
 
-const mapa = document.getElementById("mapa");
-const painel = document.getElementById("painel");
-const botoes = {};
+const capaHTML = (p) => p.capa
+  ? `<span class="capa"><img src="${p.capa}" alt="" width="1200" height="600" loading="lazy"></span>`
+  : `<span class="capa fundo-${p.fundo || "dados"}" aria-hidden="true"><span class="sigla">${p.curto}</span></span>`;
 
-projetos.forEach((p) => {
-  const b = document.createElement("button");
-  b.type = "button";
-  b.className = "destino" + (p.status === "breve" ? " bloqueado" : "");
-  b.dataset.planeta = p.planeta;
-  b.setAttribute("aria-pressed", "false");
-  b.setAttribute("aria-label", `${p.nome}, em ${nomesPlanetas[p.planeta]}, ${textoStatus[p.status]}`);
-  b.innerHTML = `<span class="corpo" aria-hidden="true"></span><span class="rotulo">${p.rotulo}</span>`;
-  b.addEventListener("click", () => selecionar(p.id, true));
-  mapa.appendChild(b);
-  botoes[p.id] = b;
-});
+grade.innerHTML = projetos.map((p) => `
+  <li>
+    <a class="cartao" href="#${p.id}" data-id="${p.id}">
+      ${capaHTML(p)}
+      <span class="cartao-info">
+        <span class="cartao-meta mono"><span>${p.area}</span><span class="st-${p.status}">${textoStatus[p.status]}</span></span>
+        <span class="cartao-nome">${p.nome}</span>
+        <span class="cartao-texto">${p.contexto}</span>
+        <span class="cartao-mais mono">VER DETALHES →</span>
+      </span>
+    </a>
+  </li>`).join("");
 
-function selecionar(id, mudarHash) {
-  const p = projetos.find((q) => q.id === id) || projetos[0];
-  Object.entries(botoes).forEach(([k, b]) => b.setAttribute("aria-pressed", String(k === p.id)));
+/* detalhes: abrem por cima, como uma gaveta */
+const gaveta = document.createElement("dialog");
+gaveta.className = "gaveta painel";
+gaveta.setAttribute("aria-label", "Detalhes do projeto");
+document.body.appendChild(gaveta);
 
+function abrir(id) {
+  const p = projetos.find((q) => q.id === id);
+  if (!p) return;
   const indice = projetos.indexOf(p) + 1;
   const feitos = p.feitos.length
     ? `<h3 class="mono">${p.status === "breve" ? "Etapas previstas" : "Destaques"}</h3><ul class="feitos">${p.feitos.map((f) => `<li>${f}</li>`).join("")}</ul>`
@@ -118,8 +120,9 @@ function selecionar(id, mudarHash) {
     ? `<div class="painel-links">${p.links.map((l) => (l.url ? `<a href="${l.url}"${l.url.startsWith("http") ? ' target="_blank" rel="noopener"' : ""}>${l.texto}</a>` : `<span>${l.texto}</span>`)).join("")}</div>`
     : "";
 
-  painel.innerHTML = `
-    <div class="painel-topo mono"><span>Destino ${indice} de ${projetos.length}</span><span>${nomesPlanetas[p.planeta]}</span></div>
+  gaveta.innerHTML = `
+    <div class="painel-topo mono"><span>Projeto ${indice} de ${projetos.length} · ${p.area}</span><button type="button" class="gaveta-fechar">FECHAR ✕</button></div>
+    ${p.capa ? `<img class="gaveta-capa" src="${p.capa}" alt="">` : ""}
     <div class="painel-corpo">
       <span class="status mono ${p.status}">${textoStatus[p.status]}</span>
       <h2>${p.nome}</h2>
@@ -129,18 +132,29 @@ function selecionar(id, mudarHash) {
       ${stack}
     </div>
     ${links}`;
-
-  // avisa o mapa para destacar a órbita do planeta escolhido
-  document.dispatchEvent(new CustomEvent("destino", { detail: { planeta: p.planeta } }));
-
-  if (mudarHash) {
-    history.replaceState(null, "", "#" + p.id);
-    if (window.matchMedia("(max-width: 900px)").matches) {
-      painel.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  }
+  gaveta.querySelector(".gaveta-fechar").addEventListener("click", fechar);
+  if (!gaveta.open) gaveta.showModal();
+  gaveta.scrollTop = 0;
 }
 
-window.addEventListener("hashchange", () => selecionar(location.hash.slice(1), false));
-// a primeira seleção acontece em mapa.js, depois que o mapa é montado
-window.selecionarInicial = () => selecionar(location.hash.slice(1) || "unirota", false);
+function fechar() {
+  if (gaveta.open) gaveta.close();
+}
+
+gaveta.addEventListener("close", () => {
+  if (location.hash) history.replaceState(null, "", location.pathname + location.search);
+});
+// clicar fora da gaveta fecha
+gaveta.addEventListener("click", (e) => { if (e.target === gaveta) fechar(); });
+
+grade.addEventListener("click", (e) => {
+  const a = e.target.closest(".cartao");
+  if (!a) return;
+  e.preventDefault();
+  history.replaceState(null, "", "#" + a.dataset.id);
+  abrir(a.dataset.id);
+});
+
+// link direto, ex.: dados.html#psique
+if (location.hash) abrir(location.hash.slice(1));
+window.addEventListener("hashchange", () => abrir(location.hash.slice(1)));
