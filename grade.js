@@ -1,8 +1,9 @@
 /* =========================================================
    Grade distorcida no fundo da página de portfólio.
-   Uma malha de linhas que se torce e incha em volta de um ponto
-   que passeia bem devagar (um ciclo completo leva vários minutos).
-   As linhas têm poucos pontos, o que deixa as dobras "facetadas".
+   Uma malha de linhas que ondula como tecido: duas ondas largas
+   atravessam a tela e dois redemoinhos passeiam devagar, torcendo
+   as linhas em volta deles. Cada linha tem muitos pontos, então
+   as dobras saem em curvas suaves.
    ========================================================= */
 (() => {
   const canvas = document.getElementById("grade");
@@ -20,49 +21,52 @@
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
 
-  // distorce um ponto (x, y) da grade: gira e empurra para fora perto do centro móvel
-  function deformar(x, y, t) {
-    const m = Math.max(W, H);
-    const cx = W * (0.5 + 0.18 * Math.sin(t * 0.21));
-    const cy = H * (0.5 + 0.14 * Math.sin(t * 0.17 + 1.3));
+  // um redemoinho: gira os pontos em volta de (cx, cy), forte no centro e sumindo para fora
+  function girar(x, y, cx, cy, raio, forca) {
     const dx = x - cx, dy = y - cy;
-    const r2 = (dx * dx + dy * dy) / (m * m);
-    const k = Math.exp(-r2 / 0.22);                 // influência: forte no centro, some nas bordas
-    const giro = (0.75 + 0.25 * Math.sin(t * 0.13)) * k;
-    const inchar = 1 + 0.28 * k;
-    const c = Math.cos(giro), s = Math.sin(giro);
+    const k = Math.exp(-(dx * dx + dy * dy) / (raio * raio));
+    const a = forca * k;
+    const c = Math.cos(a), s = Math.sin(a);
+    const inchar = 1 + 0.18 * k;
     return [cx + (dx * c - dy * s) * inchar, cy + (dx * s + dy * c) * inchar];
   }
 
-  function desenhar(seg) {
-    const t = seg * 0.12; // bem devagar
-    ctx.clearRect(0, 0, W, H);
-    ctx.strokeStyle = "rgba(170, 195, 235, 0.13)";
-    ctx.lineWidth = 1;
-    const passo = Math.max(48, Math.min(W, H) / 11);
-    const margem = passo * 3;
-    const pontos = 9; // poucos pontos por linha: dobras retas, como numa grade facetada
+  function deformar(x, y, t) {
+    const m = Math.max(W, H);
+    // ondas largas, como um tecido balançando
+    const amp = m * 0.022;
+    let px = x + amp * Math.sin(y / (m * 0.16) + t * 0.9) + amp * 0.6 * Math.sin((x + y) / (m * 0.23) - t * 0.6);
+    let py = y + amp * Math.sin(x / (m * 0.19) - t * 0.75) + amp * 0.6 * Math.cos((x - y) / (m * 0.27) + t * 0.5);
+    // dois redemoinhos que passeiam pela tela
+    const c1x = W * (0.5 + 0.32 * Math.sin(t * 0.23)), c1y = H * (0.5 + 0.28 * Math.sin(t * 0.31 + 1.1));
+    const c2x = W * (0.5 + 0.30 * Math.cos(t * 0.19 + 2.0)), c2y = H * (0.5 + 0.30 * Math.cos(t * 0.27));
+    [px, py] = girar(px, py, c1x, c1y, m * 0.3, 0.9 * Math.sin(t * 0.4) + 0.5);
+    [px, py] = girar(px, py, c2x, c2y, m * 0.24, -0.7 * Math.cos(t * 0.35) - 0.3);
+    return [px, py];
+  }
 
-    // linhas verticais
-    for (let x = -margem; x <= W + margem; x += passo) {
-      ctx.beginPath();
-      for (let i = 0; i <= pontos; i++) {
-        const y = -margem + ((H + 2 * margem) * i) / pontos;
-        const [px, py] = deformar(x, y, t);
-        i ? ctx.lineTo(px, py) : ctx.moveTo(px, py);
-      }
-      ctx.stroke();
+  function linha(x0, y0, x1, y1, t, n) {
+    ctx.beginPath();
+    for (let i = 0; i <= n; i++) {
+      const f = i / n;
+      const [px, py] = deformar(x0 + (x1 - x0) * f, y0 + (y1 - y0) * f, t);
+      i ? ctx.lineTo(px, py) : ctx.moveTo(px, py);
     }
-    // linhas horizontais
-    for (let y = -margem; y <= H + margem; y += passo) {
-      ctx.beginPath();
-      for (let i = 0; i <= pontos; i++) {
-        const x = -margem + ((W + 2 * margem) * i) / pontos;
-        const [px, py] = deformar(x, y, t);
-        i ? ctx.lineTo(px, py) : ctx.moveTo(px, py);
-      }
-      ctx.stroke();
-    }
+    ctx.stroke();
+  }
+
+  function desenhar(seg) {
+    const t = seg * 0.32;
+    ctx.clearRect(0, 0, W, H);
+    ctx.strokeStyle = "rgba(170, 195, 235, 0.14)";
+    ctx.lineWidth = 1;
+    const passo = Math.max(44, Math.min(W, H) / 12);
+    const margem = passo * 3;
+    // um ponto a cada ~18 px deixa as curvas lisas
+    const nV = Math.ceil((H + 2 * margem) / 18);
+    const nH = Math.ceil((W + 2 * margem) / 18);
+    for (let x = -margem; x <= W + margem; x += passo) linha(x, -margem, x, H + margem, t, nV);
+    for (let y = -margem; y <= H + margem; y += passo) linha(-margem, y, W + margem, y, t, nH);
   }
 
   redimensionar();
@@ -72,9 +76,10 @@
   let ultimo = 0;
   function quadro(ms) {
     requestAnimationFrame(quadro);
-    if (ms - ultimo < 50) return; // 20 quadros por segundo bastam para um movimento tão lento
+    if (ms - ultimo < 33) return; // ~30 quadros por segundo
     ultimo = ms;
     desenhar(ms / 1000);
   }
+  // o navegador pausa sozinho quando a aba não está visível
   requestAnimationFrame(quadro);
 })();
