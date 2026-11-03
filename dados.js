@@ -20,10 +20,13 @@ const projetos = [
       "Consultas em SQL sobre 107 milhões de internações no BigQuery, com cruzamento de CID-10 e população do IBGE",
       "Qualidade de dados: encontrei e contornei a UF vazia em toda a base, o CID principal dividido em duas colunas e meses duplicados em 2024",
       "Ranking de diagnósticos por volume e custo, evolução de 2015 a 2023 e comparação entre os 27 estados",
-      "Dashboard com os principais achados",
+      "Dashboard em Power BI com quatro páginas, medidas em DAX e dados carregados pelo Power Query direto do GitHub",
     ],
-    stack: ["BigQuery", "SQL", "Python", "pandas"],
-    links: [{ texto: "REPOSITÓRIO NO GITHUB", url: "https://github.com/arcanospeedruns/datasus-analise" }],
+    stack: ["BigQuery", "SQL", "Python", "pandas", "Power BI"],
+    links: [
+      { texto: "REPOSITÓRIO NO GITHUB", url: "https://github.com/arcanospeedruns/datasus-analise" },
+      { texto: "DASHBOARD EM POWER BI", url: "https://github.com/arcanospeedruns/datasus-analise/tree/main/powerbi" },
+    ],
   },
   {
     id: "unirota",
