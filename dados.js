@@ -71,7 +71,7 @@ const projetos = [
     resumo: "Identidade visual completa para uma clínica de psicologia, em roxo e amarelo a pedido da cliente. O símbolo é uma borboleta de linhas finas e ovais, já que psyché em grego quer dizer alma e também borboleta.",
     feitos: [
       "Logo, versões de cor e ícone de app",
-      "Aplicações em fachada, mural de vidro, take-ones e Instagram",
+      "Aplicações em placa, folder e Instagram",
       "Manual de identidade com especificações e usos incorretos",
     ],
     stack: ["Identidade visual", "Tipografia", "Aplicações", "Manual de marca"],

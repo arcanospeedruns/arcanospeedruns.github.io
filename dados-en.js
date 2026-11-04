@@ -67,7 +67,7 @@ window.projetosEN = [
     resumo: "Complete visual identity for a psychology clinic, in purple and yellow at the client's request. The symbol is a butterfly drawn with thin lines and ovals, since psyché in Greek means both soul and butterfly.",
     feitos: [
       "Logo, color versions and app icon",
-      "Applications on the storefront, glass wall, take-one leaflets and Instagram",
+      "Applications on a projecting sign, a folder and Instagram",
       "Brand guidelines with specifications and incorrect uses",
     ],
     stack: ["Visual identity", "Typography", "Applications", "Brand guidelines"],
