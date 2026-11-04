@@ -474,3 +474,15 @@ body.contato-amarelo { --onda-cor: 0,0,0; --onda-fundo: #f3e594; background: #f3
   .topo nav a:last-child { border-right: 0; }
   .topo nav a[aria-current] { padding: 0.55rem 0 0.45rem; }
 }
+
+/* ---------- topo das páginas claras: o título ocupa a linha inteira ----------
+   O texto e a ficha ficam lado a lado embaixo dele, então o nome não quebra
+   em telas largas. */
+.cabeca > div:not(.ficha) { display: contents; }
+.cabeca h1 { grid-column: 1 / -1; }
+.cabeca .papel { grid-column: 1; margin-top: 0.2rem; }
+.cabeca .ficha { grid-column: 2; align-self: end; }
+@media (max-width: 860px) {
+  .cabeca .papel, .cabeca .ficha { grid-column: 1; }
+}
+.cabeca h1, .cabeca .papel { position: relative; z-index: 1; }
