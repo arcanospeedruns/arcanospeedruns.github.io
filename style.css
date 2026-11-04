@@ -458,3 +458,19 @@ body.contato-amarelo { --onda-cor: 0,0,0; --onda-fundo: #f3e594; background: #f3
 
 /* miniaturas da galeria com a mesma proporção; a imagem inteira aparece ao ampliar */
 .pranchas img { aspect-ratio: 16 / 10; object-fit: cover; }
+
+/* ---------- topo no celular: duas linhas ----------
+   1ª linha: nome à esquerda e idioma à direita.
+   2ª linha: as três páginas em botões do mesmo tamanho. */
+@media (max-width: 640px) {
+  .topo { flex-wrap: wrap; row-gap: 0.75rem; padding: 0.75rem 1rem 0.85rem; }
+  .topo-esq { width: 100%; justify-content: space-between; gap: 0.6rem; }
+  .marca { font-size: 1.15rem; padding: 0.28rem 0.45rem 0.18rem; }
+  .idioma { font-size: 0.72rem; }
+  .idioma .br { display: inline; }
+  .idioma > * { padding: 0.15rem 0.4rem; }
+  .topo nav { width: 100%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; font-size: 0.74rem; border: 1px solid currentColor; }
+  .topo nav a { text-align: center; padding: 0.55rem 0 0.45rem; text-decoration: none; border-right: 1px solid currentColor; }
+  .topo nav a:last-child { border-right: 0; }
+  .topo nav a[aria-current] { padding: 0.55rem 0 0.45rem; }
+}
