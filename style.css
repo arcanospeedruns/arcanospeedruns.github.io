@@ -441,3 +441,17 @@ body.contato-amarelo { --onda-cor: 0,0,0; --onda-fundo: #f3e594; background: #f3
   .topo nav { gap: 0.3rem; font-size: 0.58rem; }
   .idioma { font-size: 0.56rem; }
 }
+
+/* ---------- nome no topo dentro de uma caixa ---------- */
+.marca {
+  background: var(--amarelo); color: var(--tinta);
+  padding: 0.28rem 0.45rem 0.18rem; line-height: 1;
+}
+.marca:hover { background: var(--tinta); color: var(--amarelo); }
+.orbita .marca:hover { background: var(--estrela); color: var(--tinta); }
+/* no Contato o fundo já é amarelo: a caixa fica preta */
+.contato-amarelo .marca { background: #000; color: #f3e594; }
+.contato-amarelo .marca:hover { background: #f3e594; color: #000; outline: 1px solid #000; }
+.topo { align-items: center; }
+.topo-esq { align-items: center; }
+@media (max-width: 340px) { .marca { padding: 0.22rem 0.3rem 0.14rem; } }
