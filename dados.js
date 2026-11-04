@@ -10,7 +10,7 @@
 const projetos = [
   {
     id: "datasus",
-    area: "Dados", fundo: "dados",
+    area: "Dados", capa: "projetos/datasus/capa.webp",
     nome: "SAÚDE PÚBLICA EM DADOS",
     curto: "DATASUS",
     contexto: "Projeto pessoal com dados abertos do SUS: 107 milhões de internações pagas entre 2015 e 2023.",
@@ -25,7 +25,7 @@ const projetos = [
     stack: ["BigQuery", "SQL", "Python", "pandas", "Power BI"],
     links: [
       { texto: "REPOSITÓRIO NO GITHUB", url: "https://github.com/arcanospeedruns/datasus-analise" },
-      { texto: "DASHBOARD EM POWER BI", url: "https://github.com/arcanospeedruns/datasus-analise/tree/main/powerbi" },
+      { texto: "DASHBOARD EM POWER BI (PDF)", url: "https://github.com/arcanospeedruns/datasus-analise/blob/main/powerbi/internacoes-sus.pdf" },
     ],
   },
   {
