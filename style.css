@@ -455,3 +455,6 @@ body.contato-amarelo { --onda-cor: 0,0,0; --onda-fundo: #f3e594; background: #f3
 .topo { align-items: center; }
 .topo-esq { align-items: center; }
 @media (max-width: 340px) { .marca { padding: 0.22rem 0.3rem 0.14rem; } }
+
+/* miniaturas da galeria com a mesma proporção; a imagem inteira aparece ao ampliar */
+.pranchas img { aspect-ratio: 16 / 10; object-fit: cover; }
