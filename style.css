@@ -135,17 +135,16 @@ a { color: inherit; }
 .canais a { font-weight: 600; text-underline-offset: 3px; word-break: break-word; }
 .canais a:hover { background: var(--amarelo); }
 
-/* ---------- a onda de pontos, presa no rodapé da tela ---------- */
-
+/* ---------- a onda de pontos, no fundo do topo da página ----------
+   Fica atrás do texto do topo (Sobre e Contato), bem suave. */
+.cabeca, .contato-pg { position: relative; isolation: isolate; }
+.cabeca > :not(#onda), .contato-pg > :not(#onda) { position: relative; z-index: 1; }
 #onda {
-  position: fixed;
-  left: 0; right: 0; bottom: 0;
-  width: 100%;
-  height: var(--onda);
-  z-index: 2;
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
   pointer-events: none;
-  /* o conteúdo passa por baixo da onda e some no degradê */
-  background: linear-gradient(to bottom, transparent 0, var(--onda-fundo) 38%);
+  opacity: 0.26;
 }
 @media (max-width: 480px) {
   .marca { font-size: 1.05rem; }

@@ -1,5 +1,5 @@
 /* =========================================================
-   Onda de pontos presa no rodapé da tela.
+   Onda de pontos no fundo do topo da página (atrás do texto).
    Desktop: ela ganha energia conforme o mouse se move, e uma
    ondulação nasce na posição horizontal do cursor.
    Celular: ela se mexe sozinha o tempo todo.
@@ -48,6 +48,7 @@
   }
 
   let fase = 0;
+  let visivelOuNao = (a) => quadro(a);
   let antes = performance.now();
 
   function altura(xw, z, t, e, cx) {
@@ -102,11 +103,25 @@
 
     }
 
-    if (!reduzir) requestAnimationFrame(quadro);
+    if (!reduzir) requestAnimationFrame(visivelOuNao);
   }
 
   redimensionar();
-  window.addEventListener("resize", redimensionar);
-  if (reduzir) { energia = 0.4; quadro(performance.now()); }
-  else requestAnimationFrame(quadro);
+  // acompanha o tamanho do topo (muda com a largura da tela e quando as fontes carregam)
+  if ("ResizeObserver" in window) new ResizeObserver(() => { redimensionar(); if (reduzir) quadro(performance.now()); }).observe(canvas);
+  else window.addEventListener("resize", redimensionar);
+
+  if (reduzir) { energia = 0.4; quadro(performance.now()); return; }
+
+  // só anima enquanto o topo está visível na tela
+  let visivel = true, rodando = true;
+  const seguir = (agora) => { if (!visivel) { rodando = false; return; } quadro(agora); };
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(([e]) => {
+      visivel = e.isIntersecting;
+      if (visivel && !rodando) { rodando = true; antes = performance.now(); requestAnimationFrame(seguir); }
+    }).observe(canvas);
+  }
+  visivelOuNao = seguir;
+  requestAnimationFrame(seguir);
 })();
