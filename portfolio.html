@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Portfólio | arcanospeedruns</title>
   <meta name="description" content="Projetos de Carlos Gouveia.">
+  <link rel="alternate" hreflang="pt-BR" href="https://arcanospeedruns.github.io/portfolio.html">
+  <link rel="alternate" hreflang="en" href="https://arcanospeedruns.github.io/en/portfolio.html">
+  <link rel="alternate" hreflang="x-default" href="https://arcanospeedruns.github.io/portfolio.html">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="arcanospeedruns">
@@ -15,13 +18,13 @@
   <meta property="og:locale" content="pt_BR">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="preload" href="fonts/tanker.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="style.css?v=202611032108">
+  <link rel="stylesheet" href="style.css?v=202611032130">
 </head>
 <body class="orbita">
   <canvas id="grade" aria-hidden="true"></canvas>
 
   <header class="topo mono">
-    <a class="marca" href="index.html">ARCANOSPEEDRUNS</a>
+    <div class="topo-esq"><a class="marca" href="index.html">ARCANOSPEEDRUNS</a><span class="idioma" aria-label="Idioma"><span aria-current="true">PT<span class="br">-BR</span></span><a href="en/portfolio.html" hreflang="en" lang="en">EN</a></span></div>
     <nav aria-label="Páginas">
       <a href="index.html">SOBRE</a>
       <a href="portfolio.html" aria-current="page">PORTFÓLIO</a>
@@ -40,7 +43,8 @@
     </ul>
   </main>
 
-  <script src="dados.js?v=202611032110"></script>
-  <script src="grade.js?v=202611031123"></script>
+  <script src="dados.js?v=202611032130"></script>
+  <script src="grade.js?v=202611032130"></script>
+        <script>document.querySelectorAll(".idioma a").forEach(a=>a.addEventListener("click",()=>{a.href=a.href.split("#")[0]+location.hash}))</script>
 </body>
 </html>

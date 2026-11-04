@@ -414,3 +414,30 @@ body.contato-amarelo { --onda-cor: 0,0,0; --onda-fundo: #f3e594; background: #f3
 @media (max-width: 860px) {
   .linha { grid-template-columns: 1fr auto; }
 }
+
+/* ---------- seletor de idioma, ao lado do nome no topo ---------- */
+.topo-esq { display: flex; align-items: baseline; gap: 0.9rem; }
+.idioma { display: inline-flex; align-items: baseline; gap: 0.15rem; font-size: 0.72rem; white-space: nowrap; }
+.idioma > * { padding: 0.05rem 0.3rem; border: 1px solid transparent; line-height: 1.3; }
+.idioma [aria-current] { border-color: currentColor; }
+.idioma a { text-decoration: none; opacity: 0.6; }
+.idioma a:hover { opacity: 1; background: var(--amarelo); color: var(--tinta); }
+@media (max-width: 480px) {
+  .topo-esq { gap: 0.45rem; }
+  .idioma { font-size: 0.62rem; }
+  .idioma > * { padding: 0 0.2rem; }
+}
+@media (max-width: 420px) {
+  .idioma .br { display: none; } /* no celular aparece só PT | EN */
+}
+@media (max-width: 380px) {
+  .topo { padding-inline: 0.6rem; gap: 0.5rem; }
+  .marca { font-size: 0.95rem; }
+  .topo nav { gap: 0.4rem; font-size: 0.64rem; }
+  .topo-esq { gap: 0.35rem; }
+}
+@media (max-width: 340px) {
+  .marca { font-size: 0.82rem; }
+  .topo nav { gap: 0.3rem; font-size: 0.58rem; }
+  .idioma { font-size: 0.56rem; }
+}

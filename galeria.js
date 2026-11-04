@@ -5,21 +5,25 @@
   const itens = [...document.querySelectorAll(".pranchas figure")];
   if (!itens.length || typeof HTMLDialogElement !== "function") return;
 
+  const en = document.documentElement.lang.startsWith("en");
+  const T = en
+    ? { caixa: "Enlarged image", real: "FULL SIZE", fechar: "CLOSE ✕", fecharAria: "Close", ant: "Previous image", prox: "Next image" }
+    : { caixa: "Imagem ampliada", real: "TAMANHO REAL", fechar: "FECHAR ✕", fecharAria: "Fechar", ant: "Imagem anterior", prox: "Próxima imagem" };
   const caixa = document.createElement("dialog");
   caixa.className = "ampliada";
-  caixa.setAttribute("aria-label", "Imagem ampliada");
+  caixa.setAttribute("aria-label", T.caixa);
   caixa.innerHTML = `
     <div class="ampliada-topo mono">
       <span class="ampliada-conta"></span>
       <div>
-        <a class="ampliada-abrir" target="_blank" rel="noopener">TAMANHO REAL</a>
-        <button type="button" class="ampliada-fechar" aria-label="Fechar">FECHAR ✕</button>
+        <a class="ampliada-abrir" target="_blank" rel="noopener">${T.real}</a>
+        <button type="button" class="ampliada-fechar" aria-label="${T.fecharAria}">${T.fechar}</button>
       </div>
     </div>
     <div class="ampliada-palco">
-      <button type="button" class="ampliada-seta ant" aria-label="Imagem anterior">←</button>
+      <button type="button" class="ampliada-seta ant" aria-label="${T.ant}">←</button>
       <img alt="">
-      <button type="button" class="ampliada-seta prox" aria-label="Próxima imagem">→</button>
+      <button type="button" class="ampliada-seta prox" aria-label="${T.prox}">→</button>
     </div>
     <p class="ampliada-legenda"></p>`;
   document.body.appendChild(caixa);

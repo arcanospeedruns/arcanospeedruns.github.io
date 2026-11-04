@@ -84,14 +84,24 @@ const projetos = [
    Daqui pra baixo é o funcionamento dos cartões e dos detalhes.
    ============================================================ */
 
-const textoStatus = { andamento: "Em andamento", concluido: "Concluído", breve: "Em breve" };
+// Na versão em inglês (en/portfolio.html), os textos dos projetos vêm de dados-en.js
+const emIngles = document.documentElement.lang.startsWith("en") && Array.isArray(window.projetosEN);
+const lista = emIngles ? window.projetosEN : projetos;
+const UI = emIngles
+  ? { status: { andamento: "In progress", concluido: "Completed", breve: "Coming soon" }, mais: "SEE DETAILS →",
+      projeto: (i, n) => `Project ${i} of ${n}`, fechar: "CLOSE ✕", etapas: "Planned steps", destaques: "Highlights",
+      ferramentas: "Tools", detalhes: "Project details" }
+  : { status: { andamento: "Em andamento", concluido: "Concluído", breve: "Em breve" }, mais: "VER DETALHES →",
+      projeto: (i, n) => `Projeto ${i} de ${n}`, fechar: "FECHAR ✕", etapas: "Etapas previstas", destaques: "Destaques",
+      ferramentas: "Ferramentas", detalhes: "Detalhes do projeto" };
+const textoStatus = UI.status;
 const grade = document.getElementById("projetos");
 
 const capaHTML = (p) => p.capa
   ? `<span class="capa"><img src="${p.capa}" alt="" width="1200" height="600" loading="lazy"></span>`
   : `<span class="capa fundo-${p.fundo || "dados"}" aria-hidden="true"><span class="sigla">${p.curto}</span></span>`;
 
-grade.innerHTML = projetos.map((p) => `
+grade.innerHTML = lista.map((p) => `
   <li>
     <a class="cartao" href="#${p.id}" data-id="${p.id}">
       ${capaHTML(p)}
@@ -99,7 +109,7 @@ grade.innerHTML = projetos.map((p) => `
         <span class="cartao-meta mono"><span>${p.area}</span><span class="st-${p.status}">${textoStatus[p.status]}</span></span>
         <span class="cartao-nome">${p.nome}</span>
         <span class="cartao-texto">${p.contexto}</span>
-        <span class="cartao-mais mono">VER DETALHES →</span>
+        <span class="cartao-mais mono">${UI.mais}</span>
       </span>
     </a>
   </li>`).join("");
@@ -107,25 +117,25 @@ grade.innerHTML = projetos.map((p) => `
 /* detalhes: abrem por cima, como uma gaveta */
 const gaveta = document.createElement("dialog");
 gaveta.className = "gaveta painel";
-gaveta.setAttribute("aria-label", "Detalhes do projeto");
+gaveta.setAttribute("aria-label", UI.detalhes);
 document.body.appendChild(gaveta);
 
 function abrir(id) {
-  const p = projetos.find((q) => q.id === id);
+  const p = lista.find((q) => q.id === id);
   if (!p) return;
-  const indice = projetos.indexOf(p) + 1;
+  const indice = lista.indexOf(p) + 1;
   const feitos = p.feitos.length
-    ? `<h3 class="mono">${p.status === "breve" ? "Etapas previstas" : "Destaques"}</h3><ul class="feitos">${p.feitos.map((f) => `<li>${f}</li>`).join("")}</ul>`
+    ? `<h3 class="mono">${p.status === "breve" ? UI.etapas : UI.destaques}</h3><ul class="feitos">${p.feitos.map((f) => `<li>${f}</li>`).join("")}</ul>`
     : "";
   const stack = p.stack.length
-    ? `<h3 class="mono">${p.tituloStack || "Ferramentas"}</h3><ul class="stack mono">${p.stack.map((s) => `<li>${s}</li>`).join("")}</ul>`
+    ? `<h3 class="mono">${p.tituloStack || UI.ferramentas}</h3><ul class="stack mono">${p.stack.map((s) => `<li>${s}</li>`).join("")}</ul>`
     : "";
   const links = p.links.length
     ? `<div class="painel-links">${p.links.map((l) => (l.url ? `<a href="${l.url}"${l.url.startsWith("http") ? ' target="_blank" rel="noopener"' : ""}>${l.texto}</a>` : `<span>${l.texto}</span>`)).join("")}</div>`
     : "";
 
   gaveta.innerHTML = `
-    <div class="painel-topo mono"><span>Projeto ${indice} de ${projetos.length} · ${p.area}</span><button type="button" class="gaveta-fechar">FECHAR ✕</button></div>
+    <div class="painel-topo mono"><span>${UI.projeto(indice, lista.length)} · ${p.area}</span><button type="button" class="gaveta-fechar">${UI.fechar}</button></div>
     ${p.capa ? `<img class="gaveta-capa" src="${p.capa}" alt="">` : ""}
     <div class="painel-corpo">
       <span class="status mono ${p.status}">${textoStatus[p.status]}</span>
