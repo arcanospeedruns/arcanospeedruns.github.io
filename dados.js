@@ -13,7 +13,7 @@ const projetos = [
     area: "Dados", capa: "projetos/datasus/capa.webp",
     nome: "SAÚDE PÚBLICA EM DADOS",
     curto: "DATASUS",
-    contexto: "Projeto pessoal com dados abertos do SUS: 107 milhões de internações pagas entre 2015 e 2023.",
+    contexto: "Projeto pessoal com dados abertos do SUS: 107 milhões de internações financiadas pelo SUS entre 2015 e 2023.",
     status: "concluido",
     resumo: "Análise dos microdados de internação do SIH/SUS no BigQuery: volume, custo e mortalidade por ano, diagnóstico e estado. A COVID foi só a 4ª causa de internação em volume, mas a mais cara do período, com R$ 10,7 bi.",
     feitos: [

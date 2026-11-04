@@ -9,7 +9,7 @@ window.projetosEN = [
     area: "Data", capa: "../projetos/datasus/capa.webp",
     nome: "PUBLIC HEALTH IN DATA",
     curto: "DATASUS",
-    contexto: "Personal project with open data from SUS, Brazil's public health system: 107 million paid hospital admissions between 2015 and 2023.",
+    contexto: "Personal project with open data from SUS, Brazil's free public health system: 107 million hospital admissions funded by SUS between 2015 and 2023.",
     status: "concluido",
     resumo: "Analysis of SIH/SUS hospital admission microdata in BigQuery: volume, cost and mortality by year, diagnosis and state. COVID was only the 4th cause of admission by volume, but the most expensive of the period, at R$ 10.7 billion.",
     feitos: [
