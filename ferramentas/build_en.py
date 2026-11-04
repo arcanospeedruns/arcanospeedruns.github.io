@@ -210,7 +210,9 @@ for p, trocas in PAGINAS.items():
     en = en.replace(f'<meta property="og:url" content="{BASE}{"" if p == "index.html" else p}">',
                     f'<meta property="og:url" content="{BASE}en/{"" if p == "index.html" else p}">')
     if p == "portfolio.html":
-        en = re.sub(r'(\s*)<script src="dados\.js', r'\1<script src="dados-en.js"></script>\1<script src="dados.js', en, count=1)
+        v = re.search(r'dados\.js(\?v=\d+)?"', en)
+        sufixo = v.group(1) or "" if v else ""
+        en = re.sub(r'(\s*)<script src="dados\.js', lambda m: f'{m.group(1)}<script src="dados-en.js{sufixo}"></script>{m.group(1)}<script src="dados.js', en, count=1)
 
     # caminhos de arquivos (css, js, imagens, pdf) passam a apontar para fora de en/
     dir_pt = posixpath.dirname(p)
