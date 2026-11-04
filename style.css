@@ -146,6 +146,8 @@ a { color: inherit; }
   pointer-events: none;
   opacity: 0.26;
 }
+/* no Contato a onda cobre a tela inteira, atrás de tudo */
+#onda[data-tela-cheia] { position: fixed; inset: 0; height: 100vh; height: 100dvh; opacity: 0.3; }
 @media (max-width: 480px) {
   .marca { font-size: 1.05rem; }
   .topo nav { gap: 0.5rem; font-size: 0.72rem; }

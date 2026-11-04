@@ -12,7 +12,9 @@
   const reduzir = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const toque = window.matchMedia("(hover: none), (pointer: coarse)").matches;
 
-  const LINHAS = toque ? 32 : 24;
+  // data-tela-cheia: a onda ocupa a tela toda (página de contato), com mais linhas
+  const cheia = canvas.hasAttribute("data-tela-cheia");
+  const LINHAS = cheia ? (toque ? 52 : 44) : (toque ? 32 : 24);
   // cor dos pontos vem do CSS (--onda-cor: "r,g,b"), padrão preto
   const corPonto = (getComputedStyle(document.body).getPropertyValue("--onda-cor") || "0,0,0").trim() || "0,0,0";
   let W = 0, H = 0, dpr = 1, COLS = 100;
@@ -84,8 +86,9 @@
       const z = (j / (LINHAS - 1)) * 1.3 - 0.3;
       const zc = Math.max(0, z);
       const escala = toque ? 1.75 - zc * 0.95 : 1.32 - zc * 0.57; // a frente é mais larga que a tela
-      const base = z >= 0 ? H * (0.97 - Math.pow(z, 0.85) * 0.58) : H * (0.97 - z * 0.75);
-      const amp = H * 0.2 * (1 - zc * 0.55);
+      const subida = cheia ? 0.95 : 0.58; // até onde a última linha sobe na tela
+      const base = z >= 0 ? H * (0.97 - Math.pow(z, 0.85) * subida) : H * (0.97 - z * 0.75);
+      const amp = (cheia ? H * 0.08 : H * 0.2) * (1 - zc * 0.55);
       const tam = 2.3 - zc * 1.4;
       const alfa = 0.9 - zc * 0.62;
 
