@@ -196,7 +196,7 @@ def com_extras_cabeca(html, p):
     html = re.sub(r'  <link rel="alternate" hreflang="[^"]+" href="[^"]+">\n', '', html)
     i = html.index('  <link rel="icon"')
     html = html[:i] + alternativos(p) + html[i:]
-    html = html.replace(SCRIPT_IDIOMA + "\n", "")
+    html = re.sub(r"[ \t]*" + re.escape(SCRIPT_IDIOMA) + r"\n", "", html)
     return html.replace("</body>", "  " + SCRIPT_IDIOMA + "\n</body>", 1)
 
 for p, trocas in PAGINAS.items():
