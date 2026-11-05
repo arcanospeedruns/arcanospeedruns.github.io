@@ -500,7 +500,7 @@ body.contato-amarelo { --onda-cor: 0,0,0; --onda-fundo: #f3e594; background: #f3
 }
 .landing-nav a:hover, .landing-nav a:focus-visible { background: var(--amarelo); outline: none; }
 @media (max-width: 640px) {
-  .landing { align-items: end; padding-bottom: 14vh; box-sizing: border-box; }
+  .landing { align-items: end; padding-bottom: 8vh; box-sizing: border-box; }
   .landing-nav { flex-direction: column; align-items: stretch; gap: 0.5rem; }
   .landing-nav a { text-align: center; font-size: 0.85rem; padding: 0.5rem 1.2rem 0.4rem; }
 }
