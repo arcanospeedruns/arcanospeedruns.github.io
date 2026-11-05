@@ -43,6 +43,7 @@ const projetos = [
     ],
     stack: ["Identidade visual", "Tipografia", "Aplicações", "Manual de marca"],
     tituloStack: "Áreas",
+    ferramentas: ["Illustrator", "Photoshop", "InDesign"],
     links: [{ texto: "VER AS PRANCHAS", url: "projetos/psique.html" }],
   },
 ];
@@ -97,6 +98,9 @@ function abrir(id) {
   const stack = p.stack.length
     ? `<h3 class="mono">${p.tituloStack || UI.ferramentas}</h3><ul class="stack mono">${p.stack.map((s) => `<li>${s}</li>`).join("")}</ul>`
     : "";
+  const ferramentas = p.ferramentas
+    ? `<h3 class="mono">${UI.ferramentas}</h3><ul class="stack mono">${p.ferramentas.map((s) => `<li>${s}</li>`).join("")}</ul>`
+    : "";
   const links = p.links.length
     ? `<div class="painel-links">${p.links.map((l) => (l.url ? `<a href="${l.url}"${l.url.startsWith("http") ? ' target="_blank" rel="noopener"' : ""}>${l.texto}</a>` : `<span>${l.texto}</span>`)).join("")}</div>`
     : "";
@@ -111,6 +115,7 @@ function abrir(id) {
       <p class="resumo">${p.resumo}</p>
       ${feitos}
       ${stack}
+      ${ferramentas}
     </div>
     ${links}`;
   gaveta.querySelector(".gaveta-fechar").addEventListener("click", fechar);

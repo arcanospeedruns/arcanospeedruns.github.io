@@ -39,6 +39,7 @@ window.projetosEN = [
     ],
     stack: ["Visual identity", "Typography", "Applications", "Brand guidelines"],
     tituloStack: "Areas",
+    ferramentas: ["Illustrator", "Photoshop", "InDesign"],
     links: [{ texto: "SEE THE BOARDS", url: "projetos/psique.html" }],
   },
 ];
