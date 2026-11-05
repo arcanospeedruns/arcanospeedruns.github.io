@@ -6,7 +6,7 @@
 window.projetosEN = [
   {
     id: "datasus",
-    area: "Data", capa: "../projetos/datasus/capa.webp",
+    area: "Data", capa: "../projetos/datasus/capa-en.webp",
     nome: "PUBLIC HEALTH IN DATA",
     curto: "DATASUS",
     contexto: "Personal project with open data from SUS, Brazil's free public health system: 107 million hospital admissions funded by SUS between 2015 and 2023.",

@@ -514,3 +514,17 @@ body.contato-amarelo { --onda-cor: 0,0,0; --onda-fundo: #f3e594; background: #f3
 .pranchas.telas img { aspect-ratio: 16 / 9; object-fit: contain; background: #04060d; }
 .projeto-pg .contato { flex-wrap: wrap; align-items: center; gap: 0.5rem; }
 .projeto-pg .contato .links { margin-top: 0; }
+
+/* ---------- sobre: listas compactas ---------- */
+.compacta .linha { padding-block: 0.55rem 0.45rem; }
+.compacta .linha strong { font-size: clamp(1.15rem, 1.7vw, 1.5rem); }
+.fecho .acoes { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: flex-end; }
+@media (max-width: 860px) {
+  .fecho .acoes { grid-column: 1 / -1; grid-row: 3; justify-content: flex-start; }
+}
+
+/* ---------- projeto: imagem de abertura e grade de duas pranchas ---------- */
+.heroi { margin: 0; border-bottom: 1px solid var(--tinta); }
+.heroi img { display: block; width: 100%; height: clamp(260px, 42vw, 620px); object-fit: cover; object-position: 50% 45%; }
+.pranchas.duas { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 1400px; }
+@media (max-width: 700px) { .pranchas.duas { grid-template-columns: 1fr; } }
