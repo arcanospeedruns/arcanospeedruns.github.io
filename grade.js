@@ -13,7 +13,7 @@
 
   let W = 0, H = 0;
   function redimensionar() {
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const dpr = Math.min(window.devicePixelRatio || 1, matchMedia("(hover: none), (pointer: coarse)").matches ? 1.5 : 2);
     W = window.innerWidth;
     H = window.innerHeight;
     canvas.width = Math.round(W * dpr);
@@ -21,52 +21,58 @@
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
 
-  // um redemoinho: gira os pontos em volta de (cx, cy), forte no centro e sumindo para fora
-  function girar(x, y, cx, cy, raio, forca) {
-    const dx = x - cx, dy = y - cy;
-    const k = Math.exp(-(dx * dx + dy * dy) / (raio * raio));
-    const a = forca * k;
-    const c = Math.cos(a), s = Math.sin(a);
-    const inchar = 1 + 0.18 * k;
-    return [cx + (dx * c - dy * s) * inchar, cy + (dx * s + dy * c) * inchar];
+  // no celular: um pouco menos de pontos por linha e 24 quadros por segundo
+  const toque = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+  const DENS = toque ? 24 : 18;
+
+  // valores que valem para o quadro inteiro (não para cada ponto)
+  let m = 1, amp = 0, t = 0, c1x = 0, c1y = 0, r1 = 1, f1 = 0, c2x = 0, c2y = 0, r2 = 1, f2 = 0;
+  function prepararQuadro(tt) {
+    t = tt;
+    m = Math.max(W, H);
+    amp = m * 0.022;
+    c1x = W * (0.5 + 0.32 * Math.sin(t * 0.23)); c1y = H * (0.5 + 0.28 * Math.sin(t * 0.31 + 1.1));
+    c2x = W * (0.5 + 0.30 * Math.cos(t * 0.19 + 2.0)); c2y = H * (0.5 + 0.30 * Math.cos(t * 0.27));
+    r1 = (m * 0.3) ** 2; f1 = 0.9 * Math.sin(t * 0.4) + 0.5;
+    r2 = (m * 0.24) ** 2; f2 = -0.7 * Math.cos(t * 0.35) - 0.3;
   }
 
-  function deformar(x, y, t) {
-    const m = Math.max(W, H);
-    // ondas largas, como um tecido balançando
-    const amp = m * 0.022;
-    let px = x + amp * Math.sin(y / (m * 0.16) + t * 0.9) + amp * 0.6 * Math.sin((x + y) / (m * 0.23) - t * 0.6);
-    let py = y + amp * Math.sin(x / (m * 0.19) - t * 0.75) + amp * 0.6 * Math.cos((x - y) / (m * 0.27) + t * 0.5);
-    // dois redemoinhos que passeiam pela tela
-    const c1x = W * (0.5 + 0.32 * Math.sin(t * 0.23)), c1y = H * (0.5 + 0.28 * Math.sin(t * 0.31 + 1.1));
-    const c2x = W * (0.5 + 0.30 * Math.cos(t * 0.19 + 2.0)), c2y = H * (0.5 + 0.30 * Math.cos(t * 0.27));
-    [px, py] = girar(px, py, c1x, c1y, m * 0.3, 0.9 * Math.sin(t * 0.4) + 0.5);
-    [px, py] = girar(px, py, c2x, c2y, m * 0.24, -0.7 * Math.cos(t * 0.35) - 0.3);
-    return [px, py];
+  // ondas largas, como um tecido balançando, e dois redemoinhos que passeiam pela tela
+  // (cada redemoinho gira os pontos em volta do centro, forte no meio e sumindo para fora)
+  let px = 0, py = 0;
+  function deformar(x, y) {
+    px = x + amp * Math.sin(y / (m * 0.16) + t * 0.9) + amp * 0.6 * Math.sin((x + y) / (m * 0.23) - t * 0.6);
+    py = y + amp * Math.sin(x / (m * 0.19) - t * 0.75) + amp * 0.6 * Math.cos((x - y) / (m * 0.27) + t * 0.5);
+    let dx = px - c1x, dy = py - c1y;
+    let k = Math.exp(-(dx * dx + dy * dy) / r1), a = f1 * k, c = Math.cos(a), s = Math.sin(a), inc = 1 + 0.18 * k;
+    px = c1x + (dx * c - dy * s) * inc; py = c1y + (dx * s + dy * c) * inc;
+    dx = px - c2x; dy = py - c2y;
+    k = Math.exp(-(dx * dx + dy * dy) / r2); a = f2 * k; c = Math.cos(a); s = Math.sin(a); inc = 1 + 0.18 * k;
+    px = c2x + (dx * c - dy * s) * inc; py = c2y + (dx * s + dy * c) * inc;
   }
 
-  function linha(x0, y0, x1, y1, t, n) {
-    ctx.beginPath();
+  function linha(x0, y0, x1, y1, n) {
     for (let i = 0; i <= n; i++) {
       const f = i / n;
-      const [px, py] = deformar(x0 + (x1 - x0) * f, y0 + (y1 - y0) * f, t);
+      deformar(x0 + (x1 - x0) * f, y0 + (y1 - y0) * f);
       i ? ctx.lineTo(px, py) : ctx.moveTo(px, py);
     }
-    ctx.stroke();
   }
 
   function desenhar(seg) {
-    const t = seg * 0.32;
+    prepararQuadro(seg * 0.32);
     ctx.clearRect(0, 0, W, H);
     ctx.strokeStyle = "rgba(170, 195, 235, 0.14)";
     ctx.lineWidth = 1;
     const passo = Math.max(44, Math.min(W, H) / 12);
     const margem = passo * 3;
-    // um ponto a cada ~18 px deixa as curvas lisas
-    const nV = Math.ceil((H + 2 * margem) / 18);
-    const nH = Math.ceil((W + 2 * margem) / 18);
-    for (let x = -margem; x <= W + margem; x += passo) linha(x, -margem, x, H + margem, t, nV);
-    for (let y = -margem; y <= H + margem; y += passo) linha(-margem, y, W + margem, y, t, nH);
+    // um ponto a cada ~18 px deixa as curvas lisas; todas as linhas num traço só
+    const nV = Math.ceil((H + 2 * margem) / DENS);
+    const nH = Math.ceil((W + 2 * margem) / DENS);
+    ctx.beginPath();
+    for (let x = -margem; x <= W + margem; x += passo) linha(x, -margem, x, H + margem, nV);
+    for (let y = -margem; y <= H + margem; y += passo) linha(-margem, y, W + margem, y, nH);
+    ctx.stroke();
   }
 
   redimensionar();
@@ -76,7 +82,7 @@
   let ultimo = 0;
   function quadro(ms) {
     requestAnimationFrame(quadro);
-    if (ms - ultimo < 33) return; // ~30 quadros por segundo
+    if (ms - ultimo < (toque ? 41 : 33)) return; // ~30 quadros por segundo (24 no celular)
     ultimo = ms;
     desenhar(ms / 1000);
   }
