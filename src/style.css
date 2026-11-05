@@ -550,3 +550,7 @@ body.contato-amarelo { --onda-cor: 0,0,0; --onda-fundo: #f3e594; background: #f3
 
 /* páginas de projeto no mesmo azul do portfólio, com a onda de pontos no topo */
 .projeto-pg { background: var(--azul); --onda-fundo: var(--azul); }
+
+/* gato da marca, antes do nome no topo */
+.marca { display: inline-flex; align-items: center; gap: 0.32em; }
+.marca-gato { width: auto; height: 1.08em; margin-top: -0.12em; flex: none; }
