@@ -13,6 +13,7 @@
 
 :root {
   --aluminio: #c4c7c9;
+  --azul: #b4c6d9;
   --claro: #d9dcdd;
   --tinta: #000;
   --cinza: #4d5257;
@@ -525,13 +526,14 @@ body.contato-amarelo { --onda-cor: 0,0,0; --onda-fundo: #f3e594; background: #f3
 
 /* ---------- projeto: imagem de abertura e grade de duas pranchas ---------- */
 .heroi { margin: 0; border-bottom: 1px solid var(--tinta); }
-.heroi img { display: block; width: 100%; height: clamp(260px, 42vw, 620px); object-fit: cover; object-position: 50% 45%; }
+.heroi img { display: block; width: 100%; height: auto; aspect-ratio: 2 / 1; object-fit: cover; object-position: 50% 54%; }
+@media (max-width: 700px) { .heroi img { aspect-ratio: 4 / 3; object-position: 50% 50%; } }
 .pranchas.duas { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 1400px; }
 @media (max-width: 700px) { .pranchas.duas { grid-template-columns: 1fr; } }
 
 /* ---------- portfólio em azul-claro, no mesmo sistema das outras páginas ---------- */
 .orbita {
-  --vazio: #b4c6d9;
+  --vazio: var(--azul);
   --vazio-2: #d6e1ec;
   --estrela: #000;
   --nevoa: #3d4856;
@@ -545,3 +547,6 @@ body.contato-amarelo { --onda-cor: 0,0,0; --onda-fundo: #f3e594; background: #f3
 .orbita .status.concluido { background: #fff; }
 .orbita .gaveta::backdrop { background: rgba(10, 20, 35, .45); }
 .orbita .painel ul.feitos li::marker { color: var(--tinta); }
+
+/* páginas de projeto no mesmo azul do portfólio, com a onda de pontos no topo */
+.projeto-pg { background: var(--azul); --onda-fundo: var(--azul); }

@@ -10,7 +10,7 @@ ogDescricao: "107 milhões de internações financiadas pelo SUS entre 2015 e 20
 ogImagem: "/projetos/datasus/og.jpg"
 preload: ["/fonts/tanker.woff2"]
 corpo: "indice-pg projeto-pg"
-scripts: ["/galeria.js"]
+scripts: ["/galeria.js", "/onda.js"]
 topo: "normal"
 pagina: "portfolio"
 ---
@@ -20,6 +20,7 @@ pagina: "portfolio"
     <a class="voltar mono" href="../portfolio.html">← VOLTAR AO PORTFÓLIO</a>
 
     <div class="cabeca">
+      <canvas id="onda" aria-hidden="true"></canvas>
       <div>
         <h1>SAÚDE PÚBLICA EM DADOS</h1>
         <p class="papel">Análise de 107 milhões de internações financiadas pelo SUS entre 2015 e 2023: volume, custo e mortalidade por ano, diagnóstico e estado.</p>

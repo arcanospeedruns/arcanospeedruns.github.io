@@ -10,7 +10,7 @@ ogDescricao: "107 million hospital admissions funded by SUS from 2015 to 2023: S
 ogImagem: "/projetos/datasus/og.jpg"
 preload: ["/fonts/tanker.woff2"]
 corpo: "indice-pg projeto-pg"
-scripts: ["/galeria.js"]
+scripts: ["/galeria.js", "/onda.js"]
 topo: "normal"
 pagina: "portfolio"
 ---
@@ -20,6 +20,7 @@ pagina: "portfolio"
     <a class="voltar mono" href="../portfolio.html">← BACK TO PORTFOLIO</a>
 
     <div class="cabeca">
+      <canvas id="onda" aria-hidden="true"></canvas>
       <div>
         <h1>PUBLIC HEALTH IN DATA</h1>
         <p class="papel">Analysis of 107 million hospital admissions funded by SUS, Brazil's free public health system, from 2015 to 2023: volume, cost and mortality by year, diagnosis and state.</p>
