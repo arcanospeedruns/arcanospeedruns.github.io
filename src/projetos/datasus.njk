@@ -1,0 +1,78 @@
+---
+layout: base.njk
+permalink: "/projetos/datasus.html"
+lang: "pt-BR"
+par: "/en/projetos/datasus.html"
+titulo: "Saúde pública em dados, análise do SUS | arcanospeedruns"
+descricao: "Análise de 107 milhões de internações financiadas pelo SUS entre 2015 e 2023, por Carlos Gouveia: SQL no BigQuery e dashboard em Power BI."
+ogTitulo: "Saúde pública em dados | Carlos Gouveia"
+ogDescricao: "107 milhões de internações financiadas pelo SUS entre 2015 e 2023: SQL no BigQuery e dashboard em Power BI."
+ogImagem: "/projetos/datasus/og.jpg"
+preload: ["/fonts/tanker.woff2"]
+corpo: "indice-pg projeto-pg"
+scripts: ["/galeria.js"]
+topo: "normal"
+pagina: "portfolio"
+---
+  {% include "topo.njk" %}
+
+  <main>
+    <a class="voltar mono" href="../portfolio.html">← VOLTAR AO PORTFÓLIO</a>
+
+    <div class="cabeca">
+      <div>
+        <h1>SAÚDE PÚBLICA EM DADOS</h1>
+        <p class="papel">Análise de 107 milhões de internações financiadas pelo SUS entre 2015 e 2023: volume, custo e mortalidade por ano, diagnóstico e estado.</p>
+      </div>
+      <dl class="ficha">
+        <dt>Tipo</dt><dd>Análise de dados</dd>
+        <dt>Dados</dt><dd>SIH/SUS, 2015–2023</dd>
+        <dt>Ferramentas</dt><dd>BigQuery, SQL, Python, Power BI</dd>
+        <dt>Imagens</dt><dd>{{ prints | length }}</dd>
+      </dl>
+    </div>
+
+    <p class="aviso">Projeto pessoal com os microdados abertos do Sistema de Informações Hospitalares (SIH/SUS), consultados pela Base dos Dados no Google BigQuery. Valores em reais da época, sem correção pela inflação.</p>
+
+    <section class="secao">
+      <h2>PRINCIPAIS ACHADOS</h2>
+      <ul>
+        <li class="linha"><strong>R$ 151,7 BI</strong><p>Gastos em 107,4 milhões de internações entre 2015 e 2023.</p></li>
+        <li class="linha"><strong>COVID</strong><p>Foi só a 4ª causa de internação em volume, mas a mais cara do período: R$ 10,7 bilhões. O valor médio, R$ 5.440, é quase dez vezes o de um parto normal.</p></li>
+        <li class="linha"><strong>PANDEMIA</strong><p>Em 2020 as internações caíram 13,5% em relação a 2019, e a taxa de óbito hospitalar subiu de 4,25% para 6,61% em 2021.</p></li>
+        <li class="linha"><strong>SEPSE</strong><p>Maior letalidade entre os diagnósticos mais frequentes: 46,6% das internações terminam em óbito.</p></li>
+        <li class="linha"><strong>INFARTO +71%</strong><p>As internações por infarto cresceram 71% de 2015 a 2023, enquanto a taxa de óbito caiu de 11,7% para 8,2%. Os partos caíram 27% (normal) e 24% (cesárea).</p></li>
+        <li class="linha"><strong>ESTADOS</strong><p>O Paraná tem a maior taxa de internação (73,9 por mil habitantes por ano) e o maior valor médio (R$ 1.763). O Rio de Janeiro tem a maior taxa de óbito (7,1%) e as internações mais longas (7,1 dias).</p></li>
+      </ul>
+    </section>
+
+    <section class="secao">
+      <h2>DASHBOARD EM POWER BI</h2>
+      <div class="pranchas telas">
+{%- for p in prints %}
+        <figure>
+          <a href="datasus/{{ p.arquivo }}.webp"><img src="datasus/{{ p.arquivo }}-mini.webp" width="960" height="540"{% if not loop.first %} loading="lazy"{% endif %} alt="{{ p.alt }}"></a>
+          <figcaption><strong>{{ p.titulo }}</strong> {{ p.texto }}</figcaption>
+        </figure>
+{%- endfor %}
+      </div>
+    </section>
+
+    <section class="secao">
+      <h2>QUALIDADE DOS DADOS</h2>
+      <ul>
+        <li class="linha"><strong>UF VAZIA</strong><p>A sigla do estado vem vazia em 100% das linhas. O estado foi tirado dos dois primeiros dígitos do código IBGE do município do hospital.</p></li>
+        <li class="linha"><strong>CID DIVIDIDO</strong><p>O diagnóstico principal vem em duas colunas, conforme o tamanho do código. Usando só uma, 90% das internações ficariam sem diagnóstico; as duas foram unidas.</p></li>
+        <li class="linha"><strong>2024 E 2025</strong><p>2024 tem meses duplicados e 2025 tem meses faltando, então o recorte ficou em 2015–2023.</p></li>
+        <li class="linha"><strong>VALIDAÇÃO</strong><p>As somas por estado e por ano batem (107.368.293 internações nas duas), assim como a soma anual de cada diagnóstico com o ranking geral.</p></li>
+      </ul>
+    </section>
+
+    <div class="contato">
+      <div class="links">
+        <a href="https://github.com/arcanospeedruns/datasus-analise" target="_blank" rel="noopener">REPOSITÓRIO NO GITHUB</a>
+        <a href="https://github.com/arcanospeedruns/datasus-analise/blob/main/powerbi/internacoes-sus.pdf" target="_blank" rel="noopener">DASHBOARD EM PDF</a>
+      </div>
+      <a class="botao" href="../portfolio.html">VER OUTROS PROJETOS</a>
+    </div>
+  </main>

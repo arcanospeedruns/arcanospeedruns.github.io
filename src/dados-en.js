@@ -20,6 +20,7 @@ window.projetosEN = [
     ],
     stack: ["BigQuery", "SQL", "Python", "pandas", "Power BI"],
     links: [
+      { texto: "SEE THE PROJECT", url: "projetos/datasus.html" },
       { texto: "GITHUB REPOSITORY (PT)", url: "https://github.com/arcanospeedruns/datasus-analise" },
       { texto: "POWER BI DASHBOARD (PDF, PT)", url: "https://github.com/arcanospeedruns/datasus-analise/blob/main/powerbi/internacoes-sus.pdf" },
     ],

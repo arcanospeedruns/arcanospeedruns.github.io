@@ -24,6 +24,7 @@ const projetos = [
     ],
     stack: ["BigQuery", "SQL", "Python", "pandas", "Power BI"],
     links: [
+      { texto: "VER O PROJETO", url: "projetos/datasus.html" },
       { texto: "REPOSITÓRIO NO GITHUB", url: "https://github.com/arcanospeedruns/datasus-analise" },
       { texto: "DASHBOARD EM POWER BI (PDF)", url: "https://github.com/arcanospeedruns/datasus-analise/blob/main/powerbi/internacoes-sus.pdf" },
     ],

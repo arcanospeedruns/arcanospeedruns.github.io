@@ -1,0 +1,78 @@
+---
+layout: base.njk
+permalink: "/en/projetos/datasus.html"
+lang: "en"
+par: "/projetos/datasus.html"
+titulo: "Public health in data, an analysis of SUS | arcanospeedruns"
+descricao: "Analysis of 107 million hospital admissions funded by SUS, Brazil's public health system, from 2015 to 2023, by Carlos Gouveia: SQL in BigQuery and a Power BI dashboard."
+ogTitulo: "Public health in data | Carlos Gouveia"
+ogDescricao: "107 million hospital admissions funded by SUS from 2015 to 2023: SQL in BigQuery and a Power BI dashboard."
+ogImagem: "/projetos/datasus/og.jpg"
+preload: ["/fonts/tanker.woff2"]
+corpo: "indice-pg projeto-pg"
+scripts: ["/galeria.js"]
+topo: "normal"
+pagina: "portfolio"
+---
+  {% include "topo.njk" %}
+
+  <main>
+    <a class="voltar mono" href="../portfolio.html">← BACK TO PORTFOLIO</a>
+
+    <div class="cabeca">
+      <div>
+        <h1>PUBLIC HEALTH IN DATA</h1>
+        <p class="papel">Analysis of 107 million hospital admissions funded by SUS, Brazil's free public health system, from 2015 to 2023: volume, cost and mortality by year, diagnosis and state.</p>
+      </div>
+      <dl class="ficha">
+        <dt>Type</dt><dd>Data analysis</dd>
+        <dt>Data</dt><dd>SIH/SUS, 2015–2023</dd>
+        <dt>Tools</dt><dd>BigQuery, SQL, Python, Power BI</dd>
+        <dt>Images</dt><dd>{{ prints | length }}</dd>
+      </dl>
+    </div>
+
+    <p class="aviso">Personal project with the open microdata of SUS's Hospital Information System (SIH/SUS), queried through Base dos Dados on Google BigQuery. Amounts in Brazilian reais of each year, not adjusted for inflation. The dashboard is in Portuguese.</p>
+
+    <section class="secao">
+      <h2>KEY FINDINGS</h2>
+      <ul>
+        <li class="linha"><strong>R$ 151.7 BN</strong><p>Spent on 107.4 million admissions between 2015 and 2023.</p></li>
+        <li class="linha"><strong>COVID</strong><p>Only the 4th cause of admission by volume, but the most expensive of the period: R$ 10.7 billion. Its average cost, R$ 5,440, is almost ten times that of a normal delivery.</p></li>
+        <li class="linha"><strong>PANDEMIC</strong><p>Admissions fell 13.5% in 2020 compared with 2019, and in-hospital mortality rose from 4.25% to 6.61% in 2021.</p></li>
+        <li class="linha"><strong>SEPSIS</strong><p>The highest mortality among the most frequent diagnoses: 46.6% of admissions end in death.</p></li>
+        <li class="linha"><strong>HEART ATTACK +71%</strong><p>Admissions for heart attack grew 71% from 2015 to 2023, while mortality fell from 11.7% to 8.2%. Births fell 27% (normal) and 24% (C-section).</p></li>
+        <li class="linha"><strong>STATES</strong><p>Paraná has the highest admission rate (73.9 per thousand people per year) and the highest average cost (R$ 1,763). Rio de Janeiro has the highest mortality (7.1%) and the longest stays (7.1 days).</p></li>
+      </ul>
+    </section>
+
+    <section class="secao">
+      <h2>POWER BI DASHBOARD</h2>
+      <div class="pranchas telas">
+{%- for p in prints %}
+        <figure>
+          <a href="../../projetos/datasus/{{ p.arquivo }}.webp"><img src="../../projetos/datasus/{{ p.arquivo }}-mini.webp" width="960" height="540"{% if not loop.first %} loading="lazy"{% endif %} alt="{{ p.alt }}"></a>
+          <figcaption><strong>{{ p.titulo }}</strong> {{ p.texto }}</figcaption>
+        </figure>
+{%- endfor %}
+      </div>
+    </section>
+
+    <section class="secao">
+      <h2>DATA QUALITY</h2>
+      <ul>
+        <li class="linha"><strong>EMPTY STATE</strong><p>The state column is empty in 100% of rows. The state was derived from the first two digits of the IBGE code of the hospital's municipality.</p></li>
+        <li class="linha"><strong>SPLIT ICD</strong><p>The main diagnosis comes in two columns, depending on the code length. Using only one, 90% of admissions would have no diagnosis, so both were combined.</p></li>
+        <li class="linha"><strong>2024 AND 2025</strong><p>2024 has duplicated months and 2025 has missing months, so the analysis covers 2015–2023.</p></li>
+        <li class="linha"><strong>VALIDATION</strong><p>Totals by state and by year match (107,368,293 admissions in both), as do the yearly sums of each diagnosis and the overall ranking.</p></li>
+      </ul>
+    </section>
+
+    <div class="contato">
+      <div class="links">
+        <a href="https://github.com/arcanospeedruns/datasus-analise" target="_blank" rel="noopener">GITHUB REPOSITORY (PT)</a>
+        <a href="https://github.com/arcanospeedruns/datasus-analise/blob/main/powerbi/internacoes-sus.pdf" target="_blank" rel="noopener">DASHBOARD AS PDF (PT)</a>
+      </div>
+      <a class="botao" href="../portfolio.html">SEE OTHER PROJECTS</a>
+    </div>
+  </main>

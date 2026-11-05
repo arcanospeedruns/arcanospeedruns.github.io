@@ -505,3 +505,8 @@ body.contato-amarelo { --onda-cor: 0,0,0; --onda-fundo: #f3e594; background: #f3
   .landing-nav { flex-direction: column; align-items: stretch; gap: 0.5rem; }
   .landing-nav a { text-align: center; font-size: 0.85rem; padding: 0.5rem 1.2rem 0.4rem; }
 }
+
+/* páginas de projeto com prints de tela (16:9): miniatura inteira, sem cortar */
+.pranchas.telas img { aspect-ratio: 16 / 9; object-fit: contain; background: #04060d; }
+.projeto-pg .contato { flex-wrap: wrap; align-items: center; gap: 0.5rem; }
+.projeto-pg .contato .links { margin-top: 0; }
