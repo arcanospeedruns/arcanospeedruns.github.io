@@ -22,41 +22,7 @@ window.projetosEN = [
     links: [
       { texto: "SEE THE PROJECT", url: "projetos/datasus.html" },
       { texto: "GITHUB REPOSITORY (PT)", url: "https://github.com/arcanospeedruns/datasus-analise" },
-      { texto: "POWER BI DASHBOARD (PDF, PT)", url: "https://github.com/arcanospeedruns/datasus-analise/blob/main/powerbi/internacoes-sus.pdf" },
     ],
-  },
-  {
-    id: "unirota",
-    area: "Product", fundo: "produto",
-    nome: "UNIROTA",
-    curto: "UNIROTA",
-    contexto: "University carpooling app. Agile Project Management course project at PUC-SP, where I worked as UX Designer.",
-    status: "andamento",
-    resumo: "Intercity carpooling system for the academic community, with sign-in through institutional e-mail. I handled the user experience, from flows to screen structure, and followed development in an agile team.",
-    feitos: [
-      "Flows, hierarchy and states defined before high fidelity",
-      "Five-person team, with the app in React Native and the back end in Supabase",
-    ],
-    stack: ["UX", "React Native", "Supabase"],
-    links: [
-      { texto: "APP REPOSITORY (PT)", url: "https://github.com/jvpbicalho/app-carona-universitaria" },
-    ],
-  },
-  {
-    id: "voluntiva",
-    area: "Development", fundo: "dev",
-    nome: "VOLUNTIVA",
-    curto: "VOLUNTIVA",
-    contexto: "Five-person academic team project at PUC-SP, combining Software Design, Networks and Databases.",
-    status: "andamento",
-    resumo: "Volunteer management system for NGOs: social actions, sign-ups, attendance tracking and participation history, on top of a relational database.",
-    feitos: [
-      "Relational database for volunteers, NGOs, actions and sign-ups",
-      "Client-server architecture with a Python API",
-      "Web interface in React",
-    ],
-    stack: ["PostgreSQL", "Python", "FastAPI", "React"],
-    links: [{ texto: "GITHUB REPOSITORY (PT)", url: "https://github.com/joaoggvianna/Voluntiva" }],
   },
   {
     id: "psique",

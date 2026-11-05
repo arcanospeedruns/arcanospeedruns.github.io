@@ -26,41 +26,7 @@ const projetos = [
     links: [
       { texto: "VER O PROJETO", url: "projetos/datasus.html" },
       { texto: "REPOSITÓRIO NO GITHUB", url: "https://github.com/arcanospeedruns/datasus-analise" },
-      { texto: "DASHBOARD EM POWER BI (PDF)", url: "https://github.com/arcanospeedruns/datasus-analise/blob/main/powerbi/internacoes-sus.pdf" },
     ],
-  },
-  {
-    id: "unirota",
-    area: "Produto", fundo: "produto",
-    nome: "UNIROTA",
-    curto: "UNIROTA",
-    contexto: "App de carona universitária. Projeto de Gestão Ágil de Projetos na PUC-SP, em que atuei como UX Designer.",
-    status: "andamento",
-    resumo: "Sistema de caronas intermunicipais para a comunidade acadêmica, com acesso por e-mail institucional. Cuidei da experiência do usuário, dos fluxos à organização das telas, e acompanhei o desenvolvimento em equipe ágil.",
-    feitos: [
-      "Fluxos, hierarquia e estados definidos antes da alta fidelidade",
-      "Equipe de cinco pessoas, com app em React Native e back-end no Supabase",
-    ],
-    stack: ["UX", "React Native", "Supabase"],
-    links: [
-      { texto: "REPOSITÓRIO DO APP", url: "https://github.com/jvpbicalho/app-carona-universitaria" },
-    ],
-  },
-  {
-    id: "voluntiva",
-    area: "Desenvolvimento", fundo: "dev",
-    nome: "VOLUNTIVA",
-    curto: "VOLUNTIVA",
-    contexto: "Projeto acadêmico em equipe de cinco pessoas na PUC-SP, unindo Projeto de Software, Redes e Banco de Dados.",
-    status: "andamento",
-    resumo: "Sistema de gestão de voluntários para ONGs: cadastro de ações sociais, inscrições, controle de presença e histórico de participação, sobre um banco de dados relacional.",
-    feitos: [
-      "Banco relacional para voluntários, ONGs, ações e inscrições",
-      "Arquitetura cliente-servidor com API em Python",
-      "Interface web em React",
-    ],
-    stack: ["PostgreSQL", "Python", "FastAPI", "React"],
-    links: [{ texto: "REPOSITÓRIO NO GITHUB", url: "https://github.com/joaoggvianna/Voluntiva" }],
   },
   {
     id: "psique",
