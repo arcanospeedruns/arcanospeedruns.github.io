@@ -1,12 +1,40 @@
 {
   "prints": [
-    { "arquivo": "visao-geral", "titulo": "Visão geral.", "texto": "Internações, gasto e óbito hospitalar por ano, com o salto do gasto e da mortalidade na pandemia.",
-      "alt": "Página de visão geral: 107,4 milhões de internações, R$ 151,73 bilhões de gasto, valor médio de R$ 1.549 em 2023 e 6,61% de óbito em 2021, com gráficos de internações e gasto por ano e a taxa de óbito de 2015 a 2023." },
-    { "arquivo": "diagnosticos", "titulo": "Diagnósticos.", "texto": "Os 20 diagnósticos que mais internam e os que mais custam, com valor médio, dias de internação e taxa de óbito.",
-      "alt": "Página de diagnósticos: barras de internações e de gasto por diagnóstico, com parto normal em primeiro em volume e doenças por vírus (inclui COVID) em primeiro em gasto, e tabela com internações, gasto, valor médio, dias e óbito." },
-    { "arquivo": "evolucao", "titulo": "Evolução: internações.", "texto": "Os principais diagnósticos ano a ano. O botão no topo troca a medida entre internações, gasto e óbito.",
-      "alt": "Página de evolução com dez pequenos gráficos de linha, um por diagnóstico, mostrando as internações de 2015 a 2023: queda de partos, alta de infarto, sepse e AVC e o pico de COVID em 2021." },
-    { "arquivo": "estados", "titulo": "Estados.", "texto": "Internações por mil habitantes por ano, valor médio, taxa de óbito e dias de internação nos 27 estados.",
-      "alt": "Página de estados: barras de internações por mil habitantes por ano, com Paraná, Roraima e Distrito Federal no topo e Sergipe por último, e tabela com região, internações, valor médio, óbito e dias." }
+    {
+      "arquivo": "visao-geral",
+      "titulo": "Visão geral.",
+      "texto": "Internações, gasto e óbito hospitalar por ano, com o salto do gasto e da mortalidade na pandemia.",
+      "alt": "Página de visão geral: 107,4 milhões de internações, R$ 151,73 bilhões de gasto, valor médio de R$ 1.549 em 2023 e 6,61% de óbito em 2021, com gráficos de internações e gasto por ano e a taxa de óbito de 2015 a 2023."
+    },
+    {
+      "arquivo": "diagnosticos",
+      "titulo": "Diagnósticos.",
+      "texto": "Os 20 diagnósticos que mais internam e os que mais custam, com valor médio, dias de internação e taxa de óbito.",
+      "alt": "Página de diagnósticos: barras de internações e de gasto por diagnóstico, com parto normal em primeiro em volume e doenças por vírus (inclui COVID) em primeiro em gasto, e tabela com internações, gasto, valor médio, dias e óbito."
+    },
+    {
+      "arquivo": "evolucao",
+      "titulo": "Evolução: internações.",
+      "texto": "Os principais diagnósticos ano a ano. O botão no topo troca a medida entre internações, gasto e óbito.",
+      "alt": "Página de evolução com dez pequenos gráficos de linha, um por diagnóstico, mostrando as internações de 2015 a 2023: queda de partos, alta de infarto, sepse e AVC e o pico de COVID em 2021."
+    },
+    {
+      "arquivo": "evolucao-gasto",
+      "titulo": "Evolução: gasto.",
+      "texto": "Gasto anual em R$ milhões por diagnóstico. A COVID passa de R$ 7,5 bilhões em 2021, e o infarto e a sepse sobem quase todo ano.",
+      "alt": "Página de evolução na medida Gasto (R$ mi): dez pequenos gráficos de linha de 2015 a 2023, com o pico da COVID em 2021, perto de R$ 8 bilhões, e alta do gasto com infarto, sepse, AVC e doença renal crônica."
+    },
+    {
+      "arquivo": "evolucao-obito",
+      "titulo": "Evolução: óbito.",
+      "texto": "Taxa de óbito hospitalar por diagnóstico. Pneumonia e COVID disparam na pandemia, enquanto o infarto cai de 11,7% para 8,2%.",
+      "alt": "Página de evolução na medida Óbito (%): dez pequenos gráficos de linha de 2015 a 2023, com a COVID passando de 20% em 2020 e 2021, o pico da pneumonia em 2020 e a queda contínua do óbito por infarto."
+    },
+    {
+      "arquivo": "estados",
+      "titulo": "Estados.",
+      "texto": "Internações por mil habitantes por ano, valor médio, taxa de óbito e dias de internação nos 27 estados.",
+      "alt": "Página de estados: barras de internações por mil habitantes por ano, com Paraná, Roraima e Distrito Federal no topo e Sergipe por último, e tabela com região, internações, valor médio, óbito e dias."
+    }
   ]
 }

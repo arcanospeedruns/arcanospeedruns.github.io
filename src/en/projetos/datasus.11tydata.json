@@ -1,12 +1,40 @@
 {
   "prints": [
-    { "arquivo": "visao-geral", "titulo": "Overview.", "texto": "Admissions, spending and in-hospital mortality by year, with the jump in cost and mortality during the pandemic.",
-      "alt": "Overview page: 107.4 million admissions, R$ 151.73 billion spent, average cost of R$ 1,549 in 2023 and 6.61% mortality in 2021, with charts of admissions and spending by year and mortality from 2015 to 2023." },
-    { "arquivo": "diagnosticos", "titulo": "Diagnoses.", "texto": "The 20 diagnoses with the most admissions and the highest cost, with average cost, length of stay and mortality.",
-      "alt": "Diagnoses page: bars of admissions and spending by diagnosis, with normal delivery first in volume and viral diseases (including COVID) first in spending, and a table with admissions, spending, average cost, days and mortality." },
-    { "arquivo": "evolucao", "titulo": "Trends: admissions.", "texto": "The main diagnoses year by year. The button at the top switches the measure between admissions, spending and mortality.",
-      "alt": "Trends page with ten small line charts, one per diagnosis, showing admissions from 2015 to 2023: fewer births, more heart attacks, sepsis and strokes and the COVID peak in 2021." },
-    { "arquivo": "estados", "titulo": "States.", "texto": "Admissions per thousand people per year, average cost, mortality and length of stay in the 27 states.",
-      "alt": "States page: bars of admissions per thousand people per year, with Paraná, Roraima and the Federal District at the top and Sergipe last, and a table with region, admissions, average cost, mortality and days." }
+    {
+      "arquivo": "visao-geral",
+      "titulo": "Overview.",
+      "texto": "Admissions, spending and in-hospital mortality by year, with the jump in cost and mortality during the pandemic.",
+      "alt": "Overview page: 107.4 million admissions, R$ 151.73 billion spent, average cost of R$ 1,549 in 2023 and 6.61% mortality in 2021, with charts of admissions and spending by year and mortality from 2015 to 2023."
+    },
+    {
+      "arquivo": "diagnosticos",
+      "titulo": "Diagnoses.",
+      "texto": "The 20 diagnoses with the most admissions and the highest cost, with average cost, length of stay and mortality.",
+      "alt": "Diagnoses page: bars of admissions and spending by diagnosis, with normal delivery first in volume and viral diseases (including COVID) first in spending, and a table with admissions, spending, average cost, days and mortality."
+    },
+    {
+      "arquivo": "evolucao",
+      "titulo": "Trends: admissions.",
+      "texto": "The main diagnoses year by year. The button at the top switches the measure between admissions, spending and mortality.",
+      "alt": "Trends page with ten small line charts, one per diagnosis, showing admissions from 2015 to 2023: fewer births, more heart attacks, sepsis and strokes and the COVID peak in 2021."
+    },
+    {
+      "arquivo": "evolucao-gasto",
+      "titulo": "Trends: spending.",
+      "texto": "Yearly spending in R$ millions by diagnosis. COVID passes R$ 7.5 billion in 2021, and heart attack and sepsis rise almost every year.",
+      "alt": "Trends page with the Spending (R$ mi) measure: ten small line charts from 2015 to 2023, with the COVID peak in 2021 near R$ 8 billion and rising spending on heart attack, sepsis, stroke and chronic kidney disease."
+    },
+    {
+      "arquivo": "evolucao-obito",
+      "titulo": "Trends: mortality.",
+      "texto": "In-hospital mortality by diagnosis. Pneumonia and COVID spike during the pandemic, while heart attack mortality falls from 11.7% to 8.2%.",
+      "alt": "Trends page with the Mortality (%) measure: ten small line charts from 2015 to 2023, with COVID above 20% in 2020 and 2021, the pneumonia peak in 2020 and the steady fall in heart attack mortality."
+    },
+    {
+      "arquivo": "estados",
+      "titulo": "States.",
+      "texto": "Admissions per thousand people per year, average cost, mortality and length of stay in the 27 states.",
+      "alt": "States page: bars of admissions per thousand people per year, with Paraná, Roraima and the Federal District at the top and Sergipe last, and a table with region, admissions, average cost, mortality and days."
+    }
   ]
 }
