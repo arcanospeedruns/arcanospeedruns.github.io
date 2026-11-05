@@ -31,6 +31,7 @@
     const nav = document.querySelector(".landing-centro") || document.querySelector(".landing-nav");
     if (nav) { const r = nav.getBoundingClientRect(); pedra = { x0: r.left, y0: r.top, x1: r.right, y1: r.bottom }; }
     for (const p of peixes) p.ajustar();
+    for (const p of peixes) if (!p.j.length || p.j[0].x < -50 || p.j[0].x > W + 50 || p.j[0].y < -50 || p.j[0].y > H + 50) p.posicionar();
   }
 
   // ---------- as carpas ----------
@@ -49,89 +50,101 @@
   ];
   const OLHO = "#111";
 
+  // órbita: uma elipse em volta dos botões, percorrida em sentido horário
+  const livre = () => W < 700; // no celular as carpas saem mais da trilha
+  function orbita() {
+    const cx = pedra ? (pedra.x0 + pedra.x1) / 2 : W / 2, cy = pedra ? (pedra.y0 + pedra.y1) / 2 : H / 2;
+    const L = peixes[0].L, folga = peixes[0].Wd * 2.6;
+    const meiaL = pedra ? (pedra.x1 - pedra.x0) / 2 : 0, meiaA = pedra ? (pedra.y1 - pedra.y0) / 2 : 0;
+    const espacoX = Math.min(cx, W - cx) - L * 0.32, espacoY = Math.min(cy - 60, H - cy) - L * 0.22;
+    let ry = Math.max(meiaA + folga, Math.min(espacoY, H * 0.34));
+    let rx = Math.max(meiaL + folga, Math.min(espacoX, ry * (livre() ? 1 : 1.6)));
+    return { x: cx, y: cy, rx: Math.max(rx, 40), ry: Math.max(ry, 40) };
+  }
+  const faseNa = (O, x, y) => Math.atan2((y - O.y) / O.ry, (x - O.x) / O.rx);
+
   class Carpa {
-    constructor(id, fx, fy, ang, fase) {
-      this.id = id; this.fx = fx; this.fy = fy; this.ang = ang; this.fase = fase;
+    constructor(id, fase) {
+      this.id = id; this.fase = fase; this.inicio = id * Math.PI; // começam em lados opostos da órbita
       this.N = 22; this.j = [];
       this.pad = PADROES[id];
       this.giro = 0;      // velocidade de giro atual (rad/s), com inércia
       this.fase2 = fase;  // fase da batida da cauda
       this.amp = 0.5;     // força da ondulação do corpo
+      this.ang = 0;
     }
     ajustar() {
       // no celular as carpas ficam menores, para caberem as duas sem trombar
-      this.L = W < 700 ? Math.max(110, Math.min(170, W * 0.36)) : Math.max(180, Math.min(420, escala * 0.4));
+      this.L = W < 700 ? Math.max(110, Math.min(160, W * 0.34)) : Math.max(180, Math.min(360, escala * 0.34));
       this.Wd = this.L * 0.155; // meia largura máxima do corpo
       this.seg = this.L / (this.N - 1);
       this.v = this.v || this.L * 0.14;
-      if (!this.j.length) {
-        const x = W * this.fx, y = H * this.fy;
-        for (let i = 0; i < this.N; i++) this.j.push({ x: x - Math.cos(this.ang) * this.seg * i, y: y - Math.sin(this.ang) * this.seg * i });
-      } else {
-        for (const p of this.j) { p.x = Math.min(Math.max(p.x, 0), W); p.y = Math.min(Math.max(p.y, 0), H); }
-      }
+    }
+    posicionar() {
+      // coloca a carpa na órbita, já nadando no sentido horário
+      const O = orbita(), f = this.inicio;
+      const x = O.x + Math.cos(f) * O.rx, y = O.y + Math.sin(f) * O.ry;
+      this.ang = Math.atan2(O.ry * Math.cos(f), -O.rx * Math.sin(f));
+      this.j = [];
+      for (let i = 0; i < this.N; i++) this.j.push({ x: x - Math.cos(this.ang) * this.seg * i, y: y - Math.sin(this.ang) * this.seg * i });
     }
     passo(dt, t, outra) {
       const h = this.j[0], L = this.L;
       const cx = Math.cos(this.ang), cy = Math.sin(this.ang);
-      // 1. vagueia: a vontade de virar muda devagar
-      let alvo = 0.45 * Math.sin(t * 0.23 + this.fase) + 0.3 * Math.sin(t * 0.59 + this.fase * 2.3);
-      // 2. olha um pouco à frente; se esse ponto sai da tela, vira para longe da parede
-      //    (contornando a borda, em vez de todas voltarem para o mesmo centro)
-      const m = Math.min(L * 0.6, W * 0.16, H * 0.16);
-      const fx = h.x + cx * L * 0.7, fy = h.y + cy * L * 0.7;
+      const O = orbita(), solta = livre();
+      // 1. segue a órbita: aponta para a tangente (sentido horário) e corrige a distância
+      const f = faseNa(O, h.x, h.y);
+      const rn = Math.hypot((h.x - O.x) / O.rx, (h.y - O.y) / O.ry);
+      const rAlvo = 1 + (solta ? 0.24 : 0.06) * Math.sin(t * (solta ? 0.33 : 0.21) + this.fase * 1.7);
+      let rumo = Math.atan2(O.ry * Math.cos(f), -O.rx * Math.sin(f));
+      rumo += Math.max(-0.9, Math.min(0.9, (rn - rAlvo) * 2.4)); // fora da trilha: vira para dentro; dentro: para fora
+      let alvo = difAng(this.ang, rumo) * 1.8;
+      if (solta) alvo += 0.35 * Math.sin(t * 0.47 + this.fase * 2.3); // no celular, um pouco de passeio
+      // 2. olha à frente; se esse ponto sai da tela, vira para dentro
+      const m = Math.min(L * 0.4, W * 0.1, H * 0.1);
+      const fx = h.x + cx * L * 0.5, fy = h.y + cy * L * 0.5;
       const px = (fx < m ? 1 : 0) - (fx > W - m ? 1 : 0), py = (fy < m * 1.6 ? 1 : 0) - (fy > H - m ? 1 : 0);
       let fora = Math.max(m - fx, fx - (W - m), m * 1.6 - fy, fy - (H - m), 0);
       if (fora > 0) {
-        // vira para dentro e um pouco na direção do meio, para não ficar rente à borda
-        const mx = W / 2 - h.x, my = H * 0.55 - h.y, md = Math.hypot(mx, my) || 1;
-        let dA = difAng(this.ang, Math.atan2(py + (my / md) * 0.7, px + (mx / md) * 0.7));
-        // indo reto contra a parede: mantém o lado para onde já estava virando (senão fica indecisa)
-        if (Math.abs(dA) > 2.3) dA = (this.giro >= 0 ? 1 : -1) * Math.abs(dA);
+        let dA = difAng(this.ang, Math.atan2(py + (O.y - h.y) / (O.ry || 1) * 0.7, px + (O.x - h.x) / (O.rx || 1) * 0.7));
+        if (Math.abs(dA) > 2.3) dA = Math.abs(dA); // na dúvida, vira no sentido horário
         alvo += dA * Math.min(3, 1 + (fora / m) * 2);
       }
-      // 2b. contorna os botões
+      // 2b. nunca passa por cima dos botões
       if (pedra) {
-        const folga = this.Wd * 1.6;
-        const gx = h.x + cx * L * 0.55, gy = h.y + cy * L * 0.55;
+        const folga = this.Wd * 1.4;
+        const gx = h.x + cx * L * 0.4, gy = h.y + cy * L * 0.4;
         if (gx > pedra.x0 - folga && gx < pedra.x1 + folga && gy > pedra.y0 - folga && gy < pedra.y1 + folga) {
-          const rx = (pedra.x0 + pedra.x1) / 2, ry = (pedra.y0 + pedra.y1) / 2;
-          let dA = difAng(this.ang, Math.atan2(gy - ry, gx - rx));
-          if (Math.abs(dA) > 2.3) dA = (this.giro >= 0 ? 1 : -1) * Math.abs(dA);
-          alvo += dA * 1.6;
+          alvo += difAng(this.ang, Math.atan2(gy - O.y, gx - O.x)) * 2;
           fora = Math.max(fora, 1);
         }
       }
-      // 3. desvia do corpo da outra antes de encostar: olha onde vai estar daqui a pouco
-      const raio = (L + outra.L) * 0.55;
+      // 3. se a outra estiver logo à frente, desvia (com a órbita isso quase não acontece)
+      const raio = (L + outra.L) * 0.45;
       let perto = Infinity, desvio = 0;
-      for (const ahead of [0.2, 0.6]) {
-        const ox = h.x + cx * L * ahead, oy = h.y + cy * L * ahead;
-        for (let i = 0; i < outra.N; i += 2) {
-          const q = outra.j[i];
-          const dx = q.x - ox, dy = q.y - oy, d = Math.hypot(dx, dy);
-          if (d < perto) perto = d;
-          if (d < raio) {
-            const lado = (cx * dy - cy * dx) / (d || 1); // > 0: o pedaço da outra está de um lado, < 0 do outro
-            // quase de frente: as duas viram sempre para o mesmo lado (como no trânsito)
-            const sinal = Math.abs(lado) < 0.25 ? 1 : Math.sign(lado);
-            desvio -= sinal * Math.pow(1 - d / raio, 1.5) * 2.4;
-          }
+      for (let i = 0; i < outra.N; i += 2) {
+        const q = outra.j[i];
+        const dx = q.x - (h.x + cx * L * 0.3), dy = q.y - (h.y + cy * L * 0.3), d = Math.hypot(dx, dy);
+        if (d < perto) perto = d;
+        if (d < raio) {
+          const lado = (cx * dy - cy * dx) / (d || 1);
+          desvio -= (Math.abs(lado) < 0.25 ? 1 : Math.sign(lado)) * Math.pow(1 - d / raio, 1.5) * 2.2;
         }
       }
-      alvo += Math.max(-3, Math.min(3, desvio)) * (fora > 0 ? 0.4 : 1); // a parede tem prioridade
-      // 4. longe demais da outra: aproxima um pouco (carpas costumam nadar em dupla)
-      const hx = outra.j[0].x - h.x, hy = outra.j[0].y - h.y;
-      if (Math.hypot(hx, hy) > Math.max(L * 2.4, escala * 0.5)) alvo += difAng(this.ang, Math.atan2(hy, hx)) * 0.35;
+      alvo += Math.max(-3, Math.min(3, desvio)) * (fora > 0 ? 0.4 : 1);
       // o giro tem inércia: muda aos poucos
       const urgente = desvio !== 0 || fora > 0;
-      alvo = Math.max(-2.2, Math.min(2.2, alvo));
-      this.giro += (alvo - this.giro) * Math.min(1, dt * (urgente ? 4 : 2));
+      alvo = Math.max(-2, Math.min(2, alvo));
+      this.giro += (alvo - this.giro) * Math.min(1, dt * (urgente ? 4 : 2.5));
       this.ang += this.giro * dt;
 
-      // velocidade: impulsos de cauda seguidos de deslize, e mais devagar perto da outra
+      // velocidade: impulsos de cauda seguidos de deslize
       const impulso = Math.pow(0.5 + 0.5 * Math.sin(t * 0.42 + this.fase * 1.7), 3);
-      let vAlvo = L * (0.09 + 0.2 * impulso);
+      let vAlvo = L * (0.1 + 0.16 * impulso);
+      // mantém as duas em lados opostos da órbita: a que ficou para trás acelera
+      const fo = faseNa(O, outra.j[0].x, outra.j[0].y);
+      let gap = fo - f; while (gap < 0) gap += 2 * Math.PI; while (gap >= 2 * Math.PI) gap -= 2 * Math.PI;
+      vAlvo *= 1 + 0.35 * Math.max(-1, Math.min(1, (gap - Math.PI) / Math.PI));
       if (perto < raio * 0.6) vAlvo *= 0.7;
       this.v += (vAlvo - this.v) * Math.min(1, dt * 1.2);
       // a cauda bate mais rápido e mais forte quando acelera
@@ -169,7 +182,7 @@
   }
   function nadar(dt, t) { peixes[0].passo(dt, t, peixes[1]); peixes[1].passo(dt, t, peixes[0]); separar(); }
 
-  const peixes = [new Carpa(0, 0.3, 0.35, 0.2, 0), new Carpa(1, 0.7, 0.68, Math.PI + 0.2, 2.1)];
+  const peixes = [new Carpa(0, 0), new Carpa(1, 2.1)];
 
   // ---------- carimbo na grade ----------
   // prioridade: olho > corpo > nadadeira; a segunda carpa passa por cima da primeira
