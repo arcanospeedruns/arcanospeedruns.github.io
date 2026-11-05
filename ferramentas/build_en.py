@@ -20,6 +20,14 @@ COMUM = [
 ]
 
 PAGINAS = {
+"landing.html": [
+    ('content="Portfólio de Carlos Gouveia: dados, front-end e design."', 'content="Portfolio of Carlos Gouveia: data, front-end and design."'),
+    ('<h1 class="so-leitor">Carlos Gouveia: portfólio</h1>', '<h1 class="so-leitor">Carlos Gouveia: portfolio</h1>'),
+    ('<nav class="landing-nav mono" aria-label="Páginas">', '<nav class="landing-nav mono" aria-label="Pages">'),
+    ('>[ SOBRE ]</a>', '>[ ABOUT ]</a>'),
+    ('>[ PORTFÓLIO ]</a>', '>[ PORTFOLIO ]</a>'),
+    ('>[ CONTATO ]</a>', '>[ CONTACT ]</a>'),
+],
 "index.html": [
     ('content="Portfólio de Carlos Gouveia: dados, front-end e design."', 'content="Portfolio of Carlos Gouveia: data, front-end and design."'),
     ('content="Analista de dados e designer. Python, SQL e dashboards, com experiência em pesquisa clínica, e identidade visual para marcas."',
@@ -205,6 +213,8 @@ for p, trocas in PAGINAS.items():
     en = pt
     for a, b in COMUM + trocas:
         if a not in en:
+            if (a, b) in COMUM and p == "landing.html":
+                continue  # a landing não tem o menu de texto do topo
             raise SystemExit(f"[{p}] texto não encontrado, atualize a tradução: {a[:70]}")
         en = en.replace(a, b)
     en = en.replace(f'<meta property="og:url" content="{BASE}{"" if p == "index.html" else p}">',

@@ -487,27 +487,20 @@ body.contato-amarelo { --onda-cor: 0,0,0; --onda-fundo: #f3e594; background: #f3
 }
 .cabeca h1, .cabeca .papel { position: relative; z-index: 1; }
 
-/* ---------- landing em ASCII (teste: landing.html) ---------- */
-.landing-pg { margin: 0; min-height: 100vh; background: #0b0c0e; color: var(--claro); }
+/* ---------- landing: carpas em ASCII (landing.html) ---------- */
+.landing-pg { margin: 0; min-height: 100vh; min-height: 100dvh; background: #fff; color: #000; overflow: hidden; }
+#carpas { position: fixed; inset: 0; width: 100vw; height: 100vh; height: 100dvh; display: block; z-index: 0; }
+.topo-landing { position: relative; z-index: 1; border-bottom: 0; }
 .so-leitor { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-.landing { min-height: 100vh; min-height: 100dvh; display: grid; grid-template-rows: auto 1fr auto auto auto; justify-items: center; padding: 1rem clamp(1rem, 2vw, 1.5rem) 0; box-sizing: border-box; }
-.landing-topo { justify-self: stretch; display: flex; justify-content: space-between; margin: 0; color: #8a9097; }
-.landing-arte { align-self: center; display: grid; justify-items: center; padding: 2rem 0 1rem; }
-.ascii {
-  margin: 0; font-family: "Departure", ui-monospace, monospace; line-height: 1; letter-spacing: 0;
-  font-size: min(14px, calc((100vw - 2.5rem) / (var(--cols) * 0.6364)));
-  color: var(--claro); white-space: pre; user-select: none;
+.landing { position: relative; z-index: 1; min-height: calc(100dvh - 4rem); display: grid; place-items: center; pointer-events: none; }
+.landing-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.7rem; pointer-events: auto; }
+.landing-nav a {
+  color: #000; background: #fff; text-decoration: none; border: 1.5px solid #000;
+  padding: 0.6rem 0.9rem 0.5rem; font-size: 0.95rem; letter-spacing: 0.08em;
 }
-.ascii-estreita { display: none; }
-.landing-sub { margin: 0.6rem 0 1.6rem; letter-spacing: 0.45em; color: #8a9097; text-align: center; }
-.landing-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem 1.2rem; margin-bottom: 2rem; }
-.landing-nav a { color: var(--claro); text-decoration: none; padding: 0.5rem 0.4rem 0.4rem; font-size: 0.95rem; letter-spacing: 0.08em; }
-.landing-nav a:hover, .landing-nav a:focus-visible { background: var(--amarelo); color: #000; outline: none; }
-.landing-onda { justify-self: stretch; display: grid; justify-items: center; overflow: hidden; }
-.onda-ascii { color: #4d5257; }
-@media (max-width: 720px) {
-  .ascii-larga { display: none; }
-  .ascii-estreita { display: block; }
-  .landing-nav { flex-direction: column; align-items: center; gap: 0.3rem; }
-  .landing-sub { letter-spacing: 0.3em; }
+.landing-nav a:hover, .landing-nav a:focus-visible { background: var(--amarelo); outline: none; }
+@media (max-width: 640px) {
+  .landing { align-items: end; padding-bottom: 14vh; box-sizing: border-box; }
+  .landing-nav { flex-direction: column; align-items: stretch; gap: 0.5rem; }
+  .landing-nav a { text-align: center; font-size: 0.85rem; padding: 0.5rem 1.2rem 0.4rem; }
 }

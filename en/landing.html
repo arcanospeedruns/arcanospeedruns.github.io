@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>arcanospeedruns | Carlos Gouveia</title>
+  <meta name="description" content="Portfolio of Carlos Gouveia: data, front-end and design.">
+  <meta name="robots" content="noindex">
+  <link rel="alternate" hreflang="pt-BR" href="https://arcanospeedruns.github.io/landing.html">
+  <link rel="alternate" hreflang="en" href="https://arcanospeedruns.github.io/en/landing.html">
+  <link rel="alternate" hreflang="x-default" href="https://arcanospeedruns.github.io/landing.html">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="../fonts/departure-mono.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/tanker.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../style.css?v=202611050830">
+</head>
+<body class="landing-pg">
+  <canvas id="carpas" aria-hidden="true"></canvas>
+  <header class="topo topo-landing mono">
+    <div class="topo-esq"><a class="marca" href="landing.html">ARCANOSPEEDRUNS</a><span class="idioma" aria-label="Language"><a href="../landing.html" hreflang="pt-BR" lang="pt-BR">PT<span class="br">-BR</span></a><span aria-current="true">EN</span></span></div>
+  </header>
+  <main class="landing">
+    <h1 class="so-leitor">Carlos Gouveia: portfolio</h1>
+    <nav class="landing-nav mono" aria-label="Pages">
+      <a href="index.html">[ ABOUT ]</a>
+      <a href="portfolio.html">[ PORTFOLIO ]</a>
+      <a href="contato.html">[ CONTACT ]</a>
+    </nav>
+  </main>
+  <script src="../landing.js?v=202611050830"></script>
+  <script>document.querySelectorAll(".idioma a").forEach(a=>a.addEventListener("click",()=>{a.href=a.href.split("#")[0]+location.hash}))</script>
+</body>
+</html>
