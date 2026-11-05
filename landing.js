@@ -28,7 +28,7 @@
     sA = new Float32Array(n); uA = new Float32Array(n); tipo = new Uint8Array(n);
     escala = Math.min(W, H * 1.3);
     // os botões viram uma pedra no lago: as carpas contornam
-    const nav = document.querySelector(".landing-nav");
+    const nav = document.querySelector(".landing-centro") || document.querySelector(".landing-nav");
     if (nav) { const r = nav.getBoundingClientRect(); pedra = { x0: r.left, y0: r.top, x1: r.right, y1: r.bottom }; }
     for (const p of peixes) p.ajustar();
   }
@@ -346,27 +346,6 @@
 
   // computador: o máximo da tela; celular: ~30 quadros por segundo, para poupar bateria
   const INTERVALO = matchMedia("(hover: none), (pointer: coarse)").matches ? 32 : 0;
-  // para testes: landing.html?debug simula sem desenhar e mede a menor distância entre as carpas
-  if (location.search.includes("debug")) window.__simular = (seg) => {
-    let tt = 0, toques = 0, menor = Infinity, fora = 0;
-    for (let i = 0; i < seg * 30; i++) {
-      tt += 1 / 30;
-      nadar(1 / 30, tt);
-      let m = Infinity;
-      for (const a of peixes[0].j) for (const b of peixes[1].j) m = Math.min(m, Math.hypot(a.x - b.x, a.y - b.y));
-      menor = Math.min(menor, m);
-      if (m < (peixes[0].Wd + peixes[1].Wd) * 0.9) toques++;
-      for (const p of peixes) if (p.j[0].x < -20 || p.j[0].x > W + 20 || p.j[0].y < -20 || p.j[0].y > H + 20) fora++;
-    }
-    return { quadros: seg * 30, toques, menor: Math.round(menor), fora, L: Math.round(peixes[0].L) };
-  };
-  if (location.search.includes("debug")) window.__tempo = () => {
-    const r = {};
-    let a = performance.now(); for (let i = 0; i < 60; i++) nadar(1 / 60, 10 + i / 60); r.nadar = (performance.now() - a) / 60;
-    a = performance.now(); for (let i = 0; i < 60; i++) { prio.fill(0); prof.fill(0); for (const p of peixes) desenharCarpa(p, 10); } r.carimbo = (performance.now() - a) / 60;
-    a = performance.now(); for (let i = 0; i < 60; i++) quadro(10 + i / 60); r.quadro = (performance.now() - a) / 60;
-    return r;
-  };
   const comecar = () => {
     if (reduzir) { quadro(T); return; }
     let antes = performance.now(), ultimo = 0;

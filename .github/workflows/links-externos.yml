@@ -1,0 +1,24 @@
+# Uma vez por semana confere se os links para fora do site (GitHub, PDFs, repositórios) ainda abrem.
+# Se algum quebrar, a execução falha e o GitHub avisa por e-mail.
+name: links externos
+on:
+  schedule:
+    - cron: "23 11 * * 1"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  conferir:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci && npm run build
+      - uses: lycheeverse/lychee-action@v2
+        with:
+          # o LinkedIn bloqueia robôs, então fica de fora
+          args: --no-progress --scheme https --exclude linkedin.com --exclude arcanospeedruns.github.io "_site/**/*.html"
+          fail: true

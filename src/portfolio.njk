@@ -1,0 +1,30 @@
+---
+layout: base.njk
+permalink: "/portfolio.html"
+lang: "pt-BR"
+par: "/en/portfolio.html"
+titulo: "Portfólio | arcanospeedruns"
+descricao: "Projetos de Carlos Gouveia."
+ogTitulo: "Portfólio | Carlos Gouveia"
+ogDescricao: "Projetos de dados, produto e design de Carlos Gouveia."
+ogImagem: "/og.png"
+preload: ["/fonts/tanker.woff2"]
+corpo: "orbita"
+scripts: ["/dados.js", "/grade.js"]
+topo: "normal"
+pagina: "portfolio"
+---
+  <canvas id="grade" aria-hidden="true"></canvas>
+
+  {% include "topo.njk" %}
+
+  <main>
+    <div class="cabecalho-dados">
+      <h1>PORTFÓLIO</h1>
+      <p>Projetos de dados, produto e design. Abra um cartão para ver o que foi feito, com quais ferramentas e onde ver mais.</p>
+    </div>
+
+    <ul class="cartoes" id="projetos" aria-label="Projetos">
+      <!-- os cartões são criados pelo dados.js -->
+    </ul>
+  </main>

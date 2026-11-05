@@ -1,12 +1,11 @@
 /* =========================================================
    arcanospeedruns — portfólio de Carlos Gouveia
-   Fontes: Tanker e Switzer (Fontshare/ITF), Outward e Departure Mono (OFL)
+   Fontes: Tanker e Switzer (Fontshare/ITF) e Departure Mono (OFL)
    Home: lista direta sobre alumínio, com a onda de pontos no rodapé.
    Dados: mapa de destinos em WebGL.
    ========================================================= */
 
 @font-face { font-family: "Tanker"; src: url(fonts/tanker.woff2) format("woff2"); font-display: swap; }
-@font-face { font-family: "Outward"; src: url(fonts/outward-block.woff2) format("woff2"); font-display: swap; }
 @font-face { font-family: "Departure"; src: url(fonts/departure-mono.woff2) format("woff2"); font-display: swap; }
 @font-face { font-family: "Switzer"; src: url(fonts/switzer-400.woff2) format("woff2"); font-weight: 400; font-display: swap; }
 @font-face { font-family: "Switzer"; src: url(fonts/switzer-500.woff2) format("woff2"); font-weight: 500; font-display: swap; }
@@ -499,6 +498,8 @@ body.contato-amarelo { --onda-cor: 0,0,0; --onda-fundo: #f3e594; background: #f3
   padding: 0.6rem 0.9rem 0.5rem; font-size: 0.95rem; letter-spacing: 0.08em;
 }
 .landing-nav a:hover, .landing-nav a:focus-visible { background: var(--amarelo); outline: none; }
+.landing-centro { display: grid; justify-items: center; gap: 1.1rem; pointer-events: none; }
+.landing-nome { margin: 0; font-size: 0.72rem; letter-spacing: 0.42em; color: #6b7076; pointer-events: auto; }
 @media (max-width: 640px) {
   .landing { align-items: end; padding-bottom: 8vh; box-sizing: border-box; }
   .landing-nav { flex-direction: column; align-items: stretch; gap: 0.5rem; }

@@ -1,0 +1,12 @@
+{
+  "name": "arcanospeedruns-site",
+  "private": true,
+  "description": "Portfólio de Carlos Gouveia (arcanospeedruns.github.io)",
+  "scripts": {
+    "build": "eleventy",
+    "dev": "eleventy --serve"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.8"
+  }
+}

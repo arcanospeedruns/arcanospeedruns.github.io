@@ -1,0 +1,44 @@
+{%- set t = site.textos[lang] -%}
+{%- set url_pt = par if lang == "en" else page.url -%}
+{%- set url_en = page.url if lang == "en" else par -%}
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ titulo }}</title>
+  <meta name="description" content="{{ descricao }}">
+{%- if semIndice %}
+  <meta name="robots" content="noindex">
+{%- else %}
+  <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+{%- endif %}
+{%- if par %}
+  <link rel="alternate" hreflang="pt-BR" href="{{ site.url }}{{ url_pt }}">
+  <link rel="alternate" hreflang="en" href="{{ site.url }}{{ url_en }}">
+  <link rel="alternate" hreflang="x-default" href="{{ site.url }}{{ url_pt }}">
+{%- endif %}
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{{ site.nome }}">
+  <meta property="og:title" content="{{ ogTitulo or titulo }}">
+  <meta property="og:description" content="{{ ogDescricao or descricao }}">
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+  <meta property="og:image" content="{{ site.url }}{{ ogImagem or '/og.png' }}">
+  <meta property="og:locale" content="{{ t.locale }}">
+  <meta name="twitter:card" content="summary_large_image">
+{%- for f in preload %}
+  <link rel="preload" href="{{ f }}" as="font" type="font/woff2" crossorigin>
+{%- endfor %}
+  <link rel="stylesheet" href="{{ '/style.css' | versao }}">
+</head>
+<body class="{{ corpo }}">
+{{ content | safe }}
+{%- for s in scripts %}
+  <script src="{{ s | versao }}"></script>
+{%- endfor %}
+{%- if par %}
+  <script>document.querySelectorAll(".idioma a").forEach(a=>a.addEventListener("click",()=>{a.href=a.href.split("#")[0]+location.hash}))</script>
+{%- endif %}
+</body>
+</html>

@@ -1,0 +1,20 @@
+---
+permalink: "/sitemap.xml"
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="utf-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+{%- for p in collections.all %}
+{%- if not p.data.semIndice %}
+  <url>
+    <loc>{{ site.url }}{{ p.url }}</loc>
+{%- if p.data.par %}
+{%- set pt = p.data.par if p.data.lang == "en" else p.url %}
+{%- set en = p.url if p.data.lang == "en" else p.data.par %}
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="{{ site.url }}{{ pt }}"/>
+    <xhtml:link rel="alternate" hreflang="en" href="{{ site.url }}{{ en }}"/>
+{%- endif %}
+  </url>
+{%- endif %}
+{%- endfor %}
+</urlset>

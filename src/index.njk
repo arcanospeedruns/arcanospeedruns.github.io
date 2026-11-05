@@ -1,0 +1,28 @@
+---
+layout: base.njk
+permalink: "/"
+lang: "pt-BR"
+par: "/en/"
+titulo: "arcanospeedruns | Carlos Gouveia"
+descricao: "Portfólio de Carlos Gouveia: dados, front-end e design."
+ogTitulo: "arcanospeedruns | Carlos Gouveia"
+ogDescricao: "Portfólio de Carlos Gouveia: dados, front-end e design."
+ogImagem: "/og.png"
+preload: ["/fonts/departure-mono.woff2", "/fonts/tanker.woff2"]
+corpo: "landing-pg"
+scripts: ["/landing.js"]
+topo: "landing"
+---
+  <canvas id="carpas" aria-hidden="true"></canvas>
+  {% include "topo.njk" %}
+  <main class="landing">
+    <h1 class="so-leitor">Carlos Gouveia: portfólio</h1>
+    <div class="landing-centro">
+      <nav class="landing-nav mono" aria-label="Páginas">
+        <a href="sobre.html">[ SOBRE ]</a>
+        <a href="portfolio.html">[ PORTFÓLIO ]</a>
+        <a href="contato.html">[ CONTATO ]</a>
+      </nav>
+      <p class="landing-nome mono">CARLOS GOUVEIA</p>
+    </div>
+  </main>

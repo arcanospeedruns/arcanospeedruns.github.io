@@ -1,0 +1,21 @@
+{%- set t = site.textos[lang] -%}
+<header class="topo{% if topo == 'landing' %} topo-landing{% endif %} mono">
+      <div class="topo-esq"><a class="marca" href="{{ t.inicio }}">ARCANOSPEEDRUNS</a>
+        {%- if par -%}
+        <span class="idioma" aria-label="{{ t.idioma }}">
+          {%- if lang == "en" -%}
+          <a href="{{ par }}" hreflang="pt-BR" lang="pt-BR">PT<span class="br">-BR</span></a><span aria-current="true">EN</span>
+          {%- else -%}
+          <span aria-current="true">PT<span class="br">-BR</span></span><a href="{{ par }}" hreflang="en" lang="en">EN</a>
+          {%- endif -%}
+        </span>
+        {%- endif -%}
+      </div>
+{%- if topo != 'landing' %}
+      <nav aria-label="{{ t.menu }}">
+{%- for chave, item in t.nav %}
+        <a href="{{ item[1] }}"{% if pagina == chave %} aria-current="page"{% endif %}>{{ item[0] }}</a>
+{%- endfor %}
+      </nav>
+{%- endif %}
+    </header>

@@ -1,0 +1,42 @@
+---
+layout: base.njk
+permalink: "/contato.html"
+lang: "pt-BR"
+par: "/en/contato.html"
+titulo: "Contato | arcanospeedruns"
+descricao: "Contato de Carlos Gouveia."
+ogTitulo: "Contato | Carlos Gouveia"
+ogDescricao: "Aberto a vagas de estágio ou júnior em dados e design, remoto ou híbrido."
+ogImagem: "/og.png"
+preload: ["/fonts/tanker.woff2"]
+corpo: "indice-pg contato-amarelo"
+scripts: ["/onda.js"]
+topo: "normal"
+pagina: "contato"
+---
+  <canvas id="onda" data-tela-cheia aria-hidden="true"></canvas>
+
+  <div class="conteudo">
+    {% include "topo.njk" %}
+
+    <main class="contato-pg">
+      <figure class="foto">
+        <img src="foto.webp" alt="Foto de Carlos Gouveia" width="640" height="640" decoding="async" fetchpriority="high">
+      </figure>
+
+      <div class="contato-info">
+        <h1>CONTATO</h1>
+        <p class="papel">Aberto a vagas de estágio ou júnior em dados e design, remoto ou híbrido. O jeito mais rápido de falar comigo é por e-mail.</p>
+
+        <a class="email" href="mailto:arcanospeedruns@gmail.com">ARCANOSPEEDRUNS@GMAIL.COM</a>
+
+        <!-- Coloque o currículo na pasta com o nome curriculo.pdf -->
+        <ul class="canais">
+          <li><span class="mono">LinkedIn</span><a href="https://www.linkedin.com/in/carloslnly">linkedin.com/in/carloslnly</a></li>
+          <li><span class="mono">GitHub</span><a href="https://github.com/arcanospeedruns">github.com/arcanospeedruns</a></li>
+          <li><span class="mono">Currículo</span><a href="curriculo.pdf">Baixar em PDF</a></li>
+          <li><span class="mono">Cidade</span><span>São Paulo, SP</span></li>
+        </ul>
+      </div>
+    </main>
+  </div>
