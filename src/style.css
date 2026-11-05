@@ -528,3 +528,20 @@ body.contato-amarelo { --onda-cor: 0,0,0; --onda-fundo: #f3e594; background: #f3
 .heroi img { display: block; width: 100%; height: clamp(260px, 42vw, 620px); object-fit: cover; object-position: 50% 45%; }
 .pranchas.duas { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 1400px; }
 @media (max-width: 700px) { .pranchas.duas { grid-template-columns: 1fr; } }
+
+/* ---------- portfólio em azul-claro, no mesmo sistema das outras páginas ---------- */
+.orbita {
+  --vazio: #b4c6d9;
+  --vazio-2: #d6e1ec;
+  --estrela: #000;
+  --nevoa: #3d4856;
+  --linha-escura: #000;
+}
+.orbita .marca:hover { background: var(--tinta); color: var(--amarelo); }
+.orbita .cartao:hover, .orbita .cartao:focus-visible { border-color: var(--tinta); outline: 3px solid var(--amarelo); outline-offset: -3px; }
+.orbita .cartao-mais, .orbita .painel-links a { color: var(--tinta); }
+.orbita .cartao-mais { text-decoration: underline; text-underline-offset: 3px; }
+.orbita .cartao-meta .st-andamento { color: var(--tinta); }
+.orbita .status.concluido { background: #fff; }
+.orbita .gaveta::backdrop { background: rgba(10, 20, 35, .45); }
+.orbita .painel ul.feitos li::marker { color: var(--tinta); }
