@@ -62,7 +62,7 @@
   function desenhar(seg) {
     prepararQuadro(seg * 0.32);
     ctx.clearRect(0, 0, W, H);
-    ctx.strokeStyle = "rgba(20, 40, 70, 0.13)";
+    ctx.strokeStyle = "rgba(90, 45, 20, 0.14)";
     ctx.lineWidth = 1;
     const passo = Math.max(44, Math.min(W, H) / 12);
     const margem = passo * 3;

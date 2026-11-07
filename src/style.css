@@ -13,7 +13,7 @@
 
 :root {
   --aluminio: #c4c7c9;
-  --azul: #b4c6d9;
+  --pessego: #f3c9ab;
   --claro: #d9dcdd;
   --tinta: #000;
   --cinza: #4d5257;
@@ -531,12 +531,12 @@ body.contato-amarelo { --onda-cor: 0,0,0; --onda-fundo: #f3e594; background: #f3
 .pranchas.duas { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 1400px; }
 @media (max-width: 700px) { .pranchas.duas { grid-template-columns: 1fr; } }
 
-/* ---------- portfólio em azul-claro, no mesmo sistema das outras páginas ---------- */
+/* ---------- portfólio em pêssego, no mesmo sistema das outras páginas ---------- */
 .orbita {
-  --vazio: var(--azul);
-  --vazio-2: #d6e1ec;
+  --vazio: var(--pessego);
+  --vazio-2: #fbe7d9;
   --estrela: #000;
-  --nevoa: #3d4856;
+  --nevoa: #4f3d33;
   --linha-escura: #000;
 }
 .orbita .marca:hover { background: var(--tinta); color: var(--amarelo); }
@@ -545,11 +545,11 @@ body.contato-amarelo { --onda-cor: 0,0,0; --onda-fundo: #f3e594; background: #f3
 .orbita .cartao-mais { text-decoration: underline; text-underline-offset: 3px; }
 .orbita .cartao-meta .st-andamento { color: var(--tinta); }
 .orbita .status.concluido { background: #fff; }
-.orbita .gaveta::backdrop { background: rgba(10, 20, 35, .45); }
+.orbita .gaveta::backdrop { background: rgba(40, 20, 10, .45); }
 .orbita .painel ul.feitos li::marker { color: var(--tinta); }
 
-/* páginas de projeto no mesmo azul do portfólio, com a onda de pontos no topo */
-.projeto-pg { background: var(--azul); --onda-fundo: var(--azul); }
+/* páginas de projeto no mesmo pêssego do portfólio, com a onda de pontos no topo */
+.projeto-pg { background: var(--pessego); --onda-fundo: var(--pessego); }
 
 /* gato da marca, antes do nome no topo */
 .marca { display: inline-flex; align-items: center; gap: 0.32em; }
