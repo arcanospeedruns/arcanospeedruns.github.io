@@ -8,6 +8,8 @@ const cfg = window.HUB_CONFIG || {};
 const BALDE = "fotos";
 const POR_PAGINA = 12;
 const LADO_MAX = 2000; // px do lado maior depois de reduzir
+const MAX_MB = 25; // limite por arquivo (igual ao do Supabase, em supabase/hub.sql)
+const ehVideo = (caminho) => /\.(mp4|webm)$/i.test(caminho || "");
 
 const msg = $("#msg");
 const avisar = (t, el = msg) => { el.textContent = t || ""; };
@@ -61,6 +63,13 @@ const data = (iso) => {
 
 const urlFoto = (caminho) => db.storage.from(BALDE).getPublicUrl(caminho).data.publicUrl;
 
+// foto, GIF ou vídeo curto (mp4/webm, que toca em loop e sem som, como um GIF)
+function midia(src, ehVid, extra = "") {
+  return ehVid
+    ? `<video src="${esc(src)}" autoplay loop muted playsinline preload="metadata" ${extra}></video>`
+    : `<img src="${esc(src)}" ${extra}>`;
+}
+
 function slugDe(titulo) {
   const base = titulo.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase()
     .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 60) || "post";
@@ -69,11 +78,20 @@ function slugDe(titulo) {
 
 const idNovo = () => (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2));
 
-// reduz a foto no navegador antes de enviar (GIF vai como está, para não perder a animação)
+// reduz a foto no navegador antes de enviar.
+// GIF e WebP vão como estão (para não perder a animação); vídeo curto também.
 async function prepararFoto(arquivo) {
-  if (arquivo.type === "image/gif") {
+  if (arquivo.size > MAX_MB * 1024 * 1024) throw new Error(`"${arquivo.name}" tem mais de ${MAX_MB} MB. Use um arquivo menor.`);
+  if (arquivo.type === "video/mp4" || arquivo.type === "video/webm") {
+    const v = document.createElement("video");
+    v.preload = "metadata"; v.muted = true; v.src = URL.createObjectURL(arquivo);
+    await new Promise((ok, erro) => { v.onloadedmetadata = ok; v.onerror = () => erro(new Error(`não deu para ler o vídeo "${arquivo.name}"`)); });
+    URL.revokeObjectURL(v.src);
+    return { blob: arquivo, tipo: arquivo.type, ext: arquivo.type === "video/mp4" ? "mp4" : "webm", w: v.videoWidth, h: v.videoHeight };
+  }
+  if (arquivo.type === "image/gif" || arquivo.type === "image/webp") {
     const bmp = await createImageBitmap(arquivo);
-    const r = { blob: arquivo, tipo: "image/gif", ext: "gif", w: bmp.width, h: bmp.height };
+    const r = { blob: arquivo, tipo: arquivo.type, ext: arquivo.type === "image/gif" ? "gif" : "webp", w: bmp.width, h: bmp.height };
     bmp.close?.();
     return r;
   }
@@ -97,7 +115,6 @@ async function lerSessao() {
 function aplicarSessao(sessao) {
   dono = !!sessao;
   $("#barra-dono").hidden = !dono;
-  $("#quem").textContent = dono ? (sessao.user?.email || "").toUpperCase() : "";
   $("#link-entrar").hidden = dono;
 }
 
@@ -112,7 +129,7 @@ function itemFeed(p, n) {
   li.innerHTML = `
     <a href="#/p/${encodeURIComponent(p.slug)}">
       <div class="ficha-post-img${capa ? "" : " sem-foto"}">${capa
-        ? `<img src="${esc(urlFoto(capa.caminho))}" alt="" loading="lazy" width="${capa.w || ""}" height="${capa.h || ""}">`
+        ? midia(urlFoto(capa.caminho), ehVideo(capa.caminho), `alt="" loading="lazy" width="${capa.w || ""}" height="${capa.h || ""}"`)
         : `<span aria-hidden="true">${esc(textoPuro(titulo).charAt(0).toUpperCase() || "·")}</span>`}</div>
       <div class="ficha-post-txt">
         <p class="ficha-post-meta"><b>${String(n).padStart(2, "0")}</b> · ${data(p.criado_em)}</p>
@@ -172,7 +189,7 @@ async function abrirPost(slug) {
   ul.innerHTML = "";
   (p.fotos || []).forEach((f, i) => {
     const li = document.createElement("li");
-    li.innerHTML = `<a href="${esc(urlFoto(f.caminho))}" data-i="${i}"><img src="${esc(urlFoto(f.caminho))}" alt="${esc(p.titulo)}, foto ${i + 1}" loading="lazy" width="${f.w || ""}" height="${f.h || ""}"></a>`;
+    li.innerHTML = `<a href="${esc(urlFoto(f.caminho))}" data-i="${i}">${midia(urlFoto(f.caminho), ehVideo(f.caminho), `alt="${esc(p.titulo)}, foto ${i + 1}" loading="lazy" width="${f.w || ""}" height="${f.h || ""}"`)}</a>`;
     ul.append(li);
   });
   ul.classList.toggle("uma", (p.fotos || []).length === 1);
@@ -249,7 +266,8 @@ function desenharPrevia() {
   fotosEd.forEach((f, i) => {
     const li = document.createElement("li");
     const src = f.previa || urlFoto(f.caminho);
-    li.innerHTML = `<img src="${esc(src)}" alt="Foto ${i + 1}">
+    const vid = f.arquivo ? f.arquivo.type.startsWith("video/") : ehVideo(f.caminho);
+    li.innerHTML = `${midia(src, vid, `alt="Foto ${i + 1}"`)}
       <div class="mono">
         <button type="button" data-acao="esq" ${i === 0 ? "disabled" : ""} aria-label="Mover para a esquerda">←</button>
         <button type="button" data-acao="tirar" aria-label="Tirar foto ${i + 1}">TIRAR</button>
@@ -283,7 +301,7 @@ function abrirEditor(post) {
 
 $("#p-fotos").addEventListener("change", (e) => {
   for (const arquivo of e.target.files) {
-    if (!arquivo.type.startsWith("image/")) continue;
+    if (!arquivo.type.startsWith("image/") && arquivo.type !== "video/mp4" && arquivo.type !== "video/webm") continue;
     fotosEd.push({ arquivo, previa: URL.createObjectURL(arquivo) });
   }
   e.target.value = "";
@@ -374,8 +392,10 @@ function mostrarFoto(i) {
   const fs = atual?.fotos || [];
   if (!fs.length) return;
   fotoI = (i + fs.length) % fs.length;
-  $("#foto-img").src = urlFoto(fs[fotoI].caminho);
-  $("#foto-img").alt = `${atual.titulo}, foto ${fotoI + 1}`;
+  const f = fs[fotoI], vid = ehVideo(f.caminho), img = $("#foto-img"), video = $("#foto-video");
+  img.hidden = vid; video.hidden = !vid;
+  if (vid) { img.removeAttribute("src"); video.src = urlFoto(f.caminho); video.play?.().catch(() => {}); }
+  else { video.pause(); video.removeAttribute("src"); img.src = urlFoto(f.caminho); img.alt = `${atual.titulo}, foto ${fotoI + 1}`; }
   $("#foto-conta").textContent = `${fotoI + 1} / ${fs.length}`;
   $("#foto-ant").hidden = $("#foto-prox").hidden = fs.length < 2;
 }
@@ -387,6 +407,7 @@ $("#l-fotos").addEventListener("click", (e) => {
   caixa.showModal();
 });
 $("#foto-fechar").addEventListener("click", () => caixa.close());
+caixa.addEventListener("close", () => $("#foto-video").pause());
 $("#foto-ant").addEventListener("click", () => mostrarFoto(fotoI - 1));
 $("#foto-prox").addEventListener("click", () => mostrarFoto(fotoI + 1));
 caixa.addEventListener("click", (e) => { if (e.target === caixa || e.target.classList.contains("ampliada-palco")) caixa.close(); });

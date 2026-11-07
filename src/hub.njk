@@ -8,7 +8,7 @@ eleventyExcludeFromCollections: false
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- só conversa com o próprio site e com o Supabase; nenhum script de fora roda aqui -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://*.supabase.co wss://*.supabase.co; img-src 'self' https://*.supabase.co blob: data:; style-src 'self'; script-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://*.supabase.co wss://*.supabase.co; img-src 'self' https://*.supabase.co blob: data:; media-src 'self' https://*.supabase.co blob:; style-src 'self'; script-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
   <title>Hub | Carlos Gouveia</title>
   <link rel="canonical" href="{{ site.url }}/hub.html">
   <meta name="description" content="Textos e fotos de Carlos Gouveia.">
@@ -35,7 +35,6 @@ eleventyExcludeFromCollections: false
     <!-- barra que só aparece para o dono, logado -->
     <div class="chapa barra-dono" id="barra-dono" hidden>
       <button type="button" class="bisel escuro" id="novo">+ NOVO POST</button>
-      <span class="quem" id="quem"></span>
       <button type="button" class="bisel" id="sair">SAIR</button>
     </div>
 
@@ -92,8 +91,8 @@ eleventyExcludeFromCollections: false
         <input id="p-titulo" type="text" maxlength="140" required>
         <label for="p-texto">TEXTO</label>
         <textarea id="p-texto" rows="10" placeholder="Parágrafos separados por linha em branco. **negrito**, *itálico*, [link](https://...), ## subtítulo, &gt; citação, - lista"></textarea>
-        <label for="p-fotos">FOTOS</label>
-        <input id="p-fotos" type="file" accept="image/*" multiple>
+        <label for="p-fotos">FOTOS E GIFS</label>
+        <input id="p-fotos" type="file" accept="image/*,video/mp4,video/webm" multiple>
         <ul class="previa" id="previa" aria-label="Fotos do post"></ul>
         <label class="check"><input id="p-publicado" type="checkbox" checked> Publicar (desmarcado, fica como rascunho que só você vê)</label>
         <div class="janela-acoes"><button type="submit" class="bisel escuro" id="salvar">SALVAR</button><span class="hub-msg" id="msg-editor" role="status"></span></div>
@@ -107,6 +106,7 @@ eleventyExcludeFromCollections: false
     <div class="ampliada-palco">
       <button type="button" class="ampliada-seta ant" id="foto-ant" aria-label="Foto anterior">←</button>
       <img id="foto-img" alt="">
+      <video id="foto-video" loop muted playsinline controls hidden></video>
       <button type="button" class="ampliada-seta prox" id="foto-prox" aria-label="Próxima foto">→</button>
     </div>
     <p class="ampliada-legenda"></p>

@@ -61,9 +61,9 @@ create policy "dono apaga" on public.posts
 
 -- fotos: pasta pública "fotos" (qualquer um vê, só o dono envia e apaga)
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
-values ('fotos', 'fotos', true, 8388608, array['image/jpeg', 'image/png', 'image/webp', 'image/gif'])
-on conflict (id) do update set public = true, file_size_limit = 8388608,
-  allowed_mime_types = array['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+values ('fotos', 'fotos', true, 26214400, array['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'video/mp4', 'video/webm'])
+on conflict (id) do update set public = true, file_size_limit = 26214400,
+  allowed_mime_types = array['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'video/mp4', 'video/webm'];
 
 drop policy if exists "fotos: dono envia" on storage.objects;
 create policy "fotos: dono envia" on storage.objects

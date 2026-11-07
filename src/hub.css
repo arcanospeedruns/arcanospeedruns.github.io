@@ -236,3 +236,12 @@
 /* topo do hub: só o gato (mesma marca do site), no canto superior esquerdo, volta para a home */
 .topo-gato { display: flex; justify-content: flex-start; }
 .topo-gato .marca { font-size: 1.3rem; }
+
+/* sem o e-mail na barra do dono: SAIR fica à direita */
+.barra-dono #sair { margin-left: auto; }
+/* GIFs em vídeo (mp4/webm) ocupam o mesmo lugar das fotos */
+.ficha-post-img video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.fotos-post video { display: block; width: 100%; height: auto; background: var(--gelo-2); }
+.previa video { display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border: 1.5px solid var(--contorno); border-radius: 4px; background: var(--gelo-2); }
+.hub-pg .ampliada-palco video { justify-self: center; max-width: 100%; max-height: calc(100dvh - 9rem); }
+@media (max-width: 640px) { .hub-pg .ampliada-palco video { grid-row: 1; } }
