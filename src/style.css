@@ -569,3 +569,7 @@ body.contato-amarelo { --onda-cor: 0,0,0; --onda-fundo: #f3e594; background: #f3
   border: 1.5px solid #000; text-decoration: none; font-size: 0.85rem; letter-spacing: 0.08em;
 }
 .botao-hub:hover, .botao-hub:focus-visible { background: var(--amarelo); outline: none; }
+
+/* cantos arredondados, como ícones e botões de app da Apple */
+.marca { border-radius: 22%; }
+.landing-nav a, .botao-hub { border-radius: 12px; }
