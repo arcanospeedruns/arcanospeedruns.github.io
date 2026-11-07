@@ -249,3 +249,10 @@
 /* miniatura inteira (sem cortar), com faixas escuras quando a proporção não é quadrada; sem as linhas de TV por cima */
 .ficha-post-img img, .ficha-post-img video { object-fit: contain; }
 .ficha-post-img:not(.sem-foto)::after { display: none; }
+
+/* miniatura no tamanho natural da imagem: sem faixas de fundo (muito alta, ela é limitada e centralizada) */
+.ficha-post-img:not(.sem-foto) { aspect-ratio: auto; background: transparent; }
+.ficha-post-img:not(.sem-foto) img, .ficha-post-img:not(.sem-foto) video { height: auto; max-height: 26rem; margin: 0 auto; }
+/* cada cartão com a altura do próprio conteúdo (sem esticar para igualar a fila) */
+.feed { align-items: start; }
+.ficha-post a { height: auto; }
