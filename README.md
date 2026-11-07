@@ -41,6 +41,7 @@ python3 ferramentas/conferir_links.py _site
 - **Texto de uma página:** edite `src/<página>.njk` e a versão em `src/en/`.
 - **Projeto no portfólio:** edite `src/dados.js` (português) e `src/dados-en.js` (inglês).
 - **Currículo (PDF):** edite o texto em `ferramentas/curriculo.py` e rode `python3 ferramentas/curriculo.py` (precisa do Playwright com Chromium). Gera `src/curriculo.pdf` e `src/curriculo-en.pdf`.
+- **Imagem de compartilhamento (prévia no Discord, WhatsApp etc.):** gerada sozinha a cada publicação por `ferramentas/og.py`, com o título de cada página. Para mudar o visual, edite os modelos nesse arquivo.
 - **Página nova:** copie o cabeçalho (front matter) de uma página parecida e ajuste `permalink`, `par` (a página no outro idioma), `titulo`, `descricao` e `scripts`.
 
 ## Fontes

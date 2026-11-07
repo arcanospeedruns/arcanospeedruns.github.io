@@ -22,6 +22,11 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
+      - name: Gera as imagens de compartilhamento de cada página
+        run: |
+          pip install --quiet playwright
+          python3 -m playwright install --with-deps chromium
+          python3 ferramentas/og.py _site
       - name: Confere links internos
         run: python3 ferramentas/conferir_links.py _site
       - uses: actions/upload-pages-artifact@v3
