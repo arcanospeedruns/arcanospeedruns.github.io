@@ -245,3 +245,7 @@
 .previa video { display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border: 1.5px solid var(--contorno); border-radius: 4px; background: var(--gelo-2); }
 .hub-pg .ampliada-palco video { justify-self: center; max-width: 100%; max-height: calc(100dvh - 9rem); }
 @media (max-width: 640px) { .hub-pg .ampliada-palco video { grid-row: 1; } }
+
+/* miniatura inteira (sem cortar), com faixas escuras quando a proporção não é quadrada; sem as linhas de TV por cima */
+.ficha-post-img img, .ficha-post-img video { object-fit: contain; }
+.ficha-post-img:not(.sem-foto)::after { display: none; }
