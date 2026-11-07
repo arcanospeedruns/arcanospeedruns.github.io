@@ -249,5 +249,5 @@
 /* miniatura inteira (sem cortar); sem as linhas de TV por cima */
 .ficha-post-img img, .ficha-post-img video { object-fit: contain; }
 .ficha-post-img:not(.sem-foto)::after { display: none; }
-/* miniatura quadrada com a imagem inteira; o espaço que sobra fica branco */
-.ficha-post-img:not(.sem-foto) { background: #fff; }
+/* miniatura quadrada com a imagem inteira; o espaço que sobra fica no prata escovado dos painéis */
+.ficha-post-img:not(.sem-foto) { background: var(--escovado), var(--prata); }
