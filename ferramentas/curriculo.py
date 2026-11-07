@@ -11,7 +11,7 @@ from html import escape
 from playwright.sync_api import sync_playwright
 
 RAIZ = Path(__file__).resolve().parent.parent
-EMAIL = "carlosgouveia.g@gmail.com"
+EMAIL = "carlosgouveia.pm@gmail.com"
 
 CV = {
     "pt": {
