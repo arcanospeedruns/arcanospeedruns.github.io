@@ -353,6 +353,20 @@
   let resize = 0;
   addEventListener("resize", () => { clearTimeout(resize); resize = setTimeout(() => { medir(); if (reduzir) quadro(T); }, 100); });
 
+  // segredo: clicar numa carpa leva ao hub (o cursor vira mãozinha só em cima delas)
+  function emCimaDeCarpa(x, y) {
+    for (const p of peixes) {
+      for (let i = 0; i < p.N; i++) {
+        const r = perfil(i / (p.N - 1)) * p.Wd * 1.25 + 6;
+        const q = p.j[i];
+        if ((q.x - x) ** 2 + (q.y - y) ** 2 < r * r) return true;
+      }
+    }
+    return false;
+  }
+  tela.addEventListener("pointermove", (e) => { tela.style.cursor = emCimaDeCarpa(e.clientX, e.clientY) ? "pointer" : ""; });
+  tela.addEventListener("click", (e) => { if (emCimaDeCarpa(e.clientX, e.clientY)) location.href = "/hub.html"; });
+
   // simula alguns segundos antes de mostrar, para as carpas já aparecerem curvadas
   let T = 0;
   for (let i = 0; i < 150; i++) { T += 1 / 30; nadar(1 / 30, T); }
