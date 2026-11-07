@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- só conversa com o próprio site e com o Supabase; nenhum script de fora roda aqui -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://*.supabase.co wss://*.supabase.co; img-src 'self' https://*.supabase.co blob: data:; style-src 'self'; script-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>Hub | Carlos Gouveia</title>
+  <meta name="description" content="Textos e fotos de Carlos Gouveia.">
+  <meta name="theme-color" content="#24282d">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="arcanospeedruns">
+  <meta property="og:title" content="Hub | Carlos Gouveia">
+  <meta property="og:description" content="Textos e fotos de Carlos Gouveia.">
+  <meta property="og:url" content="https://arcanospeedruns.github.io/hub.html">
+  <meta property="og:image" content="https://arcanospeedruns.github.io/og.png">
+  <link rel="preload" href="fonts/michroma.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="style.css?v=202611050750">
+  <link rel="stylesheet" href="hub.css?v=202611050750">
+</head>
+<body class="hub-pg">
+  <div class="moldura">
+
+    <header class="chapa topo-hub">
+      <a class="logo-hub" href="index.html" aria-label="arcanospeedruns, voltar ao site">ARCANOSPEEDRUNS</a>
+      <span class="lcd" id="relogio" aria-label="Hora em São Paulo">--:--:--</span>
+      <nav class="nav-hub" aria-label="Páginas">
+        <a class="bisel" href="sobre.html">SOBRE</a>
+        <a class="bisel" href="portfolio.html">PORTFÓLIO</a>
+        <a class="bisel" href="contato.html">CONTATO</a>
+        <a class="bisel" href="#/" aria-current="page">HUB</a>
+      </nav>
+    </header>
+
+    <section class="chapa hero-hub" id="hero" aria-label="Sobre o hub">
+      <h1 class="hero-sub">Hub · textos e fotos, publicados por mim.</h1>
+      <div class="letreiro" aria-hidden="true"><span class="letreiro-barras"></span><div class="letreiro-trilho"><span id="letreiro">TEXTOS E FOTOS · SÃO PAULO · </span></div></div>
+    </section>
+
+    <!-- barra que só aparece para o dono, logado -->
+    <div class="chapa barra-dono" id="barra-dono" hidden>
+      <button type="button" class="bisel escuro" id="novo">+ NOVO POST</button>
+      <span class="quem" id="quem"></span>
+      <button type="button" class="bisel" id="sair">SAIR</button>
+    </div>
+
+    <p class="hub-msg" id="msg" role="status"></p>
+
+    <!-- lista de posts -->
+    <section class="chapa" id="lista" aria-labelledby="lista-titulo">
+      <div class="chapa-cabeca"><h2 id="lista-titulo">POSTS RECENTES</h2><span class="risco" aria-hidden="true"></span><span class="lcd pequeno" id="contagem"></span></div>
+      <ol class="feed" id="feed"></ol>
+      <p class="vazio" id="vazio" hidden>Nenhum post publicado ainda.</p>
+      <div class="mais-linha"><button type="button" class="bisel" id="mais" hidden>MAIS POSTS</button></div>
+    </section>
+
+    <!-- um post aberto -->
+    <article class="chapa leitura" id="leitura" hidden>
+      <div class="chapa-cabeca"><a href="#/" class="bisel">← TODOS OS POSTS</a><span class="risco" aria-hidden="true"></span><span class="lcd pequeno" id="l-data"></span></div>
+      <div class="folha">
+        <h2 id="l-titulo"></h2>
+        <div class="acoes-dono" id="l-acoes" hidden>
+          <button type="button" class="bisel" id="l-editar">EDITAR</button>
+          <button type="button" class="bisel perigo" id="l-apagar">APAGAR</button>
+        </div>
+        <div class="texto-post" id="l-texto"></div>
+        <ul class="fotos-post" id="l-fotos" aria-label="Fotos do post"></ul>
+      </div>
+    </article>
+
+    <footer class="rodape-hub">
+      <span>SÃO PAULO · 2026</span>
+      <a href="#/entrar" id="link-entrar">ENTRAR</a>
+    </footer>
+  </div>
+
+  <!-- entrar (só o dono tem conta) -->
+  <dialog id="entrar" class="janela" aria-labelledby="entrar-titulo">
+    <form id="form-entrar">
+      <div class="janela-barra"><span id="entrar-titulo">ENTRAR</span><button type="button" class="bisel x" data-fechar aria-label="Fechar">✕</button></div>
+      <div class="janela-corpo">
+        <label for="e-email">E-MAIL</label>
+        <input id="e-email" type="email" autocomplete="username" required>
+        <label for="e-senha">SENHA</label>
+        <input id="e-senha" type="password" autocomplete="current-password" required>
+        <div class="janela-acoes"><button type="submit" class="bisel escuro">ENTRAR</button><span class="hub-msg" id="msg-entrar" role="alert"></span></div>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- editor de post -->
+  <dialog id="editor" class="janela larga" aria-labelledby="editor-titulo">
+    <form id="form-post">
+      <div class="janela-barra"><span id="editor-titulo">NOVO POST</span><button type="button" class="bisel x" data-fechar aria-label="Fechar">✕</button></div>
+      <div class="janela-corpo">
+        <label for="p-titulo">TÍTULO</label>
+        <input id="p-titulo" type="text" maxlength="140" required>
+        <label for="p-texto">TEXTO</label>
+        <textarea id="p-texto" rows="10" placeholder="Parágrafos separados por linha em branco. **negrito**, *itálico*, [link](https://...), ## subtítulo, &gt; citação, - lista"></textarea>
+        <label for="p-fotos">FOTOS</label>
+        <input id="p-fotos" type="file" accept="image/*" multiple>
+        <ul class="previa" id="previa" aria-label="Fotos do post"></ul>
+        <label class="check"><input id="p-publicado" type="checkbox" checked> Publicar (desmarcado, fica como rascunho que só você vê)</label>
+        <div class="janela-acoes"><button type="submit" class="bisel escuro" id="salvar">SALVAR</button><span class="hub-msg" id="msg-editor" role="status"></span></div>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- foto ampliada -->
+  <dialog id="foto" class="ampliada" aria-label="Foto ampliada">
+    <div class="ampliada-topo mono"><span id="foto-conta"></span><div><button type="button" id="foto-fechar">FECHAR ✕</button></div></div>
+    <div class="ampliada-palco">
+      <button type="button" class="ampliada-seta ant" id="foto-ant" aria-label="Foto anterior">←</button>
+      <img id="foto-img" alt="">
+      <button type="button" class="ampliada-seta prox" id="foto-prox" aria-label="Próxima foto">→</button>
+    </div>
+    <p class="ampliada-legenda"></p>
+  </dialog>
+
+  <script src="hub-config.js?v=202611050750"></script>
+  <script src="hub.js?v=202611050750"></script>
+</body>
+</html>
