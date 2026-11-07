@@ -562,10 +562,10 @@ body.contato-amarelo { --onda-cor: 0,0,0; --onda-fundo: #f3e594; background: #f3
 .marca { gap: 0; padding: 0.32rem; }
 .marca-gato { height: 1.3em; margin-top: 0; }
 
-/* Contato: botão do hub no canto inferior direito */
+/* landing: botão do hub no canto inferior direito, no estilo dos botões do centro */
 .botao-hub {
   position: fixed; right: clamp(0.8rem, 2vw, 1.4rem); bottom: clamp(0.8rem, 2vw, 1.4rem); z-index: 3;
-  padding: 0.55rem 0.85rem 0.45rem; background: #000; color: #f3e594;
-  border: 1px solid #000; text-decoration: none; letter-spacing: 0.12em;
+  padding: 0.5rem 0.8rem 0.4rem calc(0.8rem + 0.08em); background: #fff; color: #000;
+  border: 1.5px solid #000; text-decoration: none; font-size: 0.85rem; letter-spacing: 0.08em;
 }
-.botao-hub:hover, .botao-hub:focus-visible { background: #f3e594; color: #000; }
+.botao-hub:hover, .botao-hub:focus-visible { background: var(--amarelo); outline: none; }
