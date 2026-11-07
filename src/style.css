@@ -554,3 +554,6 @@ body.contato-amarelo { --onda-cor: 0,0,0; --onda-fundo: #f3e594; background: #f3
 /* gato da marca, antes do nome no topo */
 .marca { display: inline-flex; align-items: center; gap: 0.32em; }
 .marca-gato { width: auto; height: 1.08em; margin-top: -0.12em; flex: none; }
+
+/* sobre: empresa em destaque acima da descrição da experiência */
+.linha .onde { display: block; font-weight: 600; margin-bottom: 0.2rem; }
