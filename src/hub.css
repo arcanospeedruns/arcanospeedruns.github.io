@@ -232,3 +232,7 @@
 /* nada estoura a largura no celular */
 .moldura > * { min-width: 0; }
 .letreiro-trilho { min-width: 0; }
+
+/* topo do hub: só o gato (mesma marca do site), no canto superior esquerdo, volta para a home */
+.topo-gato { display: flex; justify-content: flex-start; }
+.topo-gato .marca { font-size: 1.3rem; }

@@ -127,7 +127,8 @@ function itemFeed(p, n) {
 // os títulos dos últimos posts correm no letreiro
 function enfeitarDestaque(posts) {
   const titulos = posts.filter((p) => p.publicado).slice(0, 5).map((p) => (p.titulo || "").toUpperCase());
-  if (titulos.length) $("#letreiro").textContent = "ÚLTIMOS POSTS · " + titulos.join(" · ") + " · ";
+  const letreiro = $("#letreiro");
+  if (letreiro && titulos.length) letreiro.textContent = "ÚLTIMOS POSTS · " + titulos.join(" · ") + " · ";
 }
 
 async function carregarLista(reiniciar) {
@@ -186,7 +187,7 @@ async function abrirPost(slug) {
 // ---------- rotas ----------
 async function rota() {
   if (!db) {
-    $("#lista").hidden = true; $("#leitura").hidden = true; $("#hero").hidden = true;
+    $("#lista").hidden = true; $("#leitura").hidden = true;
     avisar("O hub ainda não foi ligado ao banco. Volte em breve.");
     return;
   }
@@ -198,12 +199,10 @@ async function rota() {
   const m = h.match(/^p\/(.+)$/);
   if (m) {
     $("#lista").hidden = true;
-    $("#hero").hidden = true;
     await abrirPost(decodeURIComponent(m[1]));
   } else {
     $("#leitura").hidden = true;
     $("#lista").hidden = false;
-    $("#hero").hidden = false;
     document.title = "Hub | Carlos Gouveia";
     atual = null;
     if (!$("#feed").children.length) await carregarLista(true);
@@ -395,12 +394,6 @@ caixa.addEventListener("keydown", (e) => {
   if (e.key === "ArrowLeft") mostrarFoto(fotoI - 1);
   if (e.key === "ArrowRight") mostrarFoto(fotoI + 1);
 });
-
-// ---------- relógio (hora de São Paulo) ----------
-const fmtHora = new Intl.DateTimeFormat("pt-BR", { timeZone: "America/Sao_Paulo", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false });
-const tic = () => { $("#relogio").textContent = fmtHora.format(new Date()); };
-tic();
-setInterval(tic, 1000);
 
 // ---------- início ----------
 $("#mais").addEventListener("click", () => carregarLista(false));
