@@ -40,7 +40,8 @@ for p, html in paginas:
         alvo = os.path.normpath(alvo)
         if not os.path.exists(alvo):
             print(f"QUEBRADO  {p}: {url}"); erros += 1; continue
-        if u.fragment and alvo.endswith(".html") and u.fragment not in ids.get(alvo, set()):
+        # "#/..." são rotas do hub (hub.js), não âncoras
+        if u.fragment and not u.fragment.startswith("/") and alvo.endswith(".html") and u.fragment not in ids.get(alvo, set()):
             print(f"ÂNCORA    {p}: {url}"); erros += 1
 print(f"{len(paginas)} páginas conferidas, {erros} problema(s).")
 sys.exit(1 if erros else 0)
