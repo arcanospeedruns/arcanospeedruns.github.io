@@ -598,3 +598,6 @@ body:not(.contato-amarelo) .voltar { padding: 0.15rem 0.35rem; margin-left: calc
 
 /* portfólio: a grade animada não passa por baixo da barra do topo */
 .orbita .topo { background: var(--vazio); }
+
+/* portfólio: rodapé por cima da grade animada */
+.orbita .rodape { position: relative; z-index: 1; }
