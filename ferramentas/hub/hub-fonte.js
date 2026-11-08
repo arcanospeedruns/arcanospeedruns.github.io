@@ -6,9 +6,6 @@ import { createClient } from "@supabase/supabase-js";
 const $ = (s) => document.querySelector(s);
 const cfg = window.HUB_CONFIG || {};
 const BALDE = "fotos";
-// a página em inglês (en/hub.html) usa os mesmos posts, com os textos fixos traduzidos
-const EN = document.documentElement.lang.startsWith("en");
-const T = (pt, en) => (EN ? en : pt);
 const POR_PAGINA = 12;
 const LADO_MAX = 2000; // px do lado maior depois de reduzir
 const MAX_MB = 25; // limite por arquivo (igual ao do Supabase, em supabase/hub.sql)
@@ -58,7 +55,7 @@ function formatar(texto) {
 const textoPuro = (t) => String(t || "").replace(/\[([^\]]+)\]\([^)]+\)/g, "$1").replace(/^\s*(#+|>|[-*])\s+/gm, "").replace(/[*_`]+/g, "").replace(/\s+/g, " ").trim();
 const resumo = (t, n = 220) => { const p = textoPuro(t); return p.length > n ? p.slice(0, n).replace(/\s+\S*$/, "") + "…" : p; };
 
-const fmtData = new Intl.DateTimeFormat(EN ? "en-GB" : "pt-BR", { day: "2-digit", month: "short", year: "numeric" });
+const fmtData = new Intl.DateTimeFormat("pt-BR", { day: "2-digit", month: "short", year: "numeric" });
 const data = (iso) => {
   const partes = Object.fromEntries(fmtData.formatToParts(new Date(iso)).map((x) => [x.type, x.value]));
   return `${partes.day} ${partes.month.replace(".", "")} ${partes.year}`.toUpperCase();
@@ -84,11 +81,11 @@ const idNovo = () => (crypto.randomUUID ? crypto.randomUUID() : Date.now().toStr
 // reduz a foto no navegador antes de enviar.
 // GIF e WebP vão como estão (para não perder a animação); vídeo curto também.
 async function prepararFoto(arquivo) {
-  if (arquivo.size > MAX_MB * 1024 * 1024) throw new Error(T(`"${arquivo.name}" tem mais de ${MAX_MB} MB. Use um arquivo menor.`, `"${arquivo.name}" is larger than ${MAX_MB} MB. Use a smaller file.`));
+  if (arquivo.size > MAX_MB * 1024 * 1024) throw new Error(`"${arquivo.name}" tem mais de ${MAX_MB} MB. Use um arquivo menor.`);
   if (arquivo.type === "video/mp4" || arquivo.type === "video/webm") {
     const v = document.createElement("video");
     v.preload = "metadata"; v.muted = true; v.src = URL.createObjectURL(arquivo);
-    await new Promise((ok, erro) => { v.onloadedmetadata = ok; v.onerror = () => erro(new Error(T(`não deu para ler o vídeo "${arquivo.name}"`, `could not read the video "${arquivo.name}"`))); });
+    await new Promise((ok, erro) => { v.onloadedmetadata = ok; v.onerror = () => erro(new Error(`não deu para ler o vídeo "${arquivo.name}"`)); });
     URL.revokeObjectURL(v.src);
     return { blob: arquivo, tipo: arquivo.type, ext: arquivo.type === "video/mp4" ? "mp4" : "webm", w: v.videoWidth, h: v.videoHeight };
   }
@@ -128,7 +125,7 @@ function itemFeed(p, n) {
   const li = document.createElement("li");
   li.className = "ficha-post" + (p.publicado ? "" : " rascunho");
   const capa = p.fotos?.[0];
-  const titulo = p.titulo || T("Sem título", "Untitled");
+  const titulo = p.titulo || "Sem título";
   li.innerHTML = `
     <a href="#/p/${encodeURIComponent(p.slug)}">
       <div class="ficha-post-img${capa ? "" : " sem-foto"}">${capa
@@ -136,7 +133,7 @@ function itemFeed(p, n) {
         : `<span aria-hidden="true">${esc(textoPuro(titulo).charAt(0).toUpperCase() || "·")}</span>`}</div>
       <div class="ficha-post-txt">
         <p class="ficha-post-meta"><b>${String(n).padStart(2, "0")}</b> · ${data(p.criado_em)}</p>
-        ${p.publicado ? "" : `<p class="ficha-post-meta"><span class="tag">${T("RASCUNHO", "DRAFT")}</span></p>`}
+        ${p.publicado ? "" : '<p class="ficha-post-meta"><span class="tag">RASCUNHO</span></p>'}
         <h3>${esc(titulo)}</h3>
         ${p.texto ? `<p class="ficha-post-resumo">${esc(resumo(p.texto, 160))}</p>` : ""}
       </div>
@@ -154,13 +151,13 @@ function enfeitarDestaque(posts) {
 async function carregarLista(reiniciar) {
   if (reiniciar) { pagina = 0; acabou = false; $("#feed").innerHTML = ""; }
   if (acabou) return;
-  avisar(T("Carregando…", "Loading…"));
+  avisar("Carregando…");
   const de = pagina * POR_PAGINA;
   const { data: posts, error, count } = await db.from("posts")
     .select("id,slug,titulo,texto,fotos,publicado,criado_em", { count: "exact" })
     .order("criado_em", { ascending: false })
     .range(de, de + POR_PAGINA - 1);
-  if (error) { avisar(T("Não deu para carregar os posts. Tente de novo em instantes.", "Couldn’t load the posts. Try again in a moment.")); console.error(error); return; }
+  if (error) { avisar("Não deu para carregar os posts. Tente de novo em instantes."); console.error(error); return; }
   avisar("");
   if (typeof count === "number") total = count;
   posts.forEach((p, i) => $("#feed").append(itemFeed(p, Math.max(1, (total || posts.length) - de - i))));
@@ -174,12 +171,12 @@ async function carregarLista(reiniciar) {
 
 // ---------- leitura ----------
 async function abrirPost(slug) {
-  avisar(T("Carregando…", "Loading…"));
+  avisar("Carregando…");
   const { data: p, error } = await db.from("posts")
     .select("id,slug,titulo,texto,fotos,publicado,criado_em,editado_em")
     .eq("slug", slug).maybeSingle();
   if (error || !p) {
-    avisar(error ? T("Não deu para abrir este post.", "Couldn’t open this post.") : T("Post não encontrado.", "Post not found."));
+    avisar(error ? "Não deu para abrir este post." : "Post não encontrado.");
     $("#leitura").hidden = true;
     return;
   }
@@ -192,12 +189,12 @@ async function abrirPost(slug) {
   ul.innerHTML = "";
   (p.fotos || []).forEach((f, i) => {
     const li = document.createElement("li");
-    li.innerHTML = `<a href="${esc(urlFoto(f.caminho))}" data-i="${i}">${midia(urlFoto(f.caminho), ehVideo(f.caminho), `alt="${esc(p.titulo)}, ${T("foto", "photo")} ${i + 1}" loading="lazy" width="${f.w || ""}" height="${f.h || ""}"`)}</a>`;
+    li.innerHTML = `<a href="${esc(urlFoto(f.caminho))}" data-i="${i}">${midia(urlFoto(f.caminho), ehVideo(f.caminho), `alt="${esc(p.titulo)}, foto ${i + 1}" loading="lazy" width="${f.w || ""}" height="${f.h || ""}"`)}</a>`;
     ul.append(li);
   });
   ul.classList.toggle("uma", (p.fotos || []).length === 1);
   $("#l-acoes").hidden = !dono;
-  $("#l-apagar").textContent = T("APAGAR", "DELETE");
+  $("#l-apagar").textContent = "APAGAR";
   delete $("#l-apagar").dataset.certeza;
   $("#leitura").hidden = false;
   document.title = `${p.titulo || "Post"} | Hub | Carlos Gouveia`;
@@ -208,7 +205,7 @@ async function abrirPost(slug) {
 async function rota() {
   if (!db) {
     $("#lista").hidden = true; $("#leitura").hidden = true;
-    avisar(T("O hub ainda não foi ligado ao banco. Volte em breve.", "The hub isn’t connected yet. Come back soon."));
+    avisar("O hub ainda não foi ligado ao banco. Volte em breve.");
     return;
   }
   const h = location.hash.replace(/^#\/?/, "");
@@ -236,9 +233,9 @@ document.querySelectorAll("[data-fechar]").forEach((b) => b.addEventListener("cl
 $("#form-entrar").addEventListener("submit", async (e) => {
   e.preventDefault();
   const out = $("#msg-entrar");
-  avisar(T("Entrando…", "Signing in…"), out);
+  avisar("Entrando…", out);
   const { data: d, error } = await db.auth.signInWithPassword({ email: $("#e-email").value.trim(), password: $("#e-senha").value });
-  if (error) { avisar(T("E-mail ou senha não conferem.", "E-mail or password is incorrect."), out); return; }
+  if (error) { avisar("E-mail ou senha não conferem.", out); return; }
   avisar("", out);
   $("#e-senha").value = "";
   $("#entrar").close();
@@ -270,7 +267,7 @@ function desenharPrevia() {
     const li = document.createElement("li");
     const src = f.previa || urlFoto(f.caminho);
     const vid = f.arquivo ? f.arquivo.type.startsWith("video/") : ehVideo(f.caminho);
-    li.innerHTML = `${midia(src, vid, `alt="${T("Foto", "Photo")} ${i + 1}"`)}
+    li.innerHTML = `${midia(src, vid, `alt="Foto ${i + 1}"`)}
       <div class="mono">
         <button type="button" data-acao="esq" ${i === 0 ? "disabled" : ""} aria-label="Mover para a esquerda">←</button>
         <button type="button" data-acao="tirar" aria-label="Tirar foto ${i + 1}">TIRAR</button>
@@ -291,7 +288,7 @@ function abrirEditor(post) {
   editando = post || null;
   fotosEd.forEach((f) => f.previa && URL.revokeObjectURL(f.previa));
   fotosEd = (post?.fotos || []).map((f) => ({ ...f }));
-  $("#editor-titulo").textContent = post ? T("EDITAR POST", "EDIT POST") : T("NOVO POST", "NEW POST");
+  $("#editor-titulo").textContent = post ? "EDITAR POST" : "NOVO POST";
   $("#p-titulo").value = post?.titulo || "";
   $("#p-texto").value = post?.texto || "";
   $("#p-publicado").checked = post ? post.publicado : true;
@@ -318,7 +315,7 @@ $("#form-post").addEventListener("submit", async (e) => {
   if (salvando) return;
   const out = $("#msg-editor");
   const titulo = $("#p-titulo").value.trim();
-  if (!titulo) { avisar(T("Dê um título ao post.", "Give the post a title."), out); return; }
+  if (!titulo) { avisar("Dê um título ao post.", out); return; }
   salvando = true;
   $("#salvar").disabled = true;
   const pasta = editando?.id || idNovo();
@@ -330,7 +327,7 @@ $("#form-post").addEventListener("submit", async (e) => {
     for (const f of fotosEd) {
       if (!f.arquivo) { fotos.push({ caminho: f.caminho, w: f.w, h: f.h }); continue; }
       n++;
-      avisar(T(`Enviando foto ${n} de ${novas}…`, `Uploading photo ${n} of ${novas}…`), out);
+      avisar(`Enviando foto ${n} de ${novas}…`, out);
       const p = await prepararFoto(f.arquivo);
       const caminho = `${pasta}/${idNovo()}.${p.ext}`;
       const { error } = await db.storage.from(BALDE).upload(caminho, p.blob, { contentType: p.tipo, cacheControl: "31536000", upsert: false });
@@ -338,7 +335,7 @@ $("#form-post").addEventListener("submit", async (e) => {
       enviadas.push(caminho);
       fotos.push({ caminho, w: p.w, h: p.h });
     }
-    avisar(T("Salvando…", "Saving…"), out);
+    avisar("Salvando…", out);
     const dados = { titulo, texto: $("#p-texto").value.replace(/\s+$/, ""), fotos, publicado: $("#p-publicado").checked };
     let salvo;
     if (editando) {
@@ -364,7 +361,7 @@ $("#form-post").addEventListener("submit", async (e) => {
   } catch (erro) {
     console.error(erro);
     if (enviadas.length) await db.storage.from(BALDE).remove(enviadas).catch(() => {});
-    avisar(T("Não deu para salvar: ", "Couldn’t save: ") + (erro.message || T("erro desconhecido", "unknown error")), out);
+    avisar("Não deu para salvar: " + (erro.message || "erro desconhecido"), out);
   } finally {
     salvando = false;
     $("#salvar").disabled = false;
@@ -377,12 +374,12 @@ $("#l-editar").addEventListener("click", () => atual && abrirEditor(atual));
 $("#l-apagar").addEventListener("click", async (e) => {
   const b = e.currentTarget;
   if (!atual) return;
-  if (!b.dataset.certeza) { b.dataset.certeza = "1"; b.textContent = T("CLIQUE DE NOVO PARA APAGAR", "CLICK AGAIN TO DELETE"); return; }
+  if (!b.dataset.certeza) { b.dataset.certeza = "1"; b.textContent = "CLIQUE DE NOVO PARA APAGAR"; return; }
   b.disabled = true;
   const caminhos = (atual.fotos || []).map((f) => f.caminho);
   const { error } = await db.from("posts").delete().eq("id", atual.id);
   b.disabled = false;
-  if (error) { avisar(T("Não deu para apagar o post.", "Couldn’t delete the post.")); console.error(error); return; }
+  if (error) { avisar("Não deu para apagar o post."); console.error(error); return; }
   if (caminhos.length) await db.storage.from(BALDE).remove(caminhos);
   $("#feed").innerHTML = "";
   location.hash = "#/";
@@ -398,7 +395,7 @@ function mostrarFoto(i) {
   const f = fs[fotoI], vid = ehVideo(f.caminho), img = $("#foto-img"), video = $("#foto-video");
   img.hidden = vid; video.hidden = !vid;
   if (vid) { img.removeAttribute("src"); video.src = urlFoto(f.caminho); video.play?.().catch(() => {}); }
-  else { video.pause(); video.removeAttribute("src"); img.src = urlFoto(f.caminho); img.alt = `${atual.titulo}, ${T("foto", "photo")} ${fotoI + 1}`; }
+  else { video.pause(); video.removeAttribute("src"); img.src = urlFoto(f.caminho); img.alt = `${atual.titulo}, foto ${fotoI + 1}`; }
   $("#foto-conta").textContent = `${fotoI + 1} / ${fs.length}`;
   $("#foto-ant").hidden = $("#foto-prox").hidden = fs.length < 2;
 }

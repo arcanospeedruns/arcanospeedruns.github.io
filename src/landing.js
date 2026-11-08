@@ -365,7 +365,7 @@
     return false;
   }
   tela.addEventListener("pointermove", (e) => { tela.style.cursor = emCimaDeCarpa(e.clientX, e.clientY) ? "pointer" : ""; });
-  tela.addEventListener("click", (e) => { if (emCimaDeCarpa(e.clientX, e.clientY)) location.href = document.documentElement.lang.startsWith("en") ? "/en/hub.html" : "/hub.html"; });
+  tela.addEventListener("click", (e) => { if (emCimaDeCarpa(e.clientX, e.clientY)) location.href = "/hub.html"; });
 
   // simula alguns segundos antes de mostrar, para as carpas já aparecerem curvadas
   let T = 0;
