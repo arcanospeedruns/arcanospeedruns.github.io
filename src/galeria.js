@@ -16,7 +16,7 @@
     <div class="ampliada-topo mono">
       <span class="ampliada-conta"></span>
       <div>
-        <a class="ampliada-abrir" target="_blank" rel="noopener">${T.real}</a>
+        <a class="ampliada-abrir" href="#" target="_blank" rel="noopener">${T.real}</a>
         <button type="button" class="ampliada-fechar" aria-label="${T.fecharAria}">${T.fechar}</button>
       </div>
     </div>
