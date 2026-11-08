@@ -573,3 +573,23 @@ body.contato-amarelo { --onda-cor: 0,0,0; --onda-fundo: #f3e594; background: #f3
   margin: 0; font-size: 0.66rem; letter-spacing: 0.3em; color: #000; background: #fff;
   padding: 0.3rem 0.6rem 0.25rem calc(0.6rem + 0.3em); pointer-events: auto;
 }
+
+/* ---------- cantos arredondados em todo o site (mesmo sistema da landing) ----------
+   botões e cartões: 12px; etiquetas pequenas: 6px.
+   A página de Contato fica como está. */
+body:not(.contato-amarelo) .botao,
+body:not(.contato-amarelo) .links a { border-radius: 12px; }
+body:not(.contato-amarelo) .topo nav a[aria-current],
+body:not(.contato-amarelo) .idioma > *,
+body:not(.contato-amarelo) .status,
+body:not(.contato-amarelo) .gaveta-fechar,
+body:not(.contato-amarelo) .voltar { border-radius: 6px; }
+body:not(.contato-amarelo) .voltar { padding: 0.15rem 0.35rem; margin-left: calc(var(--lado, clamp(1rem, 2vw, 1.5rem)) - 0.35rem); }
+.cartao { border-radius: 12px; overflow: hidden; }
+.cartao .capa { border-radius: 0; }
+@media (min-width: 641px) { .orbita .gaveta { border-radius: 14px 0 0 14px; } }
+@media (max-width: 640px) {
+  /* menu do celular vira um seletor segmentado, como nos apps da Apple */
+  body:not(.contato-amarelo) .topo nav { border-radius: 12px; overflow: hidden; }
+  body:not(.contato-amarelo) .topo nav a[aria-current] { border-radius: 0; }
+}
