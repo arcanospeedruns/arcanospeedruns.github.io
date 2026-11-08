@@ -1,11 +1,11 @@
 /* =========================================================
    arcanospeedruns — portfólio de Carlos Gouveia
-   Fontes: Tanker e Switzer (Fontshare/ITF) e Departure Mono (OFL)
+   Fontes: Satoshi e Switzer (Fontshare/ITF) e Departure Mono (OFL)
    Home: lista direta sobre alumínio, com a onda de pontos no rodapé.
    Dados: mapa de destinos em WebGL.
    ========================================================= */
 
-@font-face { font-family: "Tanker"; src: url(fonts/tanker.woff2) format("woff2"); font-display: swap; }
+@font-face { font-family: "Satoshi"; src: url(fonts/satoshi-900.woff2) format("woff2"); font-weight: 900; font-display: swap; }
 @font-face { font-family: "Departure"; src: url(fonts/departure-mono.woff2) format("woff2"); font-display: swap; }
 @font-face { font-family: "Switzer"; src: url(fonts/switzer-400.woff2) format("woff2"); font-weight: 400; font-display: swap; }
 @font-face { font-family: "Switzer"; src: url(fonts/switzer-500.woff2) format("woff2"); font-weight: 500; font-display: swap; }
@@ -45,7 +45,7 @@ a { color: inherit; }
   padding: 0.8rem clamp(1rem, 2vw, 1.5rem);
   border-bottom: 1px solid currentColor;
 }
-.marca { font-family: "Tanker"; font-size: 1.3rem; letter-spacing: 0.02em; text-decoration: none; line-height: 1; }
+.marca { font-family: "Satoshi"; font-weight: 900; font-size: 1.3rem; letter-spacing: 0.02em; text-decoration: none; line-height: 1; }
 .topo nav { display: flex; gap: 1.1rem; }
 .topo nav a { text-underline-offset: 3px; }
 .topo nav a[aria-current] { background: var(--amarelo); color: var(--tinta); padding: 0 0.3rem; text-decoration: none; }
@@ -65,7 +65,7 @@ a { color: inherit; }
   padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1rem, 2vw, 1.5rem) 1rem;
   border-bottom: 1px solid var(--tinta);
 }
-.cabeca h1 { margin: 0; font-family: "Tanker"; font-weight: 400; font-size: clamp(3.4rem, 9vw, 9rem); line-height: 0.84; }
+.cabeca h1 { margin: 0; font-family: "Satoshi"; font-weight: 900; font-size: clamp(2.6rem, 7.4vw, 7.4rem); line-height: 0.92; letter-spacing: -0.02em; }
 .cabeca .papel { margin: 0.8rem 0 0; font-weight: 500; font-size: clamp(1rem, 1.6vw, 1.2rem); max-width: 40ch; }
 
 .ficha { margin: 0; display: grid; grid-template-columns: auto auto; border: 1px solid var(--tinta); }
@@ -81,8 +81,8 @@ a { color: inherit; }
 .secao h2 {
   margin: 0;
   padding: 0.75rem clamp(1rem, 2vw, 1.5rem) 0.6rem;
-  font-family: "Tanker"; font-weight: 400;
-  font-size: clamp(1.4rem, 2vw, 1.8rem); line-height: 1; letter-spacing: 0.02em;
+  font-family: "Satoshi"; font-weight: 900;
+  font-size: clamp(1.1rem, 1.6vw, 1.4rem); line-height: 1; letter-spacing: 0.01em;
   background: var(--tinta); color: var(--aluminio);
 }
 .secao ul { list-style: none; margin: 0; padding: 0; }
@@ -95,7 +95,7 @@ a { color: inherit; }
   padding: 0.95rem clamp(1rem, 2vw, 1.5rem) 0.85rem;
 }
 .linha + .linha { border-top: 1px solid var(--tinta); }
-.linha strong { font-family: "Tanker"; font-weight: 400; font-size: clamp(1.5rem, 2.4vw, 2.2rem); line-height: 0.95; letter-spacing: 0.01em; }
+.linha strong { font-family: "Satoshi"; font-weight: 900; font-size: clamp(1.1rem, 1.7vw, 1.55rem); line-height: 1.05; letter-spacing: 0.01em; }
 .linha p { margin: 0; max-width: 56ch; }
 .linha .quando { text-align: right; color: var(--cinza); white-space: nowrap; }
 
@@ -108,7 +108,7 @@ a { color: inherit; }
 .botao:hover { background: var(--amarelo); color: var(--tinta); }
 
 .contato { padding: 1.2rem clamp(1rem, 2vw, 1.5rem) 1.6rem; }
-.email { font-family: "Tanker"; font-size: clamp(1.7rem, 5vw, 3.6rem); line-height: 1; text-decoration: none; border-bottom: 3px solid var(--tinta); word-break: break-all; }
+.email { font-family: "Satoshi"; font-weight: 900; font-size: clamp(0.8rem, 4.4vw, 2.8rem); line-height: 1.05; text-decoration: none; border-bottom: 3px solid var(--tinta); overflow-wrap: anywhere; }
 .email:hover { background: var(--amarelo); }
 .links { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.2rem; }
 .links a { padding: 0.45rem 0.8rem 0.35rem; border: 1px solid var(--tinta); text-decoration: none; }
@@ -127,7 +127,7 @@ a { color: inherit; }
 .foto { margin: 0; border: 1px solid var(--tinta); aspect-ratio: 1 / 1; background: var(--claro); overflow: hidden; }
 .foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .foto-vazia { height: 100%; display: grid; place-content: center; text-align: center; color: var(--cinza); border: 1px dashed var(--cinza); margin: 0.6rem; height: calc(100% - 1.2rem); }
-.contato-info h1 { margin: 0; font-family: "Tanker"; font-weight: 400; font-size: clamp(3.4rem, 9vw, 8rem); line-height: 0.84; }
+.contato-info h1 { margin: 0; font-family: "Satoshi"; font-weight: 900; font-size: clamp(2.6rem, 7.4vw, 6.6rem); line-height: 0.92; letter-spacing: -0.02em; }
 .contato-info .papel { margin: 0.9rem 0 2rem; font-weight: 500; font-size: clamp(1rem, 1.6vw, 1.2rem); max-width: 44ch; }
 .canais { list-style: none; margin: 2rem 0 0; padding: 0; border-top: 1px solid var(--tinta); }
 .canais li { display: grid; grid-template-columns: 8rem 1fr; gap: 1rem; align-items: baseline; padding: 0.8rem 0; border-bottom: 1px solid var(--tinta); }
@@ -179,7 +179,7 @@ a { color: inherit; }
   padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1rem, 4vw, 3rem) 0;
   display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1rem 2rem;
 }
-.cabecalho-dados h1 { margin: 0; font-family: "Tanker"; font-weight: 400; font-size: clamp(3.2rem, 9vw, 7rem); line-height: 0.86; }
+.cabecalho-dados h1 { margin: 0; font-family: "Satoshi"; font-weight: 900; font-size: clamp(2.6rem, 7.4vw, 5.8rem); line-height: 0.92; letter-spacing: -0.02em; }
 .cabecalho-dados p { margin: 0; max-width: 36ch; color: var(--nevoa); }
 
 .mapa-area {
@@ -233,7 +233,7 @@ a { color: inherit; }
 .destino .rotulo {
   position: absolute; left: 50%; top: calc(100% + var(--tam, 40px) * 0.5);
   transform: translateX(-50%);
-  font-family: "Tanker"; font-size: 0.95rem; letter-spacing: 0.03em; line-height: 1; white-space: nowrap;
+  font-family: "Satoshi"; font-weight: 900; font-size: 0.95rem; letter-spacing: 0.03em; line-height: 1; white-space: nowrap;
   padding: 0.25rem 0.45rem 0.15rem; background: rgba(4, 6, 13, 0.6);
 }
 .destino[aria-pressed="true"] .rotulo { background: var(--amarelo); color: var(--tinta); }
@@ -248,7 +248,7 @@ a { color: inherit; }
 .painel { border: 1px solid var(--linha-escura); background: var(--vazio-2); display: flex; flex-direction: column; }
 .painel-topo { display: flex; justify-content: space-between; gap: 1rem; padding: 0.85rem 1.1rem; border-bottom: 1px solid var(--linha-escura); color: var(--nevoa); }
 .painel-corpo { padding: 1.3rem 1.1rem 1.5rem; }
-.painel h2 { margin: 0 0 0.4rem; font-family: "Tanker"; font-weight: 400; font-size: clamp(2.2rem, 3.6vw, 2.9rem); line-height: 0.92; }
+.painel h2 { margin: 0 0 0.4rem; font-family: "Satoshi"; font-weight: 900; font-size: clamp(1.7rem, 2.7vw, 2.2rem); line-height: 0.92; }
 .painel .contexto { margin: 0 0 1.1rem; color: var(--nevoa); }
 .status { display: inline-block; padding: 0.25rem 0.55rem; margin-bottom: 1rem; background: var(--amarelo); color: var(--tinta); }
 .status.concluido { background: var(--estrela); }
@@ -263,7 +263,7 @@ a { color: inherit; }
 .painel-links { margin-top: auto; display: grid; border-top: 1px solid var(--linha-escura); }
 .painel-links a, .painel-links span {
   padding: 0.95rem 1.1rem 0.85rem; text-decoration: none;
-  font-family: "Tanker"; font-size: 1.2rem; letter-spacing: 0.02em; line-height: 1;
+  font-family: "Satoshi"; font-weight: 900; font-size: 1rem; letter-spacing: 0.02em; line-height: 1;
   border-bottom: 1px solid var(--linha-escura);
 }
 .painel-links a { color: var(--amarelo); }
@@ -333,7 +333,7 @@ body.contato-amarelo { --onda-cor: 0,0,0; --onda-fundo: #f3e594; background: #f3
 .ampliada-fechar:hover, .ampliada-topo a:hover { background: var(--amarelo); color: var(--tinta); }
 .ampliada-palco { display: grid; grid-template-columns: auto 1fr auto; align-items: center; min-height: 0; padding: 0 0.5rem; }
 .ampliada-palco img { justify-self: center; max-width: 100%; max-height: calc(100dvh - 9rem); width: auto; height: auto; object-fit: contain; }
-.ampliada-seta { font-size: 1.6rem !important; width: 3rem; height: 3rem; }
+.ampliada-seta { font-family: "Departure Mono", ui-monospace, monospace; font-size: 0.8rem !important; letter-spacing: 0.08em; padding: 0.7rem 0.9rem 0.6rem; min-width: 3rem; height: auto; border-radius: 6px; }
 .ampliada-seta:hover { background: var(--amarelo) !important; color: var(--tinta) !important; }
 .ampliada-legenda { margin: 0; padding: 0.7rem clamp(1rem, 2vw, 1.5rem) 1rem; text-align: center; max-width: 70ch; justify-self: center; }
 @media (max-width: 700px) {
@@ -359,14 +359,14 @@ body.contato-amarelo { --onda-cor: 0,0,0; --onda-fundo: #f3e594; background: #f3
 .cartao:hover, .cartao:focus-visible { border-color: var(--amarelo); transform: translateY(-2px); outline: none; }
 .cartao .capa { position: relative; aspect-ratio: 2 / 1; overflow: hidden; display: grid; align-items: end; border-bottom: 1px solid var(--linha-escura); background: #0d1430; }
 .cartao .capa img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.capa .sigla { font-family: "Tanker"; font-size: clamp(3rem, 7vw, 6rem); line-height: .8; padding: 1rem 1.1rem; color: var(--estrela); }
+.capa .sigla { font-family: "Satoshi"; font-weight: 900; font-size: clamp(3rem, 7vw, 6rem); line-height: .8; padding: 1rem 1.1rem; color: var(--estrela); }
 .fundo-dados { background: repeating-linear-gradient(90deg, #0d1430 0 38px, #121b40 38px 39px) !important; }
 .fundo-produto { background: radial-gradient(circle at 75% 30%, #1d3a6b, #0b1020 65%) !important; }
 .fundo-dev { background: radial-gradient(circle at 80% 25%, #4a2015, #0b1020 62%) !important; }
 .cartao-info { padding: 1rem 1.1rem 1.1rem; display: flex; flex-direction: column; gap: .45rem; flex: 1; }
 .cartao-meta { display: flex; justify-content: space-between; gap: 1rem; color: var(--nevoa); }
 .cartao-meta .st-andamento { color: var(--amarelo); }
-.cartao-nome { font-family: "Tanker"; font-size: clamp(1.8rem, 3vw, 2.6rem); line-height: .92; }
+.cartao-nome { font-family: "Satoshi"; font-weight: 900; font-size: clamp(1.4rem, 2.2vw, 1.95rem); line-height: .92; }
 .cartao-texto { color: var(--nevoa); }
 .cartao-mais { margin-top: auto; padding-top: .5rem; color: var(--amarelo); }
 

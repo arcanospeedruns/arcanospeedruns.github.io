@@ -72,10 +72,10 @@ const projetos = [
 const emIngles = document.documentElement.lang.startsWith("en") && Array.isArray(window.projetosEN);
 const lista = emIngles ? window.projetosEN : projetos;
 const UI = emIngles
-  ? { status: { andamento: "In progress", concluido: "Completed", breve: "Coming soon" }, mais: "SEE DETAILS →",
+  ? { status: { andamento: "In progress", concluido: "Completed", breve: "Coming soon" }, mais: "SEE DETAILS",
       projeto: (i, n) => `Project ${i} of ${n}`, fechar: "CLOSE ✕", etapas: "Planned steps", destaques: "Highlights",
       ferramentas: "Tools", detalhes: "Project details" }
-  : { status: { andamento: "Em andamento", concluido: "Concluído", breve: "Em breve" }, mais: "VER DETALHES →",
+  : { status: { andamento: "Em andamento", concluido: "Concluído", breve: "Em breve" }, mais: "VER DETALHES",
       projeto: (i, n) => `Projeto ${i} de ${n}`, fechar: "FECHAR ✕", etapas: "Etapas previstas", destaques: "Destaques",
       ferramentas: "Ferramentas", detalhes: "Detalhes do projeto" };
 const textoStatus = UI.status;

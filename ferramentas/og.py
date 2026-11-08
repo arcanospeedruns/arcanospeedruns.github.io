@@ -41,7 +41,7 @@ def fonte(arquivo):
 
 
 BASE = f"""
-@font-face{{font-family:Tanker;src:url({fonte('tanker.woff2')}) format("woff2")}}
+@font-face{{font-family:Satoshi;font-weight:900;src:url({fonte('satoshi-900.woff2')}) format("woff2")}}
 @font-face{{font-family:Departure;src:url({fonte('departure-mono.woff2')}) format("woff2")}}
 @font-face{{font-family:Michroma;src:url({fonte('michroma.woff2')}) format("woff2")}}
 *{{box-sizing:border-box}}html,body{{margin:0}}
@@ -56,7 +56,7 @@ def cartao_site(titulo, t):
     """Cartão no alumínio do site. Na página principal o título é o nome; nas outras, o nome da página."""
     eh_nome = titulo == "CARLOS GOUVEIA"
     grande = "CARLOS<br>GOUVEIA" if eh_nome else html.escape(titulo)
-    tamanho = 160 if eh_nome else (190 if len(titulo) <= 9 else 150)
+    tamanho = 128 if eh_nome else (150 if len(titulo) <= 9 else 116)
     linha_nome = "" if eh_nome else '<div class="nome mono">CARLOS GOUVEIA</div>'
     return f"""<!doctype html><html><head><meta charset="utf-8"><style>{BASE}
 body{{background:#c4c7c9;color:#000;padding:56px 72px 48px;display:flex;flex-direction:column}}
@@ -66,7 +66,7 @@ body{{background:#c4c7c9;color:#000;padding:56px 72px 48px;display:flex;flex-dir
 .vaga{{background:#ffd60a;padding:10px 16px 8px;font-size:22px}}
 .meio{{flex:1;display:flex;flex-direction:column;justify-content:center;gap:22px}}
 .nome{{font-size:26px;letter-spacing:.3em}}
-h1{{margin:0;font-family:Tanker;font-weight:400;font-size:{tamanho}px;line-height:.86;margin-left:-6px}}
+h1{{margin:0;font-family:Satoshi;font-weight:900;font-size:{tamanho}px;line-height:.92;letter-spacing:-.02em;margin-left:-4px}}
 .base{{display:flex;justify-content:space-between;align-items:baseline;font-size:24px;letter-spacing:.14em}}
 .cidade{{font-size:20px;color:#2b2f33}}
 </style></head><body><div class="pontos"></div>

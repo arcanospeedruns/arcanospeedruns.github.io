@@ -7,8 +7,8 @@
 
   const en = document.documentElement.lang.startsWith("en");
   const T = en
-    ? { caixa: "Enlarged image", real: "FULL SIZE", fechar: "CLOSE ✕", fecharAria: "Close", ant: "Previous image", prox: "Next image" }
-    : { caixa: "Imagem ampliada", real: "TAMANHO REAL", fechar: "FECHAR ✕", fecharAria: "Fechar", ant: "Imagem anterior", prox: "Próxima imagem" };
+    ? { caixa: "Enlarged image", real: "FULL SIZE", fechar: "CLOSE ✕", fecharAria: "Close", ant: "Previous image", prox: "Next image", antTxt: "PREVIOUS", proxTxt: "NEXT" }
+    : { caixa: "Imagem ampliada", real: "TAMANHO REAL", fechar: "FECHAR ✕", fecharAria: "Fechar", ant: "Imagem anterior", prox: "Próxima imagem", antTxt: "ANTERIOR", proxTxt: "PRÓXIMA" };
   const caixa = document.createElement("dialog");
   caixa.className = "ampliada";
   caixa.setAttribute("aria-label", T.caixa);
@@ -21,9 +21,9 @@
       </div>
     </div>
     <div class="ampliada-palco">
-      <button type="button" class="ampliada-seta ant" aria-label="${T.ant}">←</button>
+      <button type="button" class="ampliada-seta ant" aria-label="${T.ant}">${T.antTxt}</button>
       <img alt="">
-      <button type="button" class="ampliada-seta prox" aria-label="${T.prox}">→</button>
+      <button type="button" class="ampliada-seta prox" aria-label="${T.prox}">${T.proxTxt}</button>
     </div>
     <p class="ampliada-legenda"></p>`;
   document.body.appendChild(caixa);
