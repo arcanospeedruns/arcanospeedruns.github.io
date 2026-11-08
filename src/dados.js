@@ -9,6 +9,23 @@
    ============================================================ */
 const projetos = [
   {
+    id: "cignamed",
+    area: "Produto", capa: "projetos/cignamed/capa.webp",
+    nome: "TRÊS BASES, UM ESTUDO",
+    curto: "CIGNAMED",
+    contexto: "Estudo de caso de produto do estágio na Cignamed: três bases de um estudo clínico, cada uma com um questionário diferente, unificadas em uma só.",
+    status: "concluido",
+    resumo: "Fui chamado para o estágio para resolver um problema: unificar três bases com questionários diferentes, que nenhum script conseguia casar porque as perguntas estavam escritas de jeitos diferentes. Estudei o material, padronizei as perguntas, unifiquei com pandas e levei as próximas coletas para o REDCap. A junção passou de cerca de 2 meses para 2 minutos.",
+    feitos: [
+      "Diagnóstico do problema: perguntas mal escritas e fora do padrão impediam a junção automática",
+      "Padronização das perguntas nas três bases e unificação com pandas, sem descartar as perguntas que só existiam em uma base",
+      "Auditoria de qualidade: mais de 200 duplicidades e centenas de inconsistências corrigidas, com log das correções",
+      "Formulários no REDCap com regras de validação, para as próximas entrevistas já chegarem no padrão",
+    ],
+    stack: ["Python", "pandas", "Excel", "REDCap"],
+    links: [{ texto: "VER O ESTUDO DE CASO", url: "projetos/cignamed.html" }],
+  },
+  {
     id: "datasus",
     area: "Dados", capa: "projetos/datasus/capa.webp",
     nome: "SAÚDE PÚBLICA EM DADOS",

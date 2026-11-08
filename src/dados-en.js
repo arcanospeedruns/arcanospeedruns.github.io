@@ -5,6 +5,23 @@
    ============================================================ */
 window.projetosEN = [
   {
+    id: "cignamed",
+    area: "Product", capa: "../projetos/cignamed/capa-en.webp",
+    nome: "THREE DATABASES, ONE STUDY",
+    curto: "CIGNAMED",
+    contexto: "Product case study from my internship at Cignamed: three clinical study databases, each with a different questionnaire, merged into one.",
+    status: "concluido",
+    resumo: "I was brought into the internship to solve one problem: merge three databases with different questionnaires, which no script could match because the questions were written differently. I studied the material, standardized the questions, merged everything with pandas and moved future data collection to REDCap. Merging went from about 2 months to 2 minutes.",
+    feitos: [
+      "Problem diagnosis: badly written, non-standard questions were blocking an automatic merge",
+      "Standardized the questions across the three databases and merged them with pandas, keeping the questions that existed in only one database",
+      "Data quality audit: 200+ duplicates and hundreds of inconsistencies fixed, with a log of every correction",
+      "REDCap forms with validation rules, so future interviews arrive already in the standard",
+    ],
+    stack: ["Python", "pandas", "Excel", "REDCap"],
+    links: [{ texto: "SEE THE CASE STUDY", url: "projetos/cignamed.html" }],
+  },
+  {
     id: "datasus",
     area: "Data", capa: "../projetos/datasus/capa-en.webp",
     nome: "PUBLIC HEALTH IN DATA",

@@ -1,0 +1,78 @@
+---
+layout: base.njk
+permalink: "/projetos/cignamed.html"
+lang: "pt-BR"
+par: "/en/projetos/cignamed.html"
+titulo: "Três bases, um estudo: estudo de caso de produto | arcanospeedruns"
+descricao: "Estudo de caso de produto de Carlos Gouveia no estágio na Cignamed: três bases de um estudo clínico unificadas em uma só, de 2 meses para 2 minutos, e um padrão novo de coleta no REDCap."
+ogTitulo: "Três bases, um estudo | Carlos Gouveia"
+ogDescricao: "Três bases de um estudo clínico, com questionários diferentes, unificadas em uma só: de 2 meses para 2 minutos."
+ogImagem: "/projetos/cignamed/og.jpg"
+preload: ["/fonts/tanker.woff2"]
+corpo: "indice-pg projeto-pg"
+scripts: ["/onda.js"]
+topo: "normal"
+pagina: "portfolio"
+---
+  {% include "topo.njk" %}
+
+  <main>
+    <a class="voltar mono" href="../portfolio.html">← VOLTAR AO PORTFÓLIO</a>
+
+    <div class="cabeca">
+      <canvas id="onda" aria-hidden="true"></canvas>
+      <div>
+        <h1>TRÊS BASES, UM ESTUDO</h1>
+        <p class="papel">Como transformei três bases de um estudo clínico, cada uma com um questionário diferente, em uma base única, e criei um padrão para que as próximas coletas já chegassem organizadas.</p>
+      </div>
+      <dl class="ficha">
+        <dt>Tipo</dt><dd>Estudo de caso de produto</dd>
+        <dt>Empresa</dt><dd>Cignamed, estágio</dd>
+        <dt>Período</dt><dd>Mai – out 2026</dd>
+        <dt>Ferramentas</dt><dd>Python (pandas), Excel, REDCap</dd>
+      </dl>
+    </div>
+
+    <p class="aviso">Projeto feito durante o estágio na Cignamed, em um estudo de pesquisa clínica. Nenhum dado de participante aparece aqui: o caso trata só do problema e do processo.</p>
+
+    <section class="secao">
+      <h2>RESULTADO</h2>
+      <ul>
+        <li class="linha"><strong>DE 2 MESES A 2 MIN</strong><p>A junção das bases, que levava cerca de dois meses de trabalho, passou a levar uns dois minutos.</p></li>
+        <li class="linha"><strong>950 MIL RESPOSTAS</strong><p>Cerca de 1.900 respondentes e 500 perguntas reunidos em uma base única, sem perder nenhuma pergunta coletada.</p></li>
+        <li class="linha"><strong>200+ DUPLICIDADES</strong><p>Duplicidades e centenas de inconsistências (datas e idades fora de faixa, valores mal formatados) encontradas e corrigidas, com cada correção registrada em um log.</p></li>
+        <li class="linha"><strong>PADRÃO NOVO</strong><p>As entrevistas seguintes passaram a ser coletadas no REDCap, já no formato da base unificada, para o problema não voltar.</p></li>
+      </ul>
+    </section>
+
+    <section class="secao">
+      <h2>O PROBLEMA</h2>
+      <ul>
+        <li class="linha"><strong>CONTEXTO</strong><p>Fui chamado para o estágio justamente para resolver este problema. A pesquisadora responsável tinha três bases de dados do mesmo estudo, cada uma com um questionário diferente, e precisava juntar tudo: as perguntas e os respondentes.</p></li>
+        <li class="linha"><strong>POR QUE NÃO ERA SÓ CÓDIGO</strong><p>À primeira vista parecia trabalho para um script, mas as perguntas estavam escritas de jeitos diferentes em cada base, com erros e variações. O código não tinha como saber que duas colunas eram a mesma pergunta.</p></li>
+        <li class="linha"><strong>QUEM SENTIA</strong><p>A equipe de pesquisa, que precisava da base completa para analisar o estudo e dependia de um trabalho manual demorado para chegar até ela.</p></li>
+      </ul>
+    </section>
+
+    <section class="secao">
+      <h2>DESCOBERTA E DECISÕES</h2>
+      <ul>
+        <li class="linha"><strong>ESTUDAR ANTES DE PROGRAMAR</strong><p>Antes de escrever código, estudei o material do estudo para entender cada pergunta e descobrir quais eram equivalentes entre as bases, mesmo quando não seguiam o padrão.</p></li>
+        <li class="linha"><strong>CORRIGIR NA ORIGEM</strong><p>Padronizei as perguntas nas três bases. Só com elas escritas do mesmo jeito a junção automática passou a funcionar.</p></li>
+        <li class="linha"><strong>NADA SE PERDE</strong><p>Unifiquei as bases com pandas. As perguntas que existiam em só uma base não foram descartadas: foram para o fim da planilha, e a base final guarda tudo o que foi coletado.</p></li>
+        <li class="linha"><strong>EVITAR QUE VOLTE</strong><p>Para as próximas entrevistas seguirem o mesmo padrão, montei os formulários no REDCap, ferramenta comum entre pesquisadores, com tipos de campo e regras de validação que barram erros na hora da coleta.</p></li>
+      </ul>
+    </section>
+
+    <section class="secao">
+      <h2>APRENDIZADOS</h2>
+      <ul>
+        <li class="linha"><strong>O CONTEÚDO VEM ANTES</strong><p>A maior dificuldade não era técnica: a qualidade das perguntas variava muito de uma base para outra. Entender o conteúdo foi o que destravou a solução.</p></li>
+        <li class="linha"><strong>O QUE EU FARIA DIFERENTE</strong><p>Testaria outras ferramentas de coleta antes de adotar o REDCap, comparando cada uma com o que a equipe precisava no dia a dia.</p></li>
+      </ul>
+    </section>
+
+    <div class="contato">
+      <a class="botao" href="../portfolio.html">VER OUTROS PROJETOS</a>
+    </div>
+  </main>
