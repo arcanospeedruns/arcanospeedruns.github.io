@@ -578,22 +578,22 @@ body.contato-amarelo { --onda-cor: 0,0,0; --onda-fundo: #f3e594; background: #f3
 
 /* ---------- cantos arredondados em todo o site (mesmo sistema da landing) ----------
    botões e cartões: 12px; etiquetas pequenas: 6px.
-   A página de Contato fica como está. */
-body:not(.contato-amarelo) .botao,
-body:not(.contato-amarelo) .links a { border-radius: 12px; }
-body:not(.contato-amarelo) .topo nav a[aria-current],
-body:not(.contato-amarelo) .idioma > *,
-body:not(.contato-amarelo) .status,
-body:not(.contato-amarelo) .gaveta-fechar,
-body:not(.contato-amarelo) .voltar { border-radius: 6px; }
-body:not(.contato-amarelo) .voltar { padding: 0.15rem 0.35rem; margin-left: calc(var(--lado, clamp(1rem, 2vw, 1.5rem)) - 0.35rem); }
+   Vale para todas as páginas, inclusive o Contato. */
+.botao,
+.links a { border-radius: 12px; }
+.topo nav a[aria-current],
+.idioma > *,
+.status,
+.gaveta-fechar,
+.voltar { border-radius: 6px; }
+.voltar { padding: 0.15rem 0.35rem; margin-left: calc(var(--lado, clamp(1rem, 2vw, 1.5rem)) - 0.35rem); }
 .cartao { border-radius: 12px; overflow: hidden; }
 .cartao .capa { border-radius: 0; }
 @media (min-width: 641px) { .orbita .gaveta { border-radius: 14px 0 0 14px; } }
 @media (max-width: 640px) {
   /* menu do celular vira um seletor segmentado, como nos apps da Apple */
-  body:not(.contato-amarelo) .topo nav { border-radius: 12px; overflow: hidden; }
-  body:not(.contato-amarelo) .topo nav a[aria-current] { border-radius: 0; }
+  .topo nav { border-radius: 12px; overflow: hidden; }
+  .topo nav a[aria-current] { border-radius: 0; }
 }
 
 /* portfólio: a grade animada não passa por baixo da barra do topo */
@@ -601,3 +601,6 @@ body:not(.contato-amarelo) .voltar { padding: 0.15rem 0.35rem; margin-left: calc
 
 /* portfólio: rodapé por cima da grade animada */
 .orbita .rodape { position: relative; z-index: 1; }
+/* contato: moldura da foto arredondada */
+.foto { border-radius: 16px; overflow: hidden; }
+.foto img { border-radius: 0; }
