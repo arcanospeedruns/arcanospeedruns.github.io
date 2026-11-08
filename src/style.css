@@ -171,7 +171,8 @@ a { color: inherit; }
 
 .orbita { background: var(--vazio); color: var(--estrela); min-height: 100vh; }
 .orbita .topo { border-bottom-color: var(--linha-escura); }
-#grade { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+/* portfólio: a mesma onda de pontos do Contato, em tela cheia, sobre o pêssego */
+.orbita { --onda-cor: 0,0,0; --onda-fundo: var(--pessego); }
 .orbita .topo, .orbita main { position: relative; z-index: 1; }
 
 .cabecalho-dados {
@@ -596,7 +597,7 @@ body.contato-amarelo { --onda-cor: 0,0,0; --onda-fundo: #f3e594; background: #f3
   .topo nav a[aria-current] { border-radius: 0; }
 }
 
-/* portfólio: a grade animada não passa por baixo da barra do topo */
+/* portfólio: a onda de pontos não passa por baixo da barra do topo */
 .orbita .topo { background: var(--vazio); }
 
 /* portfólio: rodapé por cima da grade animada */
