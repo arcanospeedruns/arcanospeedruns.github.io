@@ -1,7 +1,7 @@
 """Confere os links internos do site gerado (_site): href, src e âncoras (#id).
 Uso: python3 ferramentas/conferir_links.py [_site]
 Sai com erro se algum link apontar para um arquivo ou âncora que não existe.
-Os projetos do portfólio (portfolio.html#id) são montados pelo dados.js, então essas âncoras vêm de lá.
+Nos projetos do portfólio (portfolio.html#id) a âncora abre a gaveta: valem os data-id dos cartões.
 """
 import os, re, sys
 from urllib.parse import urlsplit, unquote
@@ -15,12 +15,7 @@ for pasta, _, arquivos in os.walk(RAIZ):
             p = os.path.join(pasta, a)
             html = open(p, encoding="utf-8").read()
             paginas.append((p, html))
-            ids[os.path.normpath(p)] = set(re.findall(r'\bid="([^"]+)"', html))
-dados = os.path.join(RAIZ, "dados.js")
-if os.path.exists(dados):
-    projetos = set(re.findall(r'id:\s*"([^"]+)"', open(dados, encoding="utf-8").read()))
-    for nome in ("portfolio.html", os.path.join("en", "portfolio.html")):
-        ids.setdefault(os.path.normpath(os.path.join(RAIZ, nome)), set()).update(projetos)
+            ids[os.path.normpath(p)] = set(re.findall(r'\b(?:data-)?id="([^"]+)"', html))
 
 erros = 0
 for p, html in paginas:

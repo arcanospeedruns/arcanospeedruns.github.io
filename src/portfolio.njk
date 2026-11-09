@@ -8,19 +8,18 @@ preload: ["/fonts/satoshi-900.woff2"]
 corpo: "orbita"
 topo: "normal"
 pagina: "portfolio"
+scripts: ["/dados.js", "/onda.js"]
 meta:
   pt:
     titulo: "Portfólio | arcanospeedruns"
     descricao: "Projetos de Carlos Gouveia."
     ogTitulo: "Portfólio | Carlos Gouveia"
     ogDescricao: "Projetos de produto, dados e design de Carlos Gouveia."
-    scripts: ["/dados.js", "/onda.js"]
   en:
     titulo: "Portfolio | arcanospeedruns"
     descricao: "Projects by Carlos Gouveia."
     ogTitulo: "Portfolio | Carlos Gouveia"
     ogDescricao: "Product, data and design projects by Carlos Gouveia."
-    scripts: ["/dados-en.js", "/dados.js", "/onda.js"]
 ---
   <canvas id="onda" data-tela-cheia aria-hidden="true"></canvas>
 
@@ -32,9 +31,64 @@ meta:
       <p>{% tr %}Projetos de produto, dados e design. Abra um cartão para ver o que foi feito, com quais ferramentas e onde ver mais.<!--en-->Product, data and design projects. Open a card to see what was done, with which tools and where to see more.{% endtr %}</p>
     </div>
 
+    {#- textos dos projetos: src/_data/projetos.cjs #}
+    {%- set lista = projetos[idioma] %}
+    {%- set status = { andamento: "Em andamento", concluido: "Concluído", breve: "Em breve" } if idioma == "pt" else { andamento: "In progress", concluido: "Completed", breve: "Coming soon" } %}
     <ul class="cartoes" id="projetos" aria-label="{% tr %}Projetos<!--en-->Projects{% endtr %}">
-      <!-- os cartões são criados pelo dados.js -->
+    {%- for p in lista %}
+      <li>
+        <a class="cartao" href="#{{ p.id }}" data-id="{{ p.id }}">
+          {%- if p.capa %}
+          <span class="capa"><img src="{{ p.capa }}" alt="" width="1200" height="600" loading="lazy"></span>
+          {%- else %}
+          <span class="capa fundo-{{ p.fundo or 'dados' }}" aria-hidden="true"><span class="sigla">{{ p.curto }}</span></span>
+          {%- endif %}
+          <span class="cartao-info">
+            <span class="cartao-meta mono"><span>{{ p.area }}</span><span class="st-{{ p.status }}">{{ status[p.status] }}</span></span>
+            <span class="cartao-nome">{{ p.nome }}</span>
+            <span class="cartao-texto">{{ p.contexto }}</span>
+            <span class="cartao-mais mono">{% tr %}VER DETALHES<!--en-->SEE DETAILS{% endtr %}</span>
+          </span>
+        </a>
+      </li>
+    {%- endfor %}
     </ul>
   </main>
+
+  {#- detalhes de cada projeto: o dados.js copia o modelo para dentro da gaveta #}
+  {%- for p in lista %}
+  <template id="detalhe-{{ p.id }}">
+    <div class="painel-topo mono"><span>{% tr %}Projeto<!--en-->Project{% endtr %} {{ loop.index }} {% tr %}de<!--en-->of{% endtr %} {{ lista | length }} · {{ p.area }}</span><button type="button" class="gaveta-fechar">{% tr %}FECHAR ✕<!--en-->CLOSE ✕{% endtr %}</button></div>
+    {%- if p.capa %}
+    <img class="gaveta-capa" src="{{ p.capa }}" alt="">
+    {%- endif %}
+    <div class="painel-corpo">
+      <span class="status mono {{ p.status }}">{{ status[p.status] }}</span>
+      <h2>{{ p.nome }}</h2>
+      <p class="contexto">{{ p.contexto }}</p>
+      <p class="resumo">{{ p.resumo }}</p>
+      {%- if p.feitos.length %}
+      <h3 class="mono">{% if p.status == "breve" %}{% tr %}Etapas previstas<!--en-->Planned steps{% endtr %}{% else %}{% tr %}Destaques<!--en-->Highlights{% endtr %}{% endif %}</h3>
+      <ul class="feitos">{% for x in p.feitos %}<li>{{ x }}</li>{% endfor %}</ul>
+      {%- endif %}
+      {%- if p.stack.length %}
+      <h3 class="mono">{{ p.tituloStack or ("Ferramentas" if idioma == "pt" else "Tools") }}</h3>
+      <ul class="stack mono">{% for x in p.stack %}<li>{{ x }}</li>{% endfor %}</ul>
+      {%- endif %}
+      {%- if p.ferramentas %}
+      <h3 class="mono">{% tr %}Ferramentas<!--en-->Tools{% endtr %}</h3>
+      <ul class="stack mono">{% for x in p.ferramentas %}<li>{{ x }}</li>{% endfor %}</ul>
+      {%- endif %}
+    </div>
+    {%- if p.links.length %}
+    <div class="painel-links">
+      {%- for l in p.links %}
+      {%- if l.url %}<a href="{{ l.url }}"{% if l.url.startsWith("http") %} target="_blank" rel="noopener"{% endif %}>{{ l.texto }}</a>{% else %}<span>{{ l.texto }}</span>{% endif %}
+      {%- endfor %}
+    </div>
+    {%- endif %}
+  </template>
+  {%- endfor %}
+  <dialog class="gaveta painel" aria-label="{% tr %}Detalhes do projeto<!--en-->Project details{% endtr %}"></dialog>
 
   <p class="rodape mono"><span>SÃO PAULO, 2026</span></p>
