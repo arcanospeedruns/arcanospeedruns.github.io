@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://arcanospeedruns.github.io/sitemap.xml
+Sitemap: https://carlosgouveia.is-a.dev/sitemap.xml

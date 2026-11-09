@@ -20,5 +20,5 @@ jobs:
       - uses: lycheeverse/lychee-action@v2
         with:
           # o LinkedIn bloqueia robôs, então fica de fora
-          args: --no-progress --scheme https --exclude linkedin.com --exclude arcanospeedruns.github.io "_site/**/*.html"
+          args: --no-progress --scheme https --exclude linkedin.com --exclude arcanospeedruns.github.io --exclude carlosgouveia.is-a.dev "_site/**/*.html"
           fail: true

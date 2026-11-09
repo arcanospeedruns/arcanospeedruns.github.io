@@ -18,7 +18,7 @@ CV = {
         "arquivo": "src/curriculo.pdf",
         "lang": "pt-BR",
         "titulo": "Gestão de Produto · KPIs e Métricas · Levantamento de Requisitos · Metodologias Ágeis · Análise de Dados",
-        "contato": ["São Paulo, SP", EMAIL, "linkedin.com/in/carloslnly", "arcanospeedruns.github.io"],
+        "contato": ["São Paulo, SP", EMAIL, "linkedin.com/in/carloslnly", "carlosgouveia.is-a.dev"],
         "secoes": {"resumo": "Resumo", "exp": "Experiência", "comp": "Competências", "form": "Formação", "vol": "Voluntariado"},
         "resumo": (
             "Profissional com foco em gestão de produto e base técnica em dados e desenvolvimento. Experiência na definição de "
@@ -73,7 +73,7 @@ CV = {
         "arquivo": "src/curriculo-en.pdf",
         "lang": "en",
         "titulo": "Product Management · KPIs and Metrics · Requirements Gathering · Agile · Data Analysis",
-        "contato": ["São Paulo, Brazil", EMAIL, "linkedin.com/in/carloslnly", "arcanospeedruns.github.io"],
+        "contato": ["São Paulo, Brazil", EMAIL, "linkedin.com/in/carloslnly", "carlosgouveia.is-a.dev"],
         "secoes": {"resumo": "Summary", "exp": "Experience", "comp": "Skills", "form": "Education", "vol": "Volunteering"},
         "resumo": (
             "Product-focused professional with a technical background in data and software development. Experience defining "

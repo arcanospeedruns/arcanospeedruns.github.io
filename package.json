@@ -1,7 +1,7 @@
 {
   "name": "arcanospeedruns-site",
   "private": true,
-  "description": "Portfólio de Carlos Gouveia (arcanospeedruns.github.io)",
+  "description": "Portfólio de Carlos Gouveia (carlosgouveia.is-a.dev)",
   "scripts": {
     "hub": "esbuild ferramentas/hub/hub-fonte.js --bundle --minify --format=iife --target=es2020 --legal-comments=none --log-level=warning --outfile=src/hub.js",
     "build": "npm run hub && eleventy",

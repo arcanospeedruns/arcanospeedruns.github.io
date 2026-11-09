@@ -1,6 +1,6 @@
 # arcanospeedruns.github.io
 
-Portfólio de Carlos Gouveia, em português e inglês: <https://arcanospeedruns.github.io>
+Portfólio de Carlos Gouveia, em português e inglês: <https://carlosgouveia.is-a.dev>
 
 ## Como é feito
 
