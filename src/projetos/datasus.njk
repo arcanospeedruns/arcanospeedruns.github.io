@@ -1,58 +1,65 @@
 ---
 layout: base.njk
-permalink: "/projetos/datasus.html"
-lang: "pt-BR"
-par: "/en/projetos/datasus.html"
-titulo: "Saúde pública em dados, análise do SUS | arcanospeedruns"
-descricao: "Análise de 107 milhões de internações financiadas pelo SUS entre 2015 e 2023, por Carlos Gouveia: SQL no BigQuery e dashboard em Power BI."
-ogTitulo: "Saúde pública em dados | Carlos Gouveia"
-ogDescricao: "107 milhões de internações financiadas pelo SUS entre 2015 e 2023: SQL no BigQuery e dashboard em Power BI."
+pagination: { data: idiomas, size: 1, alias: idioma, addAllPagesToCollections: true }
+permalink: "{{ '/en' if idioma == 'en' }}/projetos/datasus.html"
+caminho: "/projetos/datasus.html"
 ogImagem: "/projetos/datasus/og.jpg"
 preload: ["/fonts/satoshi-900.woff2"]
 corpo: "indice-pg projeto-pg"
 scripts: ["/galeria.js", "/onda.js"]
 topo: "normal"
 pagina: "portfolio"
+meta:
+  pt:
+    titulo: "Saúde pública em dados, análise do SUS | arcanospeedruns"
+    descricao: "Análise de 107 milhões de internações financiadas pelo SUS entre 2015 e 2023, por Carlos Gouveia: SQL no BigQuery e dashboard em Power BI."
+    ogTitulo: "Saúde pública em dados | Carlos Gouveia"
+    ogDescricao: "107 milhões de internações financiadas pelo SUS entre 2015 e 2023: SQL no BigQuery e dashboard em Power BI."
+  en:
+    titulo: "Public health in data, an analysis of SUS | arcanospeedruns"
+    descricao: "Analysis of 107 million hospital admissions funded by SUS, Brazil's public health system, from 2015 to 2023, by Carlos Gouveia: SQL in BigQuery and a Power BI dashboard."
+    ogTitulo: "Public health in data | Carlos Gouveia"
+    ogDescricao: "107 million hospital admissions funded by SUS from 2015 to 2023: SQL in BigQuery and a Power BI dashboard."
 ---
   {% include "topo.njk" %}
 
   <main>
-    <a class="voltar mono" href="../portfolio.html">VOLTAR AO PORTFÓLIO</a>
+    <a class="voltar mono" href="../portfolio.html">{% tr %}VOLTAR AO PORTFÓLIO<!--en-->BACK TO PORTFOLIO{% endtr %}</a>
 
     <div class="cabeca">
       <canvas id="onda" aria-hidden="true"></canvas>
       <div>
-        <h1>SAÚDE PÚBLICA EM DADOS</h1>
-        <p class="papel">Análise de 107 milhões de internações financiadas pelo SUS entre 2015 e 2023: volume, custo e mortalidade por ano, diagnóstico e estado.</p>
+        <h1>{% tr %}SAÚDE PÚBLICA EM DADOS<!--en-->PUBLIC HEALTH IN DATA{% endtr %}</h1>
+        <p class="papel">{% tr %}Análise de 107 milhões de internações financiadas pelo SUS entre 2015 e 2023: volume, custo e mortalidade por ano, diagnóstico e estado.<!--en-->Analysis of 107 million hospital admissions funded by SUS, Brazil's free public health system, from 2015 to 2023: volume, cost and mortality by year, diagnosis and state.{% endtr %}</p>
       </div>
       <dl class="ficha">
-        <dt>Tipo</dt><dd>Análise de dados</dd>
-        <dt>Dados</dt><dd>SIH/SUS, 2015–2023</dd>
-        <dt>Ferramentas</dt><dd>BigQuery, SQL, Python, Power BI</dd>
-        <dt>Imagens</dt><dd>{{ prints | length }}</dd>
+        <dt>{% tr %}Tipo<!--en-->Type{% endtr %}</dt><dd>{% tr %}Análise de dados<!--en-->Data analysis{% endtr %}</dd>
+        <dt>{% tr %}Dados<!--en-->Data{% endtr %}</dt><dd>SIH/SUS, 2015–2023</dd>
+        <dt>{% tr %}Ferramentas<!--en-->Tools{% endtr %}</dt><dd>BigQuery, SQL, Python, Power BI</dd>
+        <dt>{% tr %}Imagens<!--en-->Images{% endtr %}</dt><dd>{{ prints | length }}</dd>
       </dl>
     </div>
 
-    <p class="aviso">Projeto pessoal com os microdados abertos do Sistema de Informações Hospitalares (SIH/SUS), consultados pela Base dos Dados no Google BigQuery. Valores em reais da época, sem correção pela inflação.</p>
+    <p class="aviso">{% tr %}Projeto pessoal com os microdados abertos do Sistema de Informações Hospitalares (SIH/SUS), consultados pela Base dos Dados no Google BigQuery. Valores em reais da época, sem correção pela inflação.<!--en-->Personal project with the open microdata of SUS's Hospital Information System (SIH/SUS), queried through Base dos Dados on Google BigQuery. Amounts in Brazilian reais of each year, not adjusted for inflation. The dashboard is in Portuguese.{% endtr %}</p>
 
     <section class="secao">
-      <h2>PRINCIPAIS ACHADOS</h2>
+      <h2>{% tr %}PRINCIPAIS ACHADOS<!--en-->KEY FINDINGS{% endtr %}</h2>
       <ul>
-        <li class="linha"><strong>R$ 151,7 BI</strong><p>Gastos em 107,4 milhões de internações entre 2015 e 2023.</p></li>
-        <li class="linha"><strong>COVID</strong><p>Foi só a 4ª causa de internação em volume, mas a mais cara do período: R$ 10,7 bilhões. O valor médio, R$ 5.440, é quase dez vezes o de um parto normal.</p></li>
-        <li class="linha"><strong>PANDEMIA</strong><p>Em 2020 as internações caíram 13,5% em relação a 2019, e a taxa de óbito hospitalar subiu de 4,25% para 6,61% em 2021.</p></li>
-        <li class="linha"><strong>SEPSE</strong><p>Maior letalidade entre os diagnósticos mais frequentes: 46,6% das internações terminam em óbito.</p></li>
-        <li class="linha"><strong>INFARTO +71%</strong><p>As internações por infarto cresceram 71% de 2015 a 2023, enquanto a taxa de óbito caiu de 11,7% para 8,2%. Os partos caíram 27% (normal) e 24% (cesárea).</p></li>
-        <li class="linha"><strong>ESTADOS</strong><p>O Paraná tem a maior taxa de internação (73,9 por mil habitantes por ano) e o maior valor médio (R$ 1.763). O Rio de Janeiro tem a maior taxa de óbito (7,1%) e as internações mais longas (7,1 dias).</p></li>
+        <li class="linha"><strong>{% tr %}R$ 151,7 BI<!--en-->R$ 151.7 BN{% endtr %}</strong><p>{% tr %}Gastos em 107,4 milhões de internações entre 2015 e 2023.<!--en-->Spent on 107.4 million admissions between 2015 and 2023.{% endtr %}</p></li>
+        <li class="linha"><strong>COVID</strong><p>{% tr %}Foi só a 4ª causa de internação em volume, mas a mais cara do período: R$ 10,7 bilhões. O valor médio, R$ 5.440, é quase dez vezes o de um parto normal.<!--en-->Only the 4th cause of admission by volume, but the most expensive of the period: R$ 10.7 billion. Its average cost, R$ 5,440, is almost ten times that of a normal delivery.{% endtr %}</p></li>
+        <li class="linha"><strong>{% tr %}PANDEMIA<!--en-->PANDEMIC{% endtr %}</strong><p>{% tr %}Em 2020 as internações caíram 13,5% em relação a 2019, e a taxa de óbito hospitalar subiu de 4,25% para 6,61% em 2021.<!--en-->Admissions fell 13.5% in 2020 compared with 2019, and in-hospital mortality rose from 4.25% to 6.61% in 2021.{% endtr %}</p></li>
+        <li class="linha"><strong>{% tr %}SEPSE<!--en-->SEPSIS{% endtr %}</strong><p>{% tr %}Maior letalidade entre os diagnósticos mais frequentes: 46,6% das internações terminam em óbito.<!--en-->The highest mortality among the most frequent diagnoses: 46.6% of admissions end in death.{% endtr %}</p></li>
+        <li class="linha"><strong>{% tr %}INFARTO +71%<!--en-->HEART ATTACK +71%{% endtr %}</strong><p>{% tr %}As internações por infarto cresceram 71% de 2015 a 2023, enquanto a taxa de óbito caiu de 11,7% para 8,2%. Os partos caíram 27% (normal) e 24% (cesárea).<!--en-->Admissions for heart attack grew 71% from 2015 to 2023, while mortality fell from 11.7% to 8.2%. Births fell 27% (normal) and 24% (C-section).{% endtr %}</p></li>
+        <li class="linha"><strong>{% tr %}ESTADOS<!--en-->STATES{% endtr %}</strong><p>{% tr %}O Paraná tem a maior taxa de internação (73,9 por mil habitantes por ano) e o maior valor médio (R$ 1.763). O Rio de Janeiro tem a maior taxa de óbito (7,1%) e as internações mais longas (7,1 dias).<!--en-->Paraná has the highest admission rate (73.9 per thousand people per year) and the highest average cost (R$ 1,763). Rio de Janeiro has the highest mortality (7.1%) and the longest stays (7.1 days).{% endtr %}</p></li>
       </ul>
     </section>
 
     <section class="secao">
-      <h2>DASHBOARD EM POWER BI</h2>
+      <h2>{% tr %}DASHBOARD EM POWER BI<!--en-->POWER BI DASHBOARD{% endtr %}</h2>
       <div class="pranchas telas">
 {%- for p in prints %}
         <figure>
-          <a href="datasus/{{ p.arquivo }}.webp"><img src="datasus/{{ p.arquivo }}-mini.webp" width="960" height="540"{% if not loop.first %} loading="lazy"{% endif %} alt="{{ p.alt }}"></a>
+          <a href="{% tr %}datasus/{{ p.arquivo }}.webp<!--en-->../../projetos/datasus/{{ p.arquivo }}.webp{% endtr %}"><img src="{% tr %}datasus/{{ p.arquivo }}-mini.webp<!--en-->../../projetos/datasus/{{ p.arquivo }}-mini.webp{% endtr %}" width="960" height="540"{% if not loop.first %} loading="lazy"{% endif %} alt="{{ p.alt }}"></a>
           <figcaption><strong>{{ p.titulo }}</strong> {{ p.texto }}</figcaption>
         </figure>
 {%- endfor %}
@@ -60,20 +67,20 @@ pagina: "portfolio"
     </section>
 
     <section class="secao">
-      <h2>QUALIDADE DOS DADOS</h2>
+      <h2>{% tr %}QUALIDADE DOS DADOS<!--en-->DATA QUALITY{% endtr %}</h2>
       <ul>
-        <li class="linha"><strong>UF VAZIA</strong><p>A sigla do estado vem vazia em 100% das linhas. O estado foi tirado dos dois primeiros dígitos do código IBGE do município do hospital.</p></li>
-        <li class="linha"><strong>CID DIVIDIDO</strong><p>O diagnóstico principal vem em duas colunas, conforme o tamanho do código. Usando só uma, 90% das internações ficariam sem diagnóstico; as duas foram unidas.</p></li>
-        <li class="linha"><strong>2024 E 2025</strong><p>2024 tem meses duplicados e 2025 tem meses faltando, então o recorte ficou em 2015–2023.</p></li>
-        <li class="linha"><strong>VALIDAÇÃO</strong><p>As somas por estado e por ano batem (107.368.293 internações nas duas), assim como a soma anual de cada diagnóstico com o ranking geral.</p></li>
+        <li class="linha"><strong>{% tr %}UF VAZIA<!--en-->EMPTY STATE{% endtr %}</strong><p>{% tr %}A sigla do estado vem vazia em 100% das linhas. O estado foi tirado dos dois primeiros dígitos do código IBGE do município do hospital.<!--en-->The state column is empty in 100% of rows. The state was derived from the first two digits of the IBGE code of the hospital's municipality.{% endtr %}</p></li>
+        <li class="linha"><strong>{% tr %}CID DIVIDIDO<!--en-->SPLIT ICD{% endtr %}</strong><p>{% tr %}O diagnóstico principal vem em duas colunas, conforme o tamanho do código. Usando só uma, 90% das internações ficariam sem diagnóstico; as duas foram unidas.<!--en-->The main diagnosis comes in two columns, depending on the code length. Using only one, 90% of admissions would have no diagnosis, so both were combined.{% endtr %}</p></li>
+        <li class="linha"><strong>{% tr %}2024 E 2025<!--en-->2024 AND 2025{% endtr %}</strong><p>{% tr %}2024 tem meses duplicados e 2025 tem meses faltando, então o recorte ficou em 2015–2023.<!--en-->2024 has duplicated months and 2025 has missing months, so the analysis covers 2015–2023.{% endtr %}</p></li>
+        <li class="linha"><strong>{% tr %}VALIDAÇÃO<!--en-->VALIDATION{% endtr %}</strong><p>{% tr %}As somas por estado e por ano batem (107.368.293 internações nas duas), assim como a soma anual de cada diagnóstico com o ranking geral.<!--en-->Totals by state and by year match (107,368,293 admissions in both), as do the yearly sums of each diagnosis and the overall ranking.{% endtr %}</p></li>
       </ul>
     </section>
 
     <div class="contato">
       <div class="links">
-        <a href="https://github.com/arcanospeedruns/datasus-analise" target="_blank" rel="noopener">REPOSITÓRIO NO GITHUB</a>
+        <a href="https://github.com/arcanospeedruns/datasus-analise" target="_blank" rel="noopener">{% tr %}REPOSITÓRIO NO GITHUB<!--en-->GITHUB REPOSITORY (PT){% endtr %}</a>
       </div>
-      <a class="botao" href="../portfolio.html">VER OUTROS PROJETOS</a>
+      <a class="botao" href="../portfolio.html">{% tr %}VER OUTROS PROJETOS<!--en-->SEE OTHER PROJECTS{% endtr %}</a>
     </div>
   </main>
 

@@ -1,40 +1,80 @@
 {
-  "prints": [
-    {
-      "arquivo": "visao-geral",
-      "titulo": "Visão geral.",
-      "texto": "Internações, gasto e óbito hospitalar por ano, com o salto do gasto e da mortalidade na pandemia.",
-      "alt": "Página de visão geral: 107,4 milhões de internações, R$ 151,73 bilhões de gasto, valor médio de R$ 1.549 em 2023 e 6,61% de óbito em 2021, com gráficos de internações e gasto por ano e a taxa de óbito de 2015 a 2023."
-    },
-    {
-      "arquivo": "diagnosticos",
-      "titulo": "Diagnósticos.",
-      "texto": "Os 20 diagnósticos que mais internam e os que mais custam, com valor médio, dias de internação e taxa de óbito.",
-      "alt": "Página de diagnósticos: barras de internações e de gasto por diagnóstico, com parto normal em primeiro em volume e doenças por vírus (inclui COVID) em primeiro em gasto, e tabela com internações, gasto, valor médio, dias e óbito."
-    },
-    {
-      "arquivo": "evolucao",
-      "titulo": "Evolução: internações.",
-      "texto": "Os principais diagnósticos ano a ano. O botão no topo troca a medida entre internações, gasto e óbito.",
-      "alt": "Página de evolução com dez pequenos gráficos de linha, um por diagnóstico, mostrando as internações de 2015 a 2023: queda de partos, alta de infarto, sepse e AVC e o pico de COVID em 2021."
-    },
-    {
-      "arquivo": "evolucao-gasto",
-      "titulo": "Evolução: gasto.",
-      "texto": "Gasto anual em R$ milhões por diagnóstico. A COVID passa de R$ 7,5 bilhões em 2021, e o infarto e a sepse sobem quase todo ano.",
-      "alt": "Página de evolução na medida Gasto (R$ mi): dez pequenos gráficos de linha de 2015 a 2023, com o pico da COVID em 2021, perto de R$ 8 bilhões, e alta do gasto com infarto, sepse, AVC e doença renal crônica."
-    },
-    {
-      "arquivo": "evolucao-obito",
-      "titulo": "Evolução: óbito.",
-      "texto": "Taxa de óbito hospitalar por diagnóstico. Pneumonia e COVID disparam na pandemia, enquanto o infarto cai de 11,7% para 8,2%.",
-      "alt": "Página de evolução na medida Óbito (%): dez pequenos gráficos de linha de 2015 a 2023, com a COVID passando de 20% em 2020 e 2021, o pico da pneumonia em 2020 e a queda contínua do óbito por infarto."
-    },
-    {
-      "arquivo": "estados",
-      "titulo": "Estados.",
-      "texto": "Internações por mil habitantes por ano, valor médio, taxa de óbito e dias de internação nos 27 estados.",
-      "alt": "Página de estados: barras de internações por mil habitantes por ano, com Paraná, Roraima e Distrito Federal no topo e Sergipe por último, e tabela com região, internações, valor médio, óbito e dias."
-    }
-  ]
+  "printsPorIdioma": {
+    "pt": [
+      {
+        "arquivo": "visao-geral",
+        "titulo": "Visão geral.",
+        "texto": "Internações, gasto e óbito hospitalar por ano, com o salto do gasto e da mortalidade na pandemia.",
+        "alt": "Página de visão geral: 107,4 milhões de internações, R$ 151,73 bilhões de gasto, valor médio de R$ 1.549 em 2023 e 6,61% de óbito em 2021, com gráficos de internações e gasto por ano e a taxa de óbito de 2015 a 2023."
+      },
+      {
+        "arquivo": "diagnosticos",
+        "titulo": "Diagnósticos.",
+        "texto": "Os 20 diagnósticos que mais internam e os que mais custam, com valor médio, dias de internação e taxa de óbito.",
+        "alt": "Página de diagnósticos: barras de internações e de gasto por diagnóstico, com parto normal em primeiro em volume e doenças por vírus (inclui COVID) em primeiro em gasto, e tabela com internações, gasto, valor médio, dias e óbito."
+      },
+      {
+        "arquivo": "evolucao",
+        "titulo": "Evolução: internações.",
+        "texto": "Os principais diagnósticos ano a ano. O botão no topo troca a medida entre internações, gasto e óbito.",
+        "alt": "Página de evolução com dez pequenos gráficos de linha, um por diagnóstico, mostrando as internações de 2015 a 2023: queda de partos, alta de infarto, sepse e AVC e o pico de COVID em 2021."
+      },
+      {
+        "arquivo": "evolucao-gasto",
+        "titulo": "Evolução: gasto.",
+        "texto": "Gasto anual em R$ milhões por diagnóstico. A COVID passa de R$ 7,5 bilhões em 2021, e o infarto e a sepse sobem quase todo ano.",
+        "alt": "Página de evolução na medida Gasto (R$ mi): dez pequenos gráficos de linha de 2015 a 2023, com o pico da COVID em 2021, perto de R$ 8 bilhões, e alta do gasto com infarto, sepse, AVC e doença renal crônica."
+      },
+      {
+        "arquivo": "evolucao-obito",
+        "titulo": "Evolução: óbito.",
+        "texto": "Taxa de óbito hospitalar por diagnóstico. Pneumonia e COVID disparam na pandemia, enquanto o infarto cai de 11,7% para 8,2%.",
+        "alt": "Página de evolução na medida Óbito (%): dez pequenos gráficos de linha de 2015 a 2023, com a COVID passando de 20% em 2020 e 2021, o pico da pneumonia em 2020 e a queda contínua do óbito por infarto."
+      },
+      {
+        "arquivo": "estados",
+        "titulo": "Estados.",
+        "texto": "Internações por mil habitantes por ano, valor médio, taxa de óbito e dias de internação nos 27 estados.",
+        "alt": "Página de estados: barras de internações por mil habitantes por ano, com Paraná, Roraima e Distrito Federal no topo e Sergipe por último, e tabela com região, internações, valor médio, óbito e dias."
+      }
+    ],
+    "en": [
+      {
+        "arquivo": "visao-geral",
+        "titulo": "Overview.",
+        "texto": "Admissions, spending and in-hospital mortality by year, with the jump in cost and mortality during the pandemic.",
+        "alt": "Overview page: 107.4 million admissions, R$ 151.73 billion spent, average cost of R$ 1,549 in 2023 and 6.61% mortality in 2021, with charts of admissions and spending by year and mortality from 2015 to 2023."
+      },
+      {
+        "arquivo": "diagnosticos",
+        "titulo": "Diagnoses.",
+        "texto": "The 20 diagnoses with the most admissions and the highest cost, with average cost, length of stay and mortality.",
+        "alt": "Diagnoses page: bars of admissions and spending by diagnosis, with normal delivery first in volume and viral diseases (including COVID) first in spending, and a table with admissions, spending, average cost, days and mortality."
+      },
+      {
+        "arquivo": "evolucao",
+        "titulo": "Trends: admissions.",
+        "texto": "The main diagnoses year by year. The button at the top switches the measure between admissions, spending and mortality.",
+        "alt": "Trends page with ten small line charts, one per diagnosis, showing admissions from 2015 to 2023: fewer births, more heart attacks, sepsis and strokes and the COVID peak in 2021."
+      },
+      {
+        "arquivo": "evolucao-gasto",
+        "titulo": "Trends: spending.",
+        "texto": "Yearly spending in R$ millions by diagnosis. COVID passes R$ 7.5 billion in 2021, and heart attack and sepsis rise almost every year.",
+        "alt": "Trends page with the Spending (R$ mi) measure: ten small line charts from 2015 to 2023, with the COVID peak in 2021 near R$ 8 billion and rising spending on heart attack, sepsis, stroke and chronic kidney disease."
+      },
+      {
+        "arquivo": "evolucao-obito",
+        "titulo": "Trends: mortality.",
+        "texto": "In-hospital mortality by diagnosis. Pneumonia and COVID spike during the pandemic, while heart attack mortality falls from 11.7% to 8.2%.",
+        "alt": "Trends page with the Mortality (%) measure: ten small line charts from 2015 to 2023, with COVID above 20% in 2020 and 2021, the pneumonia peak in 2020 and the steady fall in heart attack mortality."
+      },
+      {
+        "arquivo": "estados",
+        "titulo": "States.",
+        "texto": "Admissions per thousand people per year, average cost, mortality and length of stay in the 27 states.",
+        "alt": "States page: bars of admissions per thousand people per year, with Paraná, Roraima and the Federal District at the top and Sergipe last, and a table with region, admissions, average cost, mortality and days."
+      }
+    ]
+  }
 }

@@ -1,111 +1,118 @@
 ---
 layout: base.njk
-permalink: "/projetos/psique.html"
-lang: "pt-BR"
-par: "/en/projetos/psique.html"
-titulo: "Psiquê, identidade visual | arcanospeedruns"
-descricao: "Identidade visual para uma clínica de psicologia, por Carlos Gouveia. Logo, aplicações e manual de identidade."
-ogTitulo: "Psiquê, identidade visual | Carlos Gouveia"
-ogDescricao: "Identidade visual para uma clínica de psicologia: logo, aplicações e manual de identidade."
+pagination: { data: idiomas, size: 1, alias: idioma, addAllPagesToCollections: true }
+permalink: "{{ '/en' if idioma == 'en' }}/projetos/psique.html"
+caminho: "/projetos/psique.html"
 ogImagem: "/projetos/psique/og.jpg"
 preload: ["/fonts/satoshi-900.woff2"]
 corpo: "indice-pg projeto-pg"
 scripts: ["/galeria.js", "/onda.js"]
 topo: "normal"
 pagina: "portfolio"
+meta:
+  pt:
+    titulo: "Psiquê, identidade visual | arcanospeedruns"
+    descricao: "Identidade visual para uma clínica de psicologia, por Carlos Gouveia. Logo, aplicações e manual de identidade."
+    ogTitulo: "Psiquê, identidade visual | Carlos Gouveia"
+    ogDescricao: "Identidade visual para uma clínica de psicologia: logo, aplicações e manual de identidade."
+  en:
+    titulo: "Psiquê, visual identity | arcanospeedruns"
+    descricao: "Visual identity for a psychology clinic, by Carlos Gouveia. Logo, applications and brand guidelines."
+    ogTitulo: "Psiquê, visual identity | Carlos Gouveia"
+    ogDescricao: "Visual identity for a psychology clinic: logo, applications and brand guidelines."
 ---
   {% include "topo.njk" %}
 
   <main>
-    <a class="voltar mono" href="../portfolio.html">VOLTAR AO PORTFÓLIO</a>
+    <a class="voltar mono" href="../portfolio.html">{% tr %}VOLTAR AO PORTFÓLIO<!--en-->BACK TO PORTFOLIO{% endtr %}</a>
 
     <div class="cabeca">
       <canvas id="onda" aria-hidden="true"></canvas>
       <div>
         <h1>PSIQUÊ</h1>
-        <p class="papel">Identidade visual para uma clínica multidisciplinar de psicologia: logo, aplicações e manual de identidade.</p>
+        <p class="papel">{% tr %}Identidade visual para uma clínica multidisciplinar de psicologia: logo, aplicações e manual de identidade.<!--en-->Visual identity for a multidisciplinary psychology clinic: logo, applications and brand guidelines.{% endtr %}</p>
       </div>
       <dl class="ficha">
-        <dt>Tipo</dt><dd>Identidade visual (releitura)</dd>
-        <dt>Papel</dt><dd>Designer gráfico</dd>
-        <dt>Entregas</dt><dd>Logo, aplicações e manual</dd>
-        <dt>Ferramentas</dt><dd>Illustrator, Photoshop e InDesign</dd>
-        <dt>Imagens</dt><dd>7</dd>
+        <dt>{% tr %}Tipo<!--en-->Type{% endtr %}</dt><dd>{% tr %}Identidade visual (releitura)<!--en-->Visual identity (reinterpretation){% endtr %}</dd>
+        <dt>{% tr %}Papel<!--en-->Role{% endtr %}</dt><dd>{% tr %}Designer gráfico<!--en-->Graphic designer{% endtr %}</dd>
+        <dt>{% tr %}Entregas<!--en-->Deliverables{% endtr %}</dt><dd>{% tr %}Logo, aplicações e manual<!--en-->Logo, applications and guidelines{% endtr %}</dd>
+        <dt>{% tr %}Ferramentas<!--en-->Tools{% endtr %}</dt><dd>{% tr %}Illustrator, Photoshop e InDesign<!--en-->Illustrator, Photoshop and InDesign{% endtr %}</dd>
+        <dt>{% tr %}Imagens<!--en-->Images{% endtr %}</dt><dd>7</dd>
       </dl>
     </div>
 
     <figure class="heroi">
-      <img src="psique/mockup-placa.webp" srcset="psique/mockup-placa-800.webp 800w, psique/mockup-placa.webp 2160w" sizes="100vw" fetchpriority="high" width="1600" height="1200" alt="Placa bandeira roxa da Psiquê presa na fachada, com a borboleta amarela e o nome.">
+      <img src="{% tr %}psique/mockup-placa.webp<!--en-->../../projetos/psique/mockup-placa.webp{% endtr %}" srcset="{% tr %}psique/mockup-placa-800.webp 800w, psique/mockup-placa.webp 2160w<!--en-->../../projetos/psique/mockup-placa-800.webp 800w, ../../projetos/psique/mockup-placa.webp 2160w{% endtr %}" sizes="100vw" fetchpriority="high" width="1600" height="1200" alt="{% tr %}Placa bandeira roxa da Psiquê presa na fachada, com a borboleta amarela e o nome.<!--en-->Purple Psiquê projecting sign on a building front, with the yellow butterfly and the name.{% endtr %}">
     </figure>
 
     <section class="secao">
-      <h2>BRIEFING</h2>
+      <h2>{% tr %}BRIEFING<!--en-->BRIEF{% endtr %}</h2>
       <ul>
-        <li class="linha"><strong>CLIENTE</strong><p>Uma clínica multidisciplinar de psicologia, com profissionais de áreas diferentes atendendo no mesmo lugar.</p></li>
-        <li class="linha"><strong>PEDIDO</strong><p>Uma logo moderna e minimalista que, nas palavras da cliente, “parecesse um app”.</p></li>
-        <li class="linha"><strong>CORES</strong><p>Roxo e amarelo eram obrigatórios: são cores importantes para a cliente.</p></li>
-        <li class="linha"><strong>RELEITURA</strong><p>Este case recria o trabalho para o portfólio. Nome, logo e peças são novos e não são o material entregue à cliente.</p></li>
+        <li class="linha"><strong>{% tr %}CLIENTE<!--en-->CLIENT{% endtr %}</strong><p>{% tr %}Uma clínica multidisciplinar de psicologia, com profissionais de áreas diferentes atendendo no mesmo lugar.<!--en-->A multidisciplinary psychology clinic, with professionals from different fields working in the same place.{% endtr %}</p></li>
+        <li class="linha"><strong>{% tr %}PEDIDO<!--en-->REQUEST{% endtr %}</strong><p>{% tr %}Uma logo moderna e minimalista que, nas palavras da cliente, “parecesse um app”.<!--en-->A modern, minimalist logo that, in the client’s words, would “look like an app”.{% endtr %}</p></li>
+        <li class="linha"><strong>{% tr %}CORES<!--en-->COLORS{% endtr %}</strong><p>{% tr %}Roxo e amarelo eram obrigatórios: são cores importantes para a cliente.<!--en-->Purple and yellow were mandatory: they are colors that matter to the client.{% endtr %}</p></li>
+        <li class="linha"><strong>{% tr %}RELEITURA<!--en-->REINTERPRETATION{% endtr %}</strong><p>{% tr %}Este case recria o trabalho para o portfólio. Nome, logo e peças são novos e não são o material entregue à cliente.<!--en-->This case recreates the project for the portfolio. Name, logo and pieces are new and are not the material delivered to the client. The texts in the images are in Portuguese.{% endtr %}</p></li>
       </ul>
     </section>
 
     <section class="secao">
-      <h2>COMO RESPONDI</h2>
+      <h2>{% tr %}COMO RESPONDI<!--en-->HOW I ANSWERED IT{% endtr %}</h2>
       <ul>
-        <li class="linha"><strong>SÍMBOLO</strong><p>Uma borboleta, porque psyché em grego quer dizer alma e também borboleta. Ela é feita só de quatro elipses espelhadas e um traço fino.</p></li>
-        <li class="linha"><strong>“CARA DE APP”</strong><p>Formas geométricas e poucas linhas, que continuam legíveis em tamanho pequeno e cabem num quadrado de cantos arredondados, como um ícone na tela do celular.</p></li>
-        <li class="linha"><strong>CORES</strong><p>Roxo profundo como base e amarelo só no símbolo, para chamar atenção sem pesar. Lilás, lavanda e creme dão apoio nas peças.</p></li>
-        <li class="linha"><strong>TIPOGRAFIA</strong><p>Unbounded, larga e arredondada, no nome; Instrument Sans, simples e fácil de ler, nos textos.</p></li>
+        <li class="linha"><strong>{% tr %}SÍMBOLO<!--en-->SYMBOL{% endtr %}</strong><p>{% tr %}Uma borboleta, porque psyché em grego quer dizer alma e também borboleta. Ela é feita só de quatro elipses espelhadas e um traço fino.<!--en-->A butterfly, because psyché in Greek means both soul and butterfly. It is made of just four mirrored ellipses and a thin stroke.{% endtr %}</p></li>
+        <li class="linha"><strong>{% tr %}“CARA DE APP”<!--en-->“APP LOOK”{% endtr %}</strong><p>{% tr %}Formas geométricas e poucas linhas, que continuam legíveis em tamanho pequeno e cabem num quadrado de cantos arredondados, como um ícone na tela do celular.<!--en-->Geometric shapes and few lines that stay legible at small sizes and fit in a rounded square, like an icon on a phone screen.{% endtr %}</p></li>
+        <li class="linha"><strong>{% tr %}CORES<!--en-->COLORS{% endtr %}</strong><p>{% tr %}Roxo profundo como base e amarelo só no símbolo, para chamar atenção sem pesar. Lilás, lavanda e creme dão apoio nas peças.<!--en-->Deep purple as the base and yellow only on the symbol, to stand out without feeling heavy. Lilac, lavender and cream support the pieces.{% endtr %}</p></li>
+        <li class="linha"><strong>{% tr %}TIPOGRAFIA<!--en-->TYPE{% endtr %}</strong><p>{% tr %}Unbounded, larga e arredondada, no nome; Instrument Sans, simples e fácil de ler, nos textos.<!--en-->Unbounded, wide and rounded, for the name; Instrument Sans, simple and easy to read, for the texts.{% endtr %}</p></li>
       </ul>
     </section>
 
     <section class="secao">
-      <h2>MARCA</h2>
+      <h2>{% tr %}MARCA<!--en-->BRAND{% endtr %}</h2>
       <div class="pranchas duas">
         <figure>
-          <a href="psique/marca.webp"><img src="psique/marca-mini.webp" width="960" height="600" alt="Prancha da marca Psiquê: símbolo de borboleta amarelo e nome em letras minúsculas sobre roxo, com a paleta de seis cores e as fontes Unbounded e Instrument Sans."></a>
-          <figcaption><strong>Conceito, cores e tipografia.</strong> Em grego, psyché quer dizer alma e também borboleta. Roxo e amarelo foram pedido da cliente.</figcaption>
+          <a href="{% tr %}psique/marca.webp<!--en-->../../projetos/psique/marca.webp{% endtr %}"><img src="{% tr %}psique/marca-mini.webp<!--en-->../../projetos/psique/marca-mini.webp{% endtr %}" width="960" height="600" alt="{% tr %}Prancha da marca Psiquê: símbolo de borboleta amarelo e nome em letras minúsculas sobre roxo, com a paleta de seis cores e as fontes Unbounded e Instrument Sans.<!--en-->Psiquê brand board: yellow butterfly symbol and lowercase name on purple, with the six-color palette and the Unbounded and Instrument Sans typefaces.{% endtr %}"></a>
+          <figcaption><strong>{% tr %}Conceito, cores e tipografia.<!--en-->Concept, colors and typography.{% endtr %}</strong> {% tr %}Em grego, psyché quer dizer alma e também borboleta. Roxo e amarelo foram pedido da cliente.<!--en-->In Greek, psyché means both soul and butterfly. Purple and yellow were the client's request.{% endtr %}</figcaption>
         </figure>
         <figure>
-          <a href="psique/logo.webp"><img src="psique/logo-mini.webp" width="960" height="600" loading="lazy" alt="Prancha do logo: construção com quatro elipses e traços retos, logomarca em vários tamanhos, versões sobre roxo, amarelo e branco e a assinatura horizontal."></a>
-          <figcaption><strong>Logo e variações.</strong> Quatro elipses espelhadas e traço fino formam a logomarca.</figcaption>
+          <a href="{% tr %}psique/logo.webp<!--en-->../../projetos/psique/logo.webp{% endtr %}"><img src="{% tr %}psique/logo-mini.webp<!--en-->../../projetos/psique/logo-mini.webp{% endtr %}" width="960" height="600" loading="lazy" alt="{% tr %}Prancha do logo: construção com quatro elipses e traços retos, logomarca em vários tamanhos, versões sobre roxo, amarelo e branco e a assinatura horizontal.<!--en-->Logo board: construction with four ellipses and straight strokes, logomark in several sizes, versions on purple, yellow and white, and the horizontal lockup.{% endtr %}"></a>
+          <figcaption><strong>{% tr %}Logo e variações.<!--en-->Logo and variations.{% endtr %}</strong> {% tr %}Quatro elipses espelhadas e traço fino formam a logomarca.<!--en-->Four mirrored ellipses and a thin stroke form the logomark.{% endtr %}</figcaption>
         </figure>
       </div>
     </section>
 
     <section class="secao">
-      <h2>APLICAÇÕES</h2>
+      <h2>{% tr %}APLICAÇÕES<!--en-->APPLICATIONS{% endtr %}</h2>
       <div class="pranchas">
         <figure>
-          <a href="psique/mockup-placa.webp"><img src="psique/mockup-placa-mini.webp" width="960" height="720" loading="lazy" alt="Placa bandeira roxa da Psiquê presa na fachada, com a borboleta amarela, o nome e “clínica de psicologia”."></a>
-          <figcaption><strong>Placa bandeira.</strong> Símbolo grande, nome e “clínica de psicologia”, para ser vista de quem vem pela calçada.</figcaption>
+          <a href="{% tr %}psique/mockup-placa.webp<!--en-->../../projetos/psique/mockup-placa.webp{% endtr %}"><img src="{% tr %}psique/mockup-placa-mini.webp<!--en-->../../projetos/psique/mockup-placa-mini.webp{% endtr %}" width="960" height="720" loading="lazy" alt="{% tr %}Placa bandeira roxa da Psiquê presa na fachada, com a borboleta amarela, o nome e “clínica de psicologia”.<!--en-->Purple Psiquê projecting sign on the storefront, with the yellow butterfly, the name and “clínica de psicologia” (psychology clinic).{% endtr %}"></a>
+          <figcaption><strong>{% tr %}Placa bandeira.<!--en-->Projecting sign.{% endtr %}</strong> {% tr %}Símbolo grande, nome e “clínica de psicologia”, para ser vista de quem vem pela calçada.<!--en-->Large symbol, name and “clínica de psicologia”, visible to people walking down the sidewalk.{% endtr %}</figcaption>
         </figure>
         <figure>
-          <a href="psique/mockup-folder.webp"><img src="psique/mockup-folder-mini.webp" width="960" height="720" loading="lazy" alt="Folder da Psiquê em quatro posições: fechado, aberto por fora, meio aberto e aberto por dentro, com capa, público, explicação da terapia, como funciona, atendimento e contato."></a>
-          <figcaption><strong>Folder.</strong> Formato DL com seis faces: capa, o que é a terapia, para quem é, como funciona, atendimento e contato.</figcaption>
+          <a href="{% tr %}psique/mockup-folder.webp<!--en-->../../projetos/psique/mockup-folder.webp{% endtr %}"><img src="{% tr %}psique/mockup-folder-mini.webp<!--en-->../../projetos/psique/mockup-folder-mini.webp{% endtr %}" width="960" height="720" loading="lazy" alt="{% tr %}Folder da Psiquê em quatro posições: fechado, aberto por fora, meio aberto e aberto por dentro, com capa, público, explicação da terapia, como funciona, atendimento e contato.<!--en-->Psiquê folder in four positions: closed, open on the outside, half open and open on the inside, with the cover, audience, what therapy is, how it works, schedule and contact.{% endtr %}"></a>
+          <figcaption><strong>Folder.</strong> {% tr %}Formato DL com seis faces: capa, o que é a terapia, para quem é, como funciona, atendimento e contato.<!--en-->DL format with six panels: cover, what therapy is, who it is for, how it works, schedule and contact.{% endtr %}</figcaption>
         </figure>
         <figure>
-          <a href="psique/mockup-instagram.webp"><img src="psique/mockup-instagram-mini.webp" width="960" height="720" loading="lazy" alt="Celular mostrando o perfil da Psiquê no Instagram, com destaques nas cores da marca e a grade de posts."></a>
-          <figcaption><strong>Instagram.</strong> Perfil, destaques e grade alternando roxo, amarelo e lavanda.</figcaption>
+          <a href="{% tr %}psique/mockup-instagram.webp<!--en-->../../projetos/psique/mockup-instagram.webp{% endtr %}"><img src="{% tr %}psique/mockup-instagram-mini.webp<!--en-->../../projetos/psique/mockup-instagram-mini.webp{% endtr %}" width="960" height="720" loading="lazy" alt="{% tr %}Celular mostrando o perfil da Psiquê no Instagram, com destaques nas cores da marca e a grade de posts.<!--en-->Phone showing the Psiquê Instagram profile, with highlights in the brand colors and the post grid.{% endtr %}"></a>
+          <figcaption><strong>Instagram.</strong> {% tr %}Perfil, destaques e grade alternando roxo, amarelo e lavanda.<!--en-->Profile, highlights and a grid alternating purple, yellow and lavender.{% endtr %}</figcaption>
         </figure>
       </div>
     </section>
 
     <section class="secao">
-      <h2>MANUAL DE IDENTIDADE</h2>
+      <h2>{% tr %}MANUAL DE IDENTIDADE<!--en-->BRAND GUIDELINES{% endtr %}</h2>
       <div class="pranchas duas">
         <figure>
-          <a href="psique/miv-especificacoes.webp"><img src="psique/miv-especificacoes-mini.webp" width="960" height="600" loading="lazy" alt="Especificações: tabela de cores em HEX, RGB e CMYK, hierarquia tipográfica, redução mínima e versões em uma cor."></a>
-          <figcaption><strong>Especificações.</strong> Cores para tela e impressão, hierarquia tipográfica, redução mínima e versões em uma cor.</figcaption>
+          <a href="{% tr %}psique/miv-especificacoes.webp<!--en-->../../projetos/psique/miv-especificacoes.webp{% endtr %}"><img src="{% tr %}psique/miv-especificacoes-mini.webp<!--en-->../../projetos/psique/miv-especificacoes-mini.webp{% endtr %}" width="960" height="600" loading="lazy" alt="{% tr %}Especificações: tabela de cores em HEX, RGB e CMYK, hierarquia tipográfica, redução mínima e versões em uma cor.<!--en-->Specifications: color table in HEX, RGB and CMYK, type hierarchy, minimum size and one-color versions.{% endtr %}"></a>
+          <figcaption><strong>{% tr %}Especificações.<!--en-->Specifications.{% endtr %}</strong> {% tr %}Cores para tela e impressão, hierarquia tipográfica, redução mínima e versões em uma cor.<!--en-->Colors for screen and print, type hierarchy, minimum size and one-color versions.{% endtr %}</figcaption>
         </figure>
         <figure>
-          <a href="psique/miv-usos-incorretos.webp"><img src="psique/miv-usos-incorretos-mini.webp" width="960" height="600" loading="lazy" alt="Seis usos incorretos do logo: distorcido, girado, em cor fora da paleta, sem contraste, com sombra e com outra fonte."></a>
-          <figcaption><strong>Usos incorretos.</strong> O que não fazer com o símbolo e o nome.</figcaption>
+          <a href="{% tr %}psique/miv-usos-incorretos.webp<!--en-->../../projetos/psique/miv-usos-incorretos.webp{% endtr %}"><img src="{% tr %}psique/miv-usos-incorretos-mini.webp<!--en-->../../projetos/psique/miv-usos-incorretos-mini.webp{% endtr %}" width="960" height="600" loading="lazy" alt="{% tr %}Seis usos incorretos do logo: distorcido, girado, em cor fora da paleta, sem contraste, com sombra e com outra fonte.<!--en-->Six incorrect uses of the logo: stretched, rotated, off-palette color, low contrast, with a shadow and with another typeface.{% endtr %}"></a>
+          <figcaption><strong>{% tr %}Usos incorretos.<!--en-->Incorrect uses.{% endtr %}</strong> {% tr %}O que não fazer com o símbolo e o nome.<!--en-->What not to do with the symbol and the name.{% endtr %}</figcaption>
         </figure>
       </div>
     </section>
 
     <div class="contato">
-      <a class="botao" href="../portfolio.html">VER OUTROS PROJETOS</a>
+      <a class="botao" href="../portfolio.html">{% tr %}VER OUTROS PROJETOS<!--en-->SEE OTHER PROJECTS{% endtr %}</a>
     </div>
   </main>
 

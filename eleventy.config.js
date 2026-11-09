@@ -19,6 +19,11 @@ module.exports = function (config) {
   });
   config.on("eleventy.before", () => cache.clear());
   config.addFilter("dataISO", (d) => new Date(d).toISOString().slice(0, 10));
+  // textos bilíngues: {% tr %}texto em português<!--en-->text in English{% endtr %}
+  config.addPairedShortcode("tr", function (conteudo) {
+    const [pt, en = ""] = conteudo.split("<!--en-->");
+    return this.ctx && this.ctx.idioma === "en" ? en : pt;
+  });
   return {
     dir: { input: "src", output: "_site", includes: "_includes", data: "_data" },
     templateFormats: ["njk"],

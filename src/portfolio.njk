@@ -1,18 +1,26 @@
 ---
 layout: base.njk
-permalink: "/portfolio.html"
-lang: "pt-BR"
-par: "/en/portfolio.html"
-titulo: "Portfólio | arcanospeedruns"
-descricao: "Projetos de Carlos Gouveia."
-ogTitulo: "Portfólio | Carlos Gouveia"
-ogDescricao: "Projetos de produto, dados e design de Carlos Gouveia."
+pagination: { data: idiomas, size: 1, alias: idioma, addAllPagesToCollections: true }
+permalink: "{{ '/en' if idioma == 'en' }}/portfolio.html"
+caminho: "/portfolio.html"
 ogImagem: "/og.png"
 preload: ["/fonts/satoshi-900.woff2"]
 corpo: "orbita"
-scripts: ["/dados.js", "/onda.js"]
 topo: "normal"
 pagina: "portfolio"
+meta:
+  pt:
+    titulo: "Portfólio | arcanospeedruns"
+    descricao: "Projetos de Carlos Gouveia."
+    ogTitulo: "Portfólio | Carlos Gouveia"
+    ogDescricao: "Projetos de produto, dados e design de Carlos Gouveia."
+    scripts: ["/dados.js", "/onda.js"]
+  en:
+    titulo: "Portfolio | arcanospeedruns"
+    descricao: "Projects by Carlos Gouveia."
+    ogTitulo: "Portfolio | Carlos Gouveia"
+    ogDescricao: "Product, data and design projects by Carlos Gouveia."
+    scripts: ["/dados-en.js", "/dados.js", "/onda.js"]
 ---
   <canvas id="onda" data-tela-cheia aria-hidden="true"></canvas>
 
@@ -20,11 +28,11 @@ pagina: "portfolio"
 
   <main>
     <div class="cabecalho-dados">
-      <h1>PORTFÓLIO</h1>
-      <p>Projetos de produto, dados e design. Abra um cartão para ver o que foi feito, com quais ferramentas e onde ver mais.</p>
+      <h1>{% tr %}PORTFÓLIO<!--en-->PORTFOLIO{% endtr %}</h1>
+      <p>{% tr %}Projetos de produto, dados e design. Abra um cartão para ver o que foi feito, com quais ferramentas e onde ver mais.<!--en-->Product, data and design projects. Open a card to see what was done, with which tools and where to see more.{% endtr %}</p>
     </div>
 
-    <ul class="cartoes" id="projetos" aria-label="Projetos">
+    <ul class="cartoes" id="projetos" aria-label="{% tr %}Projetos<!--en-->Projects{% endtr %}">
       <!-- os cartões são criados pelo dados.js -->
     </ul>
   </main>

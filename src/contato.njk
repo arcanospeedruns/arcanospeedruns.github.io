@@ -1,18 +1,25 @@
 ---
 layout: base.njk
-permalink: "/contato.html"
-lang: "pt-BR"
-par: "/en/contato.html"
-titulo: "Contato | arcanospeedruns"
-descricao: "Contato de Carlos Gouveia."
-ogTitulo: "Contato | Carlos Gouveia"
-ogDescricao: "Aberto a vagas de estágio ou júnior em gestão de produto."
+pagination: { data: idiomas, size: 1, alias: idioma, addAllPagesToCollections: true }
+permalink: "{{ '/en' if idioma == 'en' }}/contato.html"
+caminho: "/contato.html"
 ogImagem: "/og.png"
 preload: ["/fonts/satoshi-900.woff2"]
 corpo: "indice-pg contato-amarelo"
 scripts: ["/onda.js"]
 topo: "normal"
 pagina: "contato"
+meta:
+  pt:
+    titulo: "Contato | arcanospeedruns"
+    descricao: "Contato de Carlos Gouveia."
+    ogTitulo: "Contato | Carlos Gouveia"
+    ogDescricao: "Aberto a vagas de estágio ou júnior em gestão de produto."
+  en:
+    titulo: "Contact me | arcanospeedruns"
+    descricao: "Contact Carlos Gouveia."
+    ogTitulo: "Contact me | Carlos Gouveia"
+    ogDescricao: "Open to internship or junior roles in product management."
 ---
   <canvas id="onda" data-tela-cheia aria-hidden="true"></canvas>
 
@@ -21,12 +28,12 @@ pagina: "contato"
 
     <main class="contato-pg">
       <figure class="foto">
-        <img src="foto.webp" alt="Foto de Carlos Gouveia" width="640" height="640" decoding="async" fetchpriority="high">
+        <img src="{% tr %}foto.webp<!--en-->../foto.webp{% endtr %}" alt="{% tr %}Foto de Carlos Gouveia<!--en-->Photo of Carlos Gouveia{% endtr %}" width="640" height="640" decoding="async" fetchpriority="high">
       </figure>
 
       <div class="contato-info">
-        <h1>CONTATO</h1>
-        <p class="papel">Aberto a vagas de estágio ou júnior em gestão de produto. Para contato, o e-mail é o canal preferencial.</p>
+        <h1>{% tr %}CONTATO<!--en-->CONTACT ME{% endtr %}</h1>
+        <p class="papel">{% tr %}Aberto a vagas de estágio ou júnior em gestão de produto. Para contato, o e-mail é o canal preferencial.<!--en-->Open to internship or junior roles in product management. E-mail is the preferred contact channel.{% endtr %}</p>
 
         <a class="email" href="mailto:carlosgouveia.pm@gmail.com">CARLOSGOUVEIA.PM@GMAIL.COM</a>
 
@@ -34,8 +41,8 @@ pagina: "contato"
         <ul class="canais">
           <li><span class="mono">LinkedIn</span><a href="https://www.linkedin.com/in/carloslnly">linkedin.com/in/carloslnly</a></li>
           <li><span class="mono">GitHub</span><a href="https://github.com/arcanospeedruns">github.com/arcanospeedruns</a></li>
-          <li><span class="mono">Currículo</span><a href="curriculo.pdf">Baixar em PDF</a></li>
-          <li><span class="mono">Cidade</span><span>São Paulo, SP</span></li>
+          <li><span class="mono">{% tr %}Currículo<!--en-->Résumé{% endtr %}</span><a href="{% tr %}curriculo.pdf<!--en-->../curriculo-en.pdf{% endtr %}">{% tr %}Baixar em PDF<!--en-->Download PDF{% endtr %}</a></li>
+          <li><span class="mono">{% tr %}Cidade<!--en-->City{% endtr %}</span><span>{% tr %}São Paulo, SP<!--en-->São Paulo, Brazil{% endtr %}</span></li>
         </ul>
       </div>
     </main>

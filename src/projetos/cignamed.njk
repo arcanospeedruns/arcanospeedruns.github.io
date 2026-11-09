@@ -1,79 +1,86 @@
 ---
 layout: base.njk
-permalink: "/projetos/cignamed.html"
-lang: "pt-BR"
-par: "/en/projetos/cignamed.html"
-titulo: "Três bases, um estudo: estudo de caso de produto | arcanospeedruns"
-descricao: "Estudo de caso de produto de Carlos Gouveia no estágio na Cignamed: três bases de um estudo clínico unificadas em uma só, de 2 meses para 2 minutos, e um padrão novo de coleta no REDCap."
-ogTitulo: "Três bases, um estudo | Carlos Gouveia"
-ogDescricao: "Três bases de um estudo clínico, com questionários diferentes, unificadas em uma só: de 2 meses para 2 minutos."
+pagination: { data: idiomas, size: 1, alias: idioma, addAllPagesToCollections: true }
+permalink: "{{ '/en' if idioma == 'en' }}/projetos/cignamed.html"
+caminho: "/projetos/cignamed.html"
 ogImagem: "/projetos/cignamed/og.jpg"
 preload: ["/fonts/satoshi-900.woff2"]
 corpo: "indice-pg projeto-pg"
 scripts: ["/onda.js"]
 topo: "normal"
 pagina: "portfolio"
+meta:
+  pt:
+    titulo: "Três bases, um estudo: estudo de caso de produto | arcanospeedruns"
+    descricao: "Estudo de caso de produto de Carlos Gouveia no estágio na Cignamed: três bases de um estudo clínico unificadas em uma só, de 2 meses para 2 minutos, e um padrão novo de coleta no REDCap."
+    ogTitulo: "Três bases, um estudo | Carlos Gouveia"
+    ogDescricao: "Três bases de um estudo clínico, com questionários diferentes, unificadas em uma só: de 2 meses para 2 minutos."
+  en:
+    titulo: "Three databases, one study: a product case study | arcanospeedruns"
+    descricao: "Product case study by Carlos Gouveia from his internship at Cignamed: three clinical study databases merged into one, from 2 months to 2 minutes, and a new data collection standard in REDCap."
+    ogTitulo: "Three databases, one study | Carlos Gouveia"
+    ogDescricao: "Three clinical study databases with different questionnaires merged into one: from 2 months to 2 minutes."
 ---
   {% include "topo.njk" %}
 
   <main>
-    <a class="voltar mono" href="../portfolio.html">VOLTAR AO PORTFÓLIO</a>
+    <a class="voltar mono" href="../portfolio.html">{% tr %}VOLTAR AO PORTFÓLIO<!--en-->BACK TO PORTFOLIO{% endtr %}</a>
 
     <div class="cabeca">
       <canvas id="onda" aria-hidden="true"></canvas>
       <div>
-        <h1>TRÊS BASES, UM ESTUDO</h1>
-        <p class="papel">Como transformei três bases de um estudo clínico, cada uma com um questionário diferente, em uma base única, e criei um padrão para que as próximas coletas já chegassem organizadas.</p>
+        <h1>{% tr %}TRÊS BASES, UM ESTUDO<!--en-->THREE DATABASES, ONE STUDY{% endtr %}</h1>
+        <p class="papel">{% tr %}Como transformei três bases de um estudo clínico, cada uma com um questionário diferente, em uma base única, e criei um padrão para que as próximas coletas já chegassem organizadas.<!--en-->How I turned three databases from a clinical study, each with a different questionnaire, into a single dataset, and set up a standard so future data collection would arrive organized.{% endtr %}</p>
       </div>
       <dl class="ficha">
-        <dt>Tipo</dt><dd>Estudo de caso de produto</dd>
-        <dt>Empresa</dt><dd>Cignamed, estágio</dd>
-        <dt>Período</dt><dd>Mai – out 2026</dd>
-        <dt>Ferramentas</dt><dd>Python (pandas), Excel, REDCap</dd>
+        <dt>{% tr %}Tipo<!--en-->Type{% endtr %}</dt><dd>{% tr %}Estudo de caso de produto<!--en-->Product case study{% endtr %}</dd>
+        <dt>{% tr %}Empresa<!--en-->Company{% endtr %}</dt><dd>{% tr %}Cignamed, estágio<!--en-->Cignamed, internship{% endtr %}</dd>
+        <dt>{% tr %}Período<!--en-->Period{% endtr %}</dt><dd>{% tr %}Mai – out 2026<!--en-->May – Oct 2026{% endtr %}</dd>
+        <dt>{% tr %}Ferramentas<!--en-->Tools{% endtr %}</dt><dd>Python (pandas), Excel, REDCap</dd>
       </dl>
     </div>
 
-    <p class="aviso">Projeto feito durante o estágio na Cignamed, em um estudo de pesquisa clínica. Nenhum dado de participante aparece aqui: o caso trata só do problema e do processo.</p>
+    <p class="aviso">{% tr %}Projeto feito durante o estágio na Cignamed, em um estudo de pesquisa clínica. Nenhum dado de participante aparece aqui: o caso trata só do problema e do processo.<!--en-->Project carried out during my internship at Cignamed, in a clinical research study. No participant data appears here: the case covers only the problem and the process.{% endtr %}</p>
 
     <section class="secao">
-      <h2>RESULTADO</h2>
+      <h2>{% tr %}RESULTADO<!--en-->OUTCOME{% endtr %}</h2>
       <ul>
-        <li class="linha"><strong>DE 2 MESES A 2 MIN</strong><p>A junção das bases, que levava cerca de dois meses de trabalho, passou a levar uns dois minutos.</p></li>
-        <li class="linha"><strong>950 MIL RESPOSTAS</strong><p>Cerca de 1.900 respondentes e 500 perguntas reunidos em uma base única, sem perder nenhuma pergunta coletada.</p></li>
-        <li class="linha"><strong>200+ DUPLICIDADES</strong><p>Duplicidades e centenas de inconsistências (datas e idades fora de faixa, valores mal formatados) encontradas e corrigidas, com cada correção registrada em um log.</p></li>
-        <li class="linha"><strong>PADRÃO NOVO</strong><p>As entrevistas seguintes passaram a ser coletadas no REDCap, já no formato da base unificada, para o problema não voltar.</p></li>
+        <li class="linha"><strong>{% tr %}DE 2 MESES A 2 MIN<!--en-->2 MONTHS TO 2 MIN{% endtr %}</strong><p>{% tr %}A junção das bases, que levava cerca de dois meses de trabalho, passou a levar uns dois minutos.<!--en-->Merging the databases, which took about two months of work, now takes around two minutes.{% endtr %}</p></li>
+        <li class="linha"><strong>{% tr %}950 MIL RESPOSTAS<!--en-->950K ANSWERS{% endtr %}</strong><p>{% tr %}Cerca de 1.900 respondentes e 500 perguntas reunidos em uma base única, sem perder nenhuma pergunta coletada.<!--en-->About 1,900 respondents and 500 questions brought together in a single dataset, without losing any question that was collected.{% endtr %}</p></li>
+        <li class="linha"><strong>{% tr %}200+ DUPLICIDADES<!--en-->200+ DUPLICATES{% endtr %}</strong><p>{% tr %}Duplicidades e centenas de inconsistências (datas e idades fora de faixa, valores mal formatados) encontradas e corrigidas, com cada correção registrada em um log.<!--en-->Duplicates and hundreds of inconsistencies (out-of-range dates and ages, badly formatted values) found and fixed, with every correction recorded in a log.{% endtr %}</p></li>
+        <li class="linha"><strong>{% tr %}PADRÃO NOVO<!--en-->NEW STANDARD{% endtr %}</strong><p>{% tr %}As entrevistas seguintes passaram a ser coletadas no REDCap, já no formato da base unificada, para o problema não voltar.<!--en-->Later interviews started being collected in REDCap, already in the format of the merged dataset, so the problem would not come back.{% endtr %}</p></li>
       </ul>
     </section>
 
     <section class="secao">
-      <h2>O PROBLEMA</h2>
+      <h2>{% tr %}O PROBLEMA<!--en-->THE PROBLEM{% endtr %}</h2>
       <ul>
-        <li class="linha"><strong>CONTEXTO</strong><p>Fui chamado para o estágio justamente para resolver este problema. A pesquisadora responsável tinha três bases de dados do mesmo estudo, cada uma com um questionário diferente, e precisava juntar tudo: as perguntas e os respondentes.</p></li>
-        <li class="linha"><strong>POR QUE NÃO ERA SÓ CÓDIGO</strong><p>À primeira vista parecia trabalho para um script, mas as perguntas estavam escritas de jeitos diferentes em cada base, com erros e variações. O código não tinha como saber que duas colunas eram a mesma pergunta.</p></li>
-        <li class="linha"><strong>QUEM SENTIA</strong><p>A equipe de pesquisa, que precisava da base completa para analisar o estudo e dependia de um trabalho manual demorado para chegar até ela.</p></li>
+        <li class="linha"><strong>{% tr %}CONTEXTO<!--en-->CONTEXT{% endtr %}</strong><p>{% tr %}Fui chamado para o estágio justamente para resolver este problema. A pesquisadora responsável tinha três bases de dados do mesmo estudo, cada uma com um questionário diferente, e precisava juntar tudo: as perguntas e os respondentes.<!--en-->I was brought into the internship precisely to solve this problem. The lead researcher had three databases from the same study, each with a different questionnaire, and needed everything combined: the questions and the respondents.{% endtr %}</p></li>
+        <li class="linha"><strong>{% tr %}POR QUE NÃO ERA SÓ CÓDIGO<!--en-->WHY CODE ALONE WASN’T ENOUGH{% endtr %}</strong><p>{% tr %}À primeira vista parecia trabalho para um script, mas as perguntas estavam escritas de jeitos diferentes em cada base, com erros e variações. O código não tinha como saber que duas colunas eram a mesma pergunta.<!--en-->At first it looked like a job for a script, but the questions were written differently in each database, with typos and variations. Code had no way of knowing that two columns were the same question.{% endtr %}</p></li>
+        <li class="linha"><strong>{% tr %}QUEM SENTIA<!--en-->WHO FELT IT{% endtr %}</strong><p>{% tr %}A equipe de pesquisa, que precisava da base completa para analisar o estudo e dependia de um trabalho manual demorado para chegar até ela.<!--en-->The research team, who needed the complete dataset to analyze the study and depended on slow manual work to get there.{% endtr %}</p></li>
       </ul>
     </section>
 
     <section class="secao">
-      <h2>DESCOBERTA E DECISÕES</h2>
+      <h2>{% tr %}DESCOBERTA E DECISÕES<!--en-->DISCOVERY AND DECISIONS{% endtr %}</h2>
       <ul>
-        <li class="linha"><strong>ESTUDAR ANTES DE PROGRAMAR</strong><p>Antes de escrever código, estudei o material do estudo para entender cada pergunta e descobrir quais eram equivalentes entre as bases, mesmo quando não seguiam o padrão.</p></li>
-        <li class="linha"><strong>CORRIGIR NA ORIGEM</strong><p>Padronizei as perguntas nas três bases. Só com elas escritas do mesmo jeito a junção automática passou a funcionar.</p></li>
-        <li class="linha"><strong>NADA SE PERDE</strong><p>Unifiquei as bases com pandas. As perguntas que existiam em só uma base não foram descartadas: foram para o fim da planilha, e a base final guarda tudo o que foi coletado.</p></li>
-        <li class="linha"><strong>EVITAR QUE VOLTE</strong><p>Para as próximas entrevistas seguirem o mesmo padrão, montei os formulários no REDCap, ferramenta comum entre pesquisadores, com tipos de campo e regras de validação que barram erros na hora da coleta.</p></li>
+        <li class="linha"><strong>{% tr %}ESTUDAR ANTES DE PROGRAMAR<!--en-->STUDY BEFORE CODING{% endtr %}</strong><p>{% tr %}Antes de escrever código, estudei o material do estudo para entender cada pergunta e descobrir quais eram equivalentes entre as bases, mesmo quando não seguiam o padrão.<!--en-->Before writing any code, I studied the research material to understand each question and find out which ones matched across the databases, even when they didn’t follow the pattern.{% endtr %}</p></li>
+        <li class="linha"><strong>{% tr %}CORRIGIR NA ORIGEM<!--en-->FIX IT AT THE SOURCE{% endtr %}</strong><p>{% tr %}Padronizei as perguntas nas três bases. Só com elas escritas do mesmo jeito a junção automática passou a funcionar.<!--en-->I standardized the questions in all three databases. Only once they were written the same way did the automatic merge start working.{% endtr %}</p></li>
+        <li class="linha"><strong>{% tr %}NADA SE PERDE<!--en-->NOTHING GETS LOST{% endtr %}</strong><p>{% tr %}Unifiquei as bases com pandas. As perguntas que existiam em só uma base não foram descartadas: foram para o fim da planilha, e a base final guarda tudo o que foi coletado.<!--en-->I merged the databases with pandas. Questions that existed in only one database were not dropped: they went to the end of the spreadsheet, so the final dataset keeps everything that was collected.{% endtr %}</p></li>
+        <li class="linha"><strong>{% tr %}EVITAR QUE VOLTE<!--en-->KEEP IT FROM COMING BACK{% endtr %}</strong><p>{% tr %}Para as próximas entrevistas seguirem o mesmo padrão, montei os formulários no REDCap, ferramenta comum entre pesquisadores, com tipos de campo e regras de validação que barram erros na hora da coleta.<!--en-->So that future interviews would follow the same standard, I built the forms in REDCap, a tool widely used by researchers, with field types and validation rules that block errors at collection time.{% endtr %}</p></li>
       </ul>
     </section>
 
     <section class="secao">
-      <h2>APRENDIZADOS</h2>
+      <h2>{% tr %}APRENDIZADOS<!--en-->LESSONS LEARNED{% endtr %}</h2>
       <ul>
-        <li class="linha"><strong>O CONTEÚDO VEM ANTES</strong><p>A maior dificuldade não era técnica: a qualidade das perguntas variava muito de uma base para outra. Entender o conteúdo foi o que destravou a solução.</p></li>
-        <li class="linha"><strong>O QUE EU FARIA DIFERENTE</strong><p>Testaria outras ferramentas de coleta antes de adotar o REDCap, comparando cada uma com o que a equipe precisava no dia a dia.</p></li>
+        <li class="linha"><strong>{% tr %}O CONTEÚDO VEM ANTES<!--en-->CONTENT COMES FIRST{% endtr %}</strong><p>{% tr %}A maior dificuldade não era técnica: a qualidade das perguntas variava muito de uma base para outra. Entender o conteúdo foi o que destravou a solução.<!--en-->The hardest part wasn’t technical: question quality varied a lot from one database to another. Understanding the content is what unlocked the solution.{% endtr %}</p></li>
+        <li class="linha"><strong>{% tr %}O QUE EU FARIA DIFERENTE<!--en-->WHAT I’D DO DIFFERENTLY{% endtr %}</strong><p>{% tr %}Testaria outras ferramentas de coleta antes de adotar o REDCap, comparando cada uma com o que a equipe precisava no dia a dia.<!--en-->I would test other data collection tools before adopting REDCap, comparing each one against what the team needed day to day.{% endtr %}</p></li>
       </ul>
     </section>
 
     <div class="contato">
-      <a class="botao" href="../portfolio.html">VER OUTROS PROJETOS</a>
+      <a class="botao" href="../portfolio.html">{% tr %}VER OUTROS PROJETOS<!--en-->SEE OTHER PROJECTS{% endtr %}</a>
     </div>
   </main>
 

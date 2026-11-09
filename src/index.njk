@@ -1,29 +1,34 @@
 ---
 layout: base.njk
-permalink: "/"
-lang: "pt-BR"
-par: "/en/"
+pagination: { data: idiomas, size: 1, alias: idioma, addAllPagesToCollections: true }
+permalink: "{{ '/en' if idioma == 'en' }}/"
+caminho: "/"
 titulo: "arcanospeedruns | Carlos Gouveia"
-descricao: "Portfólio de Carlos Gouveia: produto, dados e design."
 ogTitulo: "arcanospeedruns | Carlos Gouveia"
-ogDescricao: "Portfólio de Carlos Gouveia: produto, dados e design."
 ogImagem: "/og.png"
 preload: ["/fonts/departure-mono.woff2", "/fonts/satoshi-900.woff2"]
 corpo: "landing-pg"
 scripts: ["/landing.js"]
 topo: "landing"
+meta:
+  pt:
+    descricao: "Portfólio de Carlos Gouveia: produto, dados e design."
+    ogDescricao: "Portfólio de Carlos Gouveia: produto, dados e design."
+  en:
+    descricao: "Portfolio of Carlos Gouveia: product, data and design."
+    ogDescricao: "Portfolio of Carlos Gouveia: product, data and design."
 ---
   <canvas id="carpas" aria-hidden="true"></canvas>
   {% include "topo.njk" %}
   <main class="landing">
-    <h1 class="so-leitor">Carlos Gouveia: portfólio</h1>
+    <h1 class="so-leitor">{% tr %}Carlos Gouveia: portfólio<!--en-->Carlos Gouveia: portfolio{% endtr %}</h1>
     <div class="landing-centro">
-      <nav class="landing-nav mono" aria-label="Páginas">
-        <a href="sobre.html">[ SOBRE MIM ]</a>
-        <a href="portfolio.html">[ PORTFÓLIO ]</a>
-        <a href="contato.html">[ CONTATO ]</a>
+      <nav class="landing-nav mono" aria-label="{% tr %}Páginas<!--en-->Pages{% endtr %}">
+        <a href="sobre.html">{% tr %}[ SOBRE MIM ]<!--en-->[ ABOUT ME ]{% endtr %}</a>
+        <a href="portfolio.html">{% tr %}[ PORTFÓLIO ]<!--en-->[ PORTFOLIO ]{% endtr %}</a>
+        <a href="contato.html">{% tr %}[ CONTATO ]<!--en-->[ CONTACT ]{% endtr %}</a>
       </nav>
       <p class="landing-nome mono">CARLOS GOUVEIA</p>
-      <p class="landing-sub mono">PRODUTO · DADOS · DESIGN</p>
+      <p class="landing-sub mono">{% tr %}PRODUTO · DADOS · DESIGN<!--en-->PRODUCT · DATA · DESIGN{% endtr %}</p>
     </div>
   </main>
