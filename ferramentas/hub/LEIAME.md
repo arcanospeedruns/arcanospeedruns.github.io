@@ -1,8 +1,9 @@
 # Hub
 
-`hub-fonte.js` é o código do hub. O `src/hub.js` é a versão empacotada (com o supabase-js dentro):
+`hub-fonte.js` é o código do hub. O `src/hub.js` (com o supabase-js dentro) é gerado
+a cada `npm run build`, inclusive no GitHub Actions, e não vai para o repositório.
+Para gerar só ele:
 
-    npm install
-    npx esbuild hub-fonte.js --bundle --minify --format=iife --target=es2020 --legal-comments=none --outfile=../../src/hub.js
+    npm run hub
 
-O banco e as regras de acesso estão em `supabase/hub.sql`. A chave pública vai em `hub-config.js`.
+O banco e as regras de acesso estão em `supabase/hub.sql`. A chave pública vai em `src/hub-config.js`.

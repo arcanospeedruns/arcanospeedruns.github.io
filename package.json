@@ -3,10 +3,13 @@
   "private": true,
   "description": "Portfólio de Carlos Gouveia (arcanospeedruns.github.io)",
   "scripts": {
-    "build": "eleventy",
-    "dev": "eleventy --serve"
+    "hub": "esbuild ferramentas/hub/hub-fonte.js --bundle --minify --format=iife --target=es2020 --legal-comments=none --log-level=warning --outfile=src/hub.js",
+    "build": "npm run hub && eleventy",
+    "dev": "npm run hub && eleventy --serve"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^3.1.8"
+    "@11ty/eleventy": "^3.1.8",
+    "@supabase/supabase-js": "^2.119.0",
+    "esbuild": "^0.28.2"
   }
 }
