@@ -24,6 +24,16 @@ pagina: "portfolio"
       <p>Saldo de empregos formais (admissões menos desligamentos) em {{ empregosAno or 2026 }}, por estado e município. Toque em um estado para ver os municípios dele.</p>
     </header>
 
+    <section class="emp-recorte" aria-labelledby="recorte-t">
+      <h2 id="recorte-t">O recorte</h2>
+      <ul>
+        <li><b>O que conta:</b> só empregos formais, com carteira assinada, informados pelas empresas ao Novo CAGED.</li>
+        <li><b>Período:</b> janeiro a julho de 2026, o último mês publicado.</li>
+        <li><b>Saldo:</b> admissões menos desligamentos. Entram as declarações enviadas fora do prazo e saem as que foram excluídas.</li>
+        <li><b>Lugar:</b> o município onde fica a empresa, não onde o trabalhador mora.</li>
+      </ul>
+    </section>
+
     <div class="emp-grade">
       <section class="emp-controles" aria-label="Filtros">
         <div class="campo"><label for="local">Local</label><select id="local"></select></div>
@@ -67,6 +77,6 @@ pagina: "portfolio"
       </section>
     </div>
 
-    <p class="emp-fonte">Os dados são do Novo CAGED, do Ministério do Trabalho e Emprego. O saldo é o número de admissões menos o de desligamentos, já contando as declarações enviadas fora do prazo e descontando as que foram excluídas. Os números mudam um pouco a cada mês, porque o ministério revisa os dados. Sete municípios criados depois de 2013 não aparecem no desenho do mapa, mas entram no total do estado. Os microdados vêm do repositório usado pelo pacote <a href="https://github.com/gecomt/datacaged" target="_blank" rel="noopener">datacaged</a> e os contornos dos municípios, do projeto <a href="https://github.com/tbrugz/geodata-br" target="_blank" rel="noopener">geodata-br</a>.</p>
+    <p class="emp-fonte">Os dados são do Novo CAGED, do Ministério do Trabalho e Emprego. Os números mudam um pouco a cada mês, porque o ministério revisa os dados. Sete municípios criados depois de 2013 não aparecem no desenho do mapa, mas entram no total do estado. Os microdados vêm do repositório usado pelo pacote <a href="https://github.com/gecomt/datacaged" target="_blank" rel="noopener">datacaged</a> e os contornos dos municípios, do projeto <a href="https://github.com/tbrugz/geodata-br" target="_blank" rel="noopener">geodata-br</a>.</p>
   </main>
   </div>
