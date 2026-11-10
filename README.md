@@ -26,6 +26,7 @@ src/
   contato.njk          contato                 -> /contato.html e /en/contato.html
   projetos/psique.njk  página de um projeto
   hub.njk              hub (posts)             -> /hub.html
+  empregos.njk         mapa do emprego (CAGED) -> /empregos.html (dados: ferramentas/empregos.py)
   404.njk, sitemap.njk, robots.txt
   *.css, *.js, fonts/, projetos/*/ imagens, PDFs do currículo
 ferramentas/conferir_links.py   confere href, src e âncoras do site gerado

@@ -4,12 +4,15 @@
   "description": "Portfólio de Carlos Gouveia (carlosgouveia.is-a.dev)",
   "scripts": {
     "hub": "esbuild ferramentas/hub/hub-fonte.js --bundle --minify --format=iife --target=es2020 --legal-comments=none --log-level=warning --outfile=src/hub.js",
-    "build": "npm run hub && eleventy",
-    "dev": "npm run hub && eleventy --serve"
+    "build": "npm run hub && npm run mapa && eleventy",
+    "dev": "npm run hub && npm run mapa && eleventy --serve",
+    "mapa": "esbuild ferramentas/empregos/mapa-fonte.js --bundle --minify --format=iife --target=es2020 --legal-comments=none --log-level=warning --outfile=src/empregos.js"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.1.8",
     "@supabase/supabase-js": "^2.119.0",
-    "esbuild": "^0.28.2"
+    "d3-geo": "^3.1.2",
+    "esbuild": "^0.28.2",
+    "topojson-client": "^3.1.0"
   }
 }

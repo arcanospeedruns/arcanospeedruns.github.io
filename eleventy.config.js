@@ -8,6 +8,7 @@ module.exports = function (config) {
   for (const ext of ["css", "js", "webp", "jpg", "png", "svg", "pdf", "woff2", "txt"]) {
     config.addPassthroughCopy(`src/**/*.${ext}`);
   }
+  config.addPassthroughCopy("src/empregos-*.json"); // dados e malha do mapa do emprego
   // "/style.css" -> "/style.css?v=<hash do conteúdo>": o navegador só baixa de novo quando o arquivo muda
   const cache = new Map();
   config.addFilter("versao", (arquivo) => {

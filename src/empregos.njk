@@ -1,0 +1,68 @@
+---
+layout: base.njk
+permalink: "/empregos.html"
+lang: "pt-BR"
+titulo: "Mapa do emprego | Carlos Gouveia"
+descricao: "Mapa interativo do saldo de empregos formais no Brasil em 2026, por estado e município, com dados do Novo CAGED."
+ogTitulo: "Mapa do emprego | Carlos Gouveia"
+ogDescricao: "Onde os empregos formais foram criados em 2026, por estado e município."
+preload: ["/fonts/satoshi-900.woff2"]
+corpo: "empregos-pg"
+scripts: ["/empregos.js"]
+topo: "normal"
+pagina: "empregos"
+---
+  <link rel="stylesheet" href="{{ '/empregos.css' | versao }}">
+  {% include "topo.njk" %}
+
+  <main class="emp">
+    <header class="emp-cabeca">
+      <h1>Onde os empregos foram criados</h1>
+      <p>Saldo de empregos formais (admissões menos desligamentos) em {{ empregosAno or 2026 }}, por estado e município. Toque em um estado para ver os municípios dele.</p>
+    </header>
+
+    <div class="emp-grade">
+      <section class="emp-controles" aria-label="Filtros">
+        <div class="campo"><label for="local">Local</label><select id="local"></select></div>
+        <div class="campo"><span class="rotulo" id="r-visao">Ver por</span>
+          <div class="segmentado" role="group" aria-labelledby="r-visao"><button type="button" data-nivel="uf" aria-pressed="true">Estados</button><button type="button" data-nivel="mun" aria-pressed="false">Municípios</button></div></div>
+        <div class="campo"><label for="mes">Período</label><select id="mes"></select></div>
+        <div class="campo"><label for="setor">Setor</label><select id="setor"></select></div>
+        <div class="campo busca"><label for="busca">Buscar município</label><input id="busca" type="search" autocomplete="off" placeholder="Ex.: Campinas"><ul id="achados" hidden></ul></div>
+      </section>
+
+      <section class="emp-mapa" aria-label="Mapa">
+        <div id="palco">
+          <svg id="mapa" viewBox="0 0 1000 1000" role="img" aria-label="Mapa do Brasil colorido pelo saldo de empregos. Os mesmos números estão na lista ao lado."><g id="g-mun"></g><g id="g-uf"></g></svg>
+          <p id="carregando">Carregando o mapa…</p>
+          <div id="dica" hidden></div>
+          <button type="button" id="voltar" hidden>Voltar ao Brasil</button>
+        </div>
+        <ul id="legenda" aria-label="Legenda: saldo de empregos"></ul>
+      </section>
+
+      <section class="emp-painel" aria-live="polite">
+        <div class="resumo">
+          <p class="rotulo"><span id="onde">Brasil</span> · <span id="quando"></span></p>
+          <p class="grande" id="total"></p>
+          <p class="mini" id="adm-desl"><span id="adm"></span> admissões · <span id="desl"></span> desligamentos</p>
+        </div>
+
+        <div class="cartao-det" id="detalhe" hidden>
+          <div class="det-topo"><h2 id="d-nome"></h2><button type="button" id="d-fechar" aria-label="Fechar detalhe">✕</button></div>
+          <p class="det-saldo" id="d-saldo"></p>
+          <p class="mini" id="d-extra"></p>
+          <ol class="meses" id="d-meses" aria-label="Saldo mês a mês"></ol>
+          <button type="button" id="d-abrir" class="botao">Ver municípios do estado</button>
+        </div>
+
+        <div class="rank-bloco">
+          <div class="segmentado" role="group" aria-label="Ordem da lista"><button type="button" data-aba="cria" aria-pressed="true">Mais criaram</button><button type="button" data-aba="fecha" aria-pressed="false">Mais fecharam</button></div>
+          <h2 id="rank-titulo"></h2>
+          <ol id="rank"></ol>
+        </div>
+      </section>
+    </div>
+
+    <p class="emp-fonte">Fonte: Novo CAGED/MTE, microdados (movimentações do mês, declarações fora do prazo e exclusões), baixados pelo espelho usado no pacote <a href="https://github.com/gecomt/datacaged" target="_blank" rel="noopener">datacaged</a>. Os números podem diferir um pouco da divulgação oficial, que é revisada todo mês. Malha municipal: <a href="https://github.com/tbrugz/geodata-br" target="_blank" rel="noopener">geodata-br</a>; municípios criados depois de 2013 entram só no total do estado. Elaboração: Carlos Gouveia.</p>
+  </main>
