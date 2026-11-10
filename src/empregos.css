@@ -38,7 +38,7 @@
 #g-uf path { stroke: var(--tinta); stroke-width: 0.9; cursor: pointer; }
 #mapa[data-modo="mun"] #g-uf path, #mapa[data-modo="foco"] #g-uf path { pointer-events: none; stroke-width: 1.1; }
 #mapa[data-modo="mun"] #g-mun path { stroke-width: 0.15; }
-#g-uf path.apagado { fill: #dfe3e8 !important; stroke: #aab4c0; }
+#g-uf path.apagado { fill: #e3e1da !important; stroke: #b5b1a6; }
 #mapa path:hover { stroke: var(--tinta); stroke-width: 1.6; }
 #mapa path.sel { stroke: #000; stroke-width: 2.6; }
 #carregando { position: absolute; inset: 0; margin: 0; display: grid; place-content: center; font-weight: 600; background: #fff; }
