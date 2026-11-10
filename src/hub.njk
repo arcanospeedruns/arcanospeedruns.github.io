@@ -12,7 +12,7 @@ eleventyExcludeFromCollections: false
   <title>Hub | Carlos Gouveia</title>
   <link rel="canonical" href="{{ site.url }}/hub.html">
   <meta name="description" content="Textos e fotos de Carlos Gouveia.">
-  <meta name="theme-color" content="#24282d">
+  <meta name="theme-color" content="#e4eefa">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <meta property="og:type" content="website">
@@ -22,7 +22,7 @@ eleventyExcludeFromCollections: false
   <meta property="og:url" content="{{ site.url }}/hub.html">
   <meta property="og:image" content="{{ site.url }}/og.png">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="preload" href="/fonts/michroma.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/satoshi-900.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="{{ '/style.css' | versao }}">
   <link rel="stylesheet" href="{{ '/hub.css' | versao }}">
 </head>
@@ -31,8 +31,17 @@ eleventyExcludeFromCollections: false
 
     <div class="topo-gato">
       <a class="marca" href="/" aria-label="Voltar ao site" title="Voltar ao site"><svg class="marca-gato" viewBox="36 18 136 154" aria-hidden="true" focusable="false"><mask id="olhos-gato"><rect x="0" y="0" width="200" height="200" fill="#fff"/><g fill="#000"><ellipse cx="104" cy="112" rx="12" ry="17.5" transform="rotate(-5 104 112)"/><ellipse cx="143" cy="110" rx="8" ry="16" transform="rotate(-5 143 110)"/></g></mask><g mask="url(#olhos-gato)"><path d="M48 140 C48 116 47 98 50 82 C53 62 56 44 59 31 Q61 22 68 28 C79 39 90 51 100 60 C106 64 114 64 120 62 C123 61 125 60 127 58 C134 48 141 38 146 30 Q151 22 154 31 C157 46 161 64 164 80 C167 98 166 118 166 140 C166 160 156 170 138 170 L76 170 C58 170 48 160 48 140 Z" transform="translate(104 0) scale(1.1 1) translate(-107 0)" fill="currentColor"/></g></svg></a>
+      <span class="micro" aria-hidden="true"></span>
+      <a href="#/entrar" id="link-entrar" class="bisel">ENTRAR</a>
     </div>
     <h1 class="so-leitor">Hub: textos e fotos de Carlos Gouveia</h1>
+
+    <!-- nome grande e contagem de posts -->
+    <div class="hub-topo">
+      <a class="hub-nome" href="#/" data-t="HUB" aria-label="Hub, todos os posts">HUB</a>
+      <span class="lcd" id="contagem"></span>
+    </div>
+    <div class="faixa" aria-hidden="true"></div>
 
     <!-- barra que só aparece para o dono, logado -->
     <div class="chapa barra-dono" id="barra-dono" hidden>
@@ -43,8 +52,8 @@ eleventyExcludeFromCollections: false
     <p class="hub-msg" id="msg" role="status"></p>
 
     <!-- lista de posts -->
-    <section class="chapa" id="lista" aria-labelledby="lista-titulo">
-      <div class="chapa-cabeca"><h2 id="lista-titulo">POSTS RECENTES</h2><span class="risco" aria-hidden="true"></span><span class="lcd pequeno" id="contagem"></span></div>
+    <section id="lista" aria-labelledby="lista-titulo">
+      <h2 id="lista-titulo" class="so-leitor">Posts recentes</h2>
       <ol class="feed" id="feed"></ol>
       <p class="vazio" id="vazio" hidden>Nenhum post publicado ainda.</p>
       <div class="mais-linha"><button type="button" class="bisel" id="mais" hidden>MAIS POSTS</button></div>
@@ -66,7 +75,6 @@ eleventyExcludeFromCollections: false
 
     <footer class="rodape-hub">
       <span>SÃO PAULO · 2026</span>
-      <a href="#/entrar" id="link-entrar">ENTRAR</a>
     </footer>
   </div>
 

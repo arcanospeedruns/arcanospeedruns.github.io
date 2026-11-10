@@ -136,6 +136,7 @@ function itemFeed(p, n) {
         ${p.publicado ? "" : '<p class="ficha-post-meta"><span class="tag">RASCUNHO</span></p>'}
         <h3>${esc(titulo)}</h3>
         ${p.texto ? `<p class="ficha-post-resumo">${esc(resumo(p.texto, 160))}</p>` : ""}
+        <p class="ficha-post-pe"><span class="bisel escuro">LER POST</span><span class="bolas" aria-hidden="true"><i></i><i></i><i></i><i></i></span></p>
       </div>
     </a>`;
   return li;
