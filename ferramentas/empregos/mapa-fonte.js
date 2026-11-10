@@ -11,8 +11,8 @@ const UFS = { 11: ["RO", "Rondônia"], 12: ["AC", "Acre"], 13: ["AM", "Amazonas"
   50: ["MS", "Mato Grosso do Sul"], 51: ["MT", "Mato Grosso"], 52: ["GO", "Goiás"], 53: ["DF", "Distrito Federal"] };
 const MESES = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
 const MES3 = MESES.map((m) => m.slice(0, 3));
-// uma escala só, do branco (mais vagas fechadas) ao azul-escuro (mais vagas criadas)
-const ESCALA = ["#ffffff", "#edf3fa", "#d9e6f5", "#c0d6ee", "#9cc0e6", "#6ea3d8", "#3f80c4", "#1f5aa0", "#0b2f66"];
+// uma escala só, do branco (mais vagas fechadas) ao marrom (mais vagas criadas), passando pelo amarelo do site
+const ESCALA = ["#ffffff", "#fdf6e3", "#faeabf", "#f5d98a", "#eec24a", "#d99e1e", "#b3760f", "#84500b", "#4f2d06"];
 const COR_SEM = "#d5d5d5";
 
 const $ = (s) => document.querySelector(s);

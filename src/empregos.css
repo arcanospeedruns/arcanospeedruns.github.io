@@ -1,5 +1,5 @@
 /* Mapa do emprego (empregos.html) */
-.empregos-pg { --pos: #0b2f66; --neg: #55657c; --papel: #f1f0ec; --linha: #c9c6bd; --onda-cor: 0,0,0; --onda-fundo: var(--papel); background: var(--papel); color: var(--tinta); min-height: 100vh; }
+.empregos-pg { --pos: #7a4a08; --neg: #5c5c57; --papel: #f1f0ec; --linha: #c9c6bd; --onda-cor: 0,0,0; --onda-fundo: var(--papel); background: var(--papel); color: var(--tinta); min-height: 100vh; }
 .empregos-pg [hidden] { display: none !important; }
 .emp { max-width: 1280px; margin: 0 auto; padding: clamp(1rem, 2.4vw, 2rem) var(--margem) 2.5rem; font-family: "Switzer", system-ui, sans-serif; }
 .emp-cabeca h1 { margin: 0; font-family: "Satoshi", sans-serif; font-weight: 900; font-size: clamp(1.9rem, 5vw, 3.4rem); line-height: 1; letter-spacing: -0.02em; }
@@ -34,7 +34,7 @@
 #palco { position: relative; background: #fff; border: 2px solid var(--tinta); border-radius: var(--raio); overflow: hidden; }
 #mapa { display: block; width: 100%; height: auto; max-height: 78vh; touch-action: manipulation; }
 #mapa path { stroke-linejoin: round; vector-effect: non-scaling-stroke; }
-#g-mun path { stroke: #8fa6bf; stroke-width: 0.35; cursor: pointer; }
+#g-mun path { stroke: #b39a63; stroke-width: 0.35; cursor: pointer; }
 #g-uf path { stroke: var(--tinta); stroke-width: 0.9; cursor: pointer; }
 #mapa[data-modo="mun"] #g-uf path, #mapa[data-modo="foco"] #g-uf path { pointer-events: none; stroke-width: 1.1; }
 #mapa[data-modo="mun"] #g-mun path { stroke-width: 0.15; }
@@ -44,7 +44,7 @@
 #carregando { position: absolute; inset: 0; margin: 0; display: grid; place-content: center; font-weight: 600; background: #fff; }
 #dica { position: absolute; z-index: 3; pointer-events: none; display: grid; gap: 0.1rem; padding: 0.45rem 0.6rem; background: var(--tinta); color: #fff; border-radius: var(--raio-p); font-size: 0.9rem; white-space: nowrap; }
 #dica span { font-weight: 600; }
-#dica span[data-sinal="pos"] { color: #9cc0e6; }
+#dica span[data-sinal="pos"] { color: #f5d98a; }
 #dica span[data-sinal="neg"] { color: #fff; }
 #voltar { position: absolute; left: 0.7rem; top: 0.7rem; }
 #voltar, .emp .botao { min-height: 44px; padding: 0.5rem 0.9rem; font: inherit; font-weight: 600; font-size: 0.95rem; color: #fff; background: var(--tinta); border: 2px solid var(--tinta); border-radius: var(--raio-p); cursor: pointer; }
@@ -76,11 +76,11 @@
 .rank-bloco h2 { margin: 0.9rem 0 0.5rem; font-size: 1.02rem; font-weight: 600; }
 #rank { list-style: none; margin: 0; padding: 0; }
 #rank button { display: grid; grid-template-columns: 1.5rem minmax(0, 1fr) auto; column-gap: 0.5rem; row-gap: 0.25rem; align-items: baseline; width: 100%; min-height: 48px; padding: 0.45rem 0.3rem; text-align: left; font: inherit; color: var(--tinta); background: none; border: 0; border-top: 1px solid var(--linha); cursor: pointer; }
-#rank button:hover, #rank button[aria-current] { background: #e3edf9; }
+#rank button:hover, #rank button[aria-current] { background: #fbf1d2; }
 #rank .pos { font-weight: 600; font-size: 0.85rem; opacity: 0.7; }
 #rank .nome { font-weight: 600; overflow-wrap: anywhere; }
 #rank .valor { font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
-#rank .barra { grid-column: 2 / -1; height: 6px; background: #e6ecf3; }
+#rank .barra { grid-column: 2 / -1; height: 6px; background: #efece3; }
 #rank .barra i { display: block; height: 100%; background: var(--pos); }
 #rank .barra i[data-sinal="neg"] { background: #fff; border: 1.5px solid var(--pos); box-sizing: border-box; }
 .emp-fonte { margin: 1.6rem 0 0; max-width: 90ch; font-size: 0.88rem; line-height: 1.5; }
