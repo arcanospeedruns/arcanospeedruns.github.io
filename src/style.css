@@ -116,7 +116,6 @@ a { color: inherit; }
 .indice-pg:not(.contato-amarelo) .cabeca,
 .indice-pg:not(.contato-amarelo) .secao h2,
 .indice-pg:not(.contato-amarelo) .linha,
-.indice-pg:not(.contato-amarelo) .prosa,
 .indice-pg:not(.contato-amarelo) .contato,
 .indice-pg:not(.contato-amarelo) .rodape,
 .projeto-pg .aviso,
@@ -168,10 +167,6 @@ a { color: inherit; }
 .linha p { margin: 0; max-width: 60ch; }
 .linha .onde { display: block; font-weight: 600; margin-bottom: 0.2rem; }
 .linha .quando { text-align: right; color: var(--cinza); white-space: nowrap; }
-
-/* Sobre mim: texto corrido de abertura */
-.prosa { padding: 1.4rem var(--margem) 1.5rem; display: grid; gap: 0.9rem; }
-.prosa p { margin: 0; max-width: 58ch; font-weight: 500; font-size: clamp(1.1rem, 1.9vw, 1.5rem); line-height: 1.35; }
 
 .compacta .linha { padding-block: 0.55rem 0.45rem; }
 .compacta .linha strong { font-size: clamp(1.15rem, 1.7vw, 1.5rem); }
