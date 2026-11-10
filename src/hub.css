@@ -251,3 +251,34 @@
 .ficha-post-img:not(.sem-foto)::after { display: none; }
 /* miniatura quadrada com a imagem inteira; o espaço que sobra fica no prata escovado dos painéis */
 .ficha-post-img:not(.sem-foto) { background: var(--escovado), var(--prata); }
+
+/* ---------- legibilidade: nada cortado, texto maior ---------- */
+/* títulos quebram a linha em vez de sair do cartão */
+.ficha-post h3, .folha > h2, .texto-post, .texto-post h3 { overflow-wrap: anywhere; }
+.ficha-post a { min-width: 0; }
+.ficha-post-txt { min-width: 0; }
+.feed { grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); }
+.ficha-post h3 { font-size: 0.92rem; letter-spacing: 0.02em; color: var(--marinho); }
+.ficha-post-meta { font-size: 0.8rem; letter-spacing: 0.1em; color: #2b3644; }
+.ficha-post-resumo { font-size: 0.98rem; line-height: 1.5; color: #1a2940; }
+.folha > h2 { font-size: clamp(1.15rem, 4.2vw, 2.4rem); max-width: 100%; }
+.texto-post { font-size: 1.12rem; line-height: 1.75; }
+.texto-post blockquote { background: #e3f1fb; }
+/* foto única: inteira na tela, sem precisar rolar para ver o resto */
+.fotos-post.uma { grid-template-columns: minmax(0, 1fr); justify-items: start; }
+.fotos-post.uma a { max-width: 100%; }
+.fotos-post.uma img, .fotos-post.uma video { width: auto; max-width: 100%; max-height: 82dvh; }
+/* várias fotos: cada uma inteira no seu quadrado, com o prata dos painéis em volta */
+.fotos-post:not(.uma) img, .fotos-post:not(.uma) video { aspect-ratio: 1 / 1; object-fit: contain; background: var(--escovado), var(--prata); }
+@media (max-width: 640px) {
+  /* um cartão por linha: capa e título grandes o bastante para ler */
+  .feed { grid-template-columns: minmax(0, 1fr); gap: 0.8rem; }
+  .ficha-post h3 { font-size: 0.95rem; }
+  .ficha-post-resumo { display: -webkit-box; }
+  .ficha-post-txt { padding: 0.75rem 0.85rem 0.9rem; }
+  .ficha-post-meta { font-size: 0.78rem; letter-spacing: 0.08em; }
+  .folha { padding: 0.9rem; }
+  .texto-post { font-size: 1.06rem; line-height: 1.7; }
+}
+.texto-post blockquote > :last-child { margin-bottom: 0; }
+@media (max-width: 640px) { .texto-post h3 { font-size: 1rem; letter-spacing: 0.03em; } }
