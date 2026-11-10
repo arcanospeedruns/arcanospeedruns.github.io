@@ -9,14 +9,34 @@ const UFS = { 11: ["RO", "Rondônia"], 12: ["AC", "Acre"], 13: ["AM", "Amazonas"
   31: ["MG", "Minas Gerais"], 32: ["ES", "Espírito Santo"], 33: ["RJ", "Rio de Janeiro"], 35: ["SP", "São Paulo"],
   41: ["PR", "Paraná"], 42: ["SC", "Santa Catarina"], 43: ["RS", "Rio Grande do Sul"],
   50: ["MS", "Mato Grosso do Sul"], 51: ["MT", "Mato Grosso"], 52: ["GO", "Goiás"], 53: ["DF", "Distrito Federal"] };
-const MESES = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
+// textos nos dois idiomas (a página diz qual é em <html lang>)
+const EN = document.documentElement.lang === "en";
+const LOC = EN ? "en-US" : "pt-BR";
+const MESES = EN ? ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+  : ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
 const MES3 = MESES.map((m) => m.slice(0, 3));
+const SETORES_EN = ["Agriculture", "Industry", "Construction", "Retail and trade", "Services", "Unidentified"];
+const T = EN ? {
+  brasil: "Brazil", semDados: "no data", zero: "zero", maisDe: "more than", a: "to",
+  periodo: (m, ano) => `January to ${MESES[m - 1]} ${ano}`, mes: (m, ano) => `${MESES[m - 1]} ${ano}`,
+  acumulado: (m) => `Year to date, Jan to ${MES3[m - 1]}`, todosSetores: "All sectors",
+  rank: (mun, cria) => `${mun ? "Municipalities" : "States"} that ${cria ? "created" : "lost"} the most jobs`,
+  nada: (mun, cria) => `No ${mun ? "municipality" : "state"} with a ${cria ? "positive" : "negative"} net change in this selection.`,
+  admDesl: (a, d) => `${a} hires · ${d} separations`, nenhumMun: "No municipality found.", erro: "The map data could not be loaded. Please reload the page.",
+} : {
+  brasil: "Brasil", semDados: "sem dados", zero: "zero", maisDe: "mais de", a: "a",
+  periodo: (m, ano) => `janeiro a ${MESES[m - 1]} de ${ano}`, mes: (m, ano) => `${MESES[m - 1]} de ${ano}`,
+  acumulado: (m) => `Acumulado, jan a ${MES3[m - 1]}`, todosSetores: "Todos os setores",
+  rank: (mun, cria) => `${mun ? "Municípios" : "Estados"} que mais ${cria ? "criaram" : "fecharam"} vagas`,
+  nada: (mun, cria) => `Nenhum ${mun ? "município" : "estado"} com saldo ${cria ? "positivo" : "negativo"} neste recorte.`,
+  admDesl: (a, d) => `${a} admissões · ${d} desligamentos`, nenhumMun: "Nenhum município encontrado.", erro: "Não foi possível carregar os dados do mapa. Recarregue a página.",
+};
 // uma escala só, do branco (mais vagas fechadas) ao marrom (mais vagas criadas), passando pelo amarelo do site
 const ESCALA = ["#ffffff", "#fdf6e3", "#faeabf", "#f5d98a", "#eec24a", "#d99e1e", "#b3760f", "#84500b", "#4f2d06"];
 const COR_SEM = "#d5d5d5";
 
 const $ = (s) => document.querySelector(s);
-const num = (n) => Math.abs(n).toLocaleString("pt-BR");
+const num = (n) => Math.abs(n).toLocaleString(LOC);
 const sinal = (n) => (n > 0 ? "+" : n < 0 ? "−" : "") + num(n);
 const semAcento = (s) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -108,17 +128,18 @@ function pintar() {
   for (const p of svg.querySelectorAll(".sel")) p.classList.remove("sel");
   if (est.sel) { const p = svg.querySelector(est.sel.tipo === "mun" ? `#g-mun [data-c="${est.sel.cod}"]` : `#g-uf [data-u="${est.sel.cod}"]`); if (p) { p.classList.add("sel"); if (est.sel.tipo === "mun") p.parentNode.appendChild(p); } }
   // legenda
-  const f = (n) => n.toLocaleString("pt-BR");
-  const rot = [`mais de ${f(lim[2])}`, `${f(lim[1] + 1)} a ${f(lim[2])}`, `${f(lim[0] + 1)} a ${f(lim[1])}`, `1 a ${f(lim[0])}`];
+  const f = (n) => n.toLocaleString(LOC);
+  const rot = [`${T.maisDe} ${f(lim[2])}`, `${f(lim[1] + 1)} ${T.a} ${f(lim[2])}`, `${f(lim[0] + 1)} ${T.a} ${f(lim[1])}`, `1 ${T.a} ${f(lim[0])}`];
   let h = "";
   for (let i = 4; i >= 1; i--) h += `<li><i style="background:${ESCALA[4 + i]}"></i>+ ${rot[4 - i]}</li>`;
-  h += `<li><i style="background:${ESCALA[4]}"></i>zero</li>`;
+  h += `<li><i style="background:${ESCALA[4]}"></i>${T.zero}</li>`;
   for (let i = 1; i <= 4; i++) h += `<li><i style="background:${ESCALA[4 - i]}"></i>− ${rot[4 - i]}</li>`;
   $("#legenda").innerHTML = h;
 }
 
 // ---------- painel ----------
-function periodoTxt() { return est.mes ? `${MESES[est.mes - 1]} de ${dados.ano}` : `janeiro a ${MESES[dados.meses - 1]} de ${dados.ano}`; }
+function periodoTxt() { return est.mes ? T.mes(est.mes, dados.ano) : T.periodo(dados.meses, dados.ano); }
+function nomeSetor(i) { return EN ? SETORES_EN[i] : dados.setores[i]; }
 function escopo() {
   const linhas = [];
   if (est.foco || est.nivel === "mun") {
@@ -128,19 +149,19 @@ function escopo() {
 }
 function painel() {
   const tot = est.foco ? valUf.get(est.foco) : brasil;
-  $("#onde").textContent = est.foco ? UFS[est.foco][1] : "Brasil";
-  $("#quando").textContent = periodoTxt() + (est.setor >= 0 ? " · " + dados.setores[est.setor].toLowerCase() : "");
+  $("#onde").textContent = est.foco ? UFS[est.foco][1] : T.brasil;
+  $("#quando").textContent = periodoTxt() + (est.setor >= 0 ? " · " + nomeSetor(est.setor).toLowerCase() : "");
   const g = $("#total"); g.textContent = sinal(tot.s); g.dataset.sinal = tot.s < 0 ? "neg" : "pos";
   $("#adm-desl").hidden = est.setor >= 0;
   $("#adm").textContent = num(tot.a); $("#desl").textContent = num(tot.d);
 
   const linhas = escopo().filter((l) => (est.aba === "cria" ? l.v.s > 0 : l.v.s < 0)).sort((a, b) => (est.aba === "cria" ? b.v.s - a.v.s : a.v.s - b.v.s)).slice(0, 10);
   const max = linhas.length ? Math.abs(linhas[0].v.s) : 1;
-  $("#rank-titulo").textContent = (est.foco || est.nivel === "mun" ? "Municípios" : "Estados") + (est.aba === "cria" ? " que mais criaram vagas" : " que mais fecharam vagas");
+  $("#rank-titulo").textContent = T.rank(est.foco || est.nivel === "mun", est.aba === "cria");
   $("#rank").innerHTML = linhas.length ? linhas.map((l, i) => `<li><button type="button" data-tipo="${l.tipo}" data-cod="${l.cod}"${est.sel && est.sel.cod === l.cod ? ' aria-current="true"' : ""}>
       <span class="pos">${i + 1}</span><span class="nome">${esc(l.nome)}${l.tipo === "mun" ? ` <small>${l.uf}</small>` : ""}</span><span class="valor">${sinal(l.v.s)}</span>
       <span class="barra" aria-hidden="true"><i style="width:${(Math.abs(l.v.s) / max * 100).toFixed(1)}%" data-sinal="${l.v.s < 0 ? "neg" : "pos"}"></i></span></button></li>`).join("")
-    : `<li class="nada">Nenhum ${est.foco || est.nivel === "mun" ? "município" : "estado"} com saldo ${est.aba === "cria" ? "positivo" : "negativo"} neste recorte.</li>`;
+    : `<li class="nada">${T.nada(est.foco || est.nivel === "mun", est.aba === "cria")}</li>`;
   detalhe();
 }
 function detalhe() {
@@ -152,7 +173,7 @@ function detalhe() {
   const u = cod.slice(0, 2);
   $("#d-nome").textContent = tipo === "mun" ? `${nomes[cod]} (${UFS[u][0]})` : UFS[cod][1];
   const s = $("#d-saldo"); s.textContent = sinal(v.s); s.dataset.sinal = v.s < 0 ? "neg" : "pos";
-  $("#d-extra").textContent = est.setor < 0 ? `${num(v.a)} admissões · ${num(v.d)} desligamentos` : dados.setores[est.setor];
+  $("#d-extra").textContent = est.setor < 0 ? T.admDesl(num(v.a), num(v.d)) : nomeSetor(est.setor);
   // mês a mês
   const serie = [];
   for (let m = 0; m < dados.meses; m++) {
@@ -182,7 +203,7 @@ function ligar() {
     const a = e.pointerType === "mouse" ? alvo(e) : null;
     if (!a) { dica.hidden = true; return; }
     const v = a.tipo === "mun" ? valMun.get(a.cod) : valUf.get(a.cod);
-    dica.innerHTML = `<b>${esc(a.tipo === "mun" ? nomes[a.cod] + " (" + UFS[a.cod.slice(0, 2)][0] + ")" : UFS[a.cod][1])}</b><span data-sinal="${v && v.s < 0 ? "neg" : "pos"}">${v ? sinal(v.s) : "sem dados"}</span>`;
+    dica.innerHTML = `<b>${esc(a.tipo === "mun" ? nomes[a.cod] + " (" + UFS[a.cod.slice(0, 2)][0] + ")" : UFS[a.cod][1])}</b><span data-sinal="${v && v.s < 0 ? "neg" : "pos"}">${v ? sinal(v.s) : T.semDados}</span>`;
     dica.hidden = false;
     const r = $("#palco").getBoundingClientRect();
     dica.style.left = Math.min(e.clientX - r.left + 14, r.width - dica.offsetWidth - 4) + "px";
@@ -216,7 +237,7 @@ function ligar() {
     const q = semAcento(busca.value.trim());
     if (q.length < 2) { lista.hidden = true; return; }
     const a = indice.filter((x) => x.k.startsWith(q)).concat(indice.filter((x) => !x.k.startsWith(q) && x.k.includes(q))).slice(0, 8);
-    lista.innerHTML = a.length ? a.map((x) => `<li><button type="button" data-cod="${x.c}">${esc(x.n)} <small>${UFS[x.c.slice(0, 2)][0]}</small></button></li>`).join("") : `<li class="nada">Nenhum município encontrado.</li>`;
+    lista.innerHTML = a.length ? a.map((x) => `<li><button type="button" data-cod="${x.c}">${esc(x.n)} <small>${UFS[x.c.slice(0, 2)][0]}</small></button></li>`).join("") : `<li class="nada">${T.nenhumMun}</li>`;
     lista.hidden = false;
   });
   lista.addEventListener("click", (e) => {
@@ -230,13 +251,13 @@ async function iniciar() {
   try {
     const [d, t] = await Promise.all([fetch("/empregos-dados.json").then((r) => r.json()), fetch("/empregos-mapa.json").then((r) => r.json())]);
     dados = d; montar(t);
-    $("#local").innerHTML = `<option value="">Brasil</option>` + Object.keys(UFS).sort((a, b) => UFS[a][1].localeCompare(UFS[b][1], "pt-BR")).map((u) => `<option value="${u}">${UFS[u][1]}</option>`).join("");
-    $("#mes").innerHTML = `<option value="0">Acumulado, jan a ${MES3[d.meses - 1]}</option>` + MESES.slice(0, d.meses).map((m, i) => `<option value="${i + 1}">${m[0].toUpperCase() + m.slice(1)}</option>`).join("");
-    $("#setor").innerHTML = `<option value="-1">Todos os setores</option>` + d.setores.slice(0, 5).map((s, i) => `<option value="${i}">${s}</option>`).join("");
+    $("#local").innerHTML = `<option value="">${T.brasil}</option>` + Object.keys(UFS).sort((a, b) => UFS[a][1].localeCompare(UFS[b][1], "pt-BR")).map((u) => `<option value="${u}">${UFS[u][1]}</option>`).join("");
+    $("#mes").innerHTML = `<option value="0">${T.acumulado(d.meses)}</option>` + MESES.slice(0, d.meses).map((m, i) => `<option value="${i + 1}">${m[0].toUpperCase() + m.slice(1)}</option>`).join("");
+    $("#setor").innerHTML = `<option value="-1">${T.todosSetores}</option>` + d.setores.slice(0, 5).map((s, i) => `<option value="${i}">${nomeSetor(i)}</option>`).join("");
     ligar(); tudo();
     $("#carregando").hidden = true;
   } catch (e) {
-    $("#carregando").textContent = "Não foi possível carregar os dados do mapa. Recarregue a página.";
+    $("#carregando").textContent = T.erro;
     console.error(e);
   }
 }
