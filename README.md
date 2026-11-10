@@ -7,7 +7,7 @@ Portfólio de Carlos Gouveia, em português e inglês: <https://carlosgouveia.is
 - HTML, CSS e JavaScript sem framework. As animações (carpas em ASCII, onda de pontos, grade do portfólio) são desenhadas em `<canvas>`.
 - [Eleventy](https://www.11ty.dev/) monta as páginas a partir de modelos Nunjucks: o `<head>`, o topo, o menu e o seletor de idioma são escritos uma vez só, em `src/_includes/`.
 - Cada página tem um modelo só, com o português e o inglês lado a lado: `{% tr %}texto<!--en-->text{% endtr %}`. O Eleventy gera as duas versões (`/sobre.html` e `/en/sobre.html`).
-- Os cartões do portfólio já saem prontos no HTML; o JavaScript só abre a gaveta de detalhes.
+- Os cartões do portfólio já saem prontos no HTML e cada um leva direto para a página do projeto.
 - Cada arquivo CSS e JS ganha `?v=` com o hash do conteúdo na hora de gerar, então o navegador só baixa de novo o que mudou.
 - O GitHub Actions gera o site (inclusive o `hub.js`, empacotado com o esbuild), confere os links internos e publica no GitHub Pages a cada push na `main`. Uma vez por semana outro fluxo confere os links externos.
 

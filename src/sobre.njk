@@ -3,7 +3,6 @@ layout: base.njk
 pagination: { data: idiomas, size: 1, alias: idioma, addAllPagesToCollections: true }
 permalink: "{{ '/en' if idioma == 'en' }}/sobre.html"
 caminho: "/sobre.html"
-titulo: "arcanospeedruns | Carlos Gouveia"
 ogTitulo: "Carlos Gouveia | arcanospeedruns"
 ogImagem: "/og.png"
 preload: ["/fonts/satoshi-900.woff2"]
@@ -13,10 +12,12 @@ topo: "normal"
 pagina: "sobre"
 meta:
   pt:
-    descricao: "Portfólio de Carlos Gouveia: produto, dados e design."
+    titulo: "Sobre mim | arcanospeedruns"
+    descricao: "Carlos Gouveia: profissional de produto com base em dados e tecnologia. Trajetória, experiência e formação."
     ogDescricao: "Profissional de produto com base em dados e tecnologia. KPIs, levantamento de requisitos e coordenação de equipes ágeis com times internacionais."
   en:
-    descricao: "Portfolio of Carlos Gouveia: product, data and design."
+    titulo: "About me | arcanospeedruns"
+    descricao: "Carlos Gouveia: product professional with a background in data and technology. Background, experience and education."
     ogDescricao: "Product professional with a background in data and technology. KPIs, requirements gathering and agile team coordination with international stakeholders."
 ---
   <div class="conteudo">
@@ -37,75 +38,64 @@ meta:
         </dl>
       </div>
 
-      <!-- Para adicionar um item, copie uma <li class="linha"> dentro da seção certa. -->
-
       <section class="secao" aria-labelledby="s-sobre">
         <h2 id="s-sobre">{% tr %}SOBRE MIM<!--en-->ABOUT ME{% endtr %}</h2>
-        <ul class="compacta">
-          <li class="linha">
-            <strong>{% tr %}TRAJETÓRIA<!--en-->BACKGROUND{% endtr %}</strong>
-            <p>{% tr %}Comecei pelo design gráfico, me formei em Análise e Desenvolvimento de Sistemas e hoje curso Ciência da Computação na PUC-SP. Essa combinação me permite dialogar com design, engenharia e negócio.<!--en-->I started in graphic design, earned an associate degree in Systems Analysis and Development and am now studying Computer Science at PUC-SP. This mix lets me work comfortably across design, engineering and business.{% endtr %}</p>
+        <div class="prosa">
+          <p>{% tr %}Comecei pelo design gráfico, me formei em Análise e Desenvolvimento de Sistemas e hoje curso Ciência da Computação na PUC-SP. Essa combinação me permite dialogar com design, engenharia e negócio.<!--en-->I started in graphic design, earned an associate degree in Systems Analysis and Development and am now studying Computer Science at PUC-SP. This mix lets me work comfortably across design, engineering and business.{% endtr %}</p>
+          <p>{% tr %}Entendo o problema antes de propor a solução, defino desde o início como o resultado será medido e documento o processo para que o time consiga dar continuidade. Busco uma posição de estágio ou júnior em gestão de produto.<!--en-->I make sure the problem is understood before proposing a solution, define from the start how results will be measured and document the process so the team can carry it forward. I’m looking for an internship or junior role in product management.{% endtr %}</p>
+        </div>
+      </section>
+
+      <!-- Faixa de números: cada <li> tem o número, uma frase e, se houver, o link do caso. -->
+      <section class="secao" aria-labelledby="s-num">
+        <h2 id="s-num">{% tr %}EM NÚMEROS<!--en-->IN NUMBERS{% endtr %}</h2>
+        <ul class="numeros">
+          <li>
+            <strong>{% tr %}2 MESES → 2 MIN<!--en-->2 MONTHS → 2 MIN{% endtr %}</strong>
+            <p>{% tr %}Tempo para unificar três bases de um estudo clínico, antes e depois do pipeline que construí na Cignamed.<!--en-->Time to merge three clinical study databases, before and after the pipeline I built at Cignamed.{% endtr %}</p>
+            <a class="mono" href="projetos/cignamed.html">{% tr %}VER O CASO<!--en-->SEE THE CASE{% endtr %}</a>
           </li>
-          <li class="linha">
-            <strong>{% tr %}PRODUTO<!--en-->PRODUCT{% endtr %}</strong>
-            <p>{% tr %}Atuei como analista de produto e dados e como gerente de projetos em operações internacionais: defini métricas, documentei regras de negócio e coordenei entregas em metodologia ágil, com toda a comunicação em inglês.<!--en-->I have worked as a product and data analyst and as a project manager in international operations: defining metrics, documenting business rules and coordinating agile deliveries, with all communication in English.{% endtr %}</p>
+          <li>
+            <strong>{% tr %}30 CLIENTES<!--en-->30 CLIENTS{% endtr %}</strong>
+            <p>{% tr %}Atendidos ao mesmo tempo pelas duas equipes de seis pessoas que coordenei na BlazingBoost, em inglês.<!--en-->Served at the same time by the two six-person teams I coordinated at BlazingBoost, in English.{% endtr %}</p>
           </li>
-          <li class="linha">
-            <strong>{% tr %}COMO TRABALHO<!--en-->HOW I WORK{% endtr %}</strong>
-            <p>{% tr %}Entendo o problema antes de propor a solução, defino desde o início como o resultado será medido e documento o processo para que o time consiga dar continuidade.<!--en-->I make sure the problem is understood before proposing a solution, define from the start how results will be measured and document the process so the team can carry it forward.{% endtr %}</p>
-          </li>
-          <li class="linha">
-            <strong>{% tr %}O QUE BUSCO<!--en-->WHAT I’M LOOKING FOR{% endtr %}</strong>
-            <p>{% tr %}Uma posição de estágio ou júnior em gestão de produto (Product Manager ou Product Owner), em que eu possa unir análise de dados, visão de negócio e cuidado com a experiência do usuário.<!--en-->An internship or junior role in product management (Product Manager or Product Owner) where I can bring together data analysis, business sense and care for the user experience.{% endtr %}</p>
+          <li>
+            <strong>{% tr %}107 MI<!--en-->107M{% endtr %}</strong>
+            <p>{% tr %}Internações do SUS analisadas em SQL no BigQuery, com dashboard em Power BI.<!--en-->SUS hospital admissions analyzed with SQL in BigQuery, with a Power BI dashboard.{% endtr %}</p>
+            <a class="mono" href="projetos/datasus.html">{% tr %}VER O PROJETO<!--en-->SEE THE PROJECT{% endtr %}</a>
           </li>
         </ul>
       </section>
+
+      <!-- Para adicionar um item, copie uma <li class="linha"> dentro da seção certa. -->
 
       <section class="secao" aria-labelledby="s-exp">
         <h2 id="s-exp">{% tr %}EXPERIÊNCIA<!--en-->EXPERIENCE{% endtr %}</h2>
         <ul class="compacta">
           <li class="linha">
             <strong>SOCIAL MEDIA MANAGER</strong>
-            <p><span class="onde">{% tr %}Freelance, nicho de educação<!--en-->Freelance, education niche{% endtr %}</span>{% tr %}Planejamento editorial e produção de conteúdo para atrair novos alunos a um curso técnico, com acompanhamento do desempenho das publicações para ajustar a estratégia.<!--en-->Content planning and production to attract new students to a technical course, tracking post performance to adjust the strategy.{% endtr %}</p>
+            <p><span class="onde">{% tr %}Freelance, nicho de educação<!--en-->Freelance, education niche{% endtr %}</span>{% tr %}Planejamento editorial e conteúdo para atrair alunos a um curso técnico.<!--en-->Content planning and production to attract students to a technical course.{% endtr %}</p>
             <span class="quando mono">{% tr %}OUT 2026 – HOJE<!--en-->OCT 2026 – NOW{% endtr %}</span>
           </li>
           <li class="linha">
             <strong>{% tr %}ANALISTA DE DADOS<!--en-->DATA ANALYST{% endtr %}</strong>
-            <p><span class="onde">{% tr %}Cignamed, estágio em pesquisa clínica<!--en-->Cignamed, clinical research internship{% endtr %}</span>{% tr %}Unificação de três bases de um estudo clínico (cerca de 950 mil respostas) com um pipeline em Python, reduzindo um processo de dois meses para dois minutos. Estruturação de formulários no REDCap, auditoria de qualidade dos dados e dashboards de acompanhamento.<!--en-->Merged three clinical study databases (about 950,000 responses) with a Python pipeline, cutting a two-month process down to two minutes. Built REDCap forms, audited data quality and developed monitoring dashboards.{% endtr %}</p>
+            <p><span class="onde">{% tr %}Cignamed, estágio em pesquisa clínica<!--en-->Cignamed, clinical research internship{% endtr %}</span>{% tr %}Pipeline em Python que unificou três bases de um estudo clínico, formulários no REDCap e dashboards.<!--en-->Python pipeline that merged three clinical study databases, REDCap forms and dashboards.{% endtr %}</p>
             <span class="quando mono">{% tr %}MAI – OUT 2026<!--en-->MAY – OCT 2026{% endtr %}</span>
           </li>
           <li class="linha">
             <strong>{% tr %}GERENTE DE PROJETOS<!--en-->PROJECT MANAGER{% endtr %}</strong>
-            <p><span class="onde">BlazingBoost, freelance</span>{% tr %}Coordenação de duas equipes de seis pessoas atendendo 30 clientes simultâneos em operação internacional. Levantamento de requisitos com stakeholders, documentação de fluxos e regras de negócio e gestão das entregas em metodologia ágil.<!--en-->Coordinated two teams of six serving 30 concurrent clients in an international operation. Gathered requirements with stakeholders, documented workflows and business rules and managed agile deliveries.{% endtr %}</p>
+            <p><span class="onde">BlazingBoost, freelance</span>{% tr %}Coordenação de duas equipes, levantamento de requisitos e entregas em metodologia ágil.<!--en-->Coordinated two teams, gathered requirements and managed agile deliveries.{% endtr %}</p>
             <span class="quando mono">{% tr %}JAN – DEZ 2025<!--en-->JAN – DEC 2025{% endtr %}</span>
           </li>
           <li class="linha">
             <strong>{% tr %}ANALISTA DE PRODUTO E DADOS<!--en-->PRODUCT AND DATA ANALYST{% endtr %}</strong>
-            <p><span class="onde">OrderHub, freelance</span>{% tr %}Definição dos KPIs do produto e da operação e construção dos relatórios usados pela liderança. Documentação de regras de negócio, acompanhamento de testes e validações e participação no planejamento e refinamento com o time internacional.<!--en-->Defined product and operations KPIs and built the reports used by leadership. Documented business rules, followed up on testing and validation and took part in planning and refinement with the international team.{% endtr %}</p>
+            <p><span class="onde">OrderHub, freelance</span>{% tr %}KPIs do produto e da operação e relatórios usados pela liderança.<!--en-->Product and operations KPIs and the reports used by leadership.{% endtr %}</p>
             <span class="quando mono">MAR – JUL 2025</span>
           </li>
           <li class="linha">
             <strong>{% tr %}DESIGNER GRÁFICO<!--en-->GRAPHIC DESIGNER{% endtr %}</strong>
-            <p><span class="onde">{% tr %}Freelance, identidade visual<!--en-->Freelance, visual identity{% endtr %}</span>{% tr %}Criação da identidade visual de uma clínica de psicologia, do logotipo às aplicações da marca.<!--en-->Created the visual identity for a psychology clinic, from the logo to brand applications.{% endtr %}</p>
+            <p><span class="onde">{% tr %}Freelance, identidade visual<!--en-->Freelance, visual identity{% endtr %}</span>{% tr %}Identidade visual de uma clínica de psicologia, do logotipo às aplicações.<!--en-->Visual identity for a psychology clinic, from the logo to brand applications.{% endtr %}</p>
             <span class="quando mono">{% tr %}DEZ 2024 – JAN 2025<!--en-->DEC 2024 – JAN 2025{% endtr %}</span>
-          </li>
-        </ul>
-      </section>
-
-      <section class="secao" aria-labelledby="s-comp">
-        <h2 id="s-comp">{% tr %}COMPETÊNCIAS<!--en-->SKILLS{% endtr %}</h2>
-        <ul class="compacta">
-          <li class="linha">
-            <strong>{% tr %}PRODUTO<!--en-->PRODUCT{% endtr %}</strong>
-            <p>{% tr %}Definição de KPIs, levantamento de requisitos, regras de negócio, documentação funcional, Scrum e metodologias ágeis<!--en-->KPI definition, requirements gathering, business rules, functional documentation, Scrum and agile methods{% endtr %}</p>
-          </li>
-          <li class="linha">
-            <strong>{% tr %}DADOS<!--en-->DATA{% endtr %}</strong>
-            <p>{% tr %}Python (pandas), SQL, BigQuery, Power BI, Excel, REDCap e Git<!--en-->Python (pandas), SQL, BigQuery, Power BI, Excel, REDCap and Git{% endtr %}</p>
-          </li>
-          <li class="linha">
-            <strong>{% tr %}DESIGN E COLABORAÇÃO<!--en-->DESIGN AND COLLABORATION{% endtr %}</strong>
-            <p>{% tr %}Figma, Notion, Illustrator, Photoshop, InDesign e Canva<!--en-->Figma, Notion, Illustrator, Photoshop, InDesign and Canva{% endtr %}</p>
           </li>
         </ul>
       </section>
@@ -131,18 +121,20 @@ meta:
         </ul>
       </section>
 
-      <section class="secao" aria-labelledby="s-vol">
-        <h2 id="s-vol">{% tr %}VOLUNTARIADO<!--en-->VOLUNTEERING{% endtr %}</h2>
+      <section class="secao" aria-labelledby="s-comp">
+        <h2 id="s-comp">{% tr %}FERRAMENTAS<!--en-->TOOLS{% endtr %}</h2>
         <ul class="compacta">
           <li class="linha">
-            <strong>{% tr %}VOLUNTÁRIO<!--en-->VOLUNTEER{% endtr %}</strong>
-            <p><span class="onde">Confraria dos Miados e Latidos</span>{% tr %}Apoio no transporte e no processo de adoção de animais.<!--en-->Helped with animal transport and the adoption process.{% endtr %}</p>
-            <span class="quando mono">{% tr %}JUN – AGO 2025<!--en-->JUN – AUG 2025{% endtr %}</span>
+            <strong>{% tr %}PRODUTO<!--en-->PRODUCT{% endtr %}</strong>
+            <p>{% tr %}KPIs, levantamento de requisitos, documentação funcional e Scrum<!--en-->KPIs, requirements gathering, functional documentation and Scrum{% endtr %}</p>
           </li>
           <li class="linha">
-            <strong>COMMUNITY MANAGER</strong>
-            <p><span class="onde">{% tr %}CAPE PUC-SP, centro acadêmico<!--en-->CAPE PUC-SP, student association{% endtr %}</span>{% tr %}Produção de material gráfico e apoio na gestão das redes sociais.<!--en-->Produced graphic materials and helped manage social media.{% endtr %}</p>
-            <span class="quando mono">JAN – JUN 2024</span>
+            <strong>{% tr %}DADOS<!--en-->DATA{% endtr %}</strong>
+            <p>{% tr %}Python (pandas), SQL, BigQuery, Power BI, Excel e REDCap<!--en-->Python (pandas), SQL, BigQuery, Power BI, Excel and REDCap{% endtr %}</p>
+          </li>
+          <li class="linha">
+            <strong>DESIGN</strong>
+            <p>{% tr %}Figma, Illustrator, Photoshop e InDesign<!--en-->Figma, Illustrator, Photoshop and InDesign{% endtr %}</p>
           </li>
         </ul>
       </section>
@@ -151,7 +143,7 @@ meta:
         <ul>
           <li class="linha">
             <strong>{% tr %}MAIS DETALHES<!--en-->MORE DETAILS{% endtr %}</strong>
-            <p>{% tr %}O currículo em PDF traz cada experiência com mais detalhes.<!--en-->The PDF résumé covers each role in more detail.{% endtr %}</p>
+            <p>{% tr %}O currículo em PDF traz cada experiência com mais detalhes, além do voluntariado.<!--en-->The PDF résumé covers each role in more detail, plus volunteering.{% endtr %}</p>
             <span class="acoes"><a class="botao mono" href="{% tr %}curriculo.pdf<!--en-->../curriculo-en.pdf{% endtr %}">{% tr %}CURRÍCULO EM PDF<!--en-->RÉSUMÉ (PDF){% endtr %}</a> <a class="botao mono" href="portfolio.html">{% tr %}VER PROJETOS<!--en-->SEE PROJECTS{% endtr %}</a></span>
           </li>
         </ul>
