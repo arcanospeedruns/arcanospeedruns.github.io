@@ -14,7 +14,7 @@
    contexto: frase do cartão.
    stack: ferramentas, mostradas como etiquetas no cartão.
    pagina: página do projeto, relativa ao portfólio ("projetos/x.html"); abre no
-     mesmo idioma. Sem página (projeto "breve"), o cartão não é clicável.
+     mesmo idioma. Começando com "/" (ex.: "/empregos.html"), é uma página única, sem versão em inglês. Sem página (projeto "breve"), o cartão não é clicável.
    ============================================================ */
 const projetos = [
   {
@@ -58,6 +58,20 @@ const projetos = [
     status: "concluido",
     stack: ["Illustrator", "Photoshop", "InDesign"],
     pagina: "projetos/psique.html",
+  },
+  {
+    id: "empregos",
+    area: { pt: "Dados", en: "Data" },
+    capa: "/projetos/empregos/capa.webp",
+    nome: { pt: "MAPA DO EMPREGO", en: "JOBS MAP" },
+    curto: "EMPREGOS",
+    contexto: {
+      pt: "Mapa interativo do saldo de empregos formais no Brasil em 2026, por estado e município, com filtros de período e setor. Feito com os microdados do Novo CAGED.",
+      en: "Interactive map of the net change in formal jobs in Brazil in 2026, by state and municipality, with period and sector filters. Built from Novo CAGED microdata. The page is in Portuguese.",
+    },
+    status: "concluido",
+    stack: ["Python", "pandas", "JavaScript", "D3"],
+    pagina: "/empregos.html",
   },
 ];
 

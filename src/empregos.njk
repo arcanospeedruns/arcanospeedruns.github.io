@@ -8,11 +8,14 @@ ogTitulo: "Mapa do emprego | Carlos Gouveia"
 ogDescricao: "Onde os empregos formais foram criados em 2026, por estado e município."
 preload: ["/fonts/satoshi-900.woff2"]
 corpo: "empregos-pg"
-scripts: ["/empregos.js"]
+scripts: ["/empregos.js", "/onda.js"]
 topo: "normal"
-pagina: "empregos"
+pagina: "portfolio"
 ---
   <link rel="stylesheet" href="{{ '/empregos.css' | versao }}">
+  <canvas id="onda" data-tela-cheia aria-hidden="true"></canvas>
+
+  <div class="conteudo">
   {% include "topo.njk" %}
 
   <main class="emp">
@@ -64,5 +67,6 @@ pagina: "empregos"
       </section>
     </div>
 
-    <p class="emp-fonte">Fonte: Novo CAGED/MTE, microdados (movimentações do mês, declarações fora do prazo e exclusões), baixados pelo espelho usado no pacote <a href="https://github.com/gecomt/datacaged" target="_blank" rel="noopener">datacaged</a>. Os números podem diferir um pouco da divulgação oficial, que é revisada todo mês. Malha municipal: <a href="https://github.com/tbrugz/geodata-br" target="_blank" rel="noopener">geodata-br</a>; municípios criados depois de 2013 entram só no total do estado. Elaboração: Carlos Gouveia.</p>
+    <p class="emp-fonte">Os dados são do Novo CAGED, do Ministério do Trabalho e Emprego. O saldo é o número de admissões menos o de desligamentos, já contando as declarações enviadas fora do prazo e descontando as que foram excluídas. Os números mudam um pouco a cada mês, porque o ministério revisa os dados. Sete municípios criados depois de 2013 não aparecem no desenho do mapa, mas entram no total do estado. Os microdados vêm do repositório usado pelo pacote <a href="https://github.com/gecomt/datacaged" target="_blank" rel="noopener">datacaged</a> e os contornos dos municípios, do projeto <a href="https://github.com/tbrugz/geodata-br" target="_blank" rel="noopener">geodata-br</a>.</p>
   </main>
+  </div>

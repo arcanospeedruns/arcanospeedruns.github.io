@@ -11,10 +11,9 @@ const UFS = { 11: ["RO", "Rondônia"], 12: ["AC", "Acre"], 13: ["AM", "Amazonas"
   50: ["MS", "Mato Grosso do Sul"], 51: ["MT", "Mato Grosso"], 52: ["GO", "Goiás"], 53: ["DF", "Distrito Federal"] };
 const MESES = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
 const MES3 = MESES.map((m) => m.slice(0, 3));
-// faixas: 4 positivas (verde-azulado), zero, 4 negativas (laranja)
-const CORES_POS = ["#cfe9e2", "#8fcfc0", "#3f9f8f", "#0b5d57"];
-const CORES_NEG = ["#f9d9c6", "#f0a97f", "#d9682f", "#8f3208"];
-const COR_ZERO = "#e4e2db", COR_SEM = "#ffffff";
+// uma escala só, do branco (mais vagas fechadas) ao azul-escuro (mais vagas criadas)
+const ESCALA = ["#ffffff", "#edf3fa", "#d9e6f5", "#c0d6ee", "#9cc0e6", "#6ea3d8", "#3f80c4", "#1f5aa0", "#0b2f66"];
+const COR_SEM = "#d5d5d5";
 
 const $ = (s) => document.querySelector(s);
 const num = (n) => Math.abs(n).toLocaleString("pt-BR");
@@ -48,9 +47,9 @@ function limites() {
 }
 function cor(v, lim) {
   if (v == null) return COR_SEM;
-  if (v === 0) return COR_ZERO;
-  const a = Math.abs(v), i = a > lim[2] ? 3 : a > lim[1] ? 2 : a > lim[0] ? 1 : 0;
-  return (v > 0 ? CORES_POS : CORES_NEG)[i];
+  if (v === 0) return ESCALA[4];
+  const a = Math.abs(v), i = a > lim[2] ? 4 : a > lim[1] ? 3 : a > lim[0] ? 2 : 1;
+  return ESCALA[4 + (v > 0 ? i : -i)];
 }
 
 // ---------- mapa ----------
@@ -112,9 +111,9 @@ function pintar() {
   const f = (n) => n.toLocaleString("pt-BR");
   const rot = [`mais de ${f(lim[2])}`, `${f(lim[1] + 1)} a ${f(lim[2])}`, `${f(lim[0] + 1)} a ${f(lim[1])}`, `1 a ${f(lim[0])}`];
   let h = "";
-  for (let i = 3; i >= 0; i--) h += `<li><i style="background:${CORES_POS[i]}"></i>+ ${rot[3 - i]}</li>`;
-  h += `<li><i style="background:${COR_ZERO}"></i>zero</li>`;
-  for (let i = 0; i < 4; i++) h += `<li><i style="background:${CORES_NEG[i]}"></i>− ${rot[3 - i]}</li>`;
+  for (let i = 4; i >= 1; i--) h += `<li><i style="background:${ESCALA[4 + i]}"></i>+ ${rot[4 - i]}</li>`;
+  h += `<li><i style="background:${ESCALA[4]}"></i>zero</li>`;
+  for (let i = 1; i <= 4; i++) h += `<li><i style="background:${ESCALA[4 - i]}"></i>− ${rot[4 - i]}</li>`;
   $("#legenda").innerHTML = h;
 }
 
