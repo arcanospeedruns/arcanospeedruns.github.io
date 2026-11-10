@@ -9,7 +9,7 @@
    4. Páginas claras: Sobre mim e páginas de projeto
    5. Onda de pontos
    6. Contato
-   7. Portfólio: cartões e janela de detalhes
+   7. Portfólio: cartões
    8. Páginas de projeto: pranchas e imagem ampliada
    9. Landing: carpas em ASCII
    10. Movimento reduzido
@@ -295,45 +295,10 @@ body.contato-amarelo { --onda-cor: 0,0,0; --onda-fundo: var(--amarelo-claro); ba
 .cartao-texto { color: var(--texto-2); }
 .cartao-mais { margin-top: auto; padding-top: .5rem; color: var(--tinta); text-decoration: underline; text-underline-offset: 3px; }
 
-/* janela de detalhes (gaveta) */
-.painel { border: 1px solid var(--tinta); background: var(--fundo-2); display: flex; flex-direction: column; }
-.gaveta {
-  position: fixed; inset: 0 0 0 auto; margin: 0; width: min(560px, 100vw); max-width: none; height: 100dvh; max-height: none;
-  padding: 0; border: 0; border-left: 1px solid var(--tinta); color: var(--tinta);
-  overflow-y: auto;
-}
-.gaveta:not([open]) { display: none; }
-.gaveta[open] { display: flex; flex-direction: column; }
-.gaveta::backdrop { background: rgba(40, 20, 10, .45); }
-.painel-topo { display: flex; justify-content: space-between; gap: 1rem; padding: 0.85rem 1.1rem; border-bottom: 1px solid var(--tinta); color: var(--texto-2); }
-.gaveta .painel-topo { position: sticky; top: 0; background: var(--fundo-2); z-index: 1; align-items: center; }
-.gaveta-fechar { font: inherit; color: var(--tinta); background: none; border: 0; border-radius: var(--raio-p); cursor: pointer; padding: .2rem .4rem; }
-.gaveta-fechar:hover { background: var(--amarelo); color: var(--tinta); }
-.gaveta-capa { display: block; width: 100%; aspect-ratio: 2 / 1; object-fit: cover; border-bottom: 1px solid var(--tinta); }
-.painel-corpo { padding: 1.3rem 1.1rem 1.5rem; }
-.painel h2 { margin: 0 0 0.4rem; font-family: "Satoshi"; font-weight: 900; font-size: clamp(1.7rem, 2.7vw, 2.2rem); line-height: 0.92; }
-.painel .contexto { margin: 0 0 1.1rem; color: var(--texto-2); }
-.painel .resumo { margin: 0 0 1.2rem; }
-.painel h3 { margin: 1.3rem 0 0.5rem; color: var(--texto-2); font-weight: 400; }
-.painel ul.feitos { margin: 0; padding-left: 1.1rem; }
-.painel ul.feitos li { margin-bottom: 0.35rem; }
-.painel ul.feitos li::marker { color: var(--tinta); }
-.status { display: inline-block; padding: 0.25rem 0.55rem; margin-bottom: 1rem; border-radius: var(--raio-p); background: var(--amarelo); color: var(--tinta); }
-.status.concluido { background: #fff; }
-.status.breve { background: transparent; color: var(--texto-2); border: 1px dashed var(--texto-2); }
-.stack { display: flex; flex-wrap: wrap; gap: 0.35rem; list-style: none; margin: 0; padding: 0; }
-.stack li { padding: 0.25rem 0.5rem; border: 1px solid var(--tinta); }
-.painel-links { margin-top: auto; display: grid; border-top: 1px solid var(--tinta); }
-.painel-links a, .painel-links span {
-  padding: 0.95rem 1.1rem 0.85rem; text-decoration: none;
-  font-family: "Satoshi"; font-weight: 900; font-size: 1rem; letter-spacing: 0.02em; line-height: 1;
-  border-bottom: 1px solid var(--tinta);
-}
-.painel-links a { color: var(--tinta); }
-.painel-links a:hover { background: var(--amarelo); color: var(--tinta); }
-.painel-links span { color: var(--texto-2); }
+/* ferramentas do projeto, em etiquetas */
+.stack { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.3rem; }
+.stack span { padding: 0.25rem 0.5rem 0.2rem; border: 1px solid var(--tinta); border-radius: var(--raio-p); }
 
-@media (min-width: 641px) { .orbita .gaveta { border-radius: 14px 0 0 14px; } }
 @media (max-width: 760px) { .cartoes { grid-template-columns: 1fr; } }
 
 /* ---------- 8. Páginas de projeto (pêssego, com a onda no topo) ---------- */

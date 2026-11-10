@@ -1,7 +1,7 @@
 """Confere os links internos do site gerado (_site): href, src e âncoras (#id).
 Uso: python3 ferramentas/conferir_links.py [_site]
 Sai com erro se algum link apontar para um arquivo ou âncora que não existe.
-Nos projetos do portfólio (portfolio.html#id) a âncora abre a gaveta: valem os data-id dos cartões.
+Nos projetos do portfólio (portfolio.html#id) a âncora leva ao cartão do projeto.
 """
 import os, re, sys
 from urllib.parse import urlsplit, unquote
