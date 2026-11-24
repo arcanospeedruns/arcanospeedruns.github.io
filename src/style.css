@@ -97,8 +97,8 @@ button { font: inherit; color: inherit; }
 .alta { height: 82vh; min-height: 420px; width: 100%; object-fit: cover; }
 
 /* ---------- 6. Rodapé ---------- */
-.rodape { padding: 80px 0 32px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px; align-items: end; }
-.rodape .nome { font-size: clamp(56px, 8vw, 128px); text-decoration: none; }
+.rodape { padding: 80px 0 32px; }
+.linhas { max-width: 680px; margin-left: auto; }
 .linhas { display: flex; flex-direction: column; font-size: 16px; }
 .linhas p { margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--tinta); }
 .linhas p:last-child { border-bottom: 0; }
@@ -118,7 +118,8 @@ button { font: inherit; color: inherit; }
   .fileira > img { flex: none; width: 100%; }
   .grupo { padding: 72px 0 24px; }
   .proximo { margin-top: 72px; }
-  .rodape, .linhas p { grid-template-columns: minmax(0, 1fr); }
+  .linhas p { grid-template-columns: minmax(0, 1fr); }
+  .linhas { max-width: none; }
   .linhas p { gap: 2px; }
 }
 @media (prefers-reduced-motion: reduce) {
