@@ -46,7 +46,7 @@ def fonte(arquivo):
 
 
 def cartao_site(titulo, t):
-    """Cartão 1200x630 no visual do site: fundo cinza-claro, gato, nome grande e os três projetos."""
+    """Cartão 1200x630 no visual do site: fundo cinza-claro, gato, nome grande e Product designer."""
     grande = "CARLOS<br>GOUVEIA" if titulo == "CARLOS GOUVEIA" else html.escape(titulo)
     return f"""<!doctype html><html><head><meta charset="utf-8"><style>
 @font-face{{font-family:Satoshi;font-weight:900;src:url({fonte('satoshi-900.woff2')}) format("woff2")}}

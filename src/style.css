@@ -1,6 +1,6 @@
 /* =========================================================
    arcanospeedruns — portfólio de Carlos Gouveia
-   Uma página: a abertura com os três trabalhos e, por cima dela,
+   Uma página: a abertura com os quatro projetos e, por cima dela,
    a área de cada projeto. Fontes: Satoshi e Switzer (Fontshare/ITF).
 
    1. Fontes e variáveis
@@ -47,7 +47,7 @@ a { color: inherit; text-underline-offset: 4px; text-decoration-thickness: 1px; 
 .idioma [aria-current] { font-weight: 500; }
 
 .apresentacao { display: flex; flex-direction: column; gap: 28px; }
-.apresentacao h1 { margin: 0; font-size: clamp(44px, 4.6vw, 76px); }
+.apresentacao h1 { margin: 0; font-size: clamp(44px, 4.6vw, 76px); text-transform: uppercase; }
 .cargo { margin: 12px 0 0; font-size: clamp(20px, 1.6vw, 24px); font-weight: 500; line-height: 1.2; }
 
 .projetos { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--tinta); }
@@ -61,7 +61,8 @@ a { color: inherit; text-underline-offset: 4px; text-decoration-thickness: 1px; 
 
 /* a imagem: troca sozinha e abre o trabalho que está na tela */
 .moldura { position: relative; display: block; overflow: hidden; background: #000; min-height: 0; }
-.moldura:focus-visible { outline: 3px solid var(--amarelo); outline-offset: -8px; }
+.moldura:focus-visible { outline: none; }
+.moldura:focus-visible::after { content: ""; position: absolute; inset: 8px; z-index: 1; border: 3px solid var(--amarelo); box-shadow: 0 0 0 3px #000; pointer-events: none; }
 .slide { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 450ms ease; }
 .slide.atual { opacity: 1; }
 .slide > img { width: 100%; height: 100%; object-fit: cover; }
@@ -80,12 +81,13 @@ body.travado { overflow: hidden; }
 .fechar { display: none; position: sticky; top: 0; z-index: 2; margin: 0 calc(-1 * var(--margem)); padding: 0 var(--margem); background: var(--fundo); justify-content: space-between; align-items: center; gap: 16px; font-size: 16px; }
 .js .fechar { display: flex; }
 .fechar span { font-weight: 500; visibility: hidden; }
-.rolou .fechar span { visibility: visible; } /* o nome só aparece depois que o título grande saiu da tela */
+.rolou .fechar span { visibility: visible; }
+.rolou .fechar { border-bottom: 1px solid var(--fio); } /* o nome só aparece depois que o título grande saiu da tela */
 .cabeca h2:focus { outline: none; }
 .fechar a { display: inline-flex; align-items: center; min-height: 48px; padding: 0 4px; }
 
 .cabeca { display: flex; flex-direction: column; gap: 12px; padding: 8px 0 24px; }
-.cabeca h2 { margin: 0; font-size: clamp(56px, 8vw, 120px); overflow-wrap: anywhere; }
+.cabeca h2 { margin: 0; font-size: clamp(56px, 8vw, 120px); overflow-wrap: anywhere; text-transform: uppercase; }
 .cabeca p { margin: 0; font-size: 22px; line-height: 1.35; font-weight: 500; max-width: 40ch; }
 
 .grupo { margin: 0; padding: 120px 0 32px; max-width: 24ch; font-size: clamp(26px, 2.6vw, 40px); font-weight: 500; line-height: 1.15; text-wrap: balance; }
@@ -100,8 +102,17 @@ body.travado { overflow: hidden; }
 /* uma fileira: cada imagem cresce na proporção dela, então todas ficam com a mesma altura */
 .fileira { display: flex; gap: var(--vao); align-items: flex-start; }
 .fileira > img { flex: var(--p, 1) 1 0; width: 0; min-width: 0; }
-.sozinha { width: min(100%, 960px); margin: 0 auto; }
-.telas .fileira > img { outline: 1px solid var(--fio); outline-offset: -1px; }
+/* App Psiquê: fluxo em texto, telas em grade, antes e depois */
+.fluxo { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 2px; counter-reset: passo; }
+.fluxo li { counter-increment: passo; background: #3b2c6b; color: #e8e2f4; padding: 24px; font-size: 17px; line-height: 1.4; }
+.fluxo li::before { content: counter(passo); display: block; font-family: "Satoshi", sans-serif; font-weight: 900; font-size: 36px; line-height: 1; color: #f5c842; margin-bottom: 12px; }
+.fluxo strong { display: block; color: #fff; font-size: 20px; font-weight: 500; margin-bottom: 6px; }
+.telas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--vao); max-width: 1100px; }
+.telas img { width: 100%; outline: 1px solid var(--fio); outline-offset: -1px; }
+.decisao { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+.decisao figure { margin: 0; display: flex; flex-direction: column; gap: 16px; }
+.decisao img { width: 100%; }
+.decisao figcaption { font-size: 18px; line-height: 1.45; max-width: 44ch; }
 .alta { height: calc(100svh - 230px); min-height: 360px; width: 100%; object-fit: cover; }
 
 /* ---------- 6. Página de erro ---------- */
@@ -111,6 +122,8 @@ body.travado { overflow: hidden; }
 
 /* ---------- 7. Celular e movimento reduzido ---------- */
 @media (max-width: 860px) {
+  .fluxo { grid-template-columns: minmax(0, 1fr); }
+  .decisao { grid-template-columns: minmax(0, 1fr); }
   .abertura { grid-template-columns: minmax(0, 1fr); height: auto; min-height: 0; }
   .moldura { aspect-ratio: 4 / 5; }
   .grupo { padding: 72px 0 24px; }
@@ -119,10 +132,9 @@ body.travado { overflow: hidden; }
 }
 /* fileiras viram coluna só no celular; peças altas não passam de uma tela */
 @media (max-width: 600px) {
+  .telas { grid-template-columns: minmax(0, 1fr); max-width: 320px; margin: 0 auto; }
   .fileira { flex-direction: column; }
   .fileira > img { flex: none; width: 100%; max-height: 80svh; object-fit: contain; }
-  .telas .fileira { flex-direction: row; flex-wrap: wrap; }
-  .telas .fileira > img { width: calc(50% - 4px); }
 }
 @media (prefers-reduced-motion: reduce) {
   .slide, .js .projeto, .projetos a { transition: none; }

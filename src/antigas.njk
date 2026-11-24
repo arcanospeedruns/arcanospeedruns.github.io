@@ -22,11 +22,12 @@ permalink: "{{ velha.de }}"
 eleventyExcludeFromCollections: true
 ---
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="{{ 'en' if velha.de.startsWith('/en/') else 'pt-BR' }}">
 <head>
   <meta charset="utf-8">
-  <title>Carlos Gouveia</title>
-  <meta name="robots" content="noindex">
+  <title>Carlos Gouveia | Product designer</title>
+  <meta property="og:title" content="Carlos Gouveia | Product designer">
+  <meta property="og:image" content="{{ site.url }}/og.png">
   <link rel="canonical" href="{{ site.url }}{{ velha.para.split('#')[0] }}">
   <meta http-equiv="refresh" content="0; url={{ velha.para }}">
 </head>

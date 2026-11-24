@@ -4,21 +4,21 @@ Portfólio de Carlos Gouveia, product designer, em português e inglês: <https:
 
 ## Como é feito
 
-- Uma página só. A abertura mostra os três trabalhos (Psiquê, Ruela Discos e twenty one pilots); a imagem troca sozinha e, ao clicar nela ou no nome, a área do projeto sobe por cima.
-- Cada projeto tem endereço próprio (`/#psique`, `/#ruela`, `/#twenty-one-pilots`), então dá para mandar o link direto e o botão voltar do navegador fecha a área. Sem JavaScript, os projetos aparecem um embaixo do outro.
+- Uma página só. A abertura mostra os quatro projetos (App Psiquê, Psiquê, Ruela Discos e twenty one pilots); a imagem dá uma volta pelos quatro e, ao clicar nela ou no nome, a área do projeto sobe por cima.
+- Cada projeto tem endereço próprio (`/#psique-app`, `/#psique`, `/#ruela`, `/#twenty-one-pilots`), então dá para mandar o link direto e o botão voltar do navegador fecha a área. Sem JavaScript, os projetos aparecem um embaixo do outro.
 - HTML, CSS e JavaScript sem framework. [Eleventy](https://www.11ty.dev/) gera a versão em português (`/`) e a em inglês (`/en/`) a partir de um modelo só: `{% tr %}texto<!--en-->text{% endtr %}`.
-- As peças dos projetos são imagens WebP exportadas dos canvas de design, em `src/projetos/<projeto>/`.
+- As peças dos projetos são imagens WebP exportadas dos canvas de design, em `src/projetos/<projeto>/`, com versões menores (`-800`, `-1200`) que o navegador escolhe pelo `srcset`.
 - O GitHub Actions gera o site, cria as imagens de compartilhamento, confere os links internos e publica no GitHub Pages a cada push na `main`. Uma vez por semana outro fluxo confere os links externos.
 
 ## Estrutura
 
 ```
 src/
-  index.njk              a página (abertura e os três projetos)   -> / e /en/
+  index.njk              a página (abertura e os quatro projetos)   -> / e /en/
   style.css, site.js     visual e comportamento da página
   _includes/base.njk     <head> e scripts
   _data/                 endereço do site e idiomas
-  projetos/psique/, projetos/ruela/, projetos/twenty-one-pilots/   imagens
+  projetos/psique-app/, projetos/psique/, projetos/ruela/, projetos/twenty-one-pilots/   imagens
   antigas.njk            páginas curtas nos endereços antigos, que levam para o início
   404.njk                página de erro
   fonts/, curriculo.pdf, curriculo-en.pdf, favicon, og.png

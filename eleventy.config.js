@@ -18,10 +18,13 @@ module.exports = function (config) {
     return `${arquivo}?v=${cache.get(arquivo)}`;
   });
   config.on("eleventy.before", () => cache.clear());
-  // "/projetos/x/a.webp" -> "/projetos/x/a-1200.webp 1200w, /projetos/x/a.webp 2400w" quando existe a versão menor
+  // "/projetos/x/a.webp" -> "a-800.webp 800w, a-1200.webp 1200w, a.webp 2400w", com as versões menores que existirem
   config.addFilter("srcset", (arquivo, largura) => {
-    const menor = arquivo.replace(/\.webp$/, "-1200.webp");
-    return fs.existsSync(path.join("src", menor)) ? `${menor} 1200w, ${arquivo} ${largura}w` : "";
+    const partes = [800, 1200]
+      .map((w) => [arquivo.replace(/\.webp$/, `-${w}.webp`), w])
+      .filter(([a]) => fs.existsSync(path.join("src", a)))
+      .map(([a, w]) => `${a} ${w}w`);
+    return partes.length ? [...partes, `${arquivo} ${largura}w`].join(", ") : "";
   });
   // textos bilíngues: {% tr %}texto em português<!--en-->text in English{% endtr %}
   config.addPairedShortcode("tr", function (conteudo) {

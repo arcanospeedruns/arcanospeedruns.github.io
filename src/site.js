@@ -1,4 +1,4 @@
-// Abertura: a imagem troca sozinha entre os três trabalhos e abre o que está na tela.
+// Abertura: a imagem troca sozinha entre os quatro projetos e abre o que está na tela.
 // Cada projeto tem endereço próprio (#psique-app, #psique, #ruela, #twenty-one-pilots): o botão
 // voltar do navegador fecha, e o link pode ser mandado direto para alguém.
 // A classe "js" no <html> é posta no <head> (base.njk), antes de a página aparecer.
@@ -11,10 +11,20 @@
   var paineis = document.querySelectorAll(".projeto");
   var fundo = document.querySelectorAll(".abertura"); // o que fica atrás do painel
   var parado = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var atual = 0, timer = null, aberto = null, pausa = false, abertoAqui = false;
+  var atual = 0, timer = null, aberto = null, pausa = false, visivel = true, trocas = 0;
   var INTERVALO = 4500;
 
   // ---------- troca das imagens ----------
+  // as imagens 2 a 4 só baixam depois que a página terminou de carregar
+  function carregarSlides() {
+    document.querySelectorAll(".slide img[data-srcset]").forEach(function (img) {
+      img.srcset = img.getAttribute("data-srcset");
+      img.removeAttribute("data-srcset");
+    });
+  }
+  if (document.readyState === "complete") carregarSlides();
+  else window.addEventListener("load", carregarSlides);
+
   function mostrar(i) {
     atual = i;
     slides.forEach(function (s, k) { s.classList.toggle("atual", k === i); });
@@ -22,19 +32,26 @@
     moldura.href = "#" + ids[i];
     moldura.setAttribute("aria-label", rotulos[i]);
   }
+  // dá uma volta pelos quatro projetos e para no primeiro; só gira com a imagem na tela
   function girar() {
     clearInterval(timer);
-    if (parado) return;
+    if (parado || trocas >= ids.length) return;
     timer = setInterval(function () {
-      if (!aberto && !pausa && !document.hidden) mostrar((atual + 1) % ids.length);
+      if (aberto || pausa || !visivel || document.hidden) return;
+      trocas++;
+      mostrar((atual + 1) % ids.length);
+      if (trocas >= ids.length) clearInterval(timer);
     }, INTERVALO);
   }
-  // com o mouse ou o foco na imagem ou na lista, a troca para: quem clica abre o que está vendo
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(function (e) { visivel = e[0].isIntersecting; }, { threshold: 0.5 }).observe(moldura);
+  }
+  // com o mouse na imagem ou na lista, ou o foco de teclado nelas, a troca para
   [moldura, document.querySelector(".projetos")].forEach(function (el) {
     el.addEventListener("mouseenter", function () { pausa = true; });
-    el.addEventListener("mouseleave", function () { pausa = false; girar(); });
-    el.addEventListener("focusin", function () { pausa = true; });
-    el.addEventListener("focusout", function () { pausa = false; girar(); });
+    el.addEventListener("mouseleave", function () { pausa = false; });
+    el.addEventListener("focusin", function (e) { pausa = e.target.matches(":focus-visible"); });
+    el.addEventListener("focusout", function () { pausa = false; });
   });
   nomes.forEach(function (n) {
     var i = Number(n.getAttribute("data-slide"));
@@ -43,12 +60,17 @@
   });
 
   // ---------- área do projeto ----------
+  function focarTitulo(painel) {
+    var titulo = painel.querySelector("h2");
+    if (titulo) titulo.focus({ preventScroll: true });
+  }
   function abrir(id) {
     var painel = document.getElementById(id);
     if (!painel || ids.indexOf(id) < 0) return fechar();
+    if (aberto === painel) return;
     paineis.forEach(function (p) {
       var este = p === painel;
-      if (!este) { p.classList.remove("aberto", "montado"); }
+      if (!este) { p.classList.remove("aberto", "montado", "rolou"); }
       p.inert = !este;
     });
     fundo.forEach(function (el) { el.inert = true; });
@@ -60,8 +82,7 @@
     aberto = painel;
     document.body.classList.add("travado");
     mostrar(ids.indexOf(id));
-    var titulo = painel.querySelector("h2");
-    if (titulo) titulo.focus({ preventScroll: true });
+    focarTitulo(painel);
   }
   function fechar() {
     var era = aberto;
@@ -72,7 +93,7 @@
     if (era) {
       var link = document.querySelector('.projetos a[href="#' + era.id + '"]');
       if (link) link.focus({ preventScroll: true });
-      var fim = function () { if (!era.classList.contains("aberto")) era.classList.remove("montado"); };
+      var fim = function () { if (!era.classList.contains("aberto")) era.classList.remove("montado", "rolou"); };
       parado ? fim() : setTimeout(fim, 650);
     }
   }
@@ -80,30 +101,49 @@
     var id = location.hash.slice(1);
     if (id) abrir(id); else fechar();
   }
-  // voltar à abertura: se o projeto foi aberto aqui, volta no histórico (o Voltar não reabre);
-  // se a pessoa chegou pelo link direto, só limpa o endereço
+  // voltar à abertura: se esta entrada do histórico foi criada pelo site, volta nele
+  // (o Voltar do navegador não reabre o projeto); se a pessoa chegou pelo link, só limpa o endereço
   function voltar() {
     if (!aberto) return;
-    if (abertoAqui) { abertoAqui = false; history.back(); }
+    if (history.state && history.state.site) history.back();
     else { history.replaceState(null, "", location.pathname + location.search); fechar(); }
   }
 
   document.addEventListener("click", function (e) {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return; // nova aba etc.
     var a = e.target.closest("a");
     if (!a) return;
     var href = a.getAttribute("href");
     if (href === "#") { e.preventDefault(); voltar(); return; }
     if (href && href.charAt(0) === "#" && ids.indexOf(href.slice(1)) >= 0) {
       e.preventDefault();
-      if (aberto) history.replaceState(null, "", href); else { history.pushState(null, "", href); abertoAqui = true; }
+      if (aberto) history.replaceState(history.state, "", href);
+      else history.pushState({ site: true }, "", href);
       abrir(href.slice(1));
     }
   });
   document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape" && aberto) voltar();
+    if (!aberto) return;
+    if (e.key === "Escape") { voltar(); return; }
+    // o Tab circula dentro do projeto aberto: Fechar, Próximo, Fechar...
+    if (e.key === "Tab") {
+      var focaveis = aberto.querySelectorAll("a[href], button:not([disabled])");
+      if (!focaveis.length) return;
+      var primeiro = focaveis[0], ultimo = focaveis[focaveis.length - 1];
+      var ativo = document.activeElement;
+      var noMeio = aberto.contains(ativo) && ativo !== primeiro && ativo !== ultimo && ativo.tagName !== "H2";
+      if (noMeio) return;
+      e.preventDefault();
+      if (e.shiftKey) (ativo === ultimo ? (focaveis[focaveis.length - 2] || primeiro) : ultimo).focus();
+      else (ativo === primeiro ? (focaveis[1] || ultimo) : primeiro).focus();
+    }
   });
-  window.addEventListener("popstate", function () { if (!location.hash) abertoAqui = false; pelaUrl(); });
+  window.addEventListener("popstate", pelaUrl);
   window.addEventListener("hashchange", pelaUrl);
+  // link direto: o navegador foca o alvo do endereço depois do script; o foco volta para o título
+  window.addEventListener("load", function () {
+    setTimeout(function () { if (aberto && !aberto.contains(document.activeElement) || (aberto && document.activeElement === aberto)) focarTitulo(aberto); }, 50);
+  });
 
   paineis.forEach(function (p) {
     p.inert = true;
