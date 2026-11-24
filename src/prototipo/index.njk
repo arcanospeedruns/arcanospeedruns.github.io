@@ -1,0 +1,467 @@
+---
+permalink: "/prototipo/"
+eleventyExcludeFromCollections: true
+---
+{% raw %}<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Protótipo: App Psiquê | Carlos Gouveia</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Protótipo clicável do App Psiquê. Cada tela é uma <section data-tela>; só a atual aparece.
+   Os cliques e trocas de tela ficam em window.registro, para os testes. */
+*,*::before,*::after{box-sizing:border-box}
+:root{--roxo:#3B2C6B;--amarelo:#F5C842;--lilas:#8A73C9;--lavanda:#E8E2F4;--creme:#FFF3C9;--tinta:#1F1A2E;--cinza:#5B5470;--fio:#CFC7DE}
+html,body{margin:0;background:#e6e7e8}
+body{font-family:"Instrument Sans",system-ui,sans-serif;color:var(--tinta);display:flex;justify-content:center;min-height:100vh}
+.app{width:100%;max-width:430px;height:100vh;height:100dvh;background:#fff;position:relative;display:flex;flex-direction:column;overflow:hidden}
+@media(min-width:600px){body{padding:32px 0}.app{min-height:844px;height:844px;outline:1px solid var(--fio);overflow:hidden}}
+section[data-tela]{display:none;flex:1;flex-direction:column;min-height:0}
+section[data-tela].atual{display:flex}
+.rolagem{flex:1;overflow-y:auto;padding:8px 24px 24px;display:flex;flex-direction:column;gap:18px}
+h1{margin:0;font-family:Unbounded,sans-serif;font-weight:400;font-size:26px;line-height:1.2;color:var(--roxo)}
+p{margin:0}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer;border-radius:0}
+.topo{display:flex;align-items:center;gap:8px;padding:16px 16px 8px;min-height:60px}
+.voltar{width:44px;height:44px;border:0;background:none;display:grid;place-items:center}
+.barra{flex:1;display:grid;gap:4px;padding-right:16px}
+.barra span{height:4px;background:var(--lavanda)}
+.barra span.feito{background:var(--roxo)}
+.rodape{padding:16px 24px 24px;border-top:1px solid var(--lavanda)}
+.principal{width:100%;min-height:56px;border:0;background:var(--roxo);color:#fff;font-size:17px;font-weight:600}
+.principal:disabled{background:#B9B3C9;cursor:not-allowed}
+.secundario{width:100%;min-height:52px;border:1.5px solid var(--roxo);background:#fff;color:var(--roxo);font-size:16px;font-weight:600}
+.texto-fraco{font-size:15px;line-height:1.45;color:var(--cinza)}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{min-height:44px;padding:0 14px;border:1.5px solid var(--fio);background:#fff;font-size:14px}
+.chip[aria-pressed="true"]{background:var(--roxo);border-color:var(--roxo);color:#fff}
+.lista{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.cartao{width:100%;display:grid;grid-template-columns:56px 1fr;gap:14px;padding:16px;border:1px solid var(--lavanda);background:#fff;text-align:left}
+.cartao:hover,.cartao:focus-visible{border-color:var(--roxo)}
+.iniciais{width:56px;height:56px;background:var(--lavanda);color:var(--roxo);display:grid;place-items:center;font-family:Unbounded,sans-serif;font-size:18px}
+.nome-p{font-size:17px;font-weight:600;display:block}
+.sub{font-size:14px;color:var(--cinza);display:block;margin-top:2px}
+.livre{display:inline-block;margin-top:6px;font-size:14px;font-weight:600;color:var(--roxo);background:var(--creme);padding:4px 8px}
+.ajuda{display:flex;justify-content:space-between;align-items:center;min-height:56px;padding:0 16px;background:var(--lavanda);color:var(--roxo);font-weight:600;font-size:16px;border:0;width:100%;text-align:left}
+.opcao{display:flex;align-items:center;gap:12px;min-height:56px;padding:0 16px;border:1px solid var(--fio);font-size:16px;cursor:pointer}
+.opcao:has(input:checked){border:2px solid var(--roxo)}
+.opcao input{width:20px;height:20px;accent-color:var(--roxo);margin:0}
+.dias{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.dia{min-height:64px;border:1.5px solid var(--lavanda);background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.dia span:first-child{font-size:13px}.dia span:last-child{font-size:18px;font-weight:600}
+.dia[aria-pressed="true"]{background:var(--roxo);border-color:var(--roxo);color:#fff}
+.horas{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.hora{min-height:52px;border:1.5px solid var(--roxo);background:#fff;color:var(--roxo);font-size:16px}
+.hora[aria-pressed="true"]{background:var(--roxo);color:#fff;font-weight:600}
+.hora:disabled{border-color:var(--lavanda);background:#F4F1F8;color:var(--cinza);text-decoration:line-through;cursor:not-allowed}
+.campo{display:flex;flex-direction:column;gap:6px}
+.campo label{font-size:15px;font-weight:600}
+.campo input{min-height:52px;border:1.5px solid var(--fio);padding:0 14px;font-size:17px;background:#fff}
+.campo input:focus{outline:2px solid var(--roxo);outline-offset:0;border-color:var(--roxo)}
+.erro{font-size:14px;color:#9B1C31;min-height:1em}
+.codigo input{letter-spacing:.5em;font-size:24px;text-align:center}
+dl{margin:0}dd{margin:0}.linha{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--lavanda);font-size:16px}
+.linha dt{color:var(--cinza)}.linha dd{font-weight:600;text-align:right}
+.aviso{background:var(--creme);padding:16px;font-size:15px;line-height:1.45}
+.bloco-roxo{background:var(--roxo);color:#fff;padding:24px;display:flex;flex-direction:column;gap:10px}
+.agendar{min-height:64px;border:0;background:var(--amarelo);color:var(--tinta);font-family:Unbounded,sans-serif;font-size:18px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;width:100%}
+.ok{width:72px;height:72px;background:var(--amarelo);display:grid;place-items:center}
+.ou{display:flex;align-items:center;gap:12px;color:var(--cinza);font-size:14px}.ou::before,.ou::after{content:"";flex:1;height:1px;background:var(--lavanda)}
+:focus-visible{outline:2px solid var(--roxo);outline-offset:2px}
+.so-leitor{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.campo input[aria-invalid="true"]{border-color:#9B1C31}
+.local{font-size:14px;color:var(--cinza);display:block;margin-top:2px}
+.nota{position:fixed;left:16px;bottom:16px;max-width:300px;font-size:13px;line-height:1.4;color:#3f4449}
+.nota a{color:inherit}
+@media(max-width:900px){.nota{display:none}}
+</style>
+</head>
+<body>
+<div class="app" aria-live="polite">
+
+<!-- 1. INÍCIO: sem login; cadastro só na hora de confirmar -->
+<section data-tela="inicio" class="atual" aria-label="Início">
+  <div class="topo" style="justify-content:space-between;padding:20px 16px 8px 24px">
+    <span style="display:flex;align-items:center;gap:8px"><svg viewBox="0 0 120 120" width="28" height="28" fill="none" stroke="#3B2C6B" stroke-width="6" stroke-linecap="round" aria-hidden="true"><ellipse cx="41" cy="47" rx="21" ry="12" transform="rotate(32 41 47)"/><ellipse cx="79" cy="47" rx="21" ry="12" transform="rotate(-32 79 47)"/><ellipse cx="45" cy="75" rx="13" ry="8" transform="rotate(-28 45 75)"/><ellipse cx="75" cy="75" rx="13" ry="8" transform="rotate(28 75 75)"/><line x1="60" y1="38" x2="60" y2="92"/></svg><span style="font-family:Unbounded,sans-serif;font-size:20px;color:#3B2C6B">psiquê</span></span>
+    <button type="button" data-ir="entrar" style="min-height:44px;padding:0 8px;border:0;background:none;color:#3B2C6B;font-weight:600;font-size:16px;text-decoration:underline;text-underline-offset:4px">Entrar</button>
+  </div>
+  <div class="rolagem">
+    <h1 style="font-size:30px">Vamos marcar sua primeira conversa?</h1>
+    <div class="bloco-roxo">
+      <p style="font-size:18px;font-weight:600;color:#F5C842">Sem cadastro para olhar.</p>
+      <p style="font-size:16px;line-height:1.45;color:#E8E2F4">Veja profissionais e horários livres. Seu nome e celular só são pedidos na hora de confirmar.</p>
+    </div>
+    <button type="button" class="agendar" data-ir="profissionais">Agendar sessão <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#1F1A2E" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    <p class="texto-fraco">Sessões de 50 minutos, online ou no consultório. A partir de R$ 180,00.</p>
+  </div>
+</section>
+
+<!-- 1b. ENTRAR (quem já tem conta) -->
+<section data-tela="entrar" aria-label="Entrar">
+  <div class="topo"><button type="button" class="voltar" data-voltar aria-label="Voltar"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#1F1A2E" stroke-width="2" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button></div>
+  <div class="rolagem">
+    <h1>Entrar</h1>
+    <p class="texto-fraco">Sem senha: mandamos um código por SMS.</p>
+    <div class="campo"><label for="cel-entrar">Celular com DDD</label><input id="cel-entrar" inputmode="tel" autocomplete="tel" placeholder="(11) 90000-0000"></div>
+    <p class="texto-fraco">Neste protótipo, entrar não é necessário: volte e agende direto.</p>
+  </div>
+</section>
+
+<!-- 2. COM QUEM -->
+<section data-tela="profissionais" aria-label="Com quem conversar">
+  <div class="topo"><button type="button" class="voltar" data-voltar aria-label="Voltar"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#1F1A2E" stroke-width="2" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><div class="barra" style="grid-template-columns:repeat(4,1fr)" role="progressbar" aria-label="Etapa 1 de 4" aria-valuemin="1" aria-valuemax="4" aria-valuenow="1"><span class="feito"></span><span></span><span></span><span></span></div></div>
+  <div class="rolagem">
+    <h1>Com quem você quer conversar?</h1>
+    <div class="chips" role="group" aria-label="Filtrar por modalidade">
+      <button type="button" class="chip" data-filtro="online" aria-pressed="false">Online</button>
+      <button type="button" class="chip" data-filtro="presencial" aria-pressed="false">Presencial</button>
+    </div>
+    <ul class="lista" id="lista-prof"></ul>
+    <button type="button" class="ajuda" data-ir="ajuda1">Não sei escolher: me ajude <span aria-hidden="true">›</span></button>
+  </div>
+</section>
+
+<!-- 2b. ME AJUDE A ESCOLHER (3 perguntas) -->
+<section data-tela="ajuda1" aria-label="Pergunta 1 de 3">
+  <div class="topo"><button type="button" class="voltar" data-voltar aria-label="Voltar"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#1F1A2E" stroke-width="2" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><div class="barra" style="grid-template-columns:repeat(3,1fr)"><span class="feito" style="background:#F5C842"></span><span></span><span></span></div></div>
+  <div class="rolagem">
+    <h1>O que te trouxe até aqui?</h1>
+    <p class="texto-fraco">São três perguntas rápidas. Com elas, a gente sugere quem combina com você.</p>
+    <fieldset style="border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:10px"><legend class="so-leitor">O que te trouxe até aqui?</legend>
+      <label class="opcao"><input type="radio" name="q1" value="ansiedade">Ansiedade ou muita preocupação</label>
+      <label class="opcao"><input type="radio" name="q1" value="tristeza">Tristeza ou desânimo</label>
+      <label class="opcao"><input type="radio" name="q1" value="relacao">Relacionamentos e família</label>
+      <label class="opcao"><input type="radio" name="q1" value="nao-sei">Ainda não sei dizer</label>
+    </fieldset>
+  </div>
+  <div class="rodape"><button type="button" class="principal" data-ir="ajuda2" data-exige="q1" disabled>Próxima pergunta</button></div>
+</section>
+<section data-tela="ajuda2" aria-label="Pergunta 2 de 3">
+  <div class="topo"><button type="button" class="voltar" data-voltar aria-label="Voltar"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#1F1A2E" stroke-width="2" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><div class="barra" style="grid-template-columns:repeat(3,1fr)"><span class="feito" style="background:#F5C842"></span><span class="feito" style="background:#F5C842"></span><span></span></div></div>
+  <div class="rolagem">
+    <h1>Como prefere a sessão?</h1>
+    <fieldset style="border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:10px"><legend class="so-leitor">Como prefere a sessão?</legend>
+      <label class="opcao"><input type="radio" name="q2" value="online">Online, de onde eu estiver</label>
+      <label class="opcao"><input type="radio" name="q2" value="presencial">No consultório</label>
+      <label class="opcao"><input type="radio" name="q2" value="tanto-faz">Tanto faz</label>
+    </fieldset>
+  </div>
+  <div class="rodape"><button type="button" class="principal" data-ir="ajuda3" data-exige="q2" disabled>Próxima pergunta</button></div>
+</section>
+<section data-tela="ajuda3" aria-label="Pergunta 3 de 3">
+  <div class="topo"><button type="button" class="voltar" data-voltar aria-label="Voltar"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#1F1A2E" stroke-width="2" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><div class="barra" style="grid-template-columns:repeat(3,1fr)"><span class="feito" style="background:#F5C842"></span><span class="feito" style="background:#F5C842"></span><span class="feito" style="background:#F5C842"></span></div></div>
+  <div class="rolagem">
+    <h1>Quando fica melhor para você?</h1>
+    <fieldset style="border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:10px"><legend class="so-leitor">Quando fica melhor para você?</legend>
+      <label class="opcao"><input type="radio" name="q3" value="manha">De manhã</label>
+      <label class="opcao"><input type="radio" name="q3" value="tarde">À tarde</label>
+      <label class="opcao"><input type="radio" name="q3" value="noite">À noite</label>
+    </fieldset>
+  </div>
+  <div class="rodape"><button type="button" class="principal" data-ir="sugestao" data-exige="q3" disabled>Ver sugestões</button></div>
+</section>
+<section data-tela="sugestao" aria-label="Sugestões">
+  <div class="topo"><button type="button" class="voltar" data-voltar aria-label="Voltar"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#1F1A2E" stroke-width="2" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button></div>
+  <div class="rolagem">
+    <h1>Quem combina com você</h1>
+    <p class="texto-fraco" id="motivo-sugestao"></p>
+    <ul class="lista" id="lista-sugestao"></ul>
+  </div>
+</section>
+
+<!-- 3. QUANDO -->
+<section data-tela="horario" aria-label="Escolher horário">
+  <div class="topo"><button type="button" class="voltar" data-voltar aria-label="Voltar"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#1F1A2E" stroke-width="2" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><div class="barra" style="grid-template-columns:repeat(4,1fr)" role="progressbar" aria-label="Etapa 2 de 4" aria-valuemin="1" aria-valuemax="4" aria-valuenow="2"><span class="feito"></span><span class="feito"></span><span></span><span></span></div></div>
+  <div class="rolagem">
+    <div style="display:flex;align-items:center;gap:12px"><span class="iniciais" id="h-iniciais" style="width:48px;height:48px;font-size:16px"></span><span><span class="nome-p" id="h-nome"></span><span class="sub" id="h-modo"></span></span></div>
+    <div class="chips" id="modo" role="group" aria-label="Como vai ser a sessão"></div>
+    <p class="texto-fraco" id="h-endereco" hidden></p>
+    <h1>Qual horário fica bom?</h1>
+    <p style="font-size:16px;font-weight:600">Março, semana de 11 a 15</p>
+    <div class="dias" id="dias" role="group" aria-label="Dia"></div>
+    <div class="horas" id="horas" role="group" aria-label="Horário"></div>
+    <p class="texto-fraco">Horários ocupados aparecem riscados.</p>
+    <p class="aviso" id="h-regras">Sessão de 50 min por R$ 180,00. Cancelamento sem custo até 24 h antes.</p>
+  </div>
+  <div class="rodape"><button type="button" class="principal" id="continuar-horario" data-ir="cadastro" disabled>Escolha um horário</button></div>
+</section>
+
+<!-- 4. CADASTRO: só nome e celular, depois do horário escolhido -->
+<section data-tela="cadastro" aria-label="Seus dados">
+  <div class="topo"><button type="button" class="voltar" data-voltar aria-label="Voltar"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#1F1A2E" stroke-width="2" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><div class="barra" style="grid-template-columns:repeat(4,1fr)" role="progressbar" aria-label="Etapa 3 de 4" aria-valuemin="1" aria-valuemax="4" aria-valuenow="3"><span class="feito"></span><span class="feito"></span><span class="feito"></span><span></span></div></div>
+  <form class="rolagem" id="form-cadastro" novalidate>
+    <h1>Para reservar, só nome e celular</h1>
+    <p class="texto-fraco" id="reserva-resumo"></p>
+    <div class="campo"><label for="nome">Como podemos te chamar?</label><input id="nome" name="nome" autocomplete="given-name" required><span class="erro" id="erro-nome" role="alert"></span></div>
+    <div class="campo"><label for="celular">Celular com DDD</label><input id="celular" name="celular" inputmode="tel" autocomplete="tel" placeholder="(11) 90000-0000" required><span class="erro" id="erro-celular" role="alert"></span></div>
+    <p class="texto-fraco">Mandamos um código por SMS para confirmar que o número é seu. Nada de senha.</p>
+    <div class="ou">ou</div>
+    <button type="button" class="secundario" data-google>Continuar com Google</button>
+  </form>
+  <div class="rodape"><button type="submit" form="form-cadastro" class="principal">Receber código</button></div>
+</section>
+<section data-tela="codigo" aria-label="Código de confirmação">
+  <div class="topo"><button type="button" class="voltar" data-voltar aria-label="Voltar"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#1F1A2E" stroke-width="2" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><div class="barra" style="grid-template-columns:repeat(4,1fr)"><span class="feito"></span><span class="feito"></span><span class="feito"></span><span></span></div></div>
+  <form class="rolagem" id="form-codigo" novalidate>
+    <h1>Digite o código</h1>
+    <p class="texto-fraco" id="codigo-para"></p>
+    <div class="campo codigo"><label for="cod">Código de 4 números</label><input id="cod" inputmode="numeric" autocomplete="one-time-code" maxlength="4"><span class="erro" id="erro-cod" role="alert"></span></div>
+    <p class="texto-fraco">Neste protótipo, o código é 1234.</p>
+  </form>
+  <div class="rodape"><button type="submit" form="form-codigo" class="principal">Confirmar número</button></div>
+</section>
+
+<!-- 5. CONFIRMAR -->
+<section data-tela="confirmar" aria-label="Confirmar">
+  <div class="topo"><button type="button" class="voltar" data-voltar aria-label="Voltar"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#1F1A2E" stroke-width="2" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><div class="barra" style="grid-template-columns:repeat(4,1fr)" role="progressbar" aria-label="Etapa 4 de 4" aria-valuemin="1" aria-valuemax="4" aria-valuenow="4"><span class="feito"></span><span class="feito"></span><span class="feito"></span><span class="feito"></span></div></div>
+  <div class="rolagem">
+    <h1>Confira antes de confirmar</h1>
+    <dl style="border-top:1px solid #E8E2F4">
+      <div class="linha"><dt>Com</dt><dd id="c-prof"></dd></div>
+      <div class="linha"><dt>Quando</dt><dd id="c-quando"></dd></div>
+      <div class="linha"><dt>Duração</dt><dd>50 min</dd></div>
+      <div class="linha"><dt>Onde</dt><dd id="c-onde"></dd></div>
+      <div class="linha"><dt>Valor</dt><dd>R$ 180,00</dd></div>
+    </dl>
+    <div class="aviso" id="c-regra"></div>
+    <fieldset style="border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:10px"><legend style="font-size:16px;font-weight:600;margin-bottom:10px">Pagamento</legend>
+      <label class="opcao"><input type="radio" name="pg" value="pix" checked>Pix agora</label>
+      <label class="opcao"><input type="radio" name="pg" value="local">Pagar no dia da sessão</label>
+    </fieldset>
+  </div>
+  <div class="rodape"><button type="button" class="principal" id="confirmar-btn" data-ir="pix">Confirmar e pagar com Pix</button></div>
+</section>
+
+<!-- 5b. PIX -->
+<section data-tela="pix" aria-label="Pagar com Pix">
+  <div class="topo"><button type="button" class="voltar" data-voltar aria-label="Voltar"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#1F1A2E" stroke-width="2" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button></div>
+  <div class="rolagem">
+    <h1>Pague R$ 180,00 com Pix</h1>
+    <p class="texto-fraco">Copie o código e cole no app do seu banco, na opção Pix copia e cola. A sessão fica guardada por 10 minutos.</p>
+    <div class="campo"><label for="pix-codigo">Código Pix</label><input id="pix-codigo" readonly value="00020126580014br.gov.bcb.pix0136psique-exemplo-prototipo"></div>
+    <button type="button" class="secundario" id="copiar-pix">Copiar código</button>
+    <p class="texto-fraco" role="status" id="pix-status"></p>
+    <p class="texto-fraco">Neste protótipo nada é cobrado.</p>
+  </div>
+  <div class="rodape"><button type="button" class="principal" data-ir="agendado" data-pago>Já paguei</button></div>
+</section>
+
+<!-- 6. AGENDADO -->
+<section data-tela="agendado" aria-label="Sessão agendada">
+  <div class="rolagem" style="padding-top:72px;gap:24px">
+    <div class="ok" aria-hidden="true"><svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="#1F1A2E" stroke-width="2.4"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+    <h1 style="font-size:30px">Sessão agendada.</h1>
+    <p style="font-size:18px;line-height:1.45" id="a-resumo"></p>
+    <p class="aviso" id="a-pagamento"></p>
+    <button type="button" class="principal">Adicionar ao calendário</button>
+    <button type="button" class="secundario" id="a-acao">Como entrar na sala online</button>
+    <p class="texto-fraco" id="a-nota"></p>
+  </div>
+  <div class="rodape" style="border:0"><button type="button" class="secundario" data-recomecar style="border:0">Voltar ao início</button></div>
+</section>
+</div>
+
+<p class="nota">Protótipo do App Psiquê, um conceito de <a href="/#psique-app">Carlos Gouveia</a>. Profissionais, horários e valores são fictícios; nada é enviado.</p>
+
+<script>
+(function () {
+  var registro = window.registro = [];
+  var t0 = Date.now();
+  function anota(tipo, dado) { registro.push({ t: Date.now() - t0, tipo: tipo, dado: dado }); }
+
+  var PROF = [
+    { id: "helena", nome: "Helena Duarte", ab: "Cognitivo-comportamental", temas: ["ansiedade", "tristeza", "nao-sei"], modos: ["online"] },
+    { id: "rafael", nome: "Rafael Nunes", ab: "Psicanálise", temas: ["tristeza", "nao-sei", "ansiedade"], modos: ["presencial"] },
+    { id: "bia", nome: "Bia Moreira", ab: "Terapia de casal e família", nota: "Dá para ir sozinho ou com a outra pessoa.", temas: ["relacao"], modos: ["online", "presencial"] }
+  ];
+  var DIAS = [["seg", "11"], ["ter", "12"], ["hoje", "13"], ["qui", "14"], ["sex", "15"]];
+  var HOJE = 2;
+  var ENDERECO = "Rua Augusta, 1500, sala 32, Consolação, São Paulo";
+  var TURNOS = { manha: [0, 1, 2], tarde: [3, 4, 5], noite: [6, 7, 8] };
+  var HORAS = ["8h", "9h", "10h", "14h", "16h", "17h", "18h", "19h", "20h"];
+  // horários ocupados por profissional e dia (índice do dia); o resto está livre
+  var CHEIO = [0,1,2,3,4,5,6,7,8];
+  // seg e ter já passaram; "hoje" é quarta, 13
+  var OCUP = { helena: [CHEIO, CHEIO, [0,1,2,3,4,5,6], [1,4,6], [0,3,8]],
+               rafael: [CHEIO, CHEIO, CHEIO, [0,5,7], [2,6,7]],
+               bia:    [CHEIO, CHEIO, CHEIO, CHEIO, [0,1,2,5,6]] };
+  var ESTADO = { prof: null, dia: null, hora: null, modo: null, filtro: null, turno: null, nome: "", cel: "", pago: false };
+  // primeiro horário livre (de um turno, se pedido) -> "hoje, 19h"
+  function proximoLivre(p, turno) {
+    for (var d = 0; d < 5; d++) for (var h = 0; h < HORAS.length; h++) {
+      if (OCUP[p.id][d].indexOf(h) >= 0) continue;
+      if (turno && TURNOS[turno].indexOf(h) < 0) continue;
+      return { d: d, h: h, txt: (d === HOJE ? "hoje" : d === HOJE + 1 ? "amanhã" : DIAS[d][0]) + ", " + HORAS[h] };
+    }
+    return null;
+  }
+  var pilha = ["inicio"];
+
+  function tela(nome, empilhar) {
+    document.querySelectorAll("section[data-tela]").forEach(function (s) { s.classList.toggle("atual", s.getAttribute("data-tela") === nome); });
+    if (empilhar !== false) pilha.push(nome);
+    anota("tela", nome);
+    var h = document.querySelector('section[data-tela="' + nome + '"] h1');
+    if (h) { h.setAttribute("tabindex", "-1"); h.focus({ preventScroll: true }); }
+    var r = document.querySelector('section[data-tela="' + nome + '"] .rolagem'); if (r) r.scrollTop = 0; window.scrollTo(0, 0);
+    if (nome === "horario") montarHorario();
+    if (nome === "cadastro") document.getElementById("reserva-resumo").textContent = resumo() + ", " + onde().toLowerCase() + ". R$ 180,00. " + regra() + " O horário fica guardado por 10 minutos.";
+    if (nome === "confirmar") { document.getElementById("c-prof").textContent = prof().nome; document.getElementById("c-quando").textContent = quando(); document.getElementById("c-onde").textContent = onde(); document.getElementById("c-regra").textContent = regra() + " Depois disso, a sessão é cobrada."; atualizarBotaoPagamento(); }
+    if (nome === "agendado") {
+      document.getElementById("a-resumo").textContent = (ESTADO.nome ? ESTADO.nome + ", sua" : "Sua") + " sessão com " + prof().nome + " é " + quando() + (ESTADO.modo === "presencial" ? ", em " + ENDERECO : ", online") + ". " + (ESTADO.dia === HOJE ? "Vamos te lembrar uma hora antes." : "Vamos te lembrar um dia antes e uma hora antes.");
+      document.getElementById("a-pagamento").textContent = ESTADO.pago ? "Pagamento de R$ 180,00 recebido pelo Pix." : "Pagamento de R$ 180,00 no dia, na recepção ou pelo app.";
+      document.getElementById("a-acao").textContent = ESTADO.modo === "presencial" ? "Ver como chegar ao consultório" : "Como entrar na sala online";
+      document.getElementById("a-nota").textContent = "Primeira vez em terapia? Tudo bem chegar sem saber o que dizer. Quem começa a conversa é " + prof().nome.split(" ")[0] + ".";
+    }
+  }
+  function prof() { return PROF.filter(function (p) { return p.id === ESTADO.prof; })[0]; }
+  function quando() { var nomes = ["segunda", "terça", "quarta", "quinta", "sexta"]; return (ESTADO.dia === HOJE ? "hoje, " : "") + nomes[ESTADO.dia] + ", " + DIAS[ESTADO.dia][1] + " de março, às " + HORAS[ESTADO.hora]; }
+  function onde() { return ESTADO.modo === "presencial" ? "No consultório, " + ENDERECO : "Online, pelo app"; }
+  function regra() { return ESTADO.dia === HOJE ? "Como a sessão é hoje, dá para cancelar sem custo até 2 horas antes." : "Dá para remarcar ou cancelar sem custo até 24 h antes."; }
+  function atualizarBotaoPagamento() {
+    var pix = (document.querySelector('[name="pg"]:checked') || {}).value === "pix", b = document.getElementById("confirmar-btn");
+    b.textContent = pix ? "Confirmar e pagar com Pix" : "Confirmar agendamento"; b.setAttribute("data-ir", pix ? "pix" : "agendado");
+  }
+  function resumo() { return prof().nome + ", " + quando(); }
+
+  function cartao(p, turno) {
+    var li = document.createElement("li"), livre = proximoLivre(p, turno);
+    li.innerHTML = '<button type="button" class="cartao" data-prof="' + p.id + '"><span class="iniciais" aria-hidden="true">' + p.nome.split(" ")[0][0] + p.nome.split(" ").slice(-1)[0][0] + '</span><span><span class="nome-p">' + p.nome + '</span><span class="sub">' + p.ab + " · " + p.modos.join(" e ") + "</span>" +
+      (p.nota ? '<span class="local">' + p.nota + "</span>" : "") +
+      (p.modos.indexOf("presencial") >= 0 ? '<span class="local">Consultório na Rua Augusta, Consolação</span>' : "") +
+      (livre ? '<span class="livre">Livre ' + livre.txt + "</span>" : "") + "</span></button>";
+    return li;
+  }
+  function montarLista() {
+    var ul = document.getElementById("lista-prof"); ul.innerHTML = "";
+    PROF.filter(function (p) { return !ESTADO.filtro || p.modos.indexOf(ESTADO.filtro) >= 0; }).forEach(function (p) { ul.appendChild(cartao(p)); });
+  }
+  function montarHorario(foco) {
+    var p = prof();
+    document.getElementById("h-iniciais").textContent = p.nome.split(" ")[0][0] + p.nome.split(" ").slice(-1)[0][0];
+    document.getElementById("h-nome").textContent = p.nome;
+    document.getElementById("h-modo").textContent = p.ab;
+    if (ESTADO.modo === null || p.modos.indexOf(ESTADO.modo) < 0) ESTADO.modo = p.modos.length === 1 ? p.modos[0] : (p.modos.indexOf(ESTADO.filtro) >= 0 ? ESTADO.filtro : null);
+    var modo = document.getElementById("modo"); modo.innerHTML = "";
+    p.modos.forEach(function (m) {
+      var b = document.createElement("button"); b.type = "button"; b.className = "chip"; b.setAttribute("data-k", "modo-" + m);
+      b.textContent = m === "online" ? "Online" : "No consultório"; b.setAttribute("aria-pressed", String(ESTADO.modo === m)); b.disabled = p.modos.length === 1;
+      b.addEventListener("click", function () { ESTADO.modo = m; anota("modo", m); montarHorario("modo-" + m); });
+      modo.appendChild(b);
+    });
+    var end = document.getElementById("h-endereco"); end.hidden = ESTADO.modo !== "presencial"; end.textContent = "Consultório: " + ENDERECO + ".";
+    if (ESTADO.dia === null) { var l = proximoLivre(p, ESTADO.turno) || proximoLivre(p); ESTADO.dia = l.d; }
+    var dias = document.getElementById("dias"); dias.innerHTML = "";
+    DIAS.forEach(function (d, i) {
+      var cheio = OCUP[p.id][i].length >= HORAS.length;
+      var b = document.createElement("button"); b.type = "button"; b.className = "dia"; b.setAttribute("aria-pressed", String(i === ESTADO.dia)); b.disabled = cheio;
+      if (cheio) { b.style.opacity = ".45"; b.setAttribute("aria-label", d[0] + " " + d[1] + ", sem horários"); }
+      b.innerHTML = "<span>" + d[0] + "</span><span>" + d[1] + "</span>";
+      b.setAttribute("data-k", "dia-" + i); if (i === HOJE) b.setAttribute("aria-label", "hoje, quarta " + d[1]);
+      b.addEventListener("click", function () { ESTADO.dia = i; ESTADO.hora = null; anota("dia", d.join(" ")); montarHorario("dia-" + i); });
+      dias.appendChild(b);
+    });
+    var horas = document.getElementById("horas"); horas.innerHTML = "";
+    HORAS.forEach(function (h, j) {
+      var b = document.createElement("button"); b.type = "button"; b.className = "hora"; b.textContent = h;
+      b.disabled = OCUP[p.id][ESTADO.dia].indexOf(j) >= 0; b.setAttribute("aria-pressed", String(j === ESTADO.hora));
+      if (b.disabled) b.setAttribute("aria-label", h + ", ocupado");
+      b.setAttribute("data-k", "hora-" + j);
+      b.addEventListener("click", function () { ESTADO.hora = j; anota("hora", h); montarHorario("hora-" + j); });
+      horas.appendChild(b);
+    });
+    document.getElementById("h-regras").textContent = "Sessão de 50 min por R$ 180,00. " + (ESTADO.dia === HOJE ? "Sessões de hoje: cancelamento sem custo até 2 horas antes." : "Cancelamento sem custo até 24 h antes.");
+    var c = document.getElementById("continuar-horario");
+    c.disabled = ESTADO.hora === null || ESTADO.modo === null;
+    c.textContent = ESTADO.modo === null ? "Escolha online ou no consultório" : ESTADO.hora === null ? "Escolha um horário" : "Continuar com " + DIAS[ESTADO.dia][0] + ", " + DIAS[ESTADO.dia][1] + " às " + HORAS[ESTADO.hora];
+    if (foco) { var f = document.querySelector('[data-k="' + foco + '"]'); if (f) f.focus(); }
+  }
+
+  document.addEventListener("click", function (e) {
+    var alvo = e.target.closest("button, a, label");
+    if (alvo) anota("clique", (alvo.textContent || alvo.getAttribute("aria-label") || "").trim().slice(0, 40));
+    var b = e.target.closest("button"); if (!b) return;
+    if (b.hasAttribute("data-voltar")) { pilha.pop(); tela(pilha[pilha.length - 1] || "inicio", false); return; }
+    if (b.hasAttribute("data-recomecar")) { ESTADO.prof = ESTADO.dia = ESTADO.hora = ESTADO.modo = ESTADO.turno = null; ESTADO.pago = false; pilha = ["inicio"]; tela("inicio", false); return; }
+    if (b.hasAttribute("data-google")) { ESTADO.nome = "Marina"; tela("confirmar"); return; }
+    if (b.hasAttribute("data-filtro")) {
+      var f = b.getAttribute("data-filtro"); ESTADO.filtro = ESTADO.filtro === f ? null : f;
+      document.querySelectorAll("[data-filtro]").forEach(function (x) { x.setAttribute("aria-pressed", String(x.getAttribute("data-filtro") === ESTADO.filtro)); });
+      montarLista(); return;
+    }
+    if (b.hasAttribute("data-prof")) { ESTADO.prof = b.getAttribute("data-prof"); ESTADO.dia = ESTADO.hora = ESTADO.modo = null; tela("horario"); return; }
+    if (b.id === "copiar-pix") { var cp = document.getElementById("pix-codigo"); cp.select(); try { navigator.clipboard.writeText(cp.value); } catch (x) {} document.getElementById("pix-status").textContent = "Código copiado."; return; }
+    if (b.hasAttribute("data-pago")) ESTADO.pago = true;
+    var ir = b.getAttribute("data-ir"); if (ir && !b.disabled) {
+      if (ir === "sugestao") montarSugestao();
+      tela(ir);
+    }
+  });
+  document.addEventListener("change", function (e) {
+    if (e.target.type !== "radio") return;
+    anota("escolha", e.target.name + "=" + e.target.value);
+    if (e.target.name === "pg") { ESTADO.pago = false; atualizarBotaoPagamento(); }
+    document.querySelectorAll('[data-exige="' + e.target.name + '"]').forEach(function (b) { b.disabled = false; });
+  });
+  function montarSugestao() {
+    var q1 = (document.querySelector('[name="q1"]:checked') || {}).value, q2 = (document.querySelector('[name="q2"]:checked') || {}).value, q3 = (document.querySelector('[name="q3"]:checked') || {}).value;
+    ESTADO.turno = q3 || null;
+    ESTADO.filtro = q2 === "online" || q2 === "presencial" ? q2 : null;
+    var achados = PROF.filter(function (p) {
+      var tema = q1 === "nao-sei" || p.temas.indexOf(q1) >= 0;
+      var modo = !ESTADO.filtro || p.modos.indexOf(ESTADO.filtro) >= 0;
+      return tema && modo;
+    }).sort(function (a, b) { return a.temas.indexOf(q1) - b.temas.indexOf(q1); });
+    var ul = document.getElementById("lista-sugestao"); ul.innerHTML = "";
+    var txt = document.getElementById("motivo-sugestao");
+    if (!achados.length) {
+      txt.textContent = "Ninguém atende exatamente o que você pediu. Estas são as opções mais próximas.";
+      achados = PROF.filter(function (p) { return q1 === "nao-sei" || p.temas.indexOf(q1) >= 0; });
+    } else {
+      txt.textContent = (achados.length === 1 ? "Pelas suas respostas, quem combina com você é:" : "Pelas suas respostas, estas pessoas combinam com você:") + (q3 ? " os horários mostrados já são " + { manha: "de manhã", tarde: "à tarde", noite: "à noite" }[q3] + "." : "");
+    }
+    achados.forEach(function (p) { ul.appendChild(cartao(p, ESTADO.turno)); });
+  }
+  // celular com máscara simples
+  var cel = document.getElementById("celular");
+  cel.addEventListener("input", function () {
+    var d = cel.value.replace(/\D/g, "").slice(0, 11), s = d;
+    if (d.length > 2) s = "(" + d.slice(0, 2) + ") " + d.slice(2);
+    if (d.length > 7) s = "(" + d.slice(0, 2) + ") " + d.slice(2, 7) + "-" + d.slice(7);
+    cel.value = s;
+  });
+  document.getElementById("form-cadastro").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var nome = document.getElementById("nome").value.trim(), dig = cel.value.replace(/\D/g, ""), ok = true;
+    var campoNome = document.getElementById("nome");
+    document.getElementById("erro-nome").textContent = nome ? "" : "Escreva como quer ser chamado.";
+    document.getElementById("erro-celular").textContent = dig.length === 11 ? "" : "Confira o número: DDD e mais 9 dígitos.";
+    campoNome.setAttribute("aria-invalid", String(!nome)); cel.setAttribute("aria-invalid", String(dig.length !== 11));
+    campoNome.setAttribute("aria-describedby", "erro-nome"); cel.setAttribute("aria-describedby", "erro-celular");
+    if (!nome || dig.length !== 11) { ok = false; anota("erro", "cadastro"); (!nome ? campoNome : cel).focus(); }
+    if (!ok) return;
+    ESTADO.nome = nome; ESTADO.cel = cel.value;
+    document.getElementById("codigo-para").textContent = "Mandamos 4 números por SMS para " + cel.value + ".";
+    tela("codigo");
+  });
+  document.getElementById("form-codigo").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var v = document.getElementById("cod").value.trim();
+    var campoCod = document.getElementById("cod"); campoCod.setAttribute("aria-describedby", "erro-cod");
+    if (v !== "1234") { document.getElementById("erro-cod").textContent = "Código errado. Confira o SMS e tente de novo."; campoCod.setAttribute("aria-invalid", "true"); campoCod.focus(); anota("erro", "codigo"); return; }
+    campoCod.setAttribute("aria-invalid", "false");
+    document.getElementById("erro-cod").textContent = ""; tela("confirmar");
+  });
+  montarLista();
+  anota("tela", "inicio");
+})();
+</script>
+</body>
+</html>
+{% endraw %}
