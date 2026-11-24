@@ -26,12 +26,20 @@ from playwright.sync_api import sync_playwright
 RAIZ_REPO = Path(__file__).resolve().parent.parent
 SITE = Path(sys.argv[1] if len(sys.argv) > 1 else "_site").resolve()
 FONTES = SITE / "fonts"
-GATO = re.search(r'<svg class="marca-gato".*?</svg>', (RAIZ_REPO / "src/_includes/topo.njk").read_text(), re.S).group(0)
+# gato da marca (o mesmo do canto do site), em preto com os olhos vazados
+GATO = ('<svg class="marca-gato" viewBox="36 18 136 154" aria-hidden="true"><mask id="olhos-gato">'
+        '<rect x="0" y="0" width="200" height="200" fill="#fff"/><g fill="#000">'
+        '<ellipse cx="104" cy="112" rx="12" ry="17.5" transform="rotate(-5 104 112)"/>'
+        '<ellipse cx="143" cy="110" rx="8" ry="16" transform="rotate(-5 143 110)"/></g></mask>'
+        '<g mask="url(#olhos-gato)"><path d="M48 140 C48 116 47 98 50 82 C53 62 56 44 59 31 Q61 22 68 28 C79 39 90 51 100 60 '
+        'C106 64 114 64 120 62 C123 61 125 60 127 58 C134 48 141 38 146 30 Q151 22 154 31 C157 46 161 64 164 80 C167 98 166 118 '
+        '166 140 C166 160 156 170 138 170 L76 170 C58 170 48 160 48 140 Z" transform="translate(104 0) scale(1.1 1) translate(-107 0)" '
+        'fill="currentColor"/></g></svg>')
 
 TEXTOS = {
-    "pt-BR": {"vaga": "ABERTO A VAGAS DE PRODUTO", "areas": "PRODUTO · DADOS · DESIGN", "cidade": "SÃO PAULO, BRASIL",
+    "pt-BR": {"vaga": "ESTÁGIO OU JÚNIOR EM DESIGN DE PRODUTO", "areas": "DESIGN DE PRODUTO", "cidade": "SÃO PAULO, BRASIL",
               "hub": "TEXTOS E FOTOS · SÃO PAULO"},
-    "en": {"vaga": "OPEN TO PRODUCT ROLES", "areas": "PRODUCT · DATA · DESIGN", "cidade": "SÃO PAULO, BRAZIL",
+    "en": {"vaga": "INTERNSHIP OR JUNIOR PRODUCT DESIGN", "areas": "PRODUCT DESIGN", "cidade": "SÃO PAULO, BRAZIL",
            "hub": "POSTS AND PHOTOS · SÃO PAULO"},
 }
 

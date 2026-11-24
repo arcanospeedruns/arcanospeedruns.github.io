@@ -1,36 +1,29 @@
 # arcanospeedruns.github.io
 
-Portfólio de Carlos Gouveia, em português e inglês: <https://carlosgouveia.is-a.dev>
+Portfólio de Carlos Gouveia, product designer, em português e inglês: <https://carlosgouveia.is-a.dev>
 
 ## Como é feito
 
-- HTML, CSS e JavaScript sem framework. As animações (carpas em ASCII, onda de pontos, grade do portfólio) são desenhadas em `<canvas>`.
-- [Eleventy](https://www.11ty.dev/) monta as páginas a partir de modelos Nunjucks: o `<head>`, o topo, o menu e o seletor de idioma são escritos uma vez só, em `src/_includes/`.
-- Cada página tem um modelo só, com o português e o inglês lado a lado: `{% tr %}texto<!--en-->text{% endtr %}`. O Eleventy gera as duas versões (`/sobre.html` e `/en/sobre.html`).
-- Os cartões do portfólio já saem prontos no HTML e cada um leva direto para a página do projeto.
-- Cada arquivo CSS e JS ganha `?v=` com o hash do conteúdo na hora de gerar, então o navegador só baixa de novo o que mudou.
-- O GitHub Actions gera o site (inclusive o `hub.js`, empacotado com o esbuild), confere os links internos e publica no GitHub Pages a cada push na `main`. Uma vez por semana outro fluxo confere os links externos.
+- Uma página só. A abertura mostra os três trabalhos (Psiquê, Ruela Discos e twenty one pilots); a imagem troca sozinha e, ao clicar nela ou no nome, a área do projeto sobe por cima.
+- Cada projeto tem endereço próprio (`/#psique`, `/#ruela`, `/#twenty-one-pilots`), então dá para mandar o link direto e o botão voltar do navegador fecha a área. Sem JavaScript, os projetos aparecem um embaixo do outro.
+- HTML, CSS e JavaScript sem framework. [Eleventy](https://www.11ty.dev/) gera a versão em português (`/`) e a em inglês (`/en/`) a partir de um modelo só: `{% tr %}texto<!--en-->text{% endtr %}`.
+- As peças dos projetos são imagens WebP exportadas dos canvas de design, em `src/projetos/<projeto>/`.
+- O GitHub Actions gera o site, cria as imagens de compartilhamento, confere os links internos e publica no GitHub Pages a cada push na `main`. Uma vez por semana outro fluxo confere os links externos.
 
 ## Estrutura
 
 ```
 src/
-  _includes/base.njk   <head>, scripts e seletor de idioma
-  _includes/topo.njk   topo com o nome, o idioma e o menu
-  _data/site.json      endereço do site e textos do menu em cada idioma
-  _data/projetos.cjs   projetos do portfólio, em português e inglês
-  _data/eleventyComputed.cjs   língua, título e descrição de cada versão
-  index.njk            landing (carpas)        -> /          e /en/
-  sobre.njk            sobre                   -> /sobre.html e /en/sobre.html
-  portfolio.njk        cartões dos projetos    -> /portfolio.html e /en/portfolio.html
-  contato.njk          contato                 -> /contato.html e /en/contato.html
-  projetos/psique.njk  página de um projeto
-  hub.njk              hub (posts)             -> /hub.html
-  empregos.njk         mapa do emprego (CAGED) -> /empregos.html (dados: ferramentas/empregos.py)
-  404.njk, sitemap.njk, robots.txt
-  *.css, *.js, fonts/, projetos/*/ imagens, PDFs do currículo
+  index.njk              a página (abertura e os três projetos)   -> / e /en/
+  style.css, site.js     visual e comportamento da página
+  _includes/base.njk     <head> e scripts
+  _data/                 endereço do site e idiomas
+  projetos/psique/, projetos/ruela/, projetos/twenty-one-pilots/   imagens
+  404.njk                página de erro; manda links das páginas antigas para o início
+  fonts/, curriculo.pdf, curriculo-en.pdf, favicon, og.png
 ferramentas/conferir_links.py   confere href, src e âncoras do site gerado
-ferramentas/hub/hub-fonte.js    código do hub (vira src/hub.js no build)
+ferramentas/og.py               imagens de compartilhamento
+ferramentas/curriculo.py        gera os PDFs do currículo
 ```
 
 ## Rodar no computador
@@ -38,18 +31,16 @@ ferramentas/hub/hub-fonte.js    código do hub (vira src/hub.js no build)
 ```
 npm ci
 npm run dev      # abre em http://localhost:8080 e recarrega ao salvar
-npm run build    # gera o hub.js e o site em _site/
+npm run build    # gera o site em _site/
 python3 ferramentas/conferir_links.py _site
 ```
 
 ## Mudanças comuns
 
-- **Texto de uma página:** edite `src/<página>.njk`. Texto traduzido fica em `{% tr %}português<!--en-->inglês{% endtr %}`; o que é igual nos dois idiomas fica fora. Título e descrição de cada idioma ficam em `meta:` no cabeçalho.
-- **Projeto no portfólio:** edite `src/_data/projetos.cjs` (cada texto tem `pt` e `en`).
-- **Currículo (PDF):** edite o texto em `ferramentas/curriculo.py` e rode `python3 ferramentas/curriculo.py` (precisa do Playwright com Chromium). Gera `src/curriculo.pdf` e `src/curriculo-en.pdf`.
-- **Imagem de compartilhamento (prévia no Discord, WhatsApp etc.):** gerada sozinha a cada publicação por `ferramentas/og.py`, com o título de cada página. Para mudar o visual, edite os modelos nesse arquivo.
-- **Página nova:** copie o cabeçalho (front matter) de uma página parecida e ajuste `permalink`, `caminho` e o `meta:` com título e descrição em cada idioma.
+- **Texto:** edite `src/index.njk`. Texto traduzido fica em `{% tr %}português<!--en-->inglês{% endtr %}`.
+- **Imagem de um projeto:** coloque o `.webp` em `src/projetos/<projeto>/` e acrescente uma linha `foto(...)` na seção do projeto em `index.njk`, com a largura, a altura e a descrição em cada idioma. Imagens dentro de `<div class="fileira">` ficam lado a lado com a mesma altura.
+- **Currículo (PDF):** edite `ferramentas/curriculo.py` e rode `python3 ferramentas/curriculo.py` (precisa do Playwright com Chromium).
 
 ## Fontes
 
-Satoshi e Switzer ([Fontshare](https://www.fontshare.com), ITF Free Font License) e Departure Mono (SIL OFL).
+Satoshi e Switzer ([Fontshare](https://www.fontshare.com), ITF Free Font License). Departure Mono e Michroma (SIL OFL) só nas imagens de compartilhamento.

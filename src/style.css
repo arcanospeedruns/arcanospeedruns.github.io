@@ -1,417 +1,127 @@
 /* =========================================================
    arcanospeedruns — portfólio de Carlos Gouveia
-   Fontes: Satoshi e Switzer (Fontshare/ITF) e Departure Mono (OFL)
+   Uma página: a abertura com os três trabalhos e, por cima dela,
+   a área de cada projeto. Fontes: Satoshi e Switzer (Fontshare/ITF).
 
-   Índice
    1. Fontes e variáveis
    2. Base
-   3. Topo (todas as páginas, exceto a landing)
-   4. Páginas claras: Sobre mim e páginas de projeto
-   5. Onda de pontos
-   6. Contato
-   7. Portfólio: cartões
-   8. Páginas de projeto: pranchas e imagem ampliada
-   9. Landing: carpas em ASCII
-   10. Movimento reduzido
+   3. Abertura
+   4. Área do projeto
+   5. Pranchas (fileiras de imagens com a mesma altura)
+   6. Rodapé
+   7. Celular e movimento reduzido
    ========================================================= */
 
 /* ---------- 1. Fontes e variáveis ---------- */
 @font-face { font-family: "Satoshi"; src: url(fonts/satoshi-900.woff2) format("woff2"); font-weight: 900; font-display: swap; }
-@font-face { font-family: "Departure"; src: url(fonts/departure-mono.woff2) format("woff2"); font-display: swap; }
 @font-face { font-family: "Switzer"; src: url(fonts/switzer-400.woff2) format("woff2"); font-weight: 400; font-display: swap; }
 @font-face { font-family: "Switzer"; src: url(fonts/switzer-500.woff2) format("woff2"); font-weight: 500; font-display: swap; }
-@font-face { font-family: "Switzer"; src: url(fonts/switzer-600.woff2) format("woff2"); font-weight: 600; font-display: swap; }
 
 :root {
-  /* cores de cada página */
-  --aluminio: #c4c7c9;   /* Sobre mim */
-  --pessego: #f3c9ab;    /* Portfólio e projetos */
-  --amarelo-claro: #f3e594; /* Contato */
-  --claro: #d9dcdd;
+  --fundo: #e6e7e8;
   --tinta: #000;
-  --cinza: #4d5257;
+  --cinza: #5c6166;      /* texto secundário: 5,3:1 sobre o fundo */
+  --fio: #b3b7ba;
   --amarelo: #ffd60a;
-
-  /* cantos: botões e cartões / etiquetas pequenas / ícone do gato */
-  --raio: 12px;
-  --raio-p: 6px;
-  --raio-marca: 22%;
-
-  /* onda de pontos (onda.js lê estas variáveis) */
-  --onda: clamp(130px, 26vh, 280px);
-  --onda-cor: 0,0,0;
-  --onda-fundo: var(--aluminio);
-
-  /* margem lateral padrão */
-  --margem: clamp(1rem, 2vw, 1.5rem);
+  --margem: clamp(16px, 2.2vw, 32px);
+  --vao: 8px;            /* espaço entre imagens */
 }
 
 /* ---------- 2. Base ---------- */
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
-body { margin: 0; font-family: "Switzer", system-ui, sans-serif; font-synthesis: none; line-height: 1.5; }
-a { color: inherit; }
+html { -webkit-text-size-adjust: 100%; background: var(--fundo); }
+body { margin: 0; font-family: "Switzer", system-ui, sans-serif; font-synthesis: none; line-height: 1.5; color: var(--tinta); background: var(--fundo); }
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+button { font: inherit; color: inherit; }
 :focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
-
-.mono { font-family: "Departure", ui-monospace, monospace; font-size: 0.8rem; letter-spacing: 0.02em; line-height: 1.4; }
 .so-leitor { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.nome { font-family: "Satoshi", sans-serif; font-weight: 900; line-height: 0.9; }
 
-/* ---------- 3. Topo ---------- */
-.topo {
-  display: flex; justify-content: space-between; align-items: center; gap: 1rem;
-  padding: 0.8rem var(--margem);
-  border-bottom: 1px solid currentColor;
-}
-.topo-esq { display: flex; align-items: center; gap: 0.9rem; }
+/* ---------- 3. Abertura ---------- */
+.abertura { display: grid; grid-template-columns: minmax(320px, 0.75fr) minmax(0, 2fr); height: 100vh; height: 100svh; min-height: 620px; }
 
-/* gato da marca: leva de volta à home */
-.marca {
-  display: inline-flex; align-items: center; gap: 0;
-  padding: 0.32rem; border-radius: var(--raio-marca);
-  font-family: "Satoshi"; font-weight: 900; font-size: 1.3rem; letter-spacing: 0.02em; line-height: 1;
-  text-decoration: none;
-  background: var(--amarelo); color: var(--tinta);
-}
-.marca:hover { background: var(--tinta); color: var(--amarelo); }
-.marca-gato { width: auto; height: 1.3em; margin-top: 0; flex: none; }
+.coluna { display: flex; flex-direction: column; justify-content: space-between; gap: 40px; padding: var(--margem); min-height: 0; }
+.coluna-topo { display: flex; justify-content: space-between; align-items: center; }
+.marca { display: block; width: 44px; height: 44px; }
+.marca svg { display: block; width: 100%; height: 100%; }
+.idioma { margin: 0; font-size: 16px; }
+.idioma [aria-current] { font-weight: 500; }
 
-/* páginas */
-.topo nav { display: flex; gap: 1.1rem; }
-.topo nav a { text-underline-offset: 3px; }
-.topo nav a[aria-current] { background: var(--amarelo); color: var(--tinta); padding: 0 0.3rem; text-decoration: none; border-radius: var(--raio-p); }
+.apresentacao { display: flex; flex-direction: column; gap: 28px; }
+.apresentacao h1 { margin: 0; font-size: clamp(44px, 4.6vw, 76px); }
+.frase { margin: 0; font-size: clamp(20px, 1.6vw, 24px); line-height: 1.3; font-weight: 500; max-width: 26ch; }
 
-/* seletor de idioma, ao lado do gato */
-.idioma { display: inline-flex; align-items: baseline; gap: 0.15rem; font-size: 0.72rem; white-space: nowrap; }
-.idioma > * { padding: 0.05rem 0.3rem; border: 1px solid transparent; border-radius: var(--raio-p); line-height: 1.3; }
-.idioma [aria-current] { border-color: currentColor; }
-.idioma a { text-decoration: none; opacity: 0.6; }
-.idioma a:hover { opacity: 1; background: var(--amarelo); color: var(--tinta); }
+.projetos { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--tinta); }
+.projetos li { border-bottom: 1px solid var(--fio); }
+.projetos a { display: flex; align-items: center; min-height: 48px; padding: 10px 0; text-decoration: none; font-family: "Satoshi", sans-serif; font-weight: 900; font-size: clamp(20px, 1.7vw, 26px); line-height: 1; color: var(--cinza); transition: color 200ms; }
+.projetos a.atual, .projetos a:hover, .projetos a:focus-visible { color: var(--tinta); }
 
-/* celular: gato e idioma na 1ª linha; as três páginas num seletor segmentado na 2ª */
-@media (max-width: 640px) {
-  .topo { flex-wrap: wrap; row-gap: 0.75rem; padding: 0.75rem 1rem 0.85rem; }
-  .topo-esq { width: 100%; justify-content: space-between; gap: 0.6rem; }
-  .marca { font-size: 1.15rem; }
-  .idioma > * { padding: 0.15rem 0.4rem; }
-  .topo nav {
-    width: 100%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
-    font-size: 0.74rem; border: 1px solid currentColor; border-radius: var(--raio); overflow: hidden;
-  }
-  .topo nav a { text-align: center; padding: 0.55rem 0 0.45rem; text-decoration: none; border-right: 1px solid currentColor; }
-  .topo nav a:last-child { border-right: 0; }
-  .topo nav a[aria-current] { padding: 0.55rem 0 0.45rem; border-radius: 0; }
-}
-@media (max-width: 380px) {
-  .topo { column-gap: 0.5rem; }
-}
+.contatos { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px 22px; font-size: 17px; }
 
-/* ---------- 4. Páginas claras: Sobre mim e projetos ---------- */
-.indice-pg { background: var(--aluminio); color: var(--tinta); min-height: 100vh; }
+/* a imagem: troca sozinha e abre o trabalho que está na tela */
+.moldura { position: relative; display: block; overflow: hidden; background: #000; min-height: 0; }
+.slide { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 450ms ease; }
+.slide.atual { opacity: 1; }
+.slide > img { width: 100%; height: 100%; object-fit: cover; }
+.slide > img.capa { width: auto; height: 78%; max-width: 78%; object-fit: contain; }
 
-/* o conteúdo segue a mesma coluna central de até 1280 px do Portfólio;
-   as faixas pretas vão de ponta a ponta, mas o texto começa na mesma linha */
-.indice-pg:not(.contato-amarelo) {
-  --lado: max(clamp(1rem, 4vw, 3rem), calc((100% - 1280px) / 2 + 3rem));
-}
-.indice-pg:not(.contato-amarelo) .cabeca,
-.indice-pg:not(.contato-amarelo) .secao h2,
-.indice-pg:not(.contato-amarelo) .linha,
-.indice-pg:not(.contato-amarelo) .contato,
-.indice-pg:not(.contato-amarelo) .rodape,
-.projeto-pg .aviso,
-.projeto-pg .pranchas {
-  padding-left: var(--lado); padding-right: var(--lado);
-}
+/* ---------- 4. Área do projeto ---------- */
+.projeto { background: var(--fundo); }
+.js .projeto { position: fixed; inset: 0; z-index: 10; overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; transform: translateY(100%); visibility: hidden; transition: transform 600ms cubic-bezier(.2,.7,.2,1), visibility 600ms; }
+.js .projeto.aberto { transform: none; visibility: visible; }
+.js body.travado { overflow: hidden; }
 
-.conteudo { position: relative; z-index: 1; }
-.fim { height: var(--onda); }
+.projeto-dentro { max-width: 1360px; margin: 0 auto; padding: var(--margem); }
+.fechar { display: flex; justify-content: flex-end; }
+.fechar a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 4px; font-size: 16px; }
+.sem-js .fechar { display: none; }
 
-/* abertura: título na linha inteira; texto e ficha lado a lado embaixo */
-.cabeca {
-  display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 1.5rem 2rem;
-  padding: clamp(1.5rem, 4vw, 2.5rem) var(--margem) 1rem;
-  border-bottom: 1px solid var(--tinta);
-}
-.cabeca > div:not(.ficha) { display: contents; }
-.cabeca h1 {
-  grid-column: 1 / -1; margin: 0;
-  font-family: "Satoshi"; font-weight: 900; font-size: clamp(2.6rem, 7.4vw, 7.4rem); line-height: 0.92; letter-spacing: -0.02em;
-}
-.cabeca .papel { grid-column: 1; margin: 0.2rem 0 0; font-weight: 500; font-size: clamp(1rem, 1.6vw, 1.2rem); max-width: 40ch; }
-.cabeca .ficha { grid-column: 2; align-self: end; }
+.cabeca { display: flex; flex-direction: column; gap: 20px; padding: 24px 0 40px; }
+.cabeca h2 { margin: 0; font-size: clamp(56px, 8vw, 120px); overflow-wrap: anywhere; }
+.cabeca p { margin: 0; font-size: 22px; line-height: 1.35; font-weight: 500; max-width: 40ch; }
 
-.ficha { margin: 0; display: grid; grid-template-columns: auto auto; border: 1px solid var(--tinta); }
-.ficha dt, .ficha dd { margin: 0; padding: 0.45rem 0.75rem; border-bottom: 1px solid var(--tinta); font-size: 0.95rem; }
-.ficha dt { color: var(--cinza); border-right: 1px solid var(--tinta); }
-.ficha dd { font-weight: 600; }
-.ficha dt:nth-last-of-type(1), .ficha dd:nth-last-of-type(1) { border-bottom: 0; }
-.ficha .vivo { background: var(--amarelo); }
+.grupo { margin: 0; padding: 120px 0 32px; max-width: 24ch; font-size: clamp(26px, 2.6vw, 40px); font-weight: 500; line-height: 1.15; text-wrap: balance; }
 
-/* seções: faixa preta com o título e linhas com título, texto e data */
-.secao { border-bottom: 1px solid var(--tinta); }
-.secao h2 {
-  margin: 0; padding: 0.75rem var(--margem) 0.6rem;
-  font-family: "Satoshi"; font-weight: 900; font-size: clamp(1.1rem, 1.6vw, 1.4rem); line-height: 1; letter-spacing: 0.01em;
-  background: var(--tinta); color: var(--aluminio);
-}
-.secao ul { list-style: none; margin: 0; padding: 0; }
+.proximo { display: block; margin-top: 120px; padding: 32px 0; border-top: 1px solid var(--tinta); border-bottom: 1px solid var(--tinta); text-decoration: none; }
+.proximo span { display: block; font-size: 16px; color: #3f4449; }
+.proximo strong { display: block; margin-top: 8px; font-size: clamp(36px, 5vw, 72px); }
+.proximo:hover strong { text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 8px; }
 
-.linha {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.55fr) 10.5rem; /* o texto do meio começa no mesmo ponto em todas as seções */
-  gap: 0.4rem 2rem; align-items: baseline;
-  padding: 0.95rem var(--margem) 0.85rem;
-}
-.linha + .linha { border-top: 1px solid var(--tinta); }
-.linha strong { font-family: "Satoshi"; font-weight: 900; font-size: clamp(1.1rem, 1.7vw, 1.55rem); line-height: 1.05; letter-spacing: 0.01em; }
-.linha p { margin: 0; max-width: 60ch; }
-.linha .onde { display: block; font-weight: 600; margin-bottom: 0.2rem; }
-.linha .quando { text-align: right; color: var(--cinza); white-space: nowrap; }
+/* ---------- 5. Pranchas ---------- */
+/* imagens de ponta a ponta da tela */
+.sangria { width: 100vw; margin-left: calc(50% - 50vw); display: flex; flex-direction: column; gap: var(--vao); }
+/* uma fileira: cada imagem cresce na proporção dela, então todas ficam com a mesma altura */
+.fileira { display: flex; gap: var(--vao); align-items: flex-start; }
+.fileira > img { flex: var(--p) 1 0; width: 0; min-width: 0; }
+.sozinha { width: min(100%, 640px); margin: 0 auto; }
+.alta { height: 82vh; min-height: 420px; width: 100%; object-fit: cover; }
 
-.compacta .linha { padding-block: 0.55rem 0.45rem; }
-.compacta .linha strong { font-size: clamp(1.15rem, 1.7vw, 1.5rem); }
-.fecho .acoes { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: flex-end; }
+/* ---------- 6. Rodapé ---------- */
+.rodape { padding: 80px 0 32px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px; align-items: end; }
+.rodape .nome { font-size: clamp(56px, 8vw, 128px); text-decoration: none; }
+.linhas { display: flex; flex-direction: column; font-size: 16px; }
+.linhas p { margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--tinta); }
+.linhas p:last-child { border-bottom: 0; }
+.linhas strong { font-weight: 500; }
+.linhas a { color: var(--cinza); }
 
-.botao {
-  justify-self: end;
-  padding: 0.5rem 0.9rem 0.4rem; border-radius: var(--raio);
-  background: var(--tinta); color: var(--aluminio);
-  text-decoration: none; white-space: nowrap;
-}
-.botao:hover { background: var(--amarelo); color: var(--tinta); }
+/* página de erro */
+.erro { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; gap: 24px; padding: var(--margem); max-width: 1360px; margin: 0 auto; }
+.erro h1 { margin: 0; font-size: clamp(64px, 12vw, 180px); }
+.erro p { margin: 0; font-size: 20px; max-width: 40ch; }
 
-.contato { padding: 1.2rem var(--margem) 1.6rem; }
-.links { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.2rem; }
-.links a { padding: 0.45rem 0.8rem 0.35rem; border: 1px solid var(--tinta); border-radius: var(--raio); text-decoration: none; }
-.links a:hover { background: var(--tinta); color: var(--aluminio); }
-
-.rodape { display: flex; justify-content: space-between; gap: 1rem; padding: 0.8rem var(--margem); color: var(--cinza); }
-
+/* ---------- 7. Celular e movimento reduzido ---------- */
 @media (max-width: 860px) {
-  .cabeca { grid-template-columns: 1fr; }
-  .cabeca .papel, .cabeca .ficha { grid-column: 1; }
-  .ficha { justify-self: start; }
-  .linha { grid-template-columns: 1fr auto; }
-  .linha p { grid-column: 1 / -1; grid-row: 2; }
-  .linha .quando, .botao { grid-column: 2; grid-row: 1; }
-  .fecho .acoes { grid-column: 1 / -1; grid-row: 3; justify-content: flex-start; }
+  .abertura { grid-template-columns: minmax(0, 1fr); height: auto; min-height: 0; }
+  .moldura { aspect-ratio: 4 / 5; }
+  .fileira { flex-direction: column; }
+  .fileira > img { flex: none; width: 100%; }
+  .grupo { padding: 72px 0 24px; }
+  .proximo { margin-top: 72px; }
+  .rodape, .linhas p { grid-template-columns: minmax(0, 1fr); }
+  .linhas p { gap: 2px; }
 }
-
-/* ---------- 5. Onda de pontos ----------
-   No topo do Sobre mim e dos projetos fica atrás do texto, bem suave;
-   no Contato e no Portfólio cobre a tela inteira, atrás de tudo. */
-.cabeca, .contato-pg { position: relative; isolation: isolate; }
-.cabeca > :not(#onda), .contato-pg > :not(#onda) { position: relative; z-index: 1; }
-.cabeca h1, .cabeca .papel { position: relative; z-index: 1; }
-#onda {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-  z-index: 0; pointer-events: none; opacity: 0.26;
-}
-#onda[data-tela-cheia] { position: fixed; inset: 0; height: 100vh; height: 100dvh; opacity: 0.3; }
-
-/* ---------- 6. Contato (fundo amarelo) ---------- */
-body.contato-amarelo { --onda-cor: 0,0,0; --onda-fundo: var(--amarelo-claro); background: var(--amarelo-claro); color: #000; }
-.contato-amarelo .marca { background: #000; color: var(--amarelo-claro); }
-.contato-amarelo .marca:hover { background: var(--amarelo-claro); color: #000; outline: 1px solid #000; }
-.contato-amarelo .topo nav a[aria-current] { background: #000; color: var(--amarelo-claro); }
-
-.contato-pg {
-  display: grid;
-  grid-template-columns: clamp(200px, 22vw, 320px) minmax(0, 1fr);
-  gap: clamp(1.5rem, 4vw, 4rem);
-  padding: clamp(1.5rem, 4vw, 3rem) var(--margem);
-  align-items: start;
-}
-.foto { margin: 0; border: 1px solid var(--tinta); aspect-ratio: 1 / 1; background: var(--claro); overflow: hidden; }
-.foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.contato-amarelo .foto { border-width: 3px; background: #000; }
-
-.contato-info h1 { margin: 0; font-family: "Satoshi"; font-weight: 900; font-size: clamp(2.6rem, 7.4vw, 6.6rem); line-height: 0.92; letter-spacing: -0.02em; }
-.contato-info .papel { margin: 0.9rem 0 2rem; font-weight: 500; font-size: clamp(1rem, 1.6vw, 1.2rem); max-width: 44ch; }
-.contato-amarelo .contato-info .papel { font-weight: 600; }
-
-.email { font-family: "Satoshi"; font-weight: 900; font-size: clamp(0.8rem, 4.4vw, 2.8rem); line-height: 1.05; text-decoration: none; border-bottom: 3px solid var(--tinta); overflow-wrap: anywhere; }
-.email:hover { background: var(--amarelo); }
-.contato-amarelo .email { border-bottom-width: 4px; }
-.contato-amarelo .email:hover { background: #000; color: var(--amarelo-claro); }
-
-.canais { list-style: none; margin: 2rem 0 0; padding: 0; border-top: 1px solid var(--tinta); }
-.canais li { display: grid; grid-template-columns: 8rem 1fr; gap: 1rem; align-items: baseline; padding: 0.8rem 0; border-bottom: 1px solid var(--tinta); }
-.canais .mono { color: var(--cinza); }
-.canais a { font-weight: 600; text-underline-offset: 3px; word-break: break-word; }
-.canais a:hover { background: var(--amarelo); }
-.contato-amarelo .canais .mono { color: #3d3500; }
-.contato-amarelo .canais a:hover { background: #000; color: var(--amarelo-claro); }
-
-@media (max-width: 860px) {
-  .contato-pg { grid-template-columns: 1fr; }
-  .foto { max-width: 200px; }
-  .canais li { grid-template-columns: 6.5rem 1fr; }
-}
-
-/* ---------- 7. Portfólio (fundo pêssego) ---------- */
-.orbita {
-  --fundo: var(--pessego);
-  --fundo-2: #fbe7d9;
-  --texto-2: #4f3d33;
-  --onda-cor: 0,0,0; --onda-fundo: var(--pessego);
-  background: var(--fundo); color: var(--tinta); min-height: 100vh;
-}
-/* a onda de pontos não passa por baixo do topo nem do rodapé */
-.orbita .topo { position: relative; z-index: 1; border-bottom-color: var(--tinta); background: var(--fundo); }
-.orbita main, .orbita .rodape { position: relative; z-index: 1; }
-
-.cabecalho-dados {
-  max-width: 1280px; margin: 0 auto;
-  padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1rem, 4vw, 3rem) 0;
-  display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1rem 2rem;
-}
-.cabecalho-dados h1 { margin: 0; font-family: "Satoshi"; font-weight: 900; font-size: clamp(2.6rem, 7.4vw, 5.8rem); line-height: 0.92; letter-spacing: -0.02em; }
-.cabecalho-dados p { margin: 0; max-width: 36ch; color: var(--texto-2); }
-
-/* cartões */
-.cartoes {
-  list-style: none; max-width: 1280px; margin: 0 auto; padding: 1.5rem clamp(1rem, 4vw, 3rem) 3rem;
-  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.2rem;
-  position: relative; z-index: 1;
-}
-.cartao {
-  height: 100%; display: flex; flex-direction: column; text-decoration: none; color: var(--tinta);
-  background: var(--fundo-2); border: 1px solid var(--tinta); border-radius: var(--raio); overflow: hidden;
-  transition: border-color .15s, transform .15s;
-}
-.cartao:hover, .cartao:focus-visible { border-color: var(--tinta); transform: translateY(-2px); outline: 3px solid var(--amarelo); outline-offset: -3px; }
-.cartao .capa { position: relative; aspect-ratio: 2 / 1; overflow: hidden; display: grid; align-items: end; border-bottom: 1px solid var(--tinta); background: #0d1430; }
-.cartao .capa img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-/* capas sem imagem (sigla sobre um fundo desenhado) */
-.capa .sigla { font-family: "Satoshi"; font-weight: 900; font-size: clamp(3rem, 7vw, 6rem); line-height: .8; padding: 1rem 1.1rem; color: var(--tinta); }
-.fundo-dados { background: repeating-linear-gradient(90deg, #0d1430 0 38px, #121b40 38px 39px) !important; }
-.fundo-produto { background: radial-gradient(circle at 75% 30%, #1d3a6b, #0b1020 65%) !important; }
-.fundo-dev { background: radial-gradient(circle at 80% 25%, #4a2015, #0b1020 62%) !important; }
-.cartao-info { padding: 1rem 1.1rem 1.1rem; display: flex; flex-direction: column; gap: .45rem; flex: 1; }
-.cartao-meta { display: flex; justify-content: space-between; gap: 1rem; color: var(--texto-2); }
-.cartao-meta .st-andamento { color: var(--tinta); }
-.cartao-nome { font-family: "Satoshi"; font-weight: 900; font-size: clamp(1.4rem, 2.2vw, 1.95rem); line-height: .92; }
-.cartao-texto { color: var(--texto-2); }
-.cartao-mais { margin-top: auto; padding-top: .5rem; color: var(--tinta); text-decoration: underline; text-underline-offset: 3px; }
-
-/* ferramentas do projeto, em etiquetas */
-.stack { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.3rem; }
-.stack span { padding: 0.25rem 0.5rem 0.2rem; border: 1px solid var(--tinta); border-radius: var(--raio-p); }
-
-@media (max-width: 760px) { .cartoes { grid-template-columns: 1fr; } }
-
-/* ---------- 8. Páginas de projeto (pêssego, com a onda no topo) ---------- */
-.projeto-pg { background: var(--pessego); --onda-fundo: var(--pessego); }
-
-.voltar {
-  display: inline-block; margin: 1rem var(--margem) 0; padding: 0.15rem 0.35rem; border-radius: var(--raio-p);
-  text-underline-offset: 3px;
-}
-.projeto-pg .voltar { margin-left: var(--lado); }
-.voltar:hover { background: var(--amarelo); }
-
-.projeto-pg .aviso {
-  margin: 0; padding-top: 0.9rem; padding-bottom: 0.9rem;
-  border-bottom: 1px solid var(--tinta); background: var(--amarelo);
-  font-weight: 500; max-width: none;
-}
-.projeto-pg .contato { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
-.projeto-pg .contato .links { margin-top: 0; }
-.projeto-pg .botao { justify-self: start; }
-
-/* imagem de abertura */
-.heroi { margin: 0; border-bottom: 1px solid var(--tinta); }
-.heroi img { display: block; width: 100%; height: auto; aspect-ratio: 2 / 1; object-fit: cover; object-position: 50% 54%; }
-
-/* grade de pranchas: miniaturas com a mesma proporção; a imagem inteira aparece ao ampliar */
-.pranchas {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
-  gap: 1.6rem 1.2rem; padding-top: 1.4rem; padding-bottom: 1.8rem;
-}
-.pranchas figure { margin: 0; }
-.pranchas a { display: block; position: relative; cursor: zoom-in; }
-.pranchas img {
-  display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover;
-  border: 1px solid var(--tinta); background: var(--claro); transition: transform 0.15s;
-}
-.pranchas a::after {
-  content: "AMPLIAR"; position: absolute; right: 0.5rem; bottom: 0.5rem;
-  font-family: "Departure", monospace; font-size: 0.7rem; padding: 0.15rem 0.4rem;
-  background: var(--tinta); color: var(--aluminio); opacity: 0; transition: opacity 0.15s;
-}
-.pranchas a:hover::after, .pranchas a:focus-visible::after { opacity: 1; }
-.pranchas a:hover img { outline: 3px solid var(--amarelo); outline-offset: -3px; }
-.pranchas figcaption { margin-top: 0.55rem; font-size: 0.95rem; max-width: 52ch; }
-.pranchas.telas img { aspect-ratio: 16 / 9; object-fit: contain; background: #04060d; } /* prints de tela: inteiros */
-.pranchas.duas { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 1400px; }
-
-/* imagem ampliada */
-.ampliada {
-  width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0;
-  background: #08090c; color: #e6e9f0;
-  grid-template-rows: auto 1fr auto;
-}
-.ampliada[open] { display: grid; }
-.ampliada::backdrop { background: rgba(0, 0, 0, 0.6); }
-.ampliada-topo { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 0.8rem var(--margem); }
-.ampliada-topo > div { display: flex; gap: 1.2rem; align-items: center; }
-.ampliada-topo a { color: inherit; text-underline-offset: 3px; }
-.ampliada button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; padding: 0.3rem 0.4rem; }
-.ampliada-fechar:hover, .ampliada-topo a:hover { background: var(--amarelo); color: var(--tinta); }
-.ampliada-palco { display: grid; grid-template-columns: auto 1fr auto; align-items: center; min-height: 0; padding: 0 0.5rem; }
-.ampliada-palco img { justify-self: center; max-width: 100%; max-height: calc(100dvh - 9rem); width: auto; height: auto; object-fit: contain; }
-.ampliada-seta {
-  font-family: "Departure Mono", ui-monospace, monospace; font-size: 0.8rem !important; letter-spacing: 0.08em;
-  padding: 0.7rem 0.9rem 0.6rem; min-width: 3rem; height: auto; border-radius: var(--raio-p);
-}
-.ampliada-seta:hover { background: var(--amarelo) !important; color: var(--tinta) !important; }
-.ampliada-legenda { margin: 0; padding: 0.7rem var(--margem) 1rem; text-align: center; max-width: 70ch; justify-self: center; }
-
-@media (max-width: 700px) {
-  .heroi img { aspect-ratio: 4 / 3; object-position: 50% 50%; }
-  .pranchas.duas { grid-template-columns: 1fr; }
-  .ampliada-topo { font-size: 0.72rem; }
-  .ampliada-palco { grid-template-columns: 1fr; padding: 0; }
-  .ampliada-palco img { grid-row: 1; }
-  .ampliada-seta { position: absolute; bottom: 4.5rem; }
-  .ampliada-seta.ant { left: 0.5rem; }
-  .ampliada-seta.prox { right: 0.5rem; }
-}
-
-/* ---------- 9. Landing: carpas em ASCII ---------- */
-.landing-pg { margin: 0; min-height: 100vh; min-height: 100dvh; background: #fff; color: #000; overflow: hidden; }
-#carpas { position: fixed; inset: 0; width: 100vw; height: 100vh; height: 100dvh; display: block; z-index: 0; }
-.topo-landing { position: relative; z-index: 2; border-bottom: 0; }
-
-/* nome e botões no centro exato da tela (as carpas giram em volta) */
-.landing { position: fixed; inset: 0; z-index: 1; display: grid; place-items: center; pointer-events: none; }
-.landing-centro { display: grid; justify-items: center; gap: 1rem; }
-/* nos textos com espaço entre letras, o padding da esquerda compensa o espaço que sobra no fim */
-.landing-nome {
-  margin: 0; font-family: "Switzer", system-ui, sans-serif; font-weight: 600;
-  font-size: 1.05rem; letter-spacing: 0.32em; color: #000; background: #fff;
-  padding: 0.3rem 0.7rem 0.25rem calc(0.7rem + 0.32em); pointer-events: auto;
-}
-.landing-nome + .landing-sub { margin-top: -0.6rem; }
-.landing-sub {
-  margin: 0; font-size: 0.66rem; letter-spacing: 0.3em; color: #000; background: #fff;
-  padding: 0.3rem 0.6rem 0.25rem calc(0.6rem + 0.3em); pointer-events: auto;
-}
-.landing-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.7rem; pointer-events: auto; }
-.landing-nav a {
-  color: #000; background: #fff; text-decoration: none; border: 1.5px solid #000; border-radius: var(--raio);
-  padding: 0.6rem 0.9rem 0.5rem calc(0.9rem + 0.08em); font-size: 0.95rem; letter-spacing: 0.08em; text-align: center;
-}
-.landing-nav a:hover, .landing-nav a:focus-visible { background: var(--amarelo); outline: none; }
-
-@media (max-width: 640px) {
-  .landing-nome { font-size: 0.95rem; letter-spacing: 0.26em; padding-left: calc(0.7rem + 0.26em); }
-  .landing-nav { flex-direction: column; align-items: stretch; gap: 0.5rem; }
-  .landing-nav a { font-size: 0.85rem; padding-top: 0.5rem; padding-bottom: 0.4rem; }
-}
-
-/* ---------- 10. Movimento reduzido ---------- */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .slide, .js .projeto, .projetos a { transition: none; }
 }

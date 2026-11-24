@@ -4,28 +4,23 @@ permalink: "/404.html"
 lang: "pt-BR"
 titulo: "Página não encontrada | Carlos Gouveia"
 descricao: "Página não encontrada."
-corpo: "indice-pg"
-topo: "normal"
 semIndice: true
 eleventyExcludeFromCollections: true
 ---
 <script>
-  // endereços antigos do site levam para o lugar novo
+  // as páginas antigas do site viraram uma página só: quem chega por um link velho vai para o início
   (function () {
-    var mudou = { "/dados.html": "/portfolio.html", "/landing.html": "/", "/en/landing.html": "/en/", "/en/dados.html": "/en/portfolio.html" };
-    var novo = mudou[location.pathname];
-    if (novo) location.replace(novo + location.hash);
+    var p = location.pathname;
+    var en = p.indexOf("/en/") === 0;
+    var antigas = /^\/(en\/)?(sobre|portfolio|contato|hub|empregos|dados|landing)\.html$|^\/(en\/)?projetos\//;
+    if (antigas.test(p)) {
+      var m = p.match(/projetos\/(psique|ruela|twenty-one-pilots)\.html$/);
+      location.replace((en ? "/en/" : "/") + (m ? "#" + m[1] : ""));
+    }
   })();
 </script>
-  <div class="conteudo">
-    {% include "topo.njk" %}
-    <main>
-      <div class="cabeca">
-        <div>
-          <h1>404</h1>
-          <p class="papel">Esta página não existe ou mudou de endereço. <span lang="en">This page does not exist or has moved.</span></p>
-        </div>
-      </div>
-      <p class="contato"><a class="botao" href="/">VOLTAR AO INÍCIO</a></p>
-    </main>
-  </div>
+<main class="erro">
+  <h1 class="nome">404</h1>
+  <p>Esta página não existe ou mudou de endereço. <span lang="en">This page does not exist or has moved.</span></p>
+  <p><a href="/">Voltar ao início</a> · <a href="/en/" lang="en">Back to home</a></p>
+</main>

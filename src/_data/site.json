@@ -2,13 +2,7 @@
   "url": "https://carlosgouveia.is-a.dev",
   "nome": "Carlos Gouveia",
   "textos": {
-    "pt-BR": {
-      "locale": "pt_BR", "menu": "Páginas", "idioma": "Idioma", "inicio": "/",
-      "nav": { "sobre": ["SOBRE MIM", "/sobre.html"], "portfolio": ["PORTFÓLIO", "/portfolio.html"], "contato": ["CONTATO", "/contato.html"] }
-    },
-    "en": {
-      "locale": "en_US", "menu": "Pages", "idioma": "Language", "inicio": "/en/",
-      "nav": { "sobre": ["ABOUT ME", "/en/sobre.html"], "portfolio": ["PORTFOLIO", "/en/portfolio.html"], "contato": ["CONTACT", "/en/contato.html"] }
-    }
+    "pt-BR": { "locale": "pt_BR" },
+    "en": { "locale": "en_US" }
   }
 }

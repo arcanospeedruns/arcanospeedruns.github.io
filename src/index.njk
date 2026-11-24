@@ -6,29 +6,235 @@ caminho: "/"
 titulo: "Carlos Gouveia"
 ogTitulo: "Carlos Gouveia"
 ogImagem: "/og.png"
-preload: ["/fonts/departure-mono.woff2", "/fonts/satoshi-900.woff2"]
-corpo: "landing-pg"
-scripts: ["/landing.js"]
-topo: "landing"
+preload: ["/fonts/satoshi-900.woff2", "/fonts/switzer-500.woff2"]
+scripts: ["/site.js"]
 meta:
   pt:
-    descricao: "Portfólio de Carlos Gouveia: produto, dados e design."
-    ogDescricao: "Portfólio de Carlos Gouveia: produto, dados e design."
+    descricao: "Carlos Gouveia, product designer em São Paulo. Identidade visual, selo musical e redesign de marca."
+    ogDescricao: "Product designer em São Paulo. Busco estágio ou vaga júnior em design de produto."
   en:
-    descricao: "Portfolio of Carlos Gouveia: product, data and design."
-    ogDescricao: "Portfolio of Carlos Gouveia: product, data and design."
+    descricao: "Carlos Gouveia, product designer in São Paulo. Visual identity, record label and brand redesign."
+    ogDescricao: "Product designer in São Paulo, looking for an internship or junior role in product design."
 ---
-  <canvas id="carpas" aria-hidden="true"></canvas>
-  {% include "topo.njk" %}
-  <main class="landing">
-    <h1 class="so-leitor">{% tr %}Carlos Gouveia: portfólio<!--en-->Carlos Gouveia: portfolio{% endtr %}</h1>
-    <div class="landing-centro">
-      <nav class="landing-nav mono" aria-label="{% tr %}Páginas<!--en-->Pages{% endtr %}">
-        <a href="sobre.html">{% tr %}[ SOBRE MIM ]<!--en-->[ ABOUT ME ]{% endtr %}</a>
-        <a href="portfolio.html">{% tr %}[ PORTFÓLIO ]<!--en-->[ PORTFOLIO ]{% endtr %}</a>
-        <a href="contato.html">{% tr %}[ CONTATO ]<!--en-->[ CONTACT ]{% endtr %}</a>
-      </nav>
-      <p class="landing-nome mono">CARLOS GOUVEIA</p>
-      <p class="landing-sub mono">{% tr %}PRODUTO · DADOS · DESIGN<!--en-->PRODUCT · DATA · DESIGN{% endtr %}</p>
+{#- uma imagem de prancha: --p é a proporção, usada pela fileira para igualar as alturas -#}
+{%- macro foto(idioma, arq, w, h, pt, en, classe="", carregar="lazy") -%}
+<img src="{{ arq }}" width="{{ w }}" height="{{ h }}" alt="{{ en if idioma == 'en' else pt }}" loading="{{ carregar }}" decoding="async" style="--p: {{ (w / h) | round(3) }}"{% if classe %} class="{{ classe }}"{% endif %}>
+{%- endmacro -%}
+{%- set R = "/projetos/ruela/" -%}
+{%- set T = "/projetos/twenty-one-pilots/" -%}
+{%- set P = "/projetos/psique/" -%}
+{%- set email = "arcanospeedruns@gmail.com" -%}
+{%- set cv = "/curriculo-en.pdf" if idioma == "en" else "/curriculo.pdf" -%}
+
+<main class="abertura">
+  <div class="coluna">
+    <div class="coluna-topo">
+      <a class="marca" href="{{ '/en/' if idioma == 'en' else '/' }}" aria-label="Carlos Gouveia">
+        <svg viewBox="0 0 200 200" aria-hidden="true" focusable="false"><rect width="200" height="200" fill="#ffd60a"/><path d="M48 140 C48 116 47 98 50 82 C53 62 56 44 59 31 Q61 22 68 28 C79 39 90 51 100 60 C106 64 114 64 120 62 C123 61 125 60 127 58 C134 48 141 38 146 30 Q151 22 154 31 C157 46 161 64 164 80 C167 98 166 118 166 140 C166 160 156 170 138 170 L76 170 C58 170 48 160 48 140 Z" transform="translate(104 0) scale(1.1 1) translate(-107 0)" fill="#000"/><g fill="#ffd60a"><ellipse cx="104" cy="112" rx="12" ry="17.5" transform="rotate(-5 104 112)"/><ellipse cx="143" cy="110" rx="8" ry="16" transform="rotate(-5 143 110)"/></g></svg>
+      </a>
+      <p class="idioma" aria-label="{% tr %}Idioma<!--en-->Language{% endtr %}">
+        {%- if idioma == "en" -%}
+        <a href="{{ par }}" hreflang="pt-BR" lang="pt-BR">PT</a> / <span aria-current="true">EN</span>
+        {%- else -%}
+        <span aria-current="true">PT</span> / <a href="{{ par }}" hreflang="en" lang="en">EN</a>
+        {%- endif -%}
+      </p>
     </div>
-  </main>
+
+    <div class="apresentacao">
+      <h1 class="nome">CARLOS<br>GOUVEIA</h1>
+      <p class="frase">{% tr %}Sou product designer e busco um estágio ou vaga júnior em design de produto.<!--en-->I'm a product designer looking for an internship or junior role in product design.{% endtr %}</p>
+
+      <nav aria-label="{% tr %}Projetos<!--en-->Projects{% endtr %}">
+        <ul class="projetos">
+          <li><a href="#psique" data-slide="0">Psiquê</a></li>
+          <li><a href="#ruela" data-slide="1">Ruela Discos</a></li>
+          <li><a href="#twenty-one-pilots" data-slide="2">twenty one pilots</a></li>
+        </ul>
+      </nav>
+
+      <ul class="contatos">
+        <li><a href="mailto:{{ email }}">E-mail</a></li>
+        <li><a href="https://www.linkedin.com/in/carloslnly">LinkedIn</a></li>
+        <li><a href="{{ cv }}">{% tr %}Currículo<!--en-->Résumé{% endtr %}</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <a class="moldura" href="#psique" aria-label="{% tr %}Abrir o projeto Psiquê<!--en-->Open the Psiquê project{% endtr %}" data-rotulos='{% tr %}["Abrir o projeto Psiquê","Abrir o projeto Ruela Discos","Abrir o projeto twenty one pilots"]<!--en-->["Open the Psiquê project","Open the Ruela Discos project","Open the twenty one pilots project"]{% endtr %}'>
+    <div class="slide atual"><img src="{{ P }}mockup-placa.webp" width="2160" height="1620" alt="" fetchpriority="high"></div>
+    <div class="slide" style="background: #0d0d0d"><img class="capa" src="{{ R }}capa-ultimo-onibus.webp" width="1400" height="1400" alt="" loading="lazy"></div>
+    <div class="slide" style="background: #2e0f45"><img class="capa" src="{{ T }}capa.webp" width="1400" height="1400" alt="" loading="lazy"></div>
+  </a>
+</main>
+
+{#- ================= PSIQUÊ ================= #}
+<section class="projeto" id="psique" aria-labelledby="t-psique">
+  <div class="projeto-dentro">
+    <p class="fechar"><a href="#">{% tr %}Fechar<!--en-->Close{% endtr %}</a></p>
+    <div class="cabeca">
+      <h2 class="nome" id="t-psique" tabindex="-1">PSIQUÊ</h2>
+      <p>{% tr %}Identidade visual para uma clínica multidisciplinar de psicologia: logo, aplicações e manual de identidade.<!--en-->Visual identity for a multidisciplinary psychology clinic: logo, applications and brand guidelines.{% endtr %}</p>
+    </div>
+    <div class="sangria">
+      {{ foto(idioma, P + "mockup-placa.webp", 2160, 1620, "Placa bandeira roxa da Psiquê na fachada, com a borboleta amarela e o nome", "Psiquê's purple blade sign on the building, with the yellow butterfly and the name", "alta") | safe }}
+    </div>
+
+    <h3 class="grupo">{% tr %}Um folder explica a terapia antes da primeira consulta. No Instagram, cada post é um convite curto para conversar.<!--en-->A leaflet explains therapy before the first session. On Instagram, each post is a short invitation to talk.{% endtr %}</h3>
+    <div class="sangria">
+      <div class="fileira">
+        {{ foto(idioma, P + "mockup-folder.webp", 2160, 1620, "Folder da Psiquê, aberto e fechado, visto de cima", "Psiquê leaflet, open and closed, seen from above") | safe }}
+        {{ foto(idioma, P + "mockup-instagram.webp", 2160, 1620, "Perfil da Psiquê no Instagram, em um celular", "Psiquê's Instagram profile on a phone") | safe }}
+      </div>
+    </div>
+
+    <h3 class="grupo">{% tr %}Manual de identidade<!--en-->Brand guidelines{% endtr %}</h3>
+    <div class="sangria">
+      <div class="fileira">
+        {{ foto(idioma, P + "marca.webp", 2160, 1350, "Marca da Psiquê: a borboleta e o nome", "Psiquê brand: the butterfly and the name") | safe }}
+        {{ foto(idioma, P + "miv-especificacoes.webp", 2160, 1350, "Página do manual com as especificações da marca", "Guidelines page with the brand specifications") | safe }}
+      </div>
+    </div>
+
+    <a class="proximo" href="#ruela"><span>{% tr %}Próximo trabalho<!--en-->Next project{% endtr %}</span><strong class="nome">Ruela Discos</strong></a>
+  </div>
+</section>
+
+{#- ================= RUELA DISCOS ================= #}
+<section class="projeto" id="ruela" aria-labelledby="t-ruela">
+  <div class="projeto-dentro">
+    <p class="fechar"><a href="#">{% tr %}Fechar<!--en-->Close{% endtr %}</a></p>
+    <div class="cabeca">
+      <h2 class="nome" id="t-ruela" tabindex="-1">RUELA DISCOS</h2>
+      <p>{% tr %}Identidade de um selo musical fictício de São Paulo: marca, capas, cartaz de festa e post de lançamento.<!--en-->Identity for a fictional São Paulo record label: logo, covers, party poster and release post.{% endtr %}</p>
+    </div>
+    <div class="sangria">
+      {{ foto(idioma, R + "marca.webp", 2400, 1600, "Marca Ruela Discos: RUELA em caixa preta sobre laranja", "Ruela Discos logo: RUELA in a black box on orange") | safe }}
+    </div>
+
+    <h3 class="grupo">{% tr %}Cada lançamento leva a etiqueta do selo e um número de catálogo.<!--en-->Every release carries the label's tag and a catalog number.{% endtr %}</h3>
+    <div class="sangria">
+      <div class="fileira">
+        {{ foto(idioma, R + "capa-ultimo-onibus.webp", 1400, 1400, "Capa do EP Último ônibus, de Mira Lume, número 001", "Cover of the EP Último ônibus by Mira Lume, number 001") | safe }}
+        {{ foto(idioma, R + "capa-sem-freio.webp", 1400, 1400, "Capa de Sem freio, de Bento Sol, número 002", "Cover of Sem freio by Bento Sol, number 002") | safe }}
+        {{ foto(idioma, R + "capa-vao-livre.webp", 1400, 1400, "Capa de Vão livre, do Coletivo Vão, número 003", "Cover of Vão livre by Coletivo Vão, number 003") | safe }}
+      </div>
+    </div>
+
+    <h3 class="grupo">{% tr %}A mesma letra condensada vai do cartaz da festa ao post de lançamento.<!--en-->The same condensed type goes from the party poster to the release post.{% endtr %}</h3>
+    <div class="sangria">
+      <div class="fileira">
+        {{ foto(idioma, R + "cartaz.webp", 1400, 1980, "Cartaz da festa Ruela Noite 01", "Poster for the Ruela Noite 01 party") | safe }}
+        {{ foto(idioma, R + "post.webp", 1400, 1750, "Post de lançamento de Vão livre", "Release post for Vão livre") | safe }}
+      </div>
+    </div>
+
+    <a class="proximo" href="#twenty-one-pilots"><span>{% tr %}Próximo trabalho<!--en-->Next project{% endtr %}</span><strong class="nome">twenty one pilots</strong></a>
+  </div>
+</section>
+
+{#- ================= TWENTY ONE PILOTS ================= #}
+<section class="projeto" id="twenty-one-pilots" aria-labelledby="t-top">
+  <div class="projeto-dentro">
+    <p class="fechar"><a href="#">{% tr %}Fechar<!--en-->Close{% endtr %}</a></p>
+    <div class="cabeca">
+      <h2 class="nome" id="t-top" tabindex="-1">TWENTY ONE PILOTS</h2>
+      <p>{% tr %}Redesign conceitual da identidade da banda para o disco Tailwind: marca, manual, papelaria, marketing e brindes. Trabalho acadêmico.<!--en-->Conceptual redesign of the band's identity for the album Tailwind: logo, guidelines, stationery, marketing and merch. Academic project.{% endtr %}</p>
+    </div>
+    <div class="sangria">
+      <div class="fileira">
+        {{ foto(idioma, T + "capa.webp", 1400, 1400, "Capa de Tailwind: o baixista em preto e branco sobre verde-lima, com o avião de papel atrás", "Tailwind cover: the bassist in black and white on lime green, with the paper plane behind him") | safe }}
+        {{ foto(idioma, T + "conceito.webp", 2400, 1500, "Conceito: o avião de papel feito de duas asas, ao lado do nome da banda", "Concept: the paper plane made of two wings, next to the band's name") | safe }}
+      </div>
+    </div>
+
+    <h3 class="grupo">{% tr %}Um avião de papel feito de duas asas: sem motor, ele voa porque alguém empurra junto.<!--en-->A paper plane made of two wings: with no engine, it flies because someone pushes along.{% endtr %}</h3>
+    <div class="sangria">
+      {{ foto(idioma, T + "logo.webp", 2400, 1500, "Logo horizontal, empilhado e só o símbolo", "Horizontal logo, stacked logo and symbol only") | safe }}
+    </div>
+
+    <h3 class="grupo">{% tr %}Manual de identidade<!--en-->Brand guidelines{% endtr %}</h3>
+    <div class="sangria">
+      <div class="fileira">
+        {{ foto(idioma, T + "miv-apresentacao.webp", 2400, 1500, "Manual: apresentação e conceito", "Guidelines: introduction and concept") | safe }}
+        {{ foto(idioma, T + "miv-versoes.webp", 2400, 1500, "Manual: versões da marca", "Guidelines: logo versions") | safe }}
+      </div>
+      <div class="fileira">
+        {{ foto(idioma, T + "miv-construcao.webp", 2400, 1500, "Manual: malha construtiva e área de proteção", "Guidelines: construction grid and clear space") | safe }}
+        {{ foto(idioma, T + "miv-reducao.webp", 2400, 1500, "Manual: redução mínima", "Guidelines: minimum size") | safe }}
+      </div>
+      <div class="fileira">
+        {{ foto(idioma, T + "miv-mono.webp", 2400, 1500, "Manual: versões monocromáticas e fundos", "Guidelines: one-color versions and backgrounds") | safe }}
+        {{ foto(idioma, T + "miv-cores.webp", 2400, 1500, "Manual: paleta e códigos de cor", "Guidelines: palette and color codes") | safe }}
+      </div>
+      <div class="fileira">
+        {{ foto(idioma, T + "miv-tipografia.webp", 2400, 1500, "Manual: tipografia", "Guidelines: typography") | safe }}
+        {{ foto(idioma, T + "miv-grafismo.webp", 2400, 1500, "Manual: grafismos", "Guidelines: graphic patterns") | safe }}
+      </div>
+      <div class="fileira">
+        {{ foto(idioma, T + "miv-voz.webp", 2400, 1500, "Manual: fotografia e tom de voz", "Guidelines: photography and tone of voice") | safe }}
+        {{ foto(idioma, T + "miv-usos.webp", 2400, 1500, "Manual: usos incorretos", "Guidelines: incorrect uses") | safe }}
+      </div>
+    </div>
+
+    <h3 class="grupo">{% tr %}Papelaria<!--en-->Stationery{% endtr %}</h3>
+    <div class="sangria">
+      <div class="fileira">
+        {{ foto(idioma, T + "timbrado.webp", 1400, 1980, "Papel timbrado A4", "A4 letterhead") | safe }}
+        {{ foto(idioma, T + "envelope-saco.webp", 1400, 1977, "Envelope saco", "Large envelope") | safe }}
+        {{ foto(idioma, T + "marca-pagina.webp", 1200, 1800, "Marca-página, frente e verso", "Bookmark, front and back") | safe }}
+        {{ foto(idioma, T + "sacola.webp", 1400, 1720, "Sacola", "Shopping bag") | safe }}
+      </div>
+      <div class="fileira">
+        {{ foto(idioma, T + "pasta.webp", 2400, 1685, "Pasta aberta", "Open folder") | safe }}
+        {{ foto(idioma, T + "envelope-oficio.webp", 2000, 1000, "Envelope ofício", "Business envelope") | safe }}
+      </div>
+      <div class="fileira">
+        {{ foto(idioma, T + "cartao.webp", 2400, 774, "Cartão de visita, frente e verso", "Business card, front and back") | safe }}
+        {{ foto(idioma, T + "postal.webp", 2400, 766, "Postal, frente e verso", "Postcard, front and back") | safe }}
+      </div>
+      {{ foto(idioma, T + "miv-email.webp", 2400, 1500, "Assinatura de e-mail", "Email signature") | safe }}
+    </div>
+
+    <h3 class="grupo">Marketing</h3>
+    <div class="sangria">
+      <div class="fileira">
+        {{ foto(idioma, T + "mkt-cartaz.webp", 1400, 1980, "Cartaz A3 de lançamento do disco", "A3 album release poster") | safe }}
+        {{ foto(idioma, T + "mkt-anuncio.webp", 1400, 1834, "Anúncio de revista", "Magazine ad") | safe }}
+        {{ foto(idioma, T + "mkt-banner.webp", 1200, 3000, "Banner roll-up da turnê", "Tour roll-up banner") | safe }}
+        {{ foto(idioma, T + "mkt-takeone.webp", 1600, 1527, "Take one, frente e verso", "Take-one flyer, front and back") | safe }}
+      </div>
+      <div class="fileira">
+        {{ foto(idioma, T + "mkt-folder-fora.webp", 2246, 1588, "Folder, lado de fora", "Leaflet, outside") | safe }}
+        {{ foto(idioma, T + "mkt-folder-dentro.webp", 2246, 1588, "Folder, lado de dentro", "Leaflet, inside") | safe }}
+      </div>
+    </div>
+
+    <h3 class="grupo">{% tr %}Cartaz social: um cartaz de saúde mental com o avião e o telefone do CVV.<!--en-->Social poster: a mental health poster with the plane and Brazil's CVV helpline.{% endtr %}</h3>
+    {{ foto(idioma, T + "mkt-cartaz-social.webp", 1400, 1980, "Cartaz social Nobody flies alone, com o número 188 do CVV", "Social poster Nobody flies alone, with CVV's 188 helpline", "sozinha") | safe }}
+
+    <h3 class="grupo">{% tr %}Brindes<!--en-->Merch{% endtr %}</h3>
+    <div class="sangria">
+      <div class="fileira">
+        {{ foto(idioma, T + "brinde-camiseta.webp", 1400, 2499, "Camiseta preta com o logo", "Black T-shirt with the logo") | safe }}
+        {{ foto(idioma, T + "brinde-camiseta-capa.webp", 1400, 2499, "Camiseta preta com a capa do disco", "Black T-shirt with the album cover") | safe }}
+        {{ foto(idioma, T + "brinde-caneca.webp", 1400, 1619, "Caneca branca com o símbolo e o nome do disco", "White mug with the symbol and the album name") | safe }}
+        {{ foto(idioma, T + "brinde-adesivos.webp", 1400, 1400, "Cartela de adesivos", "Sticker sheet") | safe }}
+      </div>
+    </div>
+
+    <a class="proximo" href="#psique"><span>{% tr %}Próximo trabalho<!--en-->Next project{% endtr %}</span><strong class="nome">Psiquê</strong></a>
+  </div>
+</section>
+
+<div class="projeto-dentro">
+  <footer class="rodape">
+    <a class="nome" href="#">CARLOS<br>GOUVEIA</a>
+    <div class="linhas">
+      <p><strong>{% tr %}São Paulo, Brasil<!--en-->São Paulo, Brazil{% endtr %}</strong><a href="mailto:{{ email }}">{{ email }}</a></p>
+      <p><strong>LinkedIn</strong><a href="https://www.linkedin.com/in/carloslnly">linkedin.com/in/carloslnly</a></p>
+      <p><strong>GitHub</strong><a href="https://github.com/arcanospeedruns">github.com/arcanospeedruns</a></p>
+      <p><strong>{% tr %}Currículo<!--en-->Résumé{% endtr %}</strong><a href="{{ cv }}">{% tr %}Baixar em PDF<!--en-->Download PDF{% endtr %}</a></p>
+    </div>
+  </footer>
+</div>
