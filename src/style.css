@@ -48,6 +48,7 @@ a { color: inherit; text-underline-offset: 4px; text-decoration-thickness: 1px; 
 
 .apresentacao { display: flex; flex-direction: column; gap: 28px; }
 .apresentacao h1 { margin: 0; font-size: clamp(44px, 4.6vw, 76px); }
+.cargo { margin: 12px 0 0; font-size: clamp(20px, 1.6vw, 24px); font-weight: 500; line-height: 1.2; }
 
 .projetos { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--tinta); }
 .projetos li { border-bottom: 1px solid var(--fio); }
@@ -100,6 +101,7 @@ body.travado { overflow: hidden; }
 .fileira { display: flex; gap: var(--vao); align-items: flex-start; }
 .fileira > img { flex: var(--p, 1) 1 0; width: 0; min-width: 0; }
 .sozinha { width: min(100%, 960px); margin: 0 auto; }
+.telas .fileira > img { outline: 1px solid var(--fio); outline-offset: -1px; }
 .alta { height: calc(100svh - 230px); min-height: 360px; width: 100%; object-fit: cover; }
 
 /* ---------- 6. Página de erro ---------- */
@@ -119,6 +121,8 @@ body.travado { overflow: hidden; }
 @media (max-width: 600px) {
   .fileira { flex-direction: column; }
   .fileira > img { flex: none; width: 100%; max-height: 80svh; object-fit: contain; }
+  .telas .fileira { flex-direction: row; flex-wrap: wrap; }
+  .telas .fileira > img { width: calc(50% - 4px); }
 }
 @media (prefers-reduced-motion: reduce) {
   .slide, .js .projeto, .projetos a { transition: none; }

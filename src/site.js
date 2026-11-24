@@ -1,9 +1,9 @@
 // Abertura: a imagem troca sozinha entre os três trabalhos e abre o que está na tela.
-// Cada projeto tem endereço próprio (#psique, #ruela, #twenty-one-pilots): o botão
+// Cada projeto tem endereço próprio (#psique-app, #psique, #ruela, #twenty-one-pilots): o botão
 // voltar do navegador fecha, e o link pode ser mandado direto para alguém.
 // A classe "js" no <html> é posta no <head> (base.njk), antes de a página aparecer.
 (function () {
-  var ids = ["psique", "ruela", "twenty-one-pilots"];
+  var ids = ["psique-app", "psique", "ruela", "twenty-one-pilots"];
   var slides = document.querySelectorAll(".slide");
   var nomes = document.querySelectorAll(".projetos a");
   var moldura = document.querySelector(".moldura");

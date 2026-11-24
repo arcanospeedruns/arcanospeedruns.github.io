@@ -10,11 +10,11 @@ preload: ["/fonts/satoshi-900.woff2", "/fonts/switzer-500.woff2"]
 scripts: ["/site.js"]
 meta:
   pt:
-    descricao: "Carlos Gouveia, product designer em São Paulo. Psiquê, Ruela Discos e twenty one pilots."
-    ogDescricao: "Product designer em São Paulo. Psiquê, Ruela Discos e twenty one pilots."
+    descricao: "Carlos Gouveia, product designer em São Paulo. App Psiquê, Psiquê, Ruela Discos e twenty one pilots."
+    ogDescricao: "Product designer em São Paulo. App Psiquê, Psiquê, Ruela Discos e twenty one pilots."
   en:
-    descricao: "Carlos Gouveia, product designer in São Paulo. Psiquê, Ruela Discos and twenty one pilots."
-    ogDescricao: "Product designer in São Paulo. Psiquê, Ruela Discos and twenty one pilots."
+    descricao: "Carlos Gouveia, product designer in São Paulo. Psiquê app, Psiquê, Ruela Discos and twenty one pilots."
+    ogDescricao: "Product designer in São Paulo. Psiquê app, Psiquê, Ruela Discos and twenty one pilots."
 ---
 {#- uma imagem de prancha: --p é a proporção, usada pela fileira para igualar as alturas -#}
 {%- macro foto(idioma, arq, w, h, pt, en, classe="", tam="(max-width: 600px) 100vw, 60vw") -%}
@@ -24,6 +24,7 @@ meta:
 {%- set R = "/projetos/ruela/" -%}
 {%- set T = "/projetos/twenty-one-pilots/" -%}
 {%- set P = "/projetos/psique/" -%}
+{%- set A = "/projetos/psique-app/" -%}
 {%- set email = "arcanospeedruns@gmail.com" -%}
 {%- set cv = "/curriculo-en.pdf" if idioma == "en" else "/curriculo.pdf" -%}
 
@@ -43,13 +44,17 @@ meta:
     </div>
 
     <div class="apresentacao">
-      <h1 class="nome">CARLOS<br>GOUVEIA</h1>
+      <div>
+        <h1 class="nome">CARLOS<br>GOUVEIA</h1>
+        <p class="cargo">Product designer</p>
+      </div>
 
       <nav aria-label="{% tr %}Projetos<!--en-->Projects{% endtr %}">
         <ul class="projetos">
-          <li><a href="#psique" data-slide="0">Psiquê</a></li>
-          <li><a href="#ruela" data-slide="1">Ruela Discos</a></li>
-          <li><a href="#twenty-one-pilots" data-slide="2">twenty one pilots</a></li>
+          <li><a href="#psique-app" data-slide="0">{% tr %}App Psiquê<!--en-->Psiquê app{% endtr %}</a></li>
+          <li><a href="#psique" data-slide="1">Psiquê</a></li>
+          <li><a href="#ruela" data-slide="2">Ruela Discos</a></li>
+          <li><a href="#twenty-one-pilots" data-slide="3">twenty one pilots</a></li>
         </ul>
       </nav>
 
@@ -62,12 +67,45 @@ meta:
     </div>
   </div>
 
-  <a class="moldura" href="#psique" aria-label="{% tr %}Abrir o projeto Psiquê<!--en-->Open the Psiquê project{% endtr %}" data-rotulos='{% tr %}["Abrir o projeto Psiquê","Abrir o projeto Ruela Discos","Abrir o projeto twenty one pilots"]<!--en-->["Open the Psiquê project","Open the Ruela Discos project","Open the twenty one pilots project"]{% endtr %}'>
-    <div class="slide atual"><img src="{{ P }}mockup-placa.webp" srcset="{{ P }}mockup-placa-1200.webp 1200w, {{ P }}mockup-placa.webp 2160w" sizes="(max-width: 860px) 100vw, 73vw" width="2160" height="1620" alt="" fetchpriority="high"></div>
+  <a class="moldura" href="#psique-app" aria-label="{% tr %}Abrir o projeto App Psiquê<!--en-->Open the Psiquê app project{% endtr %}" data-rotulos='{% tr %}["Abrir o projeto App Psiquê","Abrir o projeto Psiquê","Abrir o projeto Ruela Discos","Abrir o projeto twenty one pilots"]<!--en-->["Open the Psiquê app project","Open the Psiquê project","Open the Ruela Discos project","Open the twenty one pilots project"]{% endtr %}'>
+    <div class="slide atual"><img src="{{ A }}abertura.webp" srcset="{{ A }}abertura-1200.webp 1200w, {{ A }}abertura.webp 2400w" sizes="(max-width: 860px) 100vw, 73vw" width="2400" height="1800" alt="" fetchpriority="high"></div>
+    <div class="slide"><img src="{{ P }}mockup-placa.webp" srcset="{{ P }}mockup-placa-1200.webp 1200w, {{ P }}mockup-placa.webp 2160w" sizes="(max-width: 860px) 100vw, 73vw" width="2160" height="1620" alt="" loading="lazy"></div>
     <div class="slide" style="background: #0d0d0d"><img class="capa" src="{{ R }}capa-ultimo-onibus.webp" width="1400" height="1400" alt="" loading="lazy"></div>
     <div class="slide" style="background: #2e0f45"><img class="capa" src="{{ T }}capa.webp" width="1400" height="1400" alt="" loading="lazy"></div>
   </a>
 </main>
+
+{#- ================= APP PSIQUÊ ================= #}
+<section class="projeto" id="psique-app" aria-labelledby="t-app">
+  <div class="projeto-dentro">
+    <p class="fechar"><span>{% tr %}App Psiquê<!--en-->Psiquê app{% endtr %}</span><a href="#">{% tr %}Fechar<!--en-->Close{% endtr %}</a></p>
+    <div class="cabeca">
+      <h2 class="nome" id="t-app" tabindex="-1">{% tr %}APP PSIQUÊ<!--en-->PSIQUÊ APP{% endtr %}</h2>
+      <p>{% tr %}Conceito de app de agendamento para a clínica Psiquê. Quem procura terapia costuma chegar inseguro e desistir no caminho: o objetivo é marcar a primeira sessão em menos de um minuto.<!--en-->Concept for the Psiquê clinic's booking app. People looking for therapy often arrive unsure and give up along the way: the goal is to book a first session in under a minute.{% endtr %}</p>
+    </div>
+    <div class="sangria">
+      {{ foto(idioma, A + "fluxo.webp", 2400, 592, "Fluxo em cinco passos: início, com quem, quando, confirmar e agendado", "Five-step flow: home, who, when, confirm and booked", tam="100vw") | safe }}
+    </div>
+
+    <h3 class="grupo">{% tr %}Uma dúvida por tela: com quem, quando e como.<!--en-->One question per screen: who, when and how.{% endtr %}</h3>
+    <div class="sangria telas">
+      <div class="fileira">
+        {{ foto(idioma, A + "tela-1-inicio.webp", 780, 1688, "Tela inicial: ainda sem sessões e o botão Agendar sessão", "Home screen: no sessions yet and the Book a session button") | safe }}
+        {{ foto(idioma, A + "tela-2-profissional.webp", 780, 1688, "Lista de profissionais com o próximo horário livre de cada uma e o atalho Não sei escolher", "List of therapists with each one's next free slot and a Help me choose shortcut") | safe }}
+        {{ foto(idioma, A + "tela-3-horario.webp", 780, 1688, "Escolha do horário: dias da semana e horários livres, com os ocupados riscados", "Picking a time: weekdays and free slots, with taken ones crossed out") | safe }}
+        {{ foto(idioma, A + "tela-4-confirmar.webp", 780, 1688, "Resumo antes de confirmar, com valor, regra de remarcação e pagamento", "Summary before confirming, with price, rescheduling rule and payment") | safe }}
+        {{ foto(idioma, A + "tela-5-agendado.webp", 780, 1688, "Sessão agendada, com calendário, lembretes e como entrar na sala online", "Session booked, with calendar, reminders and how to join online") | safe }}
+      </div>
+    </div>
+
+    <h3 class="grupo">{% tr %}A decisão que mais encurta o caminho: mostrar o próximo horário livre já na lista.<!--en-->The decision that shortens the path the most: showing the next free slot right in the list.{% endtr %}</h3>
+    <div class="sangria">
+      {{ foto(idioma, A + "decisao.webp", 2400, 1350, "Antes e depois: a lista sem horários pedia abrir cada agenda; a lista nova mostra o próximo horário livre de cada profissional", "Before and after: the list without times meant opening each calendar; the new list shows each therapist's next free slot", tam="100vw") | safe }}
+    </div>
+
+    <a class="proximo nome" href="#psique">{% tr %}Próximo: Psiquê<!--en-->Next: Psiquê{% endtr %}</a>
+  </div>
+</section>
 
 {#- ================= PSIQUÊ ================= #}
 <section class="projeto" id="psique" aria-labelledby="t-psique">
@@ -154,18 +192,10 @@ meta:
       {{ foto(idioma, T + "logo.webp", 2400, 1500, "Logo horizontal, empilhado e só o símbolo", "Horizontal logo, stacked logo and symbol only", tam="100vw") | safe }}
     </div>
 
-    <h3 class="grupo">{% tr %}Manual de identidade<!--en-->Brand guidelines{% endtr %}</h3>
+    <h3 class="grupo">{% tr %}Manual, papelaria, marketing e brindes seguem o mesmo sistema: o avião, quatro cores e duas fontes.<!--en-->Guidelines, stationery, marketing and merch follow one system: the plane, four colors and two typefaces.{% endtr %}</h3>
     <div class="sangria">
       <div class="fileira">
-        {{ foto(idioma, T + "miv-apresentacao.webp", 2400, 1500, "Manual: apresentação e conceito", "Guidelines: introduction and concept") | safe }}
         {{ foto(idioma, T + "miv-versoes.webp", 2400, 1500, "Manual: versões da marca", "Guidelines: logo versions") | safe }}
-      </div>
-      <div class="fileira">
-        {{ foto(idioma, T + "miv-construcao.webp", 2400, 1500, "Manual: malha construtiva e área de proteção", "Guidelines: construction grid and clear space") | safe }}
-        {{ foto(idioma, T + "miv-reducao.webp", 2400, 1500, "Manual: redução mínima", "Guidelines: minimum size") | safe }}
-      </div>
-      <div class="fileira">
-        {{ foto(idioma, T + "miv-mono.webp", 2400, 1500, "Manual: versões monocromáticas e fundos", "Guidelines: one-color versions and backgrounds") | safe }}
         {{ foto(idioma, T + "miv-cores.webp", 2400, 1500, "Manual: paleta e códigos de cor", "Guidelines: palette and color codes") | safe }}
       </div>
       <div class="fileira">
@@ -173,58 +203,24 @@ meta:
         {{ foto(idioma, T + "miv-grafismo.webp", 2400, 1500, "Manual: grafismos", "Guidelines: graphic patterns") | safe }}
       </div>
       <div class="fileira">
-        {{ foto(idioma, T + "miv-voz.webp", 2400, 1500, "Manual: fotografia e tom de voz", "Guidelines: photography and tone of voice") | safe }}
-        {{ foto(idioma, T + "miv-usos.webp", 2400, 1500, "Manual: usos incorretos", "Guidelines: incorrect uses") | safe }}
-      </div>
-    </div>
-
-    <h3 class="grupo">{% tr %}Papelaria<!--en-->Stationery{% endtr %}</h3>
-    <div class="sangria">
-      <div class="fileira">
         {{ foto(idioma, T + "timbrado.webp", 1400, 1980, "Papel timbrado A4", "A4 letterhead") | safe }}
         {{ foto(idioma, T + "envelope-saco.webp", 1400, 1977, "Envelope saco", "Large envelope") | safe }}
-        {{ foto(idioma, T + "marca-pagina.webp", 1200, 1800, "Marca-página, frente e verso", "Bookmark, front and back") | safe }}
         {{ foto(idioma, T + "sacola.webp", 1400, 1720, "Sacola", "Shopping bag") | safe }}
       </div>
-      <div class="fileira">
-        {{ foto(idioma, T + "pasta.webp", 2400, 1685, "Pasta aberta", "Open folder") | safe }}
-        {{ foto(idioma, T + "envelope-oficio.webp", 2000, 1000, "Envelope ofício", "Business envelope") | safe }}
-      </div>
-      <div class="fileira">
-        {{ foto(idioma, T + "cartao.webp", 2400, 774, "Cartão de visita, frente e verso", "Business card, front and back") | safe }}
-        {{ foto(idioma, T + "postal.webp", 2400, 766, "Postal, frente e verso", "Postcard, front and back") | safe }}
-      </div>
-      {{ foto(idioma, T + "miv-email.webp", 2400, 1500, "Assinatura de e-mail", "Email signature", tam="100vw") | safe }}
-    </div>
-
-    <h3 class="grupo">Marketing</h3>
-    <div class="sangria">
+      {{ foto(idioma, T + "cartao.webp", 2400, 774, "Cartão de visita, frente e verso", "Business card, front and back", tam="100vw") | safe }}
       <div class="fileira">
         {{ foto(idioma, T + "mkt-cartaz.webp", 1400, 1980, "Cartaz A3 de lançamento do disco", "A3 album release poster") | safe }}
-        {{ foto(idioma, T + "mkt-anuncio.webp", 1400, 1834, "Anúncio de revista", "Magazine ad") | safe }}
         {{ foto(idioma, T + "mkt-banner.webp", 1200, 3000, "Banner roll-up da turnê", "Tour roll-up banner") | safe }}
-        {{ foto(idioma, T + "mkt-takeone.webp", 1600, 1527, "Take one, frente e verso", "Take-one flyer, front and back") | safe }}
+        {{ foto(idioma, T + "mkt-cartaz-social.webp", 1400, 1980, "Cartaz de saúde mental Nobody flies alone, com o número 188 do CVV", "Mental health poster Nobody flies alone, with CVV's 188 helpline") | safe }}
       </div>
+      {{ foto(idioma, T + "mkt-folder-dentro.webp", 2246, 1588, "Folder, lado de dentro", "Leaflet, inside", tam="100vw") | safe }}
       <div class="fileira">
-        {{ foto(idioma, T + "mkt-folder-fora.webp", 2246, 1588, "Folder, lado de fora", "Leaflet, outside") | safe }}
-        {{ foto(idioma, T + "mkt-folder-dentro.webp", 2246, 1588, "Folder, lado de dentro", "Leaflet, inside") | safe }}
-      </div>
-    </div>
-
-    <h3 class="grupo">{% tr %}Cartaz de saúde mental com o avião e o CVV (188).<!--en-->Mental health poster with the plane and Brazil's CVV helpline (188).{% endtr %}</h3>
-    {{ foto(idioma, T + "mkt-cartaz-social.webp", 1400, 1980, "Cartaz social Nobody flies alone, com o número 188 do CVV", "Social poster Nobody flies alone, with CVV's 188 helpline", "sozinha", "(max-width: 960px) 100vw, 960px") | safe }}
-
-    <h3 class="grupo">{% tr %}Brindes<!--en-->Merch{% endtr %}</h3>
-    <div class="sangria">
-      <div class="fileira">
-        {{ foto(idioma, T + "brinde-camiseta.webp", 1400, 2499, "Camiseta preta com o logo", "Black T-shirt with the logo") | safe }}
         {{ foto(idioma, T + "brinde-camiseta-capa.webp", 1400, 2499, "Camiseta preta com a capa do disco", "Black T-shirt with the album cover") | safe }}
         {{ foto(idioma, T + "brinde-caneca.webp", 1400, 1619, "Caneca branca com o símbolo e o nome do disco", "White mug with the symbol and the album name") | safe }}
-        {{ foto(idioma, T + "brinde-adesivos.webp", 1400, 1400, "Cartela de adesivos", "Sticker sheet") | safe }}
       </div>
     </div>
 
-    <a class="proximo nome" href="#psique">{% tr %}Próximo: Psiquê<!--en-->Next: Psiquê{% endtr %}</a>
+    <a class="proximo nome" href="#psique-app">{% tr %}Próximo: App Psiquê<!--en-->Next: Psiquê app{% endtr %}</a>
   </div>
 </section>
 

@@ -36,8 +36,8 @@ GATO = ('<svg class="marca-gato" viewBox="36 18 136 154" aria-hidden="true"><mas
         'fill="currentColor"/></g></svg>')
 
 TEXTOS = {
-    "pt-BR": {"linha": "Psiquê · Ruela Discos · twenty one pilots", "cidade": "São Paulo, Brasil"},
-    "en": {"linha": "Psiquê · Ruela Discos · twenty one pilots", "cidade": "São Paulo, Brazil"},
+    "pt-BR": {"linha": "Product designer", "cidade": "São Paulo, Brasil"},
+    "en": {"linha": "Product designer", "cidade": "São Paulo, Brazil"},
 }
 
 def fonte(arquivo):
