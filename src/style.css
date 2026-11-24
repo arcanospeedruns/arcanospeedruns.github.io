@@ -50,7 +50,6 @@ button { font: inherit; color: inherit; }
 
 .apresentacao { display: flex; flex-direction: column; gap: 28px; }
 .apresentacao h1 { margin: 0; font-size: clamp(44px, 4.6vw, 76px); }
-.frase { margin: 0; font-size: clamp(20px, 1.6vw, 24px); line-height: 1.3; font-weight: 500; max-width: 26ch; }
 
 .projetos { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--tinta); }
 .projetos li { border-bottom: 1px solid var(--fio); }
