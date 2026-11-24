@@ -8,7 +8,7 @@
    3. Abertura
    4. Área do projeto
    5. Pranchas (fileiras de imagens com a mesma altura)
-   6. Rodapé
+   6. Página de erro
    7. Celular e movimento reduzido
    ========================================================= */
 
@@ -33,9 +33,7 @@ html { -webkit-text-size-adjust: 100%; background: var(--fundo); }
 body { margin: 0; font-family: "Switzer", system-ui, sans-serif; font-synthesis: none; line-height: 1.5; color: var(--tinta); background: var(--fundo); }
 img { display: block; max-width: 100%; height: auto; }
 a { color: inherit; text-underline-offset: 4px; text-decoration-thickness: 1px; }
-button { font: inherit; color: inherit; }
 :focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
-.so-leitor { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .nome { font-family: "Satoshi", sans-serif; font-weight: 900; line-height: 0.9; }
 
 /* ---------- 3. Abertura ---------- */
@@ -54,12 +52,15 @@ button { font: inherit; color: inherit; }
 .projetos { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--tinta); }
 .projetos li { border-bottom: 1px solid var(--fio); }
 .projetos a { display: flex; align-items: center; min-height: 48px; padding: 10px 0; text-decoration: none; font-family: "Satoshi", sans-serif; font-weight: 900; font-size: clamp(20px, 1.7vw, 26px); line-height: 1; color: var(--cinza); transition: color 200ms; }
-.projetos a.atual, .projetos a:hover, .projetos a:focus-visible { color: var(--tinta); }
+.projetos a.atual { color: var(--tinta); }
+.projetos a:hover, .projetos a:focus-visible { color: var(--tinta); text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 6px; }
 
-.contatos { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px 22px; font-size: 17px; }
+.contatos { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0 22px; font-size: 17px; }
+.contatos a, .idioma a { display: inline-flex; align-items: center; min-height: 44px; }
 
 /* a imagem: troca sozinha e abre o trabalho que está na tela */
 .moldura { position: relative; display: block; overflow: hidden; background: #000; min-height: 0; }
+.moldura:focus-visible { outline: 3px solid var(--amarelo); outline-offset: -8px; }
 .slide { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 450ms ease; }
 .slide.atual { opacity: 1; }
 .slide > img { width: 100%; height: 100%; object-fit: cover; }
@@ -67,45 +68,41 @@ button { font: inherit; color: inherit; }
 
 /* ---------- 4. Área do projeto ---------- */
 .projeto { background: var(--fundo); }
-.js .projeto { position: fixed; inset: 0; z-index: 10; overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; transform: translateY(100%); visibility: hidden; transition: transform 600ms cubic-bezier(.2,.7,.2,1), visibility 600ms; }
-.js .projeto.aberto { transform: none; visibility: visible; }
-.js body.travado { overflow: hidden; }
+.projeto { container-type: inline-size; }
+.js .projeto { display: none; position: fixed; inset: 0; z-index: 10; overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; transform: translateY(100%); visibility: hidden; transition: transform 600ms cubic-bezier(.2,.7,.2,1), visibility 0s linear 600ms; }
+.js .projeto.montado { display: block; }
+.js .projeto.aberto { transform: none; visibility: visible; transition: transform 600ms cubic-bezier(.2,.7,.2,1), visibility 0s; }
+body.travado { overflow: hidden; }
 
-.projeto-dentro { max-width: 1360px; margin: 0 auto; padding: var(--margem); }
-.fechar { display: flex; justify-content: flex-end; }
-.fechar a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 4px; font-size: 16px; }
-.sem-js .fechar { display: none; }
+.projeto-dentro { padding: 0 var(--margem) var(--margem); }
+/* barra de cima, presa ao rolar: o nome do projeto e o Fechar sempre à mão */
+.fechar { display: none; position: sticky; top: 0; z-index: 2; margin: 0 calc(-1 * var(--margem)); padding: 0 var(--margem); background: var(--fundo); justify-content: space-between; align-items: center; gap: 16px; font-size: 16px; }
+.js .fechar { display: flex; }
+.fechar span { font-weight: 500; visibility: hidden; }
+.rolou .fechar span { visibility: visible; } /* o nome só aparece depois que o título grande saiu da tela */
+.cabeca h2:focus { outline: none; }
+.fechar a { display: inline-flex; align-items: center; min-height: 48px; padding: 0 4px; }
 
-.cabeca { display: flex; flex-direction: column; gap: 20px; padding: 24px 0 40px; }
+.cabeca { display: flex; flex-direction: column; gap: 12px; padding: 8px 0 24px; }
 .cabeca h2 { margin: 0; font-size: clamp(56px, 8vw, 120px); overflow-wrap: anywhere; }
 .cabeca p { margin: 0; font-size: 22px; line-height: 1.35; font-weight: 500; max-width: 40ch; }
 
 .grupo { margin: 0; padding: 120px 0 32px; max-width: 24ch; font-size: clamp(26px, 2.6vw, 40px); font-weight: 500; line-height: 1.15; text-wrap: balance; }
 
 .proximo { display: block; margin-top: 120px; padding: 32px 0; border-top: 1px solid var(--tinta); border-bottom: 1px solid var(--tinta); text-decoration: none; }
-.proximo span { display: block; font-size: 16px; color: #3f4449; }
-.proximo strong { display: block; margin-top: 8px; font-size: clamp(36px, 5vw, 72px); }
-.proximo:hover strong { text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 8px; }
+.proximo { font-size: clamp(28px, 3.5vw, 48px); }
+.proximo:hover, .proximo:focus-visible { text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 8px; }
 
 /* ---------- 5. Pranchas ---------- */
 /* imagens de ponta a ponta da tela */
-.sangria { width: 100vw; margin-left: calc(50% - 50vw); display: flex; flex-direction: column; gap: var(--vao); }
+.sangria { width: 100cqw; margin-left: calc(50% - 50cqw); display: flex; flex-direction: column; gap: var(--vao); }
 /* uma fileira: cada imagem cresce na proporção dela, então todas ficam com a mesma altura */
 .fileira { display: flex; gap: var(--vao); align-items: flex-start; }
-.fileira > img { flex: var(--p) 1 0; width: 0; min-width: 0; }
-.sozinha { width: min(100%, 640px); margin: 0 auto; }
-.alta { height: 82vh; min-height: 420px; width: 100%; object-fit: cover; }
+.fileira > img { flex: var(--p, 1) 1 0; width: 0; min-width: 0; }
+.sozinha { width: min(100%, 960px); margin: 0 auto; }
+.alta { height: calc(100svh - 230px); min-height: 360px; width: 100%; object-fit: cover; }
 
-/* ---------- 6. Rodapé ---------- */
-.rodape { padding: 80px 0 32px; }
-.linhas { max-width: 680px; margin-left: auto; }
-.linhas { display: flex; flex-direction: column; font-size: 16px; }
-.linhas p { margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--tinta); }
-.linhas p:last-child { border-bottom: 0; }
-.linhas strong { font-weight: 500; }
-.linhas a { color: var(--cinza); }
-
-/* página de erro */
+/* ---------- 6. Página de erro ---------- */
 .erro { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; gap: 24px; padding: var(--margem); max-width: 1360px; margin: 0 auto; }
 .erro h1 { margin: 0; font-size: clamp(64px, 12vw, 180px); }
 .erro p { margin: 0; font-size: 20px; max-width: 40ch; }
@@ -114,13 +111,14 @@ button { font: inherit; color: inherit; }
 @media (max-width: 860px) {
   .abertura { grid-template-columns: minmax(0, 1fr); height: auto; min-height: 0; }
   .moldura { aspect-ratio: 4 / 5; }
-  .fileira { flex-direction: column; }
-  .fileira > img { flex: none; width: 100%; }
   .grupo { padding: 72px 0 24px; }
   .proximo { margin-top: 72px; }
-  .linhas p { grid-template-columns: minmax(0, 1fr); }
-  .linhas { max-width: none; }
-  .linhas p { gap: 2px; }
+  .alta { height: auto; min-height: 0; aspect-ratio: 4 / 3; }
+}
+/* fileiras viram coluna só no celular; peças altas não passam de uma tela */
+@media (max-width: 600px) {
+  .fileira { flex-direction: column; }
+  .fileira > img { flex: none; width: 100%; max-height: 80svh; object-fit: contain; }
 }
 @media (prefers-reduced-motion: reduce) {
   .slide, .js .projeto, .projetos a { transition: none; }

@@ -1,6 +1,4 @@
 node_modules/
 _site/
 .DS_Store
-src/hub.js
-src/empregos.js
 __pycache__/

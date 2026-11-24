@@ -1,4 +1,4 @@
-# Uma vez por semana confere se os links para fora do site (GitHub, PDFs, repositórios) ainda abrem.
+# Uma vez por semana confere se os links para fora do site (GitHub) ainda abrem.
 # Se algum quebrar, a execução falha e o GitHub avisa por e-mail.
 name: links externos
 on:

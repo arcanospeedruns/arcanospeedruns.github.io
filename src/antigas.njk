@@ -1,0 +1,36 @@
+---
+# Endereços das páginas antigas (o site virou uma página só). Cada um vira uma página curta
+# que leva na hora para o lugar novo, para links salvos e buscadores não caírem na 404.
+pagination: { data: antigas, size: 1, alias: velha }
+antigas:
+  - { de: "/sobre.html", para: "/" }
+  - { de: "/portfolio.html", para: "/" }
+  - { de: "/contato.html", para: "/" }
+  - { de: "/hub.html", para: "/" }
+  - { de: "/empregos.html", para: "/" }
+  - { de: "/projetos/psique.html", para: "/#psique" }
+  - { de: "/projetos/datasus.html", para: "/" }
+  - { de: "/projetos/cignamed.html", para: "/" }
+  - { de: "/en/sobre.html", para: "/en/" }
+  - { de: "/en/portfolio.html", para: "/en/" }
+  - { de: "/en/contato.html", para: "/en/" }
+  - { de: "/en/empregos.html", para: "/en/" }
+  - { de: "/en/projetos/psique.html", para: "/en/#psique" }
+  - { de: "/en/projetos/datasus.html", para: "/en/" }
+  - { de: "/en/projetos/cignamed.html", para: "/en/" }
+permalink: "{{ velha.de }}"
+eleventyExcludeFromCollections: true
+---
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Carlos Gouveia</title>
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="{{ site.url }}{{ velha.para.split('#')[0] }}">
+  <meta http-equiv="refresh" content="0; url={{ velha.para }}">
+</head>
+<body>
+  <p><a href="{{ velha.para }}">Carlos Gouveia</a></p>
+</body>
+</html>

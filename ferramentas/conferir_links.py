@@ -1,7 +1,6 @@
 """Confere os links internos do site gerado (_site): href, src e âncoras (#id).
 Uso: python3 ferramentas/conferir_links.py [_site]
 Sai com erro se algum link apontar para um arquivo ou âncora que não existe.
-Nos projetos do portfólio (portfolio.html#id) a âncora leva ao cartão do projeto.
 """
 import os, re, sys
 from urllib.parse import urlsplit, unquote
@@ -35,7 +34,6 @@ for p, html in paginas:
         alvo = os.path.normpath(alvo)
         if not os.path.exists(alvo):
             print(f"QUEBRADO  {p}: {url}"); erros += 1; continue
-        # "#/..." são rotas do hub (hub.js), não âncoras
         if u.fragment and not u.fragment.startswith("/") and alvo.endswith(".html") and u.fragment not in ids.get(alvo, set()):
             print(f"ÂNCORA    {p}: {url}"); erros += 1
 print(f"{len(paginas)} páginas conferidas, {erros} problema(s).")

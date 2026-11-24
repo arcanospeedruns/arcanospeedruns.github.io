@@ -19,7 +19,8 @@ src/
   _includes/base.njk     <head> e scripts
   _data/                 endereço do site e idiomas
   projetos/psique/, projetos/ruela/, projetos/twenty-one-pilots/   imagens
-  404.njk                página de erro; manda links das páginas antigas para o início
+  antigas.njk            páginas curtas nos endereços antigos, que levam para o início
+  404.njk                página de erro
   fonts/, curriculo.pdf, curriculo-en.pdf, favicon, og.png
 ferramentas/conferir_links.py   confere href, src e âncoras do site gerado
 ferramentas/og.py               imagens de compartilhamento
@@ -43,4 +44,4 @@ python3 ferramentas/conferir_links.py _site
 
 ## Fontes
 
-Satoshi e Switzer ([Fontshare](https://www.fontshare.com), ITF Free Font License). Departure Mono e Michroma (SIL OFL) só nas imagens de compartilhamento.
+Satoshi e Switzer ([Fontshare](https://www.fontshare.com), ITF Free Font License).

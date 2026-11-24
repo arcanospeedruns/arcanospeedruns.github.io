@@ -5,6 +5,7 @@
 <html lang="{{ lang }}">
 <head>
   <meta charset="utf-8">
+  <script>document.documentElement.classList.add("js")</script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ titulo }}</title>
   <meta name="description" content="{{ descricao }}">
@@ -26,14 +27,20 @@
   <meta property="og:description" content="{{ ogDescricao or descricao }}">
   <meta property="og:url" content="{{ site.url }}{{ page.url }}">
   <meta property="og:image" content="{{ site.url }}{{ ogImagem or '/og.png' }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Carlos Gouveia">
   <meta property="og:locale" content="{{ t.locale }}">
   <meta name="twitter:card" content="summary_large_image">
+{%- if not semIndice %}
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Carlos Gouveia","jobTitle":"Product designer","url":"{{ site.url }}/","address":{"@type":"PostalAddress","addressLocality":"São Paulo","addressCountry":"BR"},"sameAs":["https://www.linkedin.com/in/carloslnly","https://github.com/arcanospeedruns"]}</script>
+{%- endif %}
 {%- for f in preload %}
   <link rel="preload" href="{{ f }}" as="font" type="font/woff2" crossorigin>
 {%- endfor %}
   <link rel="stylesheet" href="{{ '/style.css' | versao }}">
 </head>
-<body class="{{ corpo }}">
+<body>
 {{ content | safe }}
 {%- for s in scripts %}
   <script src="{{ s | versao }}"></script>

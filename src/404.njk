@@ -8,14 +8,11 @@ semIndice: true
 eleventyExcludeFromCollections: true
 ---
 <script>
-  // as páginas antigas do site viraram uma página só: quem chega por um link velho vai para o início
+  // endereços antigos que não têm página própria (as principais estão em antigas.njk) vão para o início
   (function () {
     var p = location.pathname;
-    var en = p.indexOf("/en/") === 0;
-    var antigas = /^\/(en\/)?(sobre|portfolio|contato|hub|empregos|dados|landing)\.html$|^\/(en\/)?projetos\//;
-    if (antigas.test(p)) {
-      var m = p.match(/projetos\/(psique|ruela|twenty-one-pilots)\.html$/);
-      location.replace((en ? "/en/" : "/") + (m ? "#" + m[1] : ""));
+    if (/^\/(en\/)?(dados|landing)\.html$|^\/(en\/)?projetos\//.test(p)) {
+      location.replace((p.indexOf("/en/") === 0 ? "/en/" : "/") + location.hash);
     }
   })();
 </script>

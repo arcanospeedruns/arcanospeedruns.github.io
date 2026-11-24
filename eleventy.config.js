@@ -8,7 +8,6 @@ module.exports = function (config) {
   for (const ext of ["css", "js", "webp", "jpg", "png", "svg", "pdf", "woff2", "txt"]) {
     config.addPassthroughCopy(`src/**/*.${ext}`);
   }
-  config.addPassthroughCopy("src/empregos-*.json"); // dados e malha do mapa do emprego
   // "/style.css" -> "/style.css?v=<hash do conteúdo>": o navegador só baixa de novo quando o arquivo muda
   const cache = new Map();
   config.addFilter("versao", (arquivo) => {
@@ -19,7 +18,11 @@ module.exports = function (config) {
     return `${arquivo}?v=${cache.get(arquivo)}`;
   });
   config.on("eleventy.before", () => cache.clear());
-  config.addFilter("dataISO", (d) => new Date(d).toISOString().slice(0, 10));
+  // "/projetos/x/a.webp" -> "/projetos/x/a-1200.webp 1200w, /projetos/x/a.webp 2400w" quando existe a versão menor
+  config.addFilter("srcset", (arquivo, largura) => {
+    const menor = arquivo.replace(/\.webp$/, "-1200.webp");
+    return fs.existsSync(path.join("src", menor)) ? `${menor} 1200w, ${arquivo} ${largura}w` : "";
+  });
   // textos bilíngues: {% tr %}texto em português<!--en-->text in English{% endtr %}
   config.addPairedShortcode("tr", function (conteudo) {
     const [pt, en = ""] = conteudo.split("<!--en-->");

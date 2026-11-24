@@ -6,7 +6,6 @@ const POR_IDIOMA = ["titulo", "descricao", "ogTitulo", "ogDescricao", "ogImagem"
 const computado = {
   lang: (d) => (d.idioma ? (d.idioma === "en" ? "en" : "pt-BR") : d.lang),
   par: (d) => (d.idioma && d.caminho ? (d.idioma === "en" ? d.caminho : "/en" + d.caminho) : d.par),
-  prints: (d) => (d.printsPorIdioma && d.idioma ? d.printsPorIdioma[d.idioma] : d.prints),
 };
 for (const k of POR_IDIOMA) {
   computado[k] = (d) => (d.meta && d.idioma && d.meta[d.idioma] && k in d.meta[d.idioma] ? d.meta[d.idioma][k] : d[k]);
