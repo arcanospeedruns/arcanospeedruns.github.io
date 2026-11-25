@@ -1,9 +1,12 @@
-// Abertura: a imagem troca sozinha entre os quatro projetos e abre o que está na tela.
-// Cada projeto tem endereço próprio (#psique-app, #psique, #ruela, #twenty-one-pilots): o botão
-// voltar do navegador fecha, e o link pode ser mandado direto para alguém.
+// Abertura: a imagem troca sozinha entre as quatro imagens e abre o projeto que está na tela.
+// Cada projeto tem endereço próprio (#psique, #ruela, #twenty-one-pilots); a Psiquê tem duas abas,
+// #psique (app) e #psique-identidade, e o antigo #psique-app continua abrindo o app.
+// O botão voltar do navegador fecha, e o link pode ser mandado direto para alguém.
 // A classe "js" no <html> é posta no <head> (base.njk), antes de a página aparecer.
 (function () {
-  var ids = ["psique-app", "psique", "ruela", "twenty-one-pilots"];
+  var ids = ["psique", "psique-identidade", "ruela", "twenty-one-pilots"]; // uma por imagem da abertura
+  // endereço -> [painel, aba]
+  var ROTAS = { "psique": ["psique", "aba-app"], "psique-app": ["psique", "aba-app"], "psique-identidade": ["psique", "aba-identidade"], "ruela": ["ruela"], "twenty-one-pilots": ["twenty-one-pilots"] };
   var slides = document.querySelectorAll(".slide");
   var nomes = document.querySelectorAll(".projetos a");
   var moldura = document.querySelector(".moldura");
@@ -32,7 +35,7 @@
   function mostrar(i) {
     atual = i;
     slides.forEach(function (s, k) { s.classList.toggle("atual", k === i); });
-    nomes.forEach(function (n, k) { n.classList.toggle("atual", k === i); });
+    nomes.forEach(function (n) { n.classList.toggle("atual", ROTAS[ids[i]][0] === n.getAttribute("href").slice(1)); });
     moldura.href = "#" + ids[i];
     moldura.setAttribute("aria-label", rotulos[i]);
   }
@@ -51,8 +54,6 @@
     visivel = false;
     new IntersectionObserver(function (e) { visivel = e[0].isIntersecting; carregarSlides(); }, { threshold: 0.5 }).observe(moldura);
   }
-  // no toque não há mouse para pausar: o primeiro toque na página para a troca de vez
-  window.addEventListener("touchstart", function () { trocas = ids.length; clearInterval(timer); }, { once: true, passive: true });
   // com o mouse na imagem ou na lista, ou o foco de teclado nelas, a troca para
   [moldura, document.querySelector(".projetos")].forEach(function (el) {
     el.addEventListener("mouseenter", function () { pausa = true; });
@@ -71,9 +72,39 @@
     var titulo = painel.querySelector("h2");
     if (titulo) titulo.focus({ preventScroll: true });
   }
-  function abrir(id) {
-    var painel = document.getElementById(id);
-    if (!painel || ids.indexOf(id) < 0) return fechar();
+  // ---------- abas (Psiquê) ----------
+  function escolherAba(aba, focar) {
+    var lista = aba.parentNode;
+    lista.querySelectorAll('[role="tab"]').forEach(function (t) {
+      var esta = t === aba;
+      t.setAttribute("aria-selected", String(esta));
+      t.tabIndex = esta ? 0 : -1;
+      document.getElementById(t.getAttribute("aria-controls")).hidden = !esta;
+    });
+    if (focar) aba.focus();
+  }
+  document.querySelectorAll('[role="tab"]').forEach(function (aba) {
+    aba.addEventListener("click", function () {
+      escolherAba(aba);
+      history.replaceState(history.state, "", "#" + aba.getAttribute("data-hash"));
+      mostrar(ids.indexOf(aba.getAttribute("data-hash")));
+    });
+    aba.addEventListener("keydown", function (e) {
+      var todas = Array.prototype.slice.call(aba.parentNode.querySelectorAll('[role="tab"]'));
+      var k = todas.indexOf(aba), alvo = null;
+      if (e.key === "ArrowRight") alvo = todas[(k + 1) % todas.length];
+      if (e.key === "ArrowLeft") alvo = todas[(k - 1 + todas.length) % todas.length];
+      if (e.key === "Home") alvo = todas[0];
+      if (e.key === "End") alvo = todas[todas.length - 1];
+      if (alvo) { e.preventDefault(); alvo.click(); alvo.focus(); }
+    });
+  });
+
+  function abrir(rota) {
+    var r = ROTAS[rota], painel = r && document.getElementById(r[0]);
+    if (!painel) return fechar();
+    if (r[1]) escolherAba(document.getElementById(r[1]));
+    var i = ids.indexOf(rota); mostrar(i < 0 ? 0 : i);
     if (aberto === painel) return;
     paineis.forEach(function (p) {
       var este = p === painel;
@@ -88,7 +119,6 @@
     painel.classList.add("aberto");
     aberto = painel;
     document.body.classList.add("travado");
-    mostrar(ids.indexOf(id));
     focarTitulo(painel);
   }
   function fechar() {
@@ -122,7 +152,7 @@
     if (!a) return;
     var href = a.getAttribute("href");
     if (href === "#") { e.preventDefault(); voltar(); return; }
-    if (href && href.charAt(0) === "#" && ids.indexOf(href.slice(1)) >= 0) {
+    if (href && href.charAt(0) === "#" && ROTAS[href.slice(1)]) {
       e.preventDefault();
       if (aberto) history.replaceState(history.state, "", href);
       else history.pushState({ site: true }, "", href);

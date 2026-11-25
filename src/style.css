@@ -91,6 +91,13 @@ body.travado { overflow: hidden; }
 .cabeca { display: flex; flex-direction: column; gap: 12px; padding: 8px 0 24px; }
 .cabeca h2 { margin: 0; font-size: clamp(56px, 8vw, 120px); overflow-wrap: anywhere; text-transform: uppercase; }
 .cabeca p { margin: 0; font-size: 22px; line-height: 1.35; font-weight: 500; max-width: 40ch; }
+/* abas da Psiquê: app e identidade */
+.abas { display: flex; gap: 40px; border-bottom: 1px solid var(--tinta); margin: 8px 0 32px; }
+.abas [role="tab"] { appearance: none; background: none; border: 0; border-bottom: 5px solid transparent; margin-bottom: -1px; padding: 12px 0 10px; min-height: 48px; font-family: "Satoshi", sans-serif; font-weight: 900; font-size: 26px; line-height: 1.1; color: #5a5f64; cursor: pointer; text-transform: uppercase; }
+.abas [role="tab"][aria-selected="true"] { color: var(--tinta); border-bottom-color: var(--tinta); }
+.abas [role="tab"]:hover { color: var(--tinta); }
+.abas [role="tab"]:focus-visible { outline: 3px solid var(--tinta); outline-offset: 4px; }
+.aba-painel > .intro { margin: 0 0 32px; font-size: 22px; line-height: 1.35; font-weight: 500; max-width: 40ch; }
 
 .grupo { margin: 0; padding: 120px 0 32px; max-width: 24ch; font-size: clamp(26px, 2.6vw, 40px); font-weight: 500; line-height: 1.15; text-wrap: balance; }
 
@@ -139,6 +146,9 @@ body.travado { overflow: hidden; }
 }
 /* fileiras viram coluna só no celular; peças altas não passam de uma tela */
 @media (max-width: 600px) {
+  .abas { gap: 24px; }
+  .abas [role="tab"] { font-size: 18px; }
+  .aba-painel > .intro { font-size: 19px; }
   /* telas do app: uma por vez, deslizando para o lado */
   .telas { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 78%; overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 calc(-1 * var(--margem)); padding: 0 var(--margem) 12px; scroll-padding: 0 var(--margem); }
   .telas img { scroll-snap-align: start; }

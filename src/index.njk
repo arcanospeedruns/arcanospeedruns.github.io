@@ -50,8 +50,7 @@ meta:
 
       <nav aria-label="{% tr %}Projetos<!--en-->Projects{% endtr %}">
         <ul class="projetos">
-          <li><a href="#psique-app" data-slide="0">{% tr %}App Psiquê<!--en-->Psiquê app{% endtr %}</a></li>
-          <li><a href="#psique" data-slide="1">Psiquê</a></li>
+          <li><a href="#psique" data-slide="0">Psiquê</a></li>
           <li><a href="#ruela" data-slide="2">Ruela Discos</a></li>
           <li><a href="#twenty-one-pilots" data-slide="3">twenty one pilots</a></li>
         </ul>
@@ -66,7 +65,7 @@ meta:
     </div>
   </div>
 
-  <a class="moldura" href="#psique-app" aria-label="{% tr %}Abrir o projeto App Psiquê<!--en-->Open the Psiquê app project{% endtr %}" data-rotulos='{% tr %}["Abrir o projeto App Psiquê","Abrir o projeto Psiquê","Abrir o projeto Ruela Discos","Abrir o projeto twenty one pilots"]<!--en-->["Open the Psiquê app project","Open the Psiquê project","Open the Ruela Discos project","Open the twenty one pilots project"]{% endtr %}'>
+  <a class="moldura" href="#psique" aria-label="{% tr %}Abrir o projeto Psiquê, app<!--en-->Open the Psiquê project, app{% endtr %}" data-rotulos='{% tr %}["Abrir o projeto Psiquê, app","Abrir o projeto Psiquê, identidade","Abrir o projeto Ruela Discos","Abrir o projeto twenty one pilots"]<!--en-->["Open the Psiquê project, app","Open the Psiquê project, identity","Open the Ruela Discos project","Open the twenty one pilots project"]{% endtr %}'>
     {#- só a primeira imagem baixa com a página; as outras, o site.js carrega depois (data-srcset) -#}
     <div class="slide atual"><picture><source media="(max-width: 860px)" srcset="{{ A }}abertura-celular.webp"><img src="{{ A }}abertura.webp" srcset="{{ A }}abertura-1200.webp 1200w, {{ A }}abertura.webp 2400w" sizes="73vw" width="2400" height="1800" alt="" fetchpriority="high"></picture></div>
     <div class="slide"><img data-srcset="{{ P }}mockup-placa-1200.webp 1200w, {{ P }}mockup-placa.webp 2160w" sizes="(max-width: 860px) 100vw, 73vw" width="2160" height="1620" alt=""></div>
@@ -75,14 +74,22 @@ meta:
   </a>
 </main>
 
-{#- ================= APP PSIQUÊ ================= #}
-<section class="projeto" id="psique-app" aria-labelledby="t-app">
+{#- ================= PSIQUÊ: APP E IDENTIDADE ================= #}
+{#- um projeto só, com duas abas; #psique abre o app, #psique-identidade abre a identidade (#psique-app continua valendo) -#}
+<section class="projeto" id="psique" aria-labelledby="t-psique">
   <div class="projeto-dentro">
-    <p class="fechar"><span>{% tr %}App Psiquê<!--en-->Psiquê app{% endtr %}</span><a href="#">{% tr %}Fechar<!--en-->Close{% endtr %}</a></p>
+    <p class="fechar"><span>Psiquê</span><a href="#">{% tr %}Fechar<!--en-->Close{% endtr %}</a></p>
     <div class="cabeca">
-      <h2 class="nome" id="t-app" tabindex="-1">{% tr %}App Psiquê<!--en-->Psiquê app{% endtr %}</h2>
-      <p>{% tr %}Conceito de app de agendamento para a clínica Psiquê. Quem procura terapia pode chegar inseguro e desistir no caminho: a meta é marcar a primeira sessão em menos de um minuto.<!--en-->A booking app concept for the Psiquê clinic. People looking for therapy may arrive unsure and give up along the way: the goal is to book a first session in under a minute.{% endtr %}</p>
+      <h2 class="nome" id="t-psique" tabindex="-1">Psiquê</h2>
+      <p>{% tr %}Uma clínica de psicologia, de ponta a ponta: o app para marcar a primeira sessão e a identidade visual que ele usa.<!--en-->A psychology clinic, end to end: the app for booking a first session and the visual identity it uses.{% endtr %}</p>
     </div>
+    <div class="abas" role="tablist" aria-label="Psiquê">
+      <button type="button" role="tab" id="aba-app" aria-controls="psique-app-painel" aria-selected="true" data-hash="psique">{% tr %}App de agendamento<!--en-->Booking app{% endtr %}</button>
+      <button type="button" role="tab" id="aba-identidade" aria-controls="psique-identidade-painel" aria-selected="false" tabindex="-1" data-hash="psique-identidade">{% tr %}Identidade visual<!--en-->Visual identity{% endtr %}</button>
+    </div>
+
+    <div class="aba-painel" role="tabpanel" id="psique-app-painel" aria-labelledby="aba-app">
+    <p class="intro">{% tr %}Quem procura terapia pode chegar inseguro e desistir no caminho: a meta é marcar a primeira sessão em menos de um minuto.<!--en-->People looking for therapy may arrive unsure and give up along the way: the goal is to book a first session in under a minute.{% endtr %}</p>
     <ol class="fluxo">
       <li><strong>{% tr %}Início<!--en-->Home{% endtr %}</strong>{% tr %}Sem login: um botão para agendar e o valor à vista.<!--en-->No login: one button to book, with the price up front.{% endtr %}</li>
       <li><strong>{% tr %}Com quem<!--en-->Who{% endtr %}</strong>{% tr %}O próximo horário livre de cada profissional. Quem não sabe escolher responde 3 perguntas.<!--en-->Each therapist's next free slot. Unsure? Answer 3 questions.{% endtr %}</li>
@@ -114,18 +121,10 @@ meta:
       </figure>
     </div>
 
-    <a class="proximo nome" href="#psique">{% tr %}Próximo: Psiquê<!--en-->Next: Psiquê{% endtr %}</a>
-  </div>
-</section>
-
-{#- ================= PSIQUÊ ================= #}
-<section class="projeto" id="psique" aria-labelledby="t-psique">
-  <div class="projeto-dentro">
-    <p class="fechar"><span>Psiquê</span><a href="#">{% tr %}Fechar<!--en-->Close{% endtr %}</a></p>
-    <div class="cabeca">
-      <h2 class="nome" id="t-psique" tabindex="-1">Psiquê</h2>
-      <p>{% tr %}Identidade visual para uma clínica de psicologia: releitura conceitual de um trabalho que fiz para uma cliente.<!--en-->Visual identity for a psychology clinic: a conceptual reworking of a project I made for a client.{% endtr %}</p>
     </div>
+
+    <div class="aba-painel" role="tabpanel" id="psique-identidade-painel" aria-labelledby="aba-identidade" hidden>
+    <p class="intro">{% tr %}Releitura conceitual de um trabalho que fiz para uma cliente.<!--en-->A conceptual reworking of a project I made for a client.{% endtr %}</p>
     <div class="sangria">
       {{ foto(idioma, P + "mockup-placa.webp", 2160, 1620, "Placa bandeira roxa da Psiquê na fachada, com a borboleta amarela e o nome", "Psiquê's purple blade sign on the building, with the yellow butterfly and the name", "alta", "100vw") | safe }}
       {{ foto(idioma, P + "marca.webp", 2160, 1350, "Marca da Psiquê: a borboleta e o nome, cores e tipografia", "Psiquê brand: the butterfly and the name, colors and type", tam="100vw") | safe }}
@@ -142,6 +141,8 @@ meta:
     <h3 class="grupo">{% tr %}O manual fixa as cores, a tipografia e o tamanho mínimo da borboleta.<!--en-->The guidelines set the colors, the type and the butterfly's minimum size.{% endtr %}</h3>
     <div class="sangria">
       {{ foto(idioma, P + "miv-especificacoes.webp", 2160, 1350, "Página do manual com códigos de cor, hierarquia tipográfica, redução mínima e versões em uma cor", "Guidelines page with color codes, type hierarchy, minimum size and one-color versions", tam="100vw") | safe }}
+    </div>
+
     </div>
 
     <a class="proximo nome" href="#ruela">{% tr %}Próximo: Ruela Discos<!--en-->Next: Ruela Discos{% endtr %}</a>
@@ -224,7 +225,7 @@ meta:
       </div>
     </div>
 
-    <a class="proximo nome" href="#psique-app">{% tr %}Próximo: App Psiquê<!--en-->Next: Psiquê app{% endtr %}</a>
+    <a class="proximo nome" href="#psique">{% tr %}Próximo: Psiquê<!--en-->Next: Psiquê{% endtr %}</a>
   </div>
 </section>
 

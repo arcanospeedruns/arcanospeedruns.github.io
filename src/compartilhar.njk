@@ -5,17 +5,17 @@
 pagination: { data: links, size: 1, alias: l }
 links:
   - { slug: "psique-app", idioma: "pt", titulo: "App Psiquê | Carlos Gouveia", descricao: "Conceito de app para marcar a primeira sessão de terapia, com protótipo navegável." }
-  - { slug: "psique", idioma: "pt", titulo: "Psiquê | Carlos Gouveia", descricao: "Identidade visual para uma clínica de psicologia." }
+  - { slug: "psique", alvo: "psique-identidade", idioma: "pt", titulo: "Psiquê | Carlos Gouveia", descricao: "Identidade visual para uma clínica de psicologia." }
   - { slug: "ruela", idioma: "pt", titulo: "Ruela Discos | Carlos Gouveia", descricao: "Identidade de um selo musical fictício de São Paulo." }
   - { slug: "twenty-one-pilots", idioma: "pt", titulo: "twenty one pilots | Carlos Gouveia", descricao: "Redesign acadêmico da identidade da banda para um disco fictício." }
   - { slug: "psique-app", idioma: "en", titulo: "Psiquê app | Carlos Gouveia", descricao: "A concept app for booking a first therapy session, with a clickable prototype." }
-  - { slug: "psique", idioma: "en", titulo: "Psiquê | Carlos Gouveia", descricao: "Visual identity for a psychology clinic." }
+  - { slug: "psique", alvo: "psique-identidade", idioma: "en", titulo: "Psiquê | Carlos Gouveia", descricao: "Visual identity for a psychology clinic." }
   - { slug: "ruela", idioma: "en", titulo: "Ruela Discos | Carlos Gouveia", descricao: "Identity for a fictional São Paulo record label." }
   - { slug: "twenty-one-pilots", idioma: "en", titulo: "twenty one pilots | Carlos Gouveia", descricao: "Academic redesign of the band's identity for a fictional album." }
 permalink: "{{ '/en' if l.idioma == 'en' }}/p/{{ l.slug }}/"
 eleventyExcludeFromCollections: true
 ---
-{%- set destino = ('/en/' if l.idioma == 'en' else '/') + '#' + l.slug -%}
+{%- set destino = ('/en/' if l.idioma == 'en' else '/') + '#' + (l.alvo or l.slug) -%}
 <!DOCTYPE html>
 <html lang="{{ 'en' if l.idioma == 'en' else 'pt-BR' }}">
 <head>
