@@ -84,11 +84,11 @@ meta:
       <p>{% tr %}Uma clínica de psicologia, de ponta a ponta: o app para marcar a primeira sessão e a identidade visual que ele usa.<!--en-->A psychology clinic, end to end: the app for booking a first session and the visual identity it uses.{% endtr %}</p>
     </div>
     <div class="abas" role="tablist" aria-label="Psiquê">
-      <button type="button" role="tab" id="aba-app" aria-controls="psique-app-painel" aria-selected="true" data-hash="psique">{% tr %}App de agendamento<!--en-->Booking app{% endtr %}</button>
-      <button type="button" role="tab" id="aba-identidade" aria-controls="psique-identidade-painel" aria-selected="false" tabindex="-1" data-hash="psique-identidade">{% tr %}Identidade visual<!--en-->Visual identity{% endtr %}</button>
+      <button type="button" role="tab" id="aba-app" aria-controls="psique-app" aria-selected="true" data-hash="psique">{% tr %}App de agendamento<!--en-->Booking app{% endtr %}</button>
+      <button type="button" role="tab" id="aba-identidade" aria-controls="psique-identidade" aria-selected="false" tabindex="-1" data-hash="psique-identidade">{% tr %}Identidade visual<!--en-->Visual identity{% endtr %}</button>
     </div>
 
-    <div class="aba-painel" role="tabpanel" id="psique-app-painel" aria-labelledby="aba-app">
+    <div class="aba-painel" role="tabpanel" id="psique-app" aria-labelledby="aba-app">
     <p class="intro">{% tr %}Quem procura terapia pode chegar inseguro e desistir no caminho: a meta é marcar a primeira sessão em menos de um minuto.<!--en-->People looking for therapy may arrive unsure and give up along the way: the goal is to book a first session in under a minute.{% endtr %}</p>
     <ol class="fluxo">
       <li><strong>{% tr %}Início<!--en-->Home{% endtr %}</strong>{% tr %}Sem login: um botão para agendar e o valor à vista.<!--en-->No login: one button to book, with the price up front.{% endtr %}</li>
@@ -123,7 +123,7 @@ meta:
 
     </div>
 
-    <div class="aba-painel" role="tabpanel" id="psique-identidade-painel" aria-labelledby="aba-identidade" hidden>
+    <div class="aba-painel" role="tabpanel" id="psique-identidade" aria-labelledby="aba-identidade" hidden>
     <p class="intro">{% tr %}Releitura conceitual de um trabalho que fiz para uma cliente.<!--en-->A conceptual reworking of a project I made for a client.{% endtr %}</p>
     <div class="sangria">
       {{ foto(idioma, P + "mockup-placa.webp", 2160, 1620, "Placa bandeira roxa da Psiquê na fachada, com a borboleta amarela e o nome", "Psiquê's purple blade sign on the building, with the yellow butterfly and the name", "alta", "100vw") | safe }}
