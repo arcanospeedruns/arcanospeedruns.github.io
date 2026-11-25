@@ -5,7 +5,7 @@ permalink: "{{ '/en' if idioma == 'en' }}/"
 caminho: "/"
 titulo: "Carlos Gouveia | Product designer"
 ogTitulo: "Carlos Gouveia | Product designer"
-preload: ["/fonts/satoshi-900.woff2", "/fonts/switzer-500.woff2"]
+preload: ["/fonts/satoshi-900.woff2", "/fonts/switzer-500.woff2", "/fonts/switzer-400.woff2"]
 scripts: ["/site.js"]
 meta:
   pt:
@@ -84,7 +84,7 @@ meta:
       <p>{% tr %}Conceito de app de agendamento para a clínica Psiquê. Quem procura terapia pode chegar inseguro e desistir no caminho: a meta é marcar a primeira sessão em menos de um minuto.<!--en-->A booking app concept for the Psiquê clinic. People looking for therapy may arrive unsure and give up along the way: the goal is to book a first session in under a minute.{% endtr %}</p>
     </div>
     <ol class="fluxo">
-      <li><strong>{% tr %}Início<!--en-->Home{% endtr %}</strong>{% tr %}Ainda sem sessões e um botão: agendar.<!--en-->No sessions yet and one button: book.{% endtr %}</li>
+      <li><strong>{% tr %}Início<!--en-->Home{% endtr %}</strong>{% tr %}Sem login: um botão para agendar e o valor à vista.<!--en-->No login: one button to book, with the price up front.{% endtr %}</li>
       <li><strong>{% tr %}Com quem<!--en-->Who{% endtr %}</strong>{% tr %}O próximo horário livre de cada profissional. Quem não sabe escolher responde 3 perguntas.<!--en-->Each therapist's next free slot. Unsure? Answer 3 questions.{% endtr %}</li>
       <li><strong>{% tr %}Quando<!--en-->When{% endtr %}</strong>{% tr %}Online ou no consultório, horários livres, valor e regra de cancelamento já à vista.<!--en-->Online or in person, free slots, price and cancellation rule in plain sight.{% endtr %}</li>
       <li><strong>{% tr %}Seus dados<!--en-->Your details{% endtr %}</strong>{% tr %}Só nome e celular, com código por SMS. Antes disso, nada de cadastro.<!--en-->Just a name and phone number, with an SMS code. No sign-up before this.{% endtr %}</li>
@@ -92,25 +92,25 @@ meta:
     </ol>
 
     <h3 class="grupo">{% tr %}Uma dúvida por tela, e o cadastro só no fim.<!--en-->One question per screen, and sign-up only at the end.{% endtr %}</h3>
-    <div class="telas">
+    <p class="prototipo"><a href="/prototipo/">{% tr %}Testar o protótipo navegável<!--en-->Try the clickable prototype (in Portuguese){% endtr %}</a></p>
+    <div class="telas" role="region" tabindex="0" aria-label="{% tr %}Telas do app<!--en-->App screens{% endtr %}">
       {{ foto(idioma, A + "tela-1-inicio.webp", 780, 1688, "Início: dá para ver profissionais e horários sem cadastro", "Home: browse therapists and times without signing up", tam="(max-width: 600px) 320px, 30vw") | safe }}
-      {{ foto(idioma, A + "tela-2-profissional.webp", 780, 1688, "Lista de profissionais com o próximo horário livre de cada uma e o atalho Não sei escolher", "List of therapists with each one's next free slot and a Help me choose shortcut", tam="(max-width: 600px) 320px, 30vw") | safe }}
+      {{ foto(idioma, A + "tela-2-profissional.webp", 780, 1688, "Lista de profissionais com o próximo horário livre de cada profissional e o atalho Não sei escolher", "List of therapists with each one's next free slot and a Help me choose shortcut", tam="(max-width: 600px) 320px, 30vw") | safe }}
       {{ foto(idioma, A + "tela-3-horario.webp", 780, 1688, "Escolha do horário: online ou no consultório, dias com hoje marcado, valor e regra de cancelamento", "Picking a time: online or in person, today marked, price and cancellation rule", tam="(max-width: 600px) 320px, 30vw") | safe }}
       {{ foto(idioma, A + "tela-4-cadastro.webp", 780, 1688, "Seus dados: só nome e celular, com código por SMS, ou entrar com Google", "Your details: just name and phone, with an SMS code, or continue with Google", tam="(max-width: 600px) 320px, 30vw") | safe }}
       {{ foto(idioma, A + "tela-5-confirmar.webp", 780, 1688, "Confirmar: resumo, regra de cancelamento para sessão de hoje e forma de pagamento", "Confirm: summary, the cancellation rule for a same-day session and payment method", tam="(max-width: 600px) 320px, 30vw") | safe }}
       {{ foto(idioma, A + "tela-6-agendado.webp", 780, 1688, "Sessão agendada, com o pagamento confirmado e os lembretes", "Session booked, with payment confirmed and reminders", tam="(max-width: 600px) 320px, 30vw") | safe }}
     </div>
-    <p class="prototipo"><a href="/prototipo/">{% tr %}Testar o protótipo navegável<!--en-->Try the clickable prototype (in Portuguese){% endtr %}</a></p>
 
-    <h3 class="grupo">{% tr %}A mudança que mais corta passos: o próximo horário livre já aparece na lista.<!--en-->The change that cuts the most steps: the next free slot shows right in the list.{% endtr %}</h3>
+    <h3 class="grupo">{% tr %}O próximo horário livre já aparece na lista: comparar três profissionais passa de 6 toques para nenhum.<!--en-->The next free slot shows right in the list: comparing three therapists goes from 6 taps to none.{% endtr %}</h3>
     <div class="decisao">
       <figure>
         {{ foto(idioma, A + "lista-antes.webp", 1280, 840, "Primeira ideia: lista só com nome e abordagem, e um link Ver agenda em cada profissional", "First idea: a list with name and approach only, and a See calendar link for each therapist") | safe }}
-        <figcaption>{% tr %}Primeira ideia, comum em apps de saúde: para comparar horários, é preciso abrir a agenda de cada profissional e voltar.<!--en-->First idea, common in health apps: to compare times you have to open each therapist's calendar and go back.{% endtr %}</figcaption>
+        <figcaption>{% tr %}Primeira ideia: para comparar horários, é preciso abrir a agenda de cada profissional e voltar.<!--en-->First idea: to compare times you have to open each therapist's calendar and go back.{% endtr %}</figcaption>
       </figure>
       <figure>
         {{ foto(idioma, A + "lista-depois.webp", 1280, 840, "Versão final: cada profissional já mostra o próximo horário livre", "Final version: each therapist shows the next free slot", classe="destaque") | safe }}
-        <figcaption>{% tr %}Versão final. Meta: 7 de cada 10 pessoas que abrem a lista chegam a confirmar, em menos de um minuto.<!--en-->Final version. Goal: 7 in 10 people who open the list go on to confirm, in under a minute.{% endtr %}</figcaption>
+        <figcaption>{% tr %}Versão final. O risco é escolher pela agenda e não pela abordagem, por isso o Não sei escolher fica logo abaixo. Meta para o teste com pessoas: 7 de cada 10 vão da lista até Confirmar em menos de um minuto.<!--en-->Final version. The risk is choosing by calendar rather than approach, so Help me choose sits right below. Goal for testing with people: 7 in 10 go from the list to Confirm in under a minute.{% endtr %}</figcaption>
       </figure>
     </div>
 
@@ -128,6 +128,7 @@ meta:
     </div>
     <div class="sangria">
       {{ foto(idioma, P + "mockup-placa.webp", 2160, 1620, "Placa bandeira roxa da Psiquê na fachada, com a borboleta amarela e o nome", "Psiquê's purple blade sign on the building, with the yellow butterfly and the name", "alta", "100vw") | safe }}
+      {{ foto(idioma, P + "marca.webp", 2160, 1350, "Marca da Psiquê: a borboleta e o nome, cores e tipografia", "Psiquê brand: the butterfly and the name, colors and type", tam="100vw") | safe }}
     </div>
 
     <h3 class="grupo">{% tr %}Um folder explica a terapia antes da primeira consulta. No Instagram, cada post é um convite curto para conversar.<!--en-->A leaflet explains therapy before the first session. On Instagram, each post is a short invitation to talk.{% endtr %}</h3>
@@ -140,7 +141,6 @@ meta:
 
     <h3 class="grupo">{% tr %}O manual fixa as cores, a tipografia e o tamanho mínimo da borboleta.<!--en-->The guidelines set the colors, the type and the butterfly's minimum size.{% endtr %}</h3>
     <div class="sangria">
-      {{ foto(idioma, P + "marca.webp", 2160, 1350, "Marca da Psiquê: a borboleta e o nome, cores e tipografia", "Psiquê brand: the butterfly and the name, colors and type", tam="100vw") | safe }}
       {{ foto(idioma, P + "miv-especificacoes.webp", 2160, 1350, "Página do manual com códigos de cor, hierarquia tipográfica, redução mínima e versões em uma cor", "Guidelines page with color codes, type hierarchy, minimum size and one-color versions", tam="100vw") | safe }}
     </div>
 
@@ -163,9 +163,9 @@ meta:
     <h3 class="grupo">{% tr %}Cada lançamento leva a etiqueta do selo e um número de catálogo.<!--en-->Every release carries the label's mark and a catalog number.{% endtr %}</h3>
     <div class="sangria">
       <div class="fileira">
-        {{ foto(idioma, R + "capa-ultimo-onibus.webp", 1400, 1400, "Capa do EP Último ônibus, de Mira Lume, número 001", "Cover of the EP Último ônibus by Mira Lume, number 001") | safe }}
-        {{ foto(idioma, R + "capa-sem-freio.webp", 1400, 1400, "Capa de Sem freio, de Bento Sol, número 002", "Cover of Sem freio by Bento Sol, number 002") | safe }}
         {{ foto(idioma, R + "capa-vao-livre.webp", 1400, 1400, "Capa de Vão livre, do Coletivo Vão, número 003", "Cover of Vão livre by Coletivo Vão, number 003") | safe }}
+        {{ foto(idioma, R + "capa-sem-freio.webp", 1400, 1400, "Capa de Sem freio, de Bento Sol, número 002", "Cover of Sem freio by Bento Sol, number 002") | safe }}
+        {{ foto(idioma, R + "capa-ultimo-onibus.webp", 1400, 1400, "Capa do EP Último ônibus, de Mira Lume, número 001", "Cover of the EP Último ônibus by Mira Lume, number 001") | safe }}
       </div>
     </div>
 

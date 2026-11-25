@@ -16,14 +16,18 @@
 
   // ---------- troca das imagens ----------
   // as imagens 2 a 4 só baixam depois que a página terminou de carregar
+  // e só se a imagem estiver na tela (no celular ela fica abaixo do nome)
+  var pronto = false;
   function carregarSlides() {
+    if (!pronto || !visivel) return;
     document.querySelectorAll(".slide img[data-srcset]").forEach(function (img) {
       img.srcset = img.getAttribute("data-srcset");
       img.removeAttribute("data-srcset");
     });
   }
-  if (document.readyState === "complete") carregarSlides();
-  else window.addEventListener("load", carregarSlides);
+  function aoCarregar() { pronto = true; carregarSlides(); }
+  if (document.readyState === "complete") setTimeout(aoCarregar, 0);
+  else window.addEventListener("load", aoCarregar);
 
   function mostrar(i) {
     atual = i;
@@ -44,8 +48,11 @@
     }, INTERVALO);
   }
   if ("IntersectionObserver" in window) {
-    new IntersectionObserver(function (e) { visivel = e[0].isIntersecting; }, { threshold: 0.5 }).observe(moldura);
+    visivel = false;
+    new IntersectionObserver(function (e) { visivel = e[0].isIntersecting; carregarSlides(); }, { threshold: 0.5 }).observe(moldura);
   }
+  // no toque não há mouse para pausar: o primeiro toque na página para a troca de vez
+  window.addEventListener("touchstart", function () { trocas = ids.length; clearInterval(timer); }, { once: true, passive: true });
   // com o mouse na imagem ou na lista, ou o foco de teclado nelas, a troca para
   [moldura, document.querySelector(".projetos")].forEach(function (el) {
     el.addEventListener("mouseenter", function () { pausa = true; });

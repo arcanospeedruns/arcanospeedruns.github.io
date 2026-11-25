@@ -44,6 +44,7 @@ a { color: inherit; text-underline-offset: 4px; text-decoration-thickness: 1px; 
 .marca { display: block; width: 44px; height: 44px; }
 .marca svg { display: block; width: 100%; height: 100%; }
 .idioma { margin: 0; font-size: 16px; }
+.idioma a { padding: 0 12px; margin: 0 -12px; }
 .idioma [aria-current] { font-weight: 500; }
 
 .apresentacao { display: flex; flex-direction: column; gap: 28px; }
@@ -65,7 +66,8 @@ a { color: inherit; text-underline-offset: 4px; text-decoration-thickness: 1px; 
 .moldura:focus-visible::after { content: ""; position: absolute; inset: 8px; z-index: 1; border: 3px solid var(--amarelo); box-shadow: 0 0 0 3px #000; pointer-events: none; }
 .slide { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 450ms ease; }
 .slide.atual { opacity: 1; }
-.slide > img { width: 100%; height: 100%; object-fit: cover; }
+.slide > img, .slide > picture, .slide > picture > img { width: 100%; height: 100%; object-fit: cover; }
+.slide > picture { display: block; }
 .slide > img.capa { width: auto; height: 78%; max-width: 78%; object-fit: contain; }
 
 /* ---------- 4. Área do projeto ---------- */
@@ -107,9 +109,13 @@ body.travado { overflow: hidden; }
 .fluxo li { counter-increment: passo; background: #3b2c6b; color: #e8e2f4; padding: 24px; font-size: 17px; line-height: 1.4; }
 .fluxo li::before { content: counter(passo); display: block; font-family: "Satoshi", sans-serif; font-weight: 900; font-size: 36px; line-height: 1; color: #f5c842; margin-bottom: 12px; }
 .fluxo strong { display: block; color: #fff; font-size: 20px; font-weight: 500; margin-bottom: 6px; }
-.telas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--vao); max-width: 1100px; }
+.telas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--vao); }
+@media (min-width: 1200px) { .telas { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
 .telas img { width: 100%; outline: 1px solid var(--fio); outline-offset: -1px; }
-.prototipo { margin: 24px 0 0; font-size: 20px; font-weight: 500; }
+.prototipo { margin: 0 0 32px; }
+.prototipo a { display: inline-flex; align-items: center; gap: 16px; min-height: 64px; padding: 16px 28px; background: var(--tinta); color: var(--fundo); text-decoration: none; font-family: "Satoshi", sans-serif; font-weight: 900; font-size: 24px; line-height: 1.1; }
+.prototipo a::after { content: "\2192"; font-family: "Switzer", sans-serif; font-weight: 500; }
+.prototipo a:hover, .prototipo a:focus-visible { background: #3b2c6b; }
 .decisao { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
 .decisao figure { margin: 0; display: flex; flex-direction: column; gap: 16px; }
 .decisao img { width: 100%; }
@@ -133,7 +139,10 @@ body.travado { overflow: hidden; }
 }
 /* fileiras viram coluna só no celular; peças altas não passam de uma tela */
 @media (max-width: 600px) {
-  .telas { grid-template-columns: minmax(0, 1fr); max-width: 320px; margin: 0 auto; }
+  /* telas do app: uma por vez, deslizando para o lado */
+  .telas { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 78%; overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 calc(-1 * var(--margem)); padding: 0 var(--margem) 12px; scroll-padding: 0 var(--margem); }
+  .telas img { scroll-snap-align: start; }
+  .prototipo a { font-size: 20px; padding: 14px 20px; }
   .fileira { flex-direction: column; }
   .fileira > img { flex: none; width: 100%; max-height: 80svh; object-fit: contain; }
 }

@@ -11,6 +11,9 @@ from html import escape
 from playwright.sync_api import sync_playwright
 
 RAIZ = Path(__file__).resolve().parent.parent
+def fonte(arq):
+    """As mesmas fontes do site, embutidas (a página do currículo não tem endereço para buscar arquivos)."""
+    return "data:font/woff2;base64," + __import__("base64").b64encode((RAIZ / "src" / "fonts" / arq).read_bytes()).decode()
 EMAIL = "arcanospeedruns@gmail.com"
 CHROME = __import__("os").environ.get("CHROME")  # opcional: caminho de um Chrome já instalado
 
@@ -18,42 +21,42 @@ CV = {
     "pt": {
         "arquivo": "src/curriculo.pdf",
         "lang": "pt-BR",
-        "titulo": "Product Designer · UI/UX · Design Visual · Front-end · Dados",
+        "titulo": "Product Designer · UI/UX",
         "contato": ["São Paulo, SP", EMAIL, "linkedin.com/in/carloslnly", "carlosgouveia.is-a.dev"],
         "secoes": {"resumo": "Resumo", "proj": "Projetos", "exp": "Experiência", "comp": "Competências", "form": "Formação", "vol": "Voluntariado"},
         "resumo": (
             "Product designer com base em design gráfico, desenvolvimento e dados. Desenho fluxos e interfaces do problema à "
-            "tela, com protótipos navegáveis e métricas para orientar decisões. Experiência com levantamento de requisitos, "
+            "tela, com protótipos navegáveis. Experiência com levantamento de requisitos, "
             "documentação de produto e times internacionais em inglês. Cursando Ciência da Computação na PUC-SP, graduado em "
             "Análise e Desenvolvimento de Sistemas e técnico em Design Gráfico."
         ),
         "proj": [
-            ("App Psiquê", "conceito de app de agendamento", "Fluxo de 5 passos para marcar a primeira sessão de terapia, 6 telas e protótipo navegável. Decisões: mostrar o próximo horário livre já na lista e pedir cadastro só na confirmação."),
-            ("Psiquê", "identidade visual", "Marca, manual e aplicações (placa, folder, Instagram) para uma clínica de psicologia, releitura de um trabalho para cliente."),
+            ("App Psiquê", "conceito de app de agendamento", "Fluxo de 5 passos para marcar a primeira sessão de terapia em menos de 1 minuto, 6 telas e protótipo navegável. Decisões: mostrar o próximo horário livre já na lista e pedir cadastro só na confirmação.", [("ver o caso", "https://carlosgouveia.is-a.dev/#psique-app"), ("protótipo", "https://carlosgouveia.is-a.dev/prototipo/")]),
+            ("Psiquê", "identidade visual", "Marca, manual e aplicações para uma clínica de psicologia, releitura de um trabalho para cliente."),
             ("Ruela Discos", "identidade de selo musical fictício", "Marca, sistema de capas numeradas, cartaz e post de lançamento."),
             ("twenty one pilots", "redesign acadêmico, não oficial", "Sistema de marca para um disco fictício: manual, papelaria, marketing e brindes."),
         ],
         "exp": [
             ("Social Media Manager", "Freelance, nicho de educação", "out/2026 – atual", [
-                "Planejamento editorial e criação de peças para atrair alunos a um curso técnico, ajustando a estratégia pelo desempenho das publicações.",
+                "Planejo o calendário editorial e crio peças para atrair alunos a um curso técnico, ajustando a estratégia pelo desempenho das publicações.",
             ]),
             ("Analista de Dados (Estágio)", "Cignamed", "mai/2026 – out/2026", [
-                "Desenho e desenvolvimento de dashboards e aplicações web que a equipe de pesquisa usava para acompanhar indicadores e decidir.",
-                "Desenho de formulários de coleta no REDCap, com regras de validação para evitar erros na origem.",
-                "Unificação de três bases com nomenclaturas distintas (cerca de 950 mil respostas): um processo de cerca de 2 meses passou a levar 2 minutos.",
-                "Auditoria de qualidade: mais de 200 duplicidades e centenas de inconsistências tratadas, com correções documentadas.",
-            ]),
-            ("Analista de Produto e Dados", "OrderHub (freelance)", "mar/2025 – jul/2025", [
-                "Definição de KPIs do produto e da operação e construção dos relatórios usados pela liderança.",
-                "Documentação funcional de fluxos, regras de negócio e dependências, e acompanhamento de testes e validações.",
-                "Planejamento e refinamento com time internacional, em inglês.",
+                "Desenhei e desenvolvi dashboards e aplicações web que a equipe de pesquisa usava para acompanhar indicadores e tomar decisões.",
+                "Desenhei formulários de coleta no REDCap, com regras de validação para evitar erros na origem.",
+                "Unifiquei três bases com nomenclaturas distintas (cerca de 950 mil respostas): um processo de cerca de 2 meses passou a levar 2 minutos.",
+                "Fiz a auditoria de qualidade: tratei mais de 200 duplicidades e centenas de inconsistências, com correções documentadas.",
             ]),
             ("Gerente de Projetos", "BlazingBoost (freelance)", "jan/2025 – dez/2025", [
-                "Coordenação de 2 equipes de 6 pessoas atendendo 30 clientes simultâneos, com práticas ágeis e comunicação em inglês.",
-                "Levantamento de requisitos com stakeholders e mapeamento de fluxos operacionais em especificações para as equipes.",
+                "Coordenei 2 equipes de 6 pessoas atendendo 30 clientes simultâneos, com práticas ágeis e comunicação em inglês.",
+                "Levantei requisitos com stakeholders e transformei fluxos operacionais em especificações para as equipes.",
+            ]),
+            ("Analista de Produto e Dados", "OrderHub (freelance)", "mar/2025 – jul/2025", [
+                "Defini KPIs do produto e da operação e construí os relatórios usados pela liderança.",
+                "Escrevi a documentação funcional de fluxos, regras de negócio e dependências, e acompanhei testes e validações.",
+                "Participei do planejamento e do refinamento com time internacional, em inglês.",
             ]),
             ("Designer Gráfico", "Freelance", "projetos pontuais", [
-                "Identidades visuais e peças gráficas para clientes, entre elas a identidade de uma clínica de psicologia.",
+                "Criei identidades visuais e peças gráficas para clientes, entre elas a identidade de uma clínica de psicologia.",
             ]),
         ],
         "comp": [
@@ -75,24 +78,24 @@ CV = {
     "en": {
         "arquivo": "src/curriculo-en.pdf",
         "lang": "en",
-        "titulo": "Product Designer · UI/UX · Visual Design · Front-end · Data",
+        "titulo": "Product Designer · UI/UX",
         "contato": ["São Paulo, Brazil", EMAIL, "linkedin.com/in/carloslnly", "carlosgouveia.is-a.dev"],
         "secoes": {"resumo": "Summary", "proj": "Projects", "exp": "Experience", "comp": "Skills", "form": "Education", "vol": "Volunteering"},
         "resumo": (
             "Product designer with a background in graphic design, software development and data. I design flows and "
-            "interfaces from problem to screen, using clickable prototypes and metrics to guide decisions. Experience with "
+            "interfaces from problem to screen, with clickable prototypes. Experience with "
             "requirements gathering, product documentation and international teams in English. Computer Science student at "
-            "PUC-SP, graduate in Systems Analysis and Development and graphic design technician."
+            "PUC-SP; holds a technologist degree in Systems Analysis and Development and a technical diploma in graphic design."
         ),
         "proj": [
-            ("Psiquê app", "booking app concept", "A 5-step flow to book a first therapy session, 6 screens and a clickable prototype. Decisions: show the next free slot right in the list and ask for sign-up only at confirmation."),
-            ("Psiquê", "visual identity", "Logo, guidelines and collateral (sign, leaflet, Instagram) for a psychology clinic, reworking a project made for a client."),
+            ("Psiquê app", "booking app concept", "A 5-step flow to book a first therapy session in under a minute, 6 screens and a clickable prototype. Decisions: show the next free slot right in the list and ask for sign-up only at confirmation.", [("case study", "https://carlosgouveia.is-a.dev/en/#psique-app"), ("prototype", "https://carlosgouveia.is-a.dev/prototipo/")]),
+            ("Psiquê", "visual identity", "Logo, guidelines and collateral for a psychology clinic, reworking a project made for a client."),
             ("Ruela Discos", "identity for a fictional record label", "Logo, a numbered cover system, party poster and release post."),
             ("twenty one pilots", "academic, unofficial redesign", "Brand system for a fictional album: guidelines, stationery, marketing and merch."),
         ],
         "exp": [
             ("Social Media Manager", "Freelance, education niche", "Oct 2026 – present", [
-                "Content planning and design to attract students to a technical course, adjusting the strategy based on post performance.",
+                "Plan content and design posts to attract students to a technical course, adjusting the strategy based on post performance.",
             ]),
             ("Data Analyst (Intern)", "Cignamed", "May 2026 – Oct 2026", [
                 "Designed and built dashboards and web apps the research team used to track indicators and make decisions.",
@@ -100,17 +103,17 @@ CV = {
                 "Merged three databases with different naming (about 950K answers): a process that took about 2 months now takes 2 minutes.",
                 "Data quality audit: 200+ duplicates and hundreds of inconsistencies fixed, with documented corrections.",
             ]),
-            ("Product and Data Analyst", "OrderHub (freelance)", "Mar 2025 – Jul 2025", [
-                "Defined product and operations KPIs and built the reports used by leadership.",
-                "Wrote functional documentation of flows, business rules and dependencies, and followed tests and validations.",
-                "Planning and refinement with an international team, in English.",
-            ]),
             ("Project Manager", "BlazingBoost (freelance)", "Jan 2025 – Dec 2025", [
                 "Coordinated 2 teams of 6 people serving 30 concurrent clients, with agile practices and communication in English.",
                 "Gathered requirements from stakeholders and mapped operational flows into specifications for the teams.",
             ]),
+            ("Product and Data Analyst", "OrderHub (freelance)", "Mar 2025 – Jul 2025", [
+                "Defined product and operations KPIs and built the reports used by leadership.",
+                "Wrote functional documentation of flows, business rules and dependencies, and followed up on testing and validation.",
+                "Took part in planning and refinement with an international team, in English.",
+            ]),
             ("Graphic Designer", "Freelance", "occasional projects", [
-                "Visual identities and graphic pieces for clients, including the identity for a psychology clinic.",
+                "Created visual identities and graphic pieces for clients, including the identity for a psychology clinic.",
             ]),
         ],
         "comp": [
@@ -132,24 +135,25 @@ CV = {
 }
 
 CSS = """
-@font-face { font-family: C; src: url('file:///usr/share/fonts/truetype/crosextra/Carlito-Regular.ttf'); }
-@font-face { font-family: C; font-weight: 700; src: url('file:///usr/share/fonts/truetype/crosextra/Carlito-Bold.ttf'); }
-@font-face { font-family: C; font-style: italic; src: url('file:///usr/share/fonts/truetype/crosextra/Carlito-Italic.ttf'); }
+@font-face { font-family: C; src: url('F400') format('woff2'); }
+@font-face { font-family: C; font-weight: 700; src: url('F500') format('woff2'); }
 @page { size: A4; margin: 13mm 15mm 11mm; }
 * { box-sizing: border-box; }
-body { margin: 0; font-family: C, Carlito, Calibri, sans-serif; font-size: 9.4pt; line-height: 1.26; color: #222; }
+/* sem ligaduras: "fl" e "fi" viram um caractere só e o leitor automático de currículos não acha a palavra */
+body { margin: 0; font-family: C, sans-serif; font-size: 9pt; line-height: 1.28; color: #222; font-variant-ligatures: none; font-feature-settings: "liga" 0, "clig" 0; }
 h1 { margin: 0; font-size: 21pt; color: #1f3864; line-height: 1.1; }
 .titulo { margin: 2pt 0 0; font-size: 10.5pt; color: #2e5597; }
 .contato { margin: 3pt 0 0; font-size: 9pt; color: #444; }
 .contato a { color: inherit; text-decoration: none; }
 h2 { margin: 10pt 0 4pt; padding-bottom: 2pt; border-bottom: 1.2pt solid #1f3864;
-     font-size: 9.5pt; letter-spacing: 0.14em; text-transform: uppercase; color: #1f3864; }
+     font-size: 9.5pt; text-transform: uppercase; color: #1f3864; }
 p { margin: 0; }
 .item { margin-top: 5pt; break-inside: avoid; }
 .item:first-of-type { margin-top: 0; }
 .cab b { color: #111; }
 .sep { color: #888; padding: 0 3pt; }
-.quando { font-style: italic; color: #666; padding-left: 5pt; }
+.quando { color: #666; padding-left: 5pt; }
+.links a { color: #2e5597; }
 ul { margin: 2pt 0 0; padding-left: 13pt; }
 li { margin: 1pt 0; }
 .comp p { margin: 1.5pt 0; }
@@ -171,13 +175,18 @@ def montar(c):
         else:
             contato.append(e(x))
     s = c["secoes"]
-    h = [f'<!doctype html><html lang="{c["lang"]}"><head><meta charset="utf-8"><title>Carlos Gouveia</title><style>{CSS}</style></head><body>']
+    h = [f'<!doctype html><html lang="{c["lang"]}"><head><meta charset="utf-8"><title>Carlos Gouveia</title><style>{CSS.replace("F400", fonte("switzer-400.woff2")).replace("F500", fonte("switzer-500.woff2"))}</style></head><body>']
     h.append('<h1>Carlos Gouveia</h1>')
     h.append(f'<p class="titulo">{e(c["titulo"])}</p>')
     h.append(f'<p class="contato">{"<span class=sep>·</span>".join(contato)}</p>')
     h.append(f'<h2>{s["resumo"]}</h2><p>{e(c["resumo"])}</p>')
     h.append(f'<h2>{s["proj"]}</h2><div class="form">')
-    h += [f'<p><b>{e(a)}</b><span class="sep">|</span>{e(b)}. {e(d)}</p>' for a, b, d in c["proj"]]
+    for proj in c["proj"]:
+        a, b, d = proj[:3]
+        links = proj[3] if len(proj) > 3 else []
+        extra = "".join(f'<span class="sep">·</span><a href="{e(u)}">{e(t)}</a>' for t, u in links)
+        nome = f'<a href="{e(links[0][1])}" style="color:inherit;text-decoration:none">{e(a)}</a>' if links else e(a)
+        h.append(f'<p class="links"><b>{nome}</b><span class="sep">|</span>{e(b)}. {e(d)}{extra}</p>')
     h.append('</div>')
     h.append(f'<h2>{s["exp"]}</h2>')
     for cargo, onde, quando, itens in c["exp"]:
@@ -200,6 +209,7 @@ if __name__ == "__main__":
         pg = nav.new_page()
         for c in CV.values():
             pg.set_content(montar(c), wait_until="load")
+            pg.evaluate("document.fonts.ready.then(() => true)")
             pg.pdf(path=str(RAIZ / c["arquivo"]), format="A4", prefer_css_page_size=True)
             print("gerado:", c["arquivo"])
         nav.close()

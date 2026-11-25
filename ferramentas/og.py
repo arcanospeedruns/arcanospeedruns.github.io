@@ -46,21 +46,25 @@ def fonte(arquivo):
 
 
 def cartao_site(titulo, t):
-    """Cartão 1200x630 no visual do site: fundo cinza-claro, gato, nome grande e Product designer."""
+    """Cartão 1200x630 no visual do site: gato, nome grande e Product designer à esquerda; à direita, uma tela do App Psiquê."""
     grande = "CARLOS<br>GOUVEIA" if titulo == "CARLOS GOUVEIA" else html.escape(titulo)
+    trabalho = "data:image/webp;base64," + base64.b64encode((SITE / "projetos/psique-app/abertura-celular.webp").read_bytes()).decode()
     return f"""<!doctype html><html><head><meta charset="utf-8"><style>
 @font-face{{font-family:Satoshi;font-weight:900;src:url({fonte('satoshi-900.woff2')}) format("woff2")}}
 @font-face{{font-family:Switzer;font-weight:500;src:url({fonte('switzer-500.woff2')}) format("woff2")}}
 *{{box-sizing:border-box}}html,body{{margin:0}}
-body{{width:1200px;height:630px;overflow:hidden;background:#e6e7e8;color:#000;padding:56px 64px;display:flex;flex-direction:column;justify-content:space-between;font-family:Switzer}}
+body{{width:1200px;height:630px;overflow:hidden;background:#e6e7e8;color:#000;display:grid;grid-template-columns:1fr 430px;font-family:Switzer}}
+.texto{{padding:56px 56px 52px 64px;display:flex;flex-direction:column;justify-content:space-between}}
+.trabalho{{background:url({trabalho}) center/cover}}
 .gato{{width:84px;height:84px;background:#ffd60a;display:grid;place-items:center}}
 .gato svg{{height:56px;width:auto;color:#000}}
-h1{{margin:0;font-family:Satoshi;font-weight:900;font-size:150px;line-height:.9}}
+h1{{margin:0;font-family:Satoshi;font-weight:900;font-size:118px;line-height:.9}}
 .base{{display:flex;justify-content:space-between;align-items:baseline;font-size:28px;font-weight:500;border-top:2px solid #000;padding-top:20px}}
 </style></head><body>
-<div class="gato">{GATO}</div>
+<div class="texto"><div class="gato">{GATO}</div>
 <h1>{grande}</h1>
-<div class="base"><span>{t['linha']}</span><span>{t['cidade']}</span></div>
+<div class="base"><span>{t['linha']}</span><span>{t['cidade']}</span></div></div>
+<div class="trabalho"></div>
 </body></html>"""
 
 

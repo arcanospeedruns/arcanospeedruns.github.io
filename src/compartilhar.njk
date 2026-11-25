@@ -1,0 +1,42 @@
+---
+# Endereços curtos para mandar um projeto (/p/ruela/): LinkedIn e WhatsApp ignoram o #,
+# então cada um tem título e imagem próprios e leva na hora para o projeto aberto.
+# Imagens geradas por ferramentas/og_projetos.py.
+pagination: { data: links, size: 1, alias: l }
+links:
+  - { slug: "psique-app", idioma: "pt", titulo: "App Psiquê | Carlos Gouveia", descricao: "Conceito de app para marcar a primeira sessão de terapia, com protótipo navegável." }
+  - { slug: "psique", idioma: "pt", titulo: "Psiquê | Carlos Gouveia", descricao: "Identidade visual para uma clínica de psicologia." }
+  - { slug: "ruela", idioma: "pt", titulo: "Ruela Discos | Carlos Gouveia", descricao: "Identidade de um selo musical fictício de São Paulo." }
+  - { slug: "twenty-one-pilots", idioma: "pt", titulo: "twenty one pilots | Carlos Gouveia", descricao: "Redesign acadêmico da identidade da banda para um disco fictício." }
+  - { slug: "psique-app", idioma: "en", titulo: "Psiquê app | Carlos Gouveia", descricao: "A concept app for booking a first therapy session, with a clickable prototype." }
+  - { slug: "psique", idioma: "en", titulo: "Psiquê | Carlos Gouveia", descricao: "Visual identity for a psychology clinic." }
+  - { slug: "ruela", idioma: "en", titulo: "Ruela Discos | Carlos Gouveia", descricao: "Identity for a fictional São Paulo record label." }
+  - { slug: "twenty-one-pilots", idioma: "en", titulo: "twenty one pilots | Carlos Gouveia", descricao: "Academic redesign of the band's identity for a fictional album." }
+permalink: "{{ '/en' if l.idioma == 'en' }}/p/{{ l.slug }}/"
+eleventyExcludeFromCollections: true
+---
+{%- set destino = ('/en/' if l.idioma == 'en' else '/') + '#' + l.slug -%}
+<!DOCTYPE html>
+<html lang="{{ 'en' if l.idioma == 'en' else 'pt-BR' }}">
+<head>
+  <meta charset="utf-8">
+  <title>{{ l.titulo }}</title>
+  <meta name="robots" content="noindex">
+  <meta name="description" content="{{ l.descricao }}">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{ l.titulo }}">
+  <meta property="og:description" content="{{ l.descricao }}">
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+  <meta property="og:image" content="{{ site.url }}/compartilhar/{{ l.slug }}-{{ l.idioma }}.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="{{ l.titulo }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="{{ site.url }}{{ '/en/' if l.idioma == 'en' else '/' }}">
+  <meta http-equiv="refresh" content="0; url={{ destino }}">
+  <script>location.replace({{ destino | dump | safe }});</script>
+</head>
+<body>
+  <p><a href="{{ destino }}">{{ l.titulo }}</a></p>
+</body>
+</html>

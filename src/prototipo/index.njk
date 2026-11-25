@@ -6,21 +6,32 @@ eleventyExcludeFromCollections: true
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, interactive-widget=resizes-content">
 <title>Protótipo: App Psiquê | Carlos Gouveia</title>
 <meta name="robots" content="noindex">
 <link rel="icon" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded&family=Instrument+Sans:wght@400;600&display=swap" rel="stylesheet">
+<meta property="og:title" content="Protótipo: App Psiquê">
+<meta property="og:description" content="Protótipo navegável de um app para marcar a primeira sessão de terapia, por Carlos Gouveia.">
+<meta property="og:image" content="https://carlosgouveia.is-a.dev/og-prototipo.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Telas do protótipo do App Psiquê">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="Protótipo navegável de um app para marcar a primeira sessão de terapia, por Carlos Gouveia.">
 <style>
 /* Protótipo clicável do App Psiquê. Cada tela é uma <section data-tela>; só a atual aparece.
    Os cliques e trocas de tela ficam em window.registro, para os testes. */
 *,*::before,*::after{box-sizing:border-box}
-:root{--roxo:#3B2C6B;--amarelo:#F5C842;--lilas:#8A73C9;--lavanda:#E8E2F4;--creme:#FFF3C9;--tinta:#1F1A2E;--cinza:#5B5470;--fio:#CFC7DE}
+:root{--roxo:#3B2C6B;--amarelo:#F5C842;--lilas:#8A73C9;--lavanda:#E8E2F4;--creme:#FFF3C9;--tinta:#1F1A2E;--cinza:#5B5470;--fio:#8A73C9}
 html,body{margin:0;background:#e6e7e8}
-body{font-family:"Instrument Sans",system-ui,sans-serif;color:var(--tinta);display:flex;justify-content:center;min-height:100vh}
-.app{width:100%;max-width:430px;height:100vh;height:100dvh;background:#fff;position:relative;display:flex;flex-direction:column;overflow:hidden}
-@media(min-width:600px){body{padding:32px 0}.app{min-height:844px;height:844px;outline:1px solid var(--fio);overflow:hidden}}
+body{font-family:"Instrument Sans",system-ui,sans-serif;color:var(--tinta);display:flex;flex-direction:column;align-items:center;min-height:100vh}
+.faixa{width:100%;max-width:430px;min-height:40px;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:0 16px;background:var(--tinta);color:#fff;font-size:13px}
+.faixa a{color:#fff;font-weight:600;display:inline-flex;align-items:center;min-height:40px;white-space:nowrap}
+.app{width:100%;max-width:430px;height:calc(100vh - 40px);height:calc(100dvh - 40px);background:#fff;position:relative;display:flex;flex-direction:column;overflow:hidden}
+@media(min-width:600px){body{padding:24px 0 32px}.faixa{max-width:430px;margin-bottom:12px;background:none;color:#3f4449;padding:0}.faixa a{color:var(--roxo)}.app{min-height:844px;height:844px;outline:1px solid #CFC7DE;overflow:hidden}}
 section[data-tela]{display:none;flex:1;flex-direction:column;min-height:0}
 section[data-tela].atual{display:flex}
 .rolagem{flex:1;overflow-y:auto;padding:8px 24px 24px;display:flex;flex-direction:column;gap:18px}
@@ -35,7 +46,7 @@ button{cursor:pointer;border-radius:0}
 .barra span.feito{background:var(--roxo)}
 .rodape{padding:16px 24px 24px;border-top:1px solid var(--lavanda)}
 .principal{width:100%;min-height:56px;border:0;background:var(--roxo);color:#fff;font-size:17px;font-weight:600}
-.principal:disabled{background:#B9B3C9;cursor:not-allowed}
+.principal:disabled,.principal[aria-disabled="true"]{background:#B9B3C9;cursor:not-allowed}
 .secundario{width:100%;min-height:52px;border:1.5px solid var(--roxo);background:#fff;color:var(--roxo);font-size:16px;font-weight:600}
 .texto-fraco{font-size:15px;line-height:1.45;color:var(--cinza)}
 .chips{display:flex;gap:8px;flex-wrap:wrap}
@@ -77,13 +88,13 @@ dl{margin:0}dd{margin:0}.linha{display:flex;justify-content:space-between;gap:16
 .so-leitor{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .campo input[aria-invalid="true"]{border-color:#9B1C31}
 .local{font-size:14px;color:var(--cinza);display:block;margin-top:2px}
-.nota{position:fixed;left:16px;bottom:16px;max-width:300px;font-size:13px;line-height:1.4;color:#3f4449}
-.nota a{color:inherit}
-@media(max-width:900px){.nota{display:none}}
+.crise{font-size:14px;line-height:1.45;color:var(--cinza)}
+.crise a{color:var(--roxo);font-weight:600}
 </style>
 </head>
 <body>
-<div class="app" aria-live="polite">
+<p class="faixa"><span>Protótipo com dados fictícios</span><a href="/#psique-app">Voltar ao portfólio</a></p>
+<main class="app">
 
 <!-- 1. INÍCIO: sem login; cadastro só na hora de confirmar -->
 <section data-tela="inicio" class="atual" aria-label="Início">
@@ -99,18 +110,19 @@ dl{margin:0}dd{margin:0}.linha{display:flex;justify-content:space-between;gap:16
     </div>
     <button type="button" class="agendar" data-ir="profissionais">Agendar sessão <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#1F1A2E" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
     <p class="texto-fraco">Sessões de 50 minutos, online ou no consultório. A partir de R$ 180,00.</p>
+    <p class="crise">Precisa de ajuda agora? <a href="tel:188">Ligue 188</a>, do CVV, 24 horas e de graça. O app não é para emergências.</p>
   </div>
 </section>
 
 <!-- 1b. ENTRAR (quem já tem conta) -->
 <section data-tela="entrar" aria-label="Entrar">
   <div class="topo"><button type="button" class="voltar" data-voltar aria-label="Voltar"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#1F1A2E" stroke-width="2" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button></div>
-  <div class="rolagem">
+  <form class="rolagem" id="form-entrar" novalidate>
     <h1>Entrar</h1>
     <p class="texto-fraco">Sem senha: mandamos um código por SMS.</p>
-    <div class="campo"><label for="cel-entrar">Celular com DDD</label><input id="cel-entrar" inputmode="tel" autocomplete="tel" placeholder="(11) 90000-0000"></div>
-    <p class="texto-fraco">Neste protótipo, entrar não é necessário: volte e agende direto.</p>
-  </div>
+    <div class="campo"><label for="cel-entrar">Celular com DDD</label><input id="cel-entrar" class="mascara-cel" inputmode="tel" autocomplete="tel" enterkeyhint="send" placeholder="(11) 90000-0000"><span class="erro" id="erro-entrar" role="alert"></span></div>
+  </form>
+  <div class="rodape"><button type="submit" form="form-entrar" class="principal">Receber código</button></div>
 </section>
 
 <!-- 2. COM QUEM -->
@@ -120,7 +132,7 @@ dl{margin:0}dd{margin:0}.linha{display:flex;justify-content:space-between;gap:16
     <h1>Com quem você quer conversar?</h1>
     <div class="chips" role="group" aria-label="Filtrar por modalidade">
       <button type="button" class="chip" data-filtro="online" aria-pressed="false">Online</button>
-      <button type="button" class="chip" data-filtro="presencial" aria-pressed="false">Presencial</button>
+      <button type="button" class="chip" data-filtro="presencial" aria-pressed="false">No consultório</button>
     </div>
     <ul class="lista" id="lista-prof"></ul>
     <button type="button" class="ajuda" data-ir="ajuda1">Não sei escolher: me ajude <span aria-hidden="true">›</span></button>
@@ -132,13 +144,14 @@ dl{margin:0}dd{margin:0}.linha{display:flex;justify-content:space-between;gap:16
   <div class="topo"><button type="button" class="voltar" data-voltar aria-label="Voltar"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#1F1A2E" stroke-width="2" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><div class="barra" style="grid-template-columns:repeat(3,1fr)"><span class="feito" style="background:#F5C842"></span><span></span><span></span></div></div>
   <div class="rolagem">
     <h1>O que te trouxe até aqui?</h1>
-    <p class="texto-fraco">São três perguntas rápidas. Com elas, a gente sugere quem combina com você.</p>
+    <p class="texto-fraco">São três perguntas rápidas. As respostas servem só para sugerir quem combina com você e não ficam salvas.</p>
     <fieldset style="border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:10px"><legend class="so-leitor">O que te trouxe até aqui?</legend>
       <label class="opcao"><input type="radio" name="q1" value="ansiedade">Ansiedade ou muita preocupação</label>
       <label class="opcao"><input type="radio" name="q1" value="tristeza">Tristeza ou desânimo</label>
       <label class="opcao"><input type="radio" name="q1" value="relacao">Relacionamentos e família</label>
       <label class="opcao"><input type="radio" name="q1" value="nao-sei">Ainda não sei dizer</label>
     </fieldset>
+    <p class="crise">Se for urgente, <a href="tel:188">ligue 188</a>, do CVV, 24 horas e de graça.</p>
   </div>
   <div class="rodape"><button type="button" class="principal" data-ir="ajuda2" data-exige="q1" disabled>Próxima pergunta</button></div>
 </section>
@@ -189,7 +202,7 @@ dl{margin:0}dd{margin:0}.linha{display:flex;justify-content:space-between;gap:16
     <p class="texto-fraco">Horários ocupados aparecem riscados.</p>
     <p class="aviso" id="h-regras">Sessão de 50 min por R$ 180,00. Cancelamento sem custo até 24 h antes.</p>
   </div>
-  <div class="rodape"><button type="button" class="principal" id="continuar-horario" data-ir="cadastro" disabled>Escolha um horário</button></div>
+  <div class="rodape"><button type="button" class="principal" id="continuar-horario" data-ir="cadastro" aria-disabled="true">Escolha um horário</button></div>
 </section>
 
 <!-- 4. CADASTRO: só nome e celular, depois do horário escolhido -->
@@ -198,9 +211,9 @@ dl{margin:0}dd{margin:0}.linha{display:flex;justify-content:space-between;gap:16
   <form class="rolagem" id="form-cadastro" novalidate>
     <h1>Para reservar, só nome e celular</h1>
     <p class="texto-fraco" id="reserva-resumo"></p>
-    <div class="campo"><label for="nome">Como podemos te chamar?</label><input id="nome" name="nome" autocomplete="given-name" required><span class="erro" id="erro-nome" role="alert"></span></div>
-    <div class="campo"><label for="celular">Celular com DDD</label><input id="celular" name="celular" inputmode="tel" autocomplete="tel" placeholder="(11) 90000-0000" required><span class="erro" id="erro-celular" role="alert"></span></div>
-    <p class="texto-fraco">Mandamos um código por SMS para confirmar que o número é seu. Nada de senha.</p>
+    <div class="campo"><label for="nome">Como podemos te chamar?</label><input id="nome" name="nome" autocomplete="given-name" enterkeyhint="next" required><span class="erro" id="erro-nome" role="alert"></span></div>
+    <div class="campo"><label for="celular">Celular com DDD</label><input id="celular" name="celular" class="mascara-cel" enterkeyhint="send" inputmode="tel" autocomplete="tel" placeholder="(11) 90000-0000" required><span class="erro" id="erro-celular" role="alert"></span></div>
+    <p class="texto-fraco">Mandamos um código por SMS para confirmar que o número é seu. Nada de senha. Nome e celular servem só para o agendamento e os lembretes.</p>
     <div class="ou">ou</div>
     <button type="button" class="secundario" data-google>Continuar com Google</button>
   </form>
@@ -211,7 +224,7 @@ dl{margin:0}dd{margin:0}.linha{display:flex;justify-content:space-between;gap:16
   <form class="rolagem" id="form-codigo" novalidate>
     <h1>Digite o código</h1>
     <p class="texto-fraco" id="codigo-para"></p>
-    <div class="campo codigo"><label for="cod">Código de 4 números</label><input id="cod" inputmode="numeric" autocomplete="one-time-code" maxlength="4"><span class="erro" id="erro-cod" role="alert"></span></div>
+    <div class="campo codigo"><label for="cod">Código de 4 números</label><input id="cod" inputmode="numeric" autocomplete="one-time-code" enterkeyhint="done" maxlength="4" aria-describedby="codigo-para"><span class="erro" id="erro-cod" role="alert"></span></div>
     <p class="texto-fraco">Neste protótipo, o código é 1234.</p>
   </form>
   <div class="rodape"><button type="submit" form="form-codigo" class="principal">Confirmar número</button></div>
@@ -224,6 +237,7 @@ dl{margin:0}dd{margin:0}.linha{display:flex;justify-content:space-between;gap:16
     <h1>Confira antes de confirmar</h1>
     <dl style="border-top:1px solid #E8E2F4">
       <div class="linha"><dt>Com</dt><dd id="c-prof"></dd></div>
+      <div class="linha"><dt>Registro</dt><dd>CRP 06, e-Psi ativo</dd></div>
       <div class="linha"><dt>Quando</dt><dd id="c-quando"></dd></div>
       <div class="linha"><dt>Duração</dt><dd>50 min</dd></div>
       <div class="linha"><dt>Onde</dt><dd id="c-onde"></dd></div>
@@ -259,15 +273,15 @@ dl{margin:0}dd{margin:0}.linha{display:flex;justify-content:space-between;gap:16
     <h1 style="font-size:30px">Sessão agendada.</h1>
     <p style="font-size:18px;line-height:1.45" id="a-resumo"></p>
     <p class="aviso" id="a-pagamento"></p>
-    <button type="button" class="principal">Adicionar ao calendário</button>
-    <button type="button" class="secundario" id="a-acao">Como entrar na sala online</button>
+    <button type="button" class="principal" data-aviso="Num app de verdade, isto abre o calendário do celular, com um título discreto.">Adicionar ao calendário</button>
+    <button type="button" class="secundario" id="a-acao" data-aviso="">Como entrar na sala online</button>
+    <button type="button" class="secundario" data-aviso="Num app de verdade, isto abre remarcar ou cancelar. Dentro do prazo, o valor volta inteiro.">Remarcar ou cancelar</button>
+    <p class="texto-fraco" role="status" id="a-status"></p>
     <p class="texto-fraco" id="a-nota"></p>
   </div>
   <div class="rodape" style="border:0"><button type="button" class="secundario" data-recomecar style="border:0">Voltar ao início</button></div>
 </section>
-</div>
-
-<p class="nota">Protótipo do App Psiquê, um conceito de <a href="/#psique-app">Carlos Gouveia</a>. Profissionais, horários e valores são fictícios; nada é enviado.</p>
+</main>
 
 <script>
 (function () {
@@ -291,7 +305,8 @@ dl{margin:0}dd{margin:0}.linha{display:flex;justify-content:space-between;gap:16
   var OCUP = { helena: [CHEIO, CHEIO, [0,1,2,3,4,5,6], [1,4,6], [0,3,8]],
                rafael: [CHEIO, CHEIO, CHEIO, [0,5,7], [2,6,7]],
                bia:    [CHEIO, CHEIO, CHEIO, CHEIO, [0,1,2,5,6]] };
-  var ESTADO = { prof: null, dia: null, hora: null, modo: null, filtro: null, turno: null, nome: "", cel: "", pago: false };
+  var ESTADO = { prof: null, dia: null, hora: null, modo: null, filtro: null, filtroQ: null, turno: null, nome: "", cel: "", pago: false, entrou: false };
+  var TURNO_TXT = { manha: "de manhã", tarde: "à tarde", noite: "à noite" };
   // primeiro horário livre (de um turno, se pedido) -> "hoje, 19h"
   function proximoLivre(p, turno) {
     for (var d = 0; d < 5; d++) for (var h = 0; h < HORAS.length; h++) {
@@ -301,27 +316,36 @@ dl{margin:0}dd{margin:0}.linha{display:flex;justify-content:space-between;gap:16
     }
     return null;
   }
-  var pilha = ["inicio"];
+  var pilha = ["inicio"], travaAte = 0, ignorarPop = false;
+  history.replaceState({ prototipo: "inicio" }, "");
+  // botões do rodapé ficam no mesmo lugar em telas seguidas: um clique duplo não pode pular etapa
+  function travado() { return Date.now() < travaAte; }
 
   function tela(nome, empilhar) {
+    travaAte = Date.now() + 350;
     document.querySelectorAll("section[data-tela]").forEach(function (s) { s.classList.toggle("atual", s.getAttribute("data-tela") === nome); });
-    if (empilhar !== false) pilha.push(nome);
+    if (empilhar !== false) { pilha.push(nome); history.pushState({ prototipo: nome }, ""); }
     anota("tela", nome);
     var h = document.querySelector('section[data-tela="' + nome + '"] h1');
     if (h) { h.setAttribute("tabindex", "-1"); h.focus({ preventScroll: true }); }
+    if (nome === "codigo") { var cd = document.getElementById("cod"); cd.value = ""; cd.focus({ preventScroll: true }); }
     var r = document.querySelector('section[data-tela="' + nome + '"] .rolagem'); if (r) r.scrollTop = 0; window.scrollTo(0, 0);
-    if (nome === "horario") montarHorario();
-    if (nome === "cadastro") document.getElementById("reserva-resumo").textContent = resumo() + ", " + onde().toLowerCase() + ". R$ 180,00. " + regra() + " O horário fica guardado por 10 minutos.";
+    if (nome === "horario") { montarHorario(); if (ESTADO.modo === null) document.querySelector("#modo .chip").focus({ preventScroll: true }); }
+    if (nome === "cadastro") document.getElementById("reserva-resumo").textContent = resumo() + ", " + minuscula(onde()) + ". R$ 180,00. " + regra() + " O horário fica guardado por 10 minutos.";
     if (nome === "confirmar") { document.getElementById("c-prof").textContent = prof().nome; document.getElementById("c-quando").textContent = quando(); document.getElementById("c-onde").textContent = onde(); document.getElementById("c-regra").textContent = regra() + " Depois disso, a sessão é cobrada."; atualizarBotaoPagamento(); }
     if (nome === "agendado") {
-      document.getElementById("a-resumo").textContent = (ESTADO.nome ? ESTADO.nome + ", sua" : "Sua") + " sessão com " + prof().nome + " é " + quando() + (ESTADO.modo === "presencial" ? ", em " + ENDERECO : ", online") + ". " + (ESTADO.dia === HOJE ? "Vamos te lembrar uma hora antes." : "Vamos te lembrar um dia antes e uma hora antes.");
-      document.getElementById("a-pagamento").textContent = ESTADO.pago ? "Pagamento de R$ 180,00 recebido pelo Pix." : "Pagamento de R$ 180,00 no dia, na recepção ou pelo app.";
-      document.getElementById("a-acao").textContent = ESTADO.modo === "presencial" ? "Ver como chegar ao consultório" : "Como entrar na sala online";
+      document.getElementById("a-resumo").textContent = (ESTADO.nome ? ESTADO.nome + ", sua" : "Sua") + " sessão com " + prof().nome + " é " + quando() + (ESTADO.modo === "presencial" ? ", em " + ENDERECO : ", online") + ". " + (ESTADO.dia === HOJE ? "Vamos te lembrar uma hora antes" : "Vamos te lembrar um dia antes e uma hora antes") + ", com uma mensagem discreta.";
+      document.getElementById("a-pagamento").textContent = ESTADO.pago ? "Pagamento de R$ 180,00 recebido pelo Pix." : "Pagamento de R$ 180,00 no dia da sessão, " + (ESTADO.modo === "presencial" ? "na recepção ou pelo app." : "pelo app.");
+      var acao = document.getElementById("a-acao");
+      acao.textContent = ESTADO.modo === "presencial" ? "Ver como chegar ao consultório" : "Como entrar na sala online";
+      acao.setAttribute("data-aviso", ESTADO.modo === "presencial" ? "Num app de verdade, isto abre o mapa até a Rua Augusta, 1500." : "Num app de verdade, isto mostra o link da sala, que abre 10 minutos antes.");
+      document.getElementById("a-status").textContent = "";
       document.getElementById("a-nota").textContent = "Primeira vez em terapia? Tudo bem chegar sem saber o que dizer. Quem começa a conversa é " + prof().nome.split(" ")[0] + ".";
     }
   }
   function prof() { return PROF.filter(function (p) { return p.id === ESTADO.prof; })[0]; }
   function quando() { var nomes = ["segunda", "terça", "quarta", "quinta", "sexta"]; return (ESTADO.dia === HOJE ? "hoje, " : "") + nomes[ESTADO.dia] + ", " + DIAS[ESTADO.dia][1] + " de março, às " + HORAS[ESTADO.hora]; }
+  function minuscula(t) { return t.charAt(0).toLowerCase() + t.slice(1); }
   function onde() { return ESTADO.modo === "presencial" ? "No consultório, " + ENDERECO : "Online, pelo app"; }
   function regra() { return ESTADO.dia === HOJE ? "Como a sessão é hoje, dá para cancelar sem custo até 2 horas antes." : "Dá para remarcar ou cancelar sem custo até 24 h antes."; }
   function atualizarBotaoPagamento() {
@@ -331,11 +355,12 @@ dl{margin:0}dd{margin:0}.linha{display:flex;justify-content:space-between;gap:16
   function resumo() { return prof().nome + ", " + quando(); }
 
   function cartao(p, turno) {
-    var li = document.createElement("li"), livre = proximoLivre(p, turno);
-    li.innerHTML = '<button type="button" class="cartao" data-prof="' + p.id + '"><span class="iniciais" aria-hidden="true">' + p.nome.split(" ")[0][0] + p.nome.split(" ").slice(-1)[0][0] + '</span><span><span class="nome-p">' + p.nome + '</span><span class="sub">' + p.ab + " · " + p.modos.join(" e ") + "</span>" +
+    var li = document.createElement("li"), livre = proximoLivre(p, turno), fora = "";
+    if (!livre && turno) { livre = proximoLivre(p); if (livre) fora = '<span class="local">Sem vaga ' + TURNO_TXT[turno] + " esta semana.</span>"; }
+    li.innerHTML = '<button type="button" class="cartao" data-prof="' + p.id + '"><span class="iniciais" aria-hidden="true">' + p.nome.split(" ")[0][0] + p.nome.split(" ").slice(-1)[0][0] + '</span><span><span class="nome-p">' + p.nome + '</span><span class="sub">' + p.ab + " · " + p.modos.map(function (m) { return m === "online" ? "online" : "no consultório"; }).join(" e ") + '</span><span class="local">CRP 06 · e-Psi ativo</span>' +
       (p.nota ? '<span class="local">' + p.nota + "</span>" : "") +
       (p.modos.indexOf("presencial") >= 0 ? '<span class="local">Consultório na Rua Augusta, Consolação</span>' : "") +
-      (livre ? '<span class="livre">Livre ' + livre.txt + "</span>" : "") + "</span></button>";
+      fora + (livre ? '<span class="livre">Livre ' + livre.txt + "</span>" : "") + "</span></button>";
     return li;
   }
   function montarLista() {
@@ -347,7 +372,7 @@ dl{margin:0}dd{margin:0}.linha{display:flex;justify-content:space-between;gap:16
     document.getElementById("h-iniciais").textContent = p.nome.split(" ")[0][0] + p.nome.split(" ").slice(-1)[0][0];
     document.getElementById("h-nome").textContent = p.nome;
     document.getElementById("h-modo").textContent = p.ab;
-    if (ESTADO.modo === null || p.modos.indexOf(ESTADO.modo) < 0) ESTADO.modo = p.modos.length === 1 ? p.modos[0] : (p.modos.indexOf(ESTADO.filtro) >= 0 ? ESTADO.filtro : null);
+    if (ESTADO.modo === null || p.modos.indexOf(ESTADO.modo) < 0) ESTADO.modo = p.modos.length === 1 ? p.modos[0] : (p.modos.indexOf(ESTADO.filtroQ || ESTADO.filtro) >= 0 ? (ESTADO.filtroQ || ESTADO.filtro) : null);
     var modo = document.getElementById("modo"); modo.innerHTML = "";
     p.modos.forEach(function (m) {
       var b = document.createElement("button"); b.type = "button"; b.className = "chip"; b.setAttribute("data-k", "modo-" + m);
@@ -361,9 +386,10 @@ dl{margin:0}dd{margin:0}.linha{display:flex;justify-content:space-between;gap:16
     DIAS.forEach(function (d, i) {
       var cheio = OCUP[p.id][i].length >= HORAS.length;
       var b = document.createElement("button"); b.type = "button"; b.className = "dia"; b.setAttribute("aria-pressed", String(i === ESTADO.dia)); b.disabled = cheio;
-      if (cheio) { b.style.opacity = ".45"; b.setAttribute("aria-label", d[0] + " " + d[1] + ", sem horários"); }
+      if (cheio) b.style.opacity = ".45";
       b.innerHTML = "<span>" + d[0] + "</span><span>" + d[1] + "</span>";
-      b.setAttribute("data-k", "dia-" + i); if (i === HOJE) b.setAttribute("aria-label", "hoje, quarta " + d[1]);
+      b.setAttribute("data-k", "dia-" + i);
+      b.setAttribute("aria-label", d[0] + " " + d[1] + (i === HOJE ? ", quarta" : "") + (cheio ? ", sem horários" : ""));
       b.addEventListener("click", function () { ESTADO.dia = i; ESTADO.hora = null; anota("dia", d.join(" ")); montarHorario("dia-" + i); });
       dias.appendChild(b);
     });
@@ -378,8 +404,8 @@ dl{margin:0}dd{margin:0}.linha{display:flex;justify-content:space-between;gap:16
     });
     document.getElementById("h-regras").textContent = "Sessão de 50 min por R$ 180,00. " + (ESTADO.dia === HOJE ? "Sessões de hoje: cancelamento sem custo até 2 horas antes." : "Cancelamento sem custo até 24 h antes.");
     var c = document.getElementById("continuar-horario");
-    c.disabled = ESTADO.hora === null || ESTADO.modo === null;
-    c.textContent = ESTADO.modo === null ? "Escolha online ou no consultório" : ESTADO.hora === null ? "Escolha um horário" : "Continuar com " + DIAS[ESTADO.dia][0] + ", " + DIAS[ESTADO.dia][1] + " às " + HORAS[ESTADO.hora];
+    c.setAttribute("aria-disabled", String(ESTADO.hora === null || ESTADO.modo === null));
+    c.textContent = ESTADO.modo === null ? "Escolha online ou no consultório" : ESTADO.hora === null ? "Escolha um horário" : "Continuar: " + DIAS[ESTADO.dia][0] + ", " + DIAS[ESTADO.dia][1] + ", às " + HORAS[ESTADO.hora];
     if (foco) { var f = document.querySelector('[data-k="' + foco + '"]'); if (f) f.focus(); }
   }
 
@@ -387,19 +413,35 @@ dl{margin:0}dd{margin:0}.linha{display:flex;justify-content:space-between;gap:16
     var alvo = e.target.closest("button, a, label");
     if (alvo) anota("clique", (alvo.textContent || alvo.getAttribute("aria-label") || "").trim().slice(0, 40));
     var b = e.target.closest("button"); if (!b) return;
-    if (b.hasAttribute("data-voltar")) { pilha.pop(); tela(pilha[pilha.length - 1] || "inicio", false); return; }
-    if (b.hasAttribute("data-recomecar")) { ESTADO.prof = ESTADO.dia = ESTADO.hora = ESTADO.modo = ESTADO.turno = null; ESTADO.pago = false; pilha = ["inicio"]; tela("inicio", false); return; }
+    if (b.hasAttribute("data-aviso")) { document.getElementById("a-status").textContent = b.getAttribute("data-aviso"); return; }
+    if (travado()) { e.preventDefault(); return; }
+    if (b.hasAttribute("data-voltar")) { if (pilha.length > 1) history.back(); return; }
+    if (b.hasAttribute("data-recomecar")) {
+      var n = pilha.length - 1;
+      ESTADO.prof = ESTADO.dia = ESTADO.hora = ESTADO.modo = ESTADO.turno = ESTADO.filtro = ESTADO.filtroQ = null; ESTADO.pago = false;
+      document.querySelectorAll("[data-filtro]").forEach(function (x) { x.setAttribute("aria-pressed", "false"); });
+      montarLista(); pilha = ["inicio"]; tela("inicio", false);
+      if (n > 0) { ignorarPop = true; history.go(-n); }
+      return;
+    }
     if (b.hasAttribute("data-google")) { ESTADO.nome = "Marina"; tela("confirmar"); return; }
+    if (b.getAttribute("aria-disabled") === "true") return;
     if (b.hasAttribute("data-filtro")) {
       var f = b.getAttribute("data-filtro"); ESTADO.filtro = ESTADO.filtro === f ? null : f;
       document.querySelectorAll("[data-filtro]").forEach(function (x) { x.setAttribute("aria-pressed", String(x.getAttribute("data-filtro") === ESTADO.filtro)); });
       montarLista(); return;
     }
-    if (b.hasAttribute("data-prof")) { ESTADO.prof = b.getAttribute("data-prof"); ESTADO.dia = ESTADO.hora = ESTADO.modo = null; tela("horario"); return; }
+    if (b.hasAttribute("data-prof")) {
+      // abre já com o horário que o cartão mostrou
+      ESTADO.prof = b.getAttribute("data-prof"); ESTADO.modo = null;
+      var l = proximoLivre(prof(), ESTADO.turno) || proximoLivre(prof()); ESTADO.dia = l.d; ESTADO.hora = l.h;
+      tela("horario"); return;
+    }
     if (b.id === "copiar-pix") { var cp = document.getElementById("pix-codigo"); cp.select(); try { navigator.clipboard.writeText(cp.value); } catch (x) {} document.getElementById("pix-status").textContent = "Código copiado."; return; }
     if (b.hasAttribute("data-pago")) ESTADO.pago = true;
     var ir = b.getAttribute("data-ir"); if (ir && !b.disabled) {
       if (ir === "sugestao") montarSugestao();
+      if (ir === "cadastro" && ESTADO.logado) ir = "confirmar";
       tela(ir);
     }
   });
@@ -412,10 +454,10 @@ dl{margin:0}dd{margin:0}.linha{display:flex;justify-content:space-between;gap:16
   function montarSugestao() {
     var q1 = (document.querySelector('[name="q1"]:checked') || {}).value, q2 = (document.querySelector('[name="q2"]:checked') || {}).value, q3 = (document.querySelector('[name="q3"]:checked') || {}).value;
     ESTADO.turno = q3 || null;
-    ESTADO.filtro = q2 === "online" || q2 === "presencial" ? q2 : null;
+    ESTADO.filtroQ = q2 === "online" || q2 === "presencial" ? q2 : null;
     var achados = PROF.filter(function (p) {
       var tema = q1 === "nao-sei" || p.temas.indexOf(q1) >= 0;
-      var modo = !ESTADO.filtro || p.modos.indexOf(ESTADO.filtro) >= 0;
+      var modo = !ESTADO.filtroQ || p.modos.indexOf(ESTADO.filtroQ) >= 0;
       return tema && modo;
     }).sort(function (a, b) { return a.temas.indexOf(q1) - b.temas.indexOf(q1); });
     var ul = document.getElementById("lista-sugestao"); ul.innerHTML = "";
@@ -424,20 +466,35 @@ dl{margin:0}dd{margin:0}.linha{display:flex;justify-content:space-between;gap:16
       txt.textContent = "Ninguém atende exatamente o que você pediu. Estas são as opções mais próximas.";
       achados = PROF.filter(function (p) { return q1 === "nao-sei" || p.temas.indexOf(q1) >= 0; });
     } else {
-      txt.textContent = (achados.length === 1 ? "Pelas suas respostas, quem combina com você é:" : "Pelas suas respostas, estas pessoas combinam com você:") + (q3 ? " os horários mostrados já são " + { manha: "de manhã", tarde: "à tarde", noite: "à noite" }[q3] + "." : "");
+      var todos = achados.every(function (p) { return proximoLivre(p, q3); });
+      txt.textContent = "Pelas suas respostas, " + (achados.length === 1 ? "esta pessoa combina" : "estas pessoas combinam") + " com você. " + (todos ? "Os horários mostrados já são " + TURNO_TXT[q3] + "." : "Quando não há vaga " + TURNO_TXT[q3] + ", mostramos o horário mais cedo.");
     }
     achados.forEach(function (p) { ul.appendChild(cartao(p, ESTADO.turno)); });
   }
   // celular com máscara simples
   var cel = document.getElementById("celular");
-  cel.addEventListener("input", function () {
-    var d = cel.value.replace(/\D/g, "").slice(0, 11), s = d;
-    if (d.length > 2) s = "(" + d.slice(0, 2) + ") " + d.slice(2);
-    if (d.length > 7) s = "(" + d.slice(0, 2) + ") " + d.slice(2, 7) + "-" + d.slice(7);
-    cel.value = s;
+  document.querySelectorAll(".mascara-cel").forEach(function (campo) {
+    campo.addEventListener("input", function () {
+      var d = campo.value.replace(/\D/g, "");
+      if (d.length > 11 && d.slice(0, 2) === "55") d = d.slice(2);
+      d = d.slice(0, 11); var s = d;
+      if (d.length > 2) s = "(" + d.slice(0, 2) + ") " + d.slice(2);
+      if (d.length > 7) s = "(" + d.slice(0, 2) + ") " + d.slice(2, 7) + "-" + d.slice(7);
+      campo.value = s;
+    });
+  });
+  document.getElementById("form-entrar").addEventListener("submit", function (e) {
+    e.preventDefault(); if (travado()) return;
+    var ce = document.getElementById("cel-entrar"), ok = ce.value.replace(/\D/g, "").length === 11;
+    document.getElementById("erro-entrar").textContent = ok ? "" : "Confira o número: DDD e mais 9 dígitos.";
+    ce.setAttribute("aria-invalid", String(!ok)); ce.setAttribute("aria-describedby", "erro-entrar");
+    if (!ok) { ce.focus(); anota("erro", "entrar"); return; }
+    ESTADO.entrou = true; ESTADO.nome = "Marina"; ESTADO.cel = ce.value;
+    document.getElementById("codigo-para").textContent = "Mandamos 4 números por SMS para " + ce.value + ".";
+    tela("codigo");
   });
   document.getElementById("form-cadastro").addEventListener("submit", function (e) {
-    e.preventDefault();
+    e.preventDefault(); if (travado()) return;
     var nome = document.getElementById("nome").value.trim(), dig = cel.value.replace(/\D/g, ""), ok = true;
     var campoNome = document.getElementById("nome");
     document.getElementById("erro-nome").textContent = nome ? "" : "Escreva como quer ser chamado.";
@@ -450,13 +507,26 @@ dl{margin:0}dd{margin:0}.linha{display:flex;justify-content:space-between;gap:16
     document.getElementById("codigo-para").textContent = "Mandamos 4 números por SMS para " + cel.value + ".";
     tela("codigo");
   });
+  var campoCodigo = document.getElementById("cod");
+  campoCodigo.addEventListener("input", function () {
+    campoCodigo.value = campoCodigo.value.replace(/\D/g, "").slice(0, 4);
+    if (campoCodigo.value.length === 4) document.getElementById("form-codigo").requestSubmit();
+  });
   document.getElementById("form-codigo").addEventListener("submit", function (e) {
-    e.preventDefault();
+    e.preventDefault(); if (travado() && campoCodigo.value.length < 4) return;
     var v = document.getElementById("cod").value.trim();
     var campoCod = document.getElementById("cod"); campoCod.setAttribute("aria-describedby", "erro-cod");
     if (v !== "1234") { document.getElementById("erro-cod").textContent = "Código errado. Confira o SMS e tente de novo."; campoCod.setAttribute("aria-invalid", "true"); campoCod.focus(); anota("erro", "codigo"); return; }
     campoCod.setAttribute("aria-invalid", "false");
-    document.getElementById("erro-cod").textContent = ""; tela("confirmar");
+    document.getElementById("erro-cod").textContent = "";
+    // quem entrou pelo "Entrar" ainda não escolheu horário
+    if (ESTADO.entrou) ESTADO.logado = true;
+    if (ESTADO.entrou && !ESTADO.prof) { ESTADO.entrou = false; tela("profissionais"); return; }
+    tela("confirmar");
+  });
+  window.addEventListener("popstate", function () {
+    if (ignorarPop) { ignorarPop = false; return; }
+    if (pilha.length > 1) { pilha.pop(); tela(pilha[pilha.length - 1], false); }
   });
   montarLista();
   anota("tela", "inicio");

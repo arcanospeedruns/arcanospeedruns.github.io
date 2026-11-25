@@ -29,7 +29,7 @@
   <meta property="og:image" content="{{ site.url }}{{ ogImagem or '/og.png' }}">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Carlos Gouveia">
+  <meta property="og:image:alt" content="{{ 'Carlos Gouveia, product designer in São Paulo' if idioma == 'en' else 'Carlos Gouveia, product designer em São Paulo' }}">
   <meta property="og:locale" content="{{ t.locale }}">
   <meta name="twitter:card" content="summary_large_image">
 {%- if not semIndice %}
