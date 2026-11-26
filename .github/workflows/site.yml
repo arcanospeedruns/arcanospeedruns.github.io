@@ -1,4 +1,6 @@
 # Gera o site com o Eleventy, confere os links internos e publica no GitHub Pages.
+# Modo manutenção: com um arquivo MANUTENCAO na raiz do repositório, publica só o aviso de
+# ferramentas/manutencao.html no lugar do site. Para o site voltar, é só apagar o MANUTENCAO.
 name: site
 on:
   push:
@@ -16,18 +18,30 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Modo manutenção (só o aviso)
+        if: hashFiles('MANUTENCAO') != ''
+        run: |
+          mkdir -p _site
+          cp ferramentas/manutencao.html _site/index.html
+          cp ferramentas/manutencao.html _site/404.html
+          printf 'User-agent: *\nDisallow: /\n' > _site/robots.txt
       - uses: actions/setup-node@v4
+        if: hashFiles('MANUTENCAO') == ''
         with:
           node-version: 22
           cache: npm
-      - run: npm ci
-      - run: npm run build
+      - if: hashFiles('MANUTENCAO') == ''
+        run: npm ci
+      - if: hashFiles('MANUTENCAO') == ''
+        run: npm run build
       - name: Gera as imagens de compartilhamento de cada página
+        if: hashFiles('MANUTENCAO') == ''
         run: |
           pip install --quiet playwright
           python3 -m playwright install --with-deps chromium
           python3 ferramentas/og.py _site
       - name: Confere links internos
+        if: hashFiles('MANUTENCAO') == ''
         run: python3 ferramentas/conferir_links.py _site
       - uses: actions/upload-pages-artifact@v3
         with:
